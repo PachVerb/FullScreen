@@ -7,6 +7,7 @@
 				<selectschool style="position: absolute;width:340px" />
 				<clock style="margin-left: 150px;" />
 			</div> -->
+      <div id="he-plugin-simple" style=""></div>
     </div>
 		<dormitory style="position: absolute;"/>
     <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
@@ -50,7 +51,7 @@ export default {
     ...mapGetters(['mapLoad', 'map', 'currentSys'])
   },
   created(){
-		// this.getWeather(document)
+		this.getWeather(document)
 	},
   mounted(){
 		// this.copyWeatherHtml()
@@ -76,48 +77,38 @@ export default {
           this.SET_ISINDOOR(false)
       }
     },
-// getWeather (d) {
-//         // 和风天气插件
-//         let that = this
-//         /* var s = d.createElement('script')
-//         s.src = 'https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0' */
-//         $.getScript("https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0", function(){
-//           var w = d.createElement('script')
-//           w.type = 'text/javascript'
-//           w.innerHTML = `
-// 						WIDGET = {
-// 							"CONFIG": {
-// 								"modules": "210",
-// 								"background": "5",
-// 								"tmpColor": "515a6e",
-// 								"tmpSize": "16",
-// 								"cityColor": "515a6e",
-// 								"citySize": "16",
-// 								"aqiColor": "FFFFFF",
-// 								"aqiSize": "16",
-// 								"weatherIconSize": "24",
-// 								"alertIconSize": "18",
-// 								"padding": "10px 10px 10px 10px",
-// 								"shadow": "0",
-// 								"language": "auto",
-// 								"fixed": "false",
-// 								"vertical": "top",
-// 								"horizontal": "left",
-// 								"key": "1fa02fd156a14c8a9e47e470a1f3dc68"
-// 							}
-// 						}
-//           `
-//           var sn = d.getElementsByTagName('script')[0]
-//           // sn.parentNode.insertBefore(s, sn)
-//           sn.parentNode.insertBefore(w, sn)
-// 					console.log(sn.parentNode,"snnn",w)
-//           let timer = setInterval(() => {
-//             var ele = d.getElementsByClassName('s-sticker')
-//             ele && (ele.style.backgroundColor = 'transparent')
-//             ele && clearInterval(timer)
-//           }, 1000)
-//         })
-//       },
+    getWeather (d) {
+      // 和风天气插件
+      $.getScript("https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0", function(){
+        var w = d.createElement('script')
+        w.type = 'text/javascript'
+        w.innerHTML = `
+					WIDGET = {
+            "CONFIG": {
+              "modules": "210",
+              "background": "5",
+              "tmpColor": "01cbe3",
+              "tmpSize": "16",
+              "cityColor": "01cbe3",
+              "citySize": "16",
+              "aqiColor": "FFFFFF",
+              "aqiSize": "16",
+              "weatherIconSize": "24",
+              "alertIconSize": "18",
+              "padding": "10px 10px 10px 10px",
+              "shadow": "0",
+              "language": "auto",
+              "fixed": "false",
+              "vertical": "top",
+              "horizontal": "left",
+              "key": "1fa02fd156a14c8a9e47e470a1f3dc68"
+            }
+          }
+        `
+        var sn = d.getElementsByTagName('script')[0]
+        sn.parentNode.insertBefore(w, sn)
+        })
+      },
 
     ...mapMutations(['SET_ISINDOOR']),
   }
