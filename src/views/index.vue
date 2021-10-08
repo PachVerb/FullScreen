@@ -8,14 +8,12 @@
 
     <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
-    <VideoCheck v-if="showVideo"/>
   </div>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 import MapContent from "@/components/MapContent"; // 地图组件
 import Clock from "@/components/Clock"; // 时钟
-
 import Bus from'../js/Bus';
 export default {
   name: "index",
@@ -37,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['showVideo', 'mapLoad', 'map'])
+    ...mapGetters(['mapLoad', 'map'])
   },
   created(){},
   mounted(){},
