@@ -3,7 +3,21 @@
     <sideTran thisCrrentSys="comprehensive">
       <div slot="left">
         <sideItem title="网络状态">
-          <div name='body'></div>
+          <div class="network-status" slot='body'>
+            <div class="network-status-left">
+              <div class="" v-for="item in btnList" :key="item.name">
+                <img src="../assets/img/people-up-num.png" alt="">
+                <span>{{item.name}}</span>
+                <span>{{item.unit}}</span>
+              </div>
+            </div>
+            <div class="network-status-center">
+
+            </div>
+            <div class="network-status-right">
+
+            </div>
+          </div>
         </sideItem>
         <sideItem title="一卡通状态">
           <div name='body'></div>
@@ -27,6 +41,15 @@ export default {
   components: {
     sideTran,
     sideItem
+  },
+  data(){
+    return {
+      btnList: [{
+        name: '在线人数',
+        text: '2222',
+        unit: '人'
+      }]
+    }
   }
 }
 </script>
