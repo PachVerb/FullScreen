@@ -2,10 +2,13 @@
   <div class="index">
     <!-- <img src="../assets/img/2.png" alt=""> -->
     <div class="index_top" >
-      <img alt="logo" src="../assets/img/toptitle.png"  style="height:100%;"/>
-      <clock/>
+      <img alt="logo" src="../assets/img/toptitle.png"  style="width: 50%; display: inline-block;"/>
+<!-- 			<div style="margin-right: 10px;display: inline-block;position: absolute;margin-top: 20px">
+				<selectschool style="position: absolute;width:340px" />
+				<clock style="margin-left: 150px;" />
+			</div> -->
     </div>
-
+		<dormitory style="position: absolute;"/>
     <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
     <VideoCheck v-if="showVideo"/>
@@ -13,16 +16,19 @@
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex'
-import MapContent from "@/components/MapContent"; // 地图组件
+import MapContent from "@/components/MapContent"; // 地图组件.
 import Clock from "@/components/Clock"; // 时钟
-
+import selectschool from "@/components/selectschool"; // 选择学校
+import dormitory from "@/components/dormitory/index.vue";
 import Bus from'../js/Bus';
 export default {
   name: "index",
   flag:true,
   components: {
     MapContent,
-    Clock
+    Clock,
+		dormitory,
+		selectschool,//选择学校
   },
   data() {
     return {
@@ -39,8 +45,12 @@ export default {
   computed: {
     ...mapGetters(['showVideo', 'mapLoad', 'map'])
   },
-  created(){},
-  mounted(){},
+  created(){
+		// this.getWeather(document)
+	},
+  mounted(){
+		// this.copyWeatherHtml()
+	},
   methods:{
     zoomdata(data){
       if(this.map && this.map.getZoom && this.map.getZoom() <18.5){
@@ -62,7 +72,49 @@ export default {
           this.SET_ISINDOOR(false)
       }
     },
-    
+// getWeather (d) {
+//         // 和风天气插件
+//         let that = this
+//         /* var s = d.createElement('script')
+//         s.src = 'https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0' */
+//         $.getScript("https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0", function(){
+//           var w = d.createElement('script')
+//           w.type = 'text/javascript'
+//           w.innerHTML = `
+// 						WIDGET = {
+// 							"CONFIG": {
+// 								"modules": "210",
+// 								"background": "5",
+// 								"tmpColor": "515a6e",
+// 								"tmpSize": "16",
+// 								"cityColor": "515a6e",
+// 								"citySize": "16",
+// 								"aqiColor": "FFFFFF",
+// 								"aqiSize": "16",
+// 								"weatherIconSize": "24",
+// 								"alertIconSize": "18",
+// 								"padding": "10px 10px 10px 10px",
+// 								"shadow": "0",
+// 								"language": "auto",
+// 								"fixed": "false",
+// 								"vertical": "top",
+// 								"horizontal": "left",
+// 								"key": "1fa02fd156a14c8a9e47e470a1f3dc68"
+// 							}
+// 						}
+//           `
+//           var sn = d.getElementsByTagName('script')[0]
+//           // sn.parentNode.insertBefore(s, sn)
+//           sn.parentNode.insertBefore(w, sn)
+// 					console.log(sn.parentNode,"snnn",w)
+//           let timer = setInterval(() => {
+//             var ele = d.getElementsByClassName('s-sticker')
+//             ele && (ele.style.backgroundColor = 'transparent')
+//             ele && clearInterval(timer)
+//           }, 1000)
+//         })
+//       },
+
     ...mapMutations(['SET_ISINDOOR']),
   }
 };
