@@ -1,6 +1,11 @@
 <!-- 地图内容区 -->
 <template>
   <div id="clock">
+		<div class="time">{{time}}</div>
+		<div class="daydatabox">
+			<p class="daydata">{{week}}</p>
+			<p class="daydata">{{date}}</p>
+		</div>
   </div>
 </template>
 
@@ -36,13 +41,13 @@ export default {
     },
     watch: {
         time(val) {
-            console.log(val, 'time')
+            // console.log(val, 'time')
         },
         date(val) {
-            console.log(val, 'date')
+            // console.log(val, 'date')
         },
         week(val) {
-            console.log(val, 'week')
+            // console.log(val, 'week')
         },
     },
     methods: {
@@ -70,6 +75,32 @@ export default {
 
 <style lang="less" scope>
 #clock {
+	color: #39DCE2;
+	display: flex;
+	padding-left: 40px;
+	width: 300px;
+}
+.time{
+	font-size: 38px;
+	font-weight: bolder;
+}
+.daydata{
+	font-size: 14px;
+	font-weight: bold;
+}
+#clock::before {
+  content: "";
+  height: 20px;
+	width: 2px;
+	background-color: #39DCE2;
+	position: relative;
+	top: 10px;
+	left: -20px;
+}
+.daydatabox{
+	position: relative;
+	top: 4px;
+	left: 10px;
 }
 </style>
 

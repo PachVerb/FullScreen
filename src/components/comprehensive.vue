@@ -15,7 +15,7 @@
           <div name='body'></div>
         </sideItem>
       </div>
-      <div slot="right">9999</div>
+      <div slot="right">999999</div>
     </sideTran>
   </div>
 </template>
