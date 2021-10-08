@@ -4,10 +4,10 @@ import router from "./router";
 import store from "./store";
 import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
+import 'vant/lib/index.css';
 // import echarts from 'echarts';
 // import ElementUI from 'element-ui';
 // import Vant from 'vant';
-// import 'vant/lib/index.css';
 // import $ from 'jquery'
 // Vue.use(Vant);
 // import axios from 'axios'
