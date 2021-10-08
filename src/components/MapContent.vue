@@ -103,7 +103,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['SET_MAP', 'SET_MAP_LOAD', 'SET_CURRENTPANELINDEX', 'SET_CURRENTFLOOR']),
+    ...mapMutations(['SET_MAP', 'SET_MAP_LOAD', 'SET_CURRENTFLOOR']),
     toHome() {
       let param = {
         center: this.vMap.getStyle().center,
@@ -117,8 +117,11 @@ export default {
       this.SET_MAP(null)
       this.SET_MAP_LOAD(true)
       this.$nextTick(() => {
+        // 获取建筑和路线数据
         this.getBuildingAndRouteFn()
+        //获取建筑信息
         this.getBuildingFn()
+        //获取路线信息
         this.lineData = this.getLineRoute([
             [[[ 104.04438225523825, 30.590859031757148], [104.0520259740045, 30.590965706491346]],[[104.0520259740045, 30.590965706491346],[104.064137435021, 30.591233205127864]]],
             [[[ 104.0641336053904, 30.591121119890843], [104.05203039721283, 30.59079531591118]],[[104.05203039721283, 30.59079531591118],[104.0443878828446, 30.590648538762807]]],
@@ -145,6 +148,7 @@ export default {
         // }else{
         //   this.vMap = new creeper.VectorMap("map-box", _mapId, _mapIp + "/");
         // }
+        //获取地图样式
         this.getMapStyle()
         this.vMap.on("load", () => {
           // 获取地图样式
@@ -244,10 +248,10 @@ export default {
       this.vMap.setLayoutProperty("building_3d_hasroom","visibility","none")
       this.vMap.setLayoutProperty("building1_3D","visibility","none")
       this.vMap.setLayoutProperty("ziti_dalou","visibility","none")
-      this.vMap.addLayer(threeLayer);
-      this.vMap.setLayerZoomRange('modellayer', 10, 18);
+      this.vMap.addLayer(threeLayer); // 将3D模型的图层加入地图
+      this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
       this.loadOjbFn()
-      setTimeout(() => {this.load3DLine()}, 3000)
+      setTimeout(() => {this.load3DLine()}, 3000) // 3S之后加载路线
       
     },
     // 加载3D建筑
@@ -428,9 +432,6 @@ export default {
             }
           }
               
-      
-      
-
           if (counter <852 ) {
             requestAnimationFrame(animatecar);
           }else{
