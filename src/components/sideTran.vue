@@ -1,12 +1,12 @@
 <template>
   <div>
     <transition name="go-in-sys-left">
-      <div class="sys-left" v-if="currentSys === thisCrrentSys">
+      <div class="sys-left" :style="{width: widthL}" v-if="currentSys === thisCrrentSys">
         <slot name="left"/>
       </div>
     </transition>
     <transition name="go-in-sys-right">
-      <div class="sys-right" v-if="currentSys === thisCrrentSys">
+      <div class="sys-right" :style="{width: widthR}" v-if="currentSys === thisCrrentSys">
         <slot name="right"/>
       </div>
     </transition>
@@ -16,7 +16,17 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  props: ['thisCrrentSys'],
+  props: {
+    thisCrrentSys: {
+      default: ''
+    },
+    widthL: {
+      default: '20%'
+    },
+    widthR: {
+      default: '20%'
+    }
+  },
   computed: {
     ...mapGetters(['currentSys'])
   }
@@ -25,15 +35,17 @@ export default {
 
 <style scoped>
 .sys-left,.sys-right{
-  background-color: rgba(10,25,46, .8);
+  height: 80%;
+  /* background-color: rgba(10,25,46, .8); */
 }
 .sys-left{
   position: fixed;
   z-index: 10;
   top: 16%;
-  left: 5%;
-  color: red;
+  left: 1%;
   font-size: .346667rem;
+  background-image: url('../assets/img/left-bg.png');
+  background-size: 100% 100%;
 }
 .go-in-sys-left-enter{
   transform: translateX(-50%);
@@ -42,7 +54,7 @@ export default {
   transition: all .5s;
 }
 .go-in-sys-left-enter-to /* .fade-leave-active below version 2.1.8 */ {
-  left: 5%;
+  left: 1%;
 }
 .go-in-sys-left-leave-to{
   transform: translateX(-50rem);
@@ -51,9 +63,10 @@ export default {
   position: fixed;
   z-index: 10;
   top: 16%;
-  right: 5%;
-  color: red;
+  right: 1%;
   font-size: .346667rem;
+  background-image: url('../assets/img/right-bg.png');
+  background-size: 100% 100%;
 }
 .go-in-sys-right-enter{
   transform: translateX(150%);
@@ -62,7 +75,7 @@ export default {
   transition: all .5s;
 }
 .go-in-sys-right-enter-to /* .fade-leave-active below version 2.1.8 */ {
-  right: 5%;
+  right: 1%;
 }
 .go-in-sys-right-leave-to{
   transform: translateX(150%);

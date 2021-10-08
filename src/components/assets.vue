@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sideTran thisCrrentSys="comprehensive">
+    <sideTran thisCrrentSys="assets">
       <div slot="left">
         <sideItem title="网络状态">
           <div name='body'></div>
@@ -15,7 +15,7 @@
           <div name='body'></div>
         </sideItem>
       </div>
-      <div slot="right">9999</div>
+      <div slot="right">8888888</div>
     </sideTran>
   </div>
 </template>
