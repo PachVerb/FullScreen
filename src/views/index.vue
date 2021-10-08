@@ -16,6 +16,7 @@
     <SideBar></SideBar>
     <!-- <VideoCheck v-if="showVideo"/> -->
     <comprehensive></comprehensive>
+    <assets></assets>
   </div>
 </template>
 <script>
@@ -24,6 +25,7 @@ import MapContent from "@/components/MapContent"; // 地图组件.
 import Clock from "@/components/Clock"; // 时钟
 import SideBar from '@/components/sidebar'
 import comprehensive from '@/components/comprehensive'
+import assets from '@/components/assets'
 import dormitory from '@/components/dormitory'
 
 import Bus from'../js/Bus';
@@ -35,6 +37,7 @@ export default {
     Clock,
     SideBar,
     comprehensive,
+    assets,
 		dormitory
   },
   data() {

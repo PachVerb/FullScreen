@@ -12,16 +12,21 @@
 </template>
 
 <script>
+import { Carousel, CarouselItem } from 'element-ui'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+  components: {
+    Carousel,
+    CarouselItem
+  },
   data(){
     return {
       allSideList: [{
         name: 'comprehensive',
         cname: '综合态势'
       },{
-        name: '1',
-        cname: '1态势'
+        name: 'assets',
+        cname: '资产态势'
       },{
         name: '2',
         cname: '2态势'
