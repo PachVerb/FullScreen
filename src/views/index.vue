@@ -6,10 +6,10 @@
       <clock/>
     </div>
 
-    <!-- <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/> -->
+    <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
     <SideBar></SideBar>
-    <VideoCheck v-if="showVideo"/>
+    <!-- <VideoCheck v-if="showVideo"/> -->
     <comprehensive></comprehensive>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['showVideo', 'mapLoad', 'map', 'currentSys'])
+    ...mapGetters(['mapLoad', 'map', 'currentSys'])
   },
   created(){},
   mounted(){},
