@@ -6,21 +6,29 @@
       <clock/>
     </div>
 
-    <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
+    <!-- <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/> -->
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
+    <SideBar></SideBar>
+    <VideoCheck v-if="showVideo"/>
+    <comprehensive></comprehensive>
   </div>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 import MapContent from "@/components/MapContent"; // 地图组件
 import Clock from "@/components/Clock"; // 时钟
+import SideBar from '@/components/sidebar'
+import comprehensive from '@/components/comprehensive'
+
 import Bus from'../js/Bus';
 export default {
   name: "index",
   flag:true,
   components: {
     MapContent,
-    Clock
+    Clock,
+    SideBar,
+    comprehensive
   },
   data() {
     return {
@@ -35,7 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['mapLoad', 'map'])
+    ...mapGetters(['showVideo', 'mapLoad', 'map', 'currentSys'])
   },
   created(){},
   mounted(){},
@@ -116,5 +124,4 @@ export default {
     }
   }
 }
-
 </style>

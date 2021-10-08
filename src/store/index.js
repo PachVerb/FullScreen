@@ -8,6 +8,8 @@ const state = {
     showAll: true,  // 是否显示所有监控
     currentFloor: 0, // 当前楼层
     isInDoor: false, // 是否是室内
+    currentPanelIndex: 0, // 当前模块
+    currentSys: 'comprehensive'
 }
 
 const mutations = {
@@ -22,6 +24,9 @@ const mutations = {
     },
     SET_CURRENTFLOOR(state, currentFloor) {
         state.currentFloor = currentFloor
+    },
+    SET_CURRENTSYS(state, sys){
+        state.currentSys = sys
     }
 }
 
@@ -31,6 +36,7 @@ const getters = {
     mapLoad: state => state.mapLoad,
     isInDoor: state => state.isInDoor,
     currentFloor: state => state.currentFloor,
+    currentSys: state => state.currentSys
 }
 
 export default new Vuex.Store({
