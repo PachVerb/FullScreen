@@ -1,10 +1,10 @@
 <template>
   <div>
-    <sideTran thisCrrentSys="comprehensive">
+    <sideTran thisCrrentSys="dormitory">
       <div slot="left">
         
       </div>
-      <div slot="right">999999</div>
+      <div slot="right">11</div>
     </sideTran>
   </div>
 </template>

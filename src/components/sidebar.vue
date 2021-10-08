@@ -29,11 +29,11 @@ export default {
         name: '3',
         cname: '3态势'
       },{
-        name: '4',
-        cname: '4态势'
+        name: 'dormitory',
+        cname: '宿舍态势'
       },{
         name: '5',
-        cname: '5态势'
+        cname: '态势'
       },{
         name: '6',
         cname: '6态势'
