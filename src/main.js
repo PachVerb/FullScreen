@@ -22,7 +22,7 @@ import 'vant/lib/index.css';
 // import vueSwiper from 'vue-awesome-swiper'
 // import 'swiper/swiper-bundle.min.css'
 
-Vue.use(vueSwiper)
+// Vue.use(vueSwiper)
 
 
 
