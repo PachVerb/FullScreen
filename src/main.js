@@ -27,14 +27,18 @@ import 'vant/lib/index.css';
 // Vue.prototype.$ = $
 // Vue.use(ElementUI);
 
-// 首页切换态势的demo：
-// https://github.com/surmon-china/surmon-china.github.io/blob/source/projects/vue-awesome-swiper/examples/13-centered.vue
-// direction:vertical 设置为锤直状态
-// 在需要的组件中使用！
-// import vueSwiper from 'vue-awesome-swiper'
-// import 'swiper/swiper-bundle.min.css'
+/**
+首页切换态势的demo：
+https://github.com/surmon-china/surmon-china.github.io/blob/source/projects/vue-awesome-swiper/examples/13-centered.vue
+git官网：https://codechina.csdn.net/mirrors/surmon-china/vue-awesome-swiper?utm_source=csdn_github_accelerator
+direction:vertical 设置为锤直状态
+需要在最外层的容器上增加class="swiper-no-swiping" 禁止滑动
+在需要的组件中使用！
+import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.min.css'
 
-// Vue.use(vueSwiper)
+ */
+
 
 
 
