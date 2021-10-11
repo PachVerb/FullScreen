@@ -29,6 +29,9 @@ export default {
   },
   computed: {
     ...mapGetters(['currentSys'])
+  },
+  mounted(){
+    console.log(this.widthL,this.widthR)
   }
 }
 </script>

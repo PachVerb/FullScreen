@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar">
-    <div class="up"><img src="../assets/img/up.png" alt=""></div>
+    <div class="up" @click="checkSideList('up')"><img v-if="thisIndex == 1" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
     <div class="side-list">
       <div class="side-item" v-for="(sideItem,index) in sideList" :key="index" @click="checkCurrentSys(sideItem)">
         <div class="sys-tips" v-if="sideItem.name === currentSys"><span>{{ sideItem.cname }}</span></div>
         <img src="../assets/img/comprehensive.png" alt="">
       </div>
     </div>
-    <div class="down"><img src="../assets/img/down.png" alt=""></div>
+    <div class="down" @click="checkSideList('down')"><img v-if="this.thisIndex >= (Math.ceil(this.allSideList.length/6))" src="../assets/img/down.png" alt=""><img v-else class="img-rotate" src="../assets/img/up.png" alt=""></div>
   </div>
 </template>
 
@@ -46,8 +46,8 @@ export default {
         name: '7',
         cname: '7态势'
       },{
-        name: '8',
-        cname: '8态势'
+        name: 'vehicle',
+        cname: '车辆态势'
       }],
       sideList: [],
       thisIndex: 1
@@ -61,7 +61,12 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_CURRENTSYS']),
-    checkSideList(){
+    checkSideList(type){
+      if(type == 'up' && this.thisIndex > 1){
+        this.thisIndex -= 1
+      } else if(type == 'down' && this.thisIndex < (Math.ceil(this.allSideList.length/6))) {
+        this.thisIndex += 1
+      }
       this.sideList = this.allSideList.filter((item,index) => {
         if(index < this.thisIndex*6 && index >= (this.thisIndex-1)*6){
           return item
@@ -120,5 +125,8 @@ export default {
   margin-right: .09rem;
   width: .48rem;
   text-align: center;
+}
+.img-rotate{
+  transform: rotateX(180deg);
 }
 </style>
