@@ -22,11 +22,15 @@
  
 </template>
 <script>
-import { Toast } from 'vant';
+import { Toast,Button,Checkbox } from 'vant';
 import md5 from 'js-md5';
 import { localSetItem } from '@/utils/storage'
 export default {    
   name: "material",
+  components:{
+    [Button.name]:Button,
+    [Checkbox.name]:Checkbox,
+  },
    data() {
     return {
         checked: true,
