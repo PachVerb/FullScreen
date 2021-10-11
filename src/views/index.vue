@@ -17,6 +17,7 @@
     <!-- <VideoCheck v-if="showVideo"/> -->
     <comprehensive></comprehensive>
     <assets></assets>
+    <vehicle></vehicle>
   </div>
 </template>
 <script>
@@ -27,6 +28,7 @@ import SideBar from '@/components/sidebar'
 import comprehensive from '@/components/comprehensive'
 import assets from '@/components/assets'
 import dormitory from '@/components/dormitory'
+import vehicle from '@/components/vehicle'
 
 import Bus from'../js/Bus';
 export default {
@@ -38,7 +40,8 @@ export default {
     SideBar,
     comprehensive,
     assets,
-		dormitory
+		dormitory,
+    vehicle
   },
   data() {
     return {
