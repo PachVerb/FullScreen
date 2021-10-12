@@ -40,8 +40,8 @@ export default {
         name: 'fireSafety',
         cname: '安消态势'
       },{
-        name: '6',
-        cname: '6态势'
+        name: 'energyUsage',
+        cname: '能耗态势'
       },{
         name: '7',
         cname: '7态势'
