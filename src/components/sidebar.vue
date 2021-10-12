@@ -37,8 +37,8 @@ export default {
         name: 'dormitory',
         cname: '宿舍态势'
       },{
-        name: '5',
-        cname: '态势'
+        name: 'fireSafety',
+        cname: '安消态势'
       },{
         name: '6',
         cname: '6态势'

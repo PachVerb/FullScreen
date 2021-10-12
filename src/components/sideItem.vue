@@ -42,7 +42,7 @@ export default {
 }
 .title-border{
   margin: 3px;
-  margin-bottom: .16rem;
+  /* margin-bottom: .16rem; */
   margin-left: .106667rem;
   width: .583333rem;
   height: 1px;
