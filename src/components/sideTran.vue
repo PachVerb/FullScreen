@@ -38,14 +38,14 @@ export default {
 
 <style scoped>
 .sys-left,.sys-right{
-  height: 80%;
+  height: 87%;
   /* background-color: rgba(10,25,46, .8); */
 }
 .sys-left{
   position: fixed;
   z-index: 10;
-  top: 16%;
-  left: 1%;
+  bottom: 30px;
+  left: 30px;
   font-size: .346667rem;
   background-image: url('../assets/img/left-bg.png');
   background-size: 100% 100%;
@@ -65,8 +65,8 @@ export default {
 .sys-right{
   position: fixed;
   z-index: 10;
-  top: 16%;
-  right: 1%;
+  bottom: 30px;
+  right: 30px;
   font-size: .346667rem;
   background-image: url('../assets/img/right-bg.png');
   background-size: 100% 100%;

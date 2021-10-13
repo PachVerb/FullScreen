@@ -145,8 +145,11 @@ export default {
           data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
           axisLine: {
             lineStyle: {
-              color: 'rgba(39,75,114)'
+              color: '#6AB0FF'
             }
+          },
+          axisTick: {
+            show: false,
           },
           splitLine: {
             show: true,
@@ -166,9 +169,12 @@ export default {
         },
         yAxis: {
           type: 'value',
+          axisTick: {
+            show: false,
+          },
           axisLine: {
             lineStyle: {
-              color: 'rgba(39,75,114)'
+              color: '#6AB0FF'
             }
           },
           splitLine: {
@@ -357,7 +363,7 @@ export default {
               axisLine: {
                 show: true,
                 lineStyle: {
-                  color: 'rgba(39,75,114)'
+                  color: '#6AB0FF'
                 }
               },
               splitLine: {
@@ -383,7 +389,7 @@ export default {
               },
               axisLine: {
                 lineStyle: {
-                  color: 'rgba(39,75,114)'
+                  color: '#6AB0FF'
                 }
               },
               splitLine: {

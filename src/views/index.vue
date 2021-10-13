@@ -17,6 +17,7 @@
     <!-- <VideoCheck v-if="showVideo"/> -->
     <comprehensive></comprehensive>
     <assets></assets>
+    <fireSafety></fireSafety>
     <vehicle></vehicle>
 		<peoplestatues></peoplestatues>
   </div>
@@ -29,6 +30,7 @@ import SideBar from '@/components/sidebar'
 import comprehensive from '@/components/comprehensive'
 import assets from '@/components/assets'
 import dormitory from '@/components/dormitory'
+import fireSafety from '@/components/fireSafety'
 import vehicle from '@/components/vehicle'
 import peoplestatues from '@/components/peoplestatues'
 
@@ -44,7 +46,9 @@ export default {
     assets,
 		dormitory,
     vehicle,
-		peoplestatues
+	peoplestatues,
+    fireSafety,
+    vehicle
   },
   data() {
     return {
