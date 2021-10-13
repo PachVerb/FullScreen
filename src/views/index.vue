@@ -19,7 +19,8 @@
     <assets></assets>
     <fireSafety></fireSafety>
     <vehicle></vehicle>
-		<peoplestatues></peoplestatues>
+    <peoplestatues></peoplestatues>
+    <energyUsage></energyUsage>
   </div>
 </template>
 <script>
@@ -33,8 +34,10 @@ import dormitory from '@/components/dormitory'
 import fireSafety from '@/components/fireSafety'
 import vehicle from '@/components/vehicle'
 import peoplestatues from '@/components/peoplestatues'
+import energyUsage from '@/components/energyUsage'
 
 import Bus from'../js/Bus';
+import EnergyUsage from '../components/energyUsage.vue';
 export default {
   name: "index",
   flag:true,
@@ -48,7 +51,8 @@ export default {
     vehicle,
 	peoplestatues,
     fireSafety,
-    vehicle
+    vehicle,
+    energyUsage,
   },
   data() {
     return {
