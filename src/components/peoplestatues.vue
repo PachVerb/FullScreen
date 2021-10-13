@@ -4,14 +4,20 @@
       <div slot="left">
         <sideItem title="人员实时状态">
           <div slot='body' class="nowbox">
-						<currency></currency>
-						<currency></currency>
-						<currency></currency>
-						<currency></currency>
+						<currency class="nowboxitem" :boxnum="oneobj.num" :boxtitle="oneobj.title" :boxcolor="oneobj.color" :boxuntil="oneobj.until"></currency>
+						<currency class="nowboxitem" :boxnum="secobj.num" :boxtitle="secobj.title" :boxcolor="secobj.color" :boxuntil="secobj.until"></currency>
+						<currency class="nowboxitem" :boxnum="thirobj.num" :boxtitle="thirobj.title" :boxcolor="thirobj.color" :boxuntil="thirobj.until"></currency>
+						<currency class="nowboxitem" :boxnum="fourobj.num" :boxtitle="fourobj.title" :boxcolor="fourobj.color" :boxuntil="fourobj.until"></currency>
 					</div>
         </sideItem>
         <sideItem title="今日访客统计">
-          <div slot='body'>
+          <div slot='body' class="visitorstoday">
+						<div>
+							<img src="../assets/img/visitorstodayimg.png" >
+						</div>
+						<div class="fontbox">
+							
+						</div>
             <!-- <div id="totalAssets"></div> -->
           </div>
         </sideItem>
@@ -63,7 +69,33 @@ export default {
 		currency
   },
   data(){
-    return {}
+    return {
+			num:888,
+			oneobj:{
+				num:22349,
+				color:"#00F5FF",
+				title:"全校学生",
+				until:"(人)"
+			},
+			secobj:{
+				num:19496,
+				color:"#13B5B1",
+				title:"在校学生",
+				until:"(人)"
+			},
+			thirobj:{
+				num:201,
+				color:"#DBBB8A",
+				title:"请假学生",
+				until:"(人)"
+			},
+			fourobj:{
+				num:1697,
+				color:"#F2896B",
+				title:"不在校学生",
+				until:"(人)"
+			},
+		}
   },
   computed: {
     ...mapGetters(['currentSys'])
@@ -91,7 +123,7 @@ export default {
     }
   },
   mounted(){
-    console.log('assets')
+    console.log(this.num,'assets11',this.oneobj)
     
   },
   methods: {
@@ -309,5 +341,14 @@ export default {
 	justify-content: space-around;
 	width: 100%;
 	flex-wrap: wrap;
+}
+.nowboxitem{
+	margin-top: 20px;
+}
+.visitorstoday{
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-top: 20px;
 }
 </style>
