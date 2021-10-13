@@ -43,8 +43,8 @@ export default {
         name: 'energyUsage',
         cname: '能耗态势'
       },{
-        name: '7',
-        cname: '7态势'
+        name: 'peoplestatues',
+        cname: '人员态势'
       },{
         name: 'vehicle',
         cname: '车辆态势'

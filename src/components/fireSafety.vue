@@ -26,7 +26,19 @@
         </sideItem>
         <sideItem title="设备异常详情">
           <div slot='body'>
-            <div id="allTotalAssets"></div>
+            <div class="ab-nav">
+              <span v-for="nav in abNavList" :key="nav.name">{{ nav.name }}</span>
+            </div>
+            <div class="ab-list">
+              <div class="ab-item" v-for="item in abDetailList" :key="item.id">
+                <div>
+                  <div>{{ }}</div>
+                  <div>{{ }}</div>
+                </div>
+                <div>{{  }}</div>
+                <div>关闭</div>
+              </div>
+            </div>
           </div>
         </sideItem>
       </div>
@@ -87,7 +99,21 @@ export default {
         num: 86,
         name: '监控总数',
         img: require('../assets/img/monitor.png')
-      },]
+      },],
+      abNavList: [{
+        id: 1,
+        name: '消防'
+      },{
+        id: 2,
+        name: '门禁'
+      },{
+        id: 3,
+        name: '监控'
+      },{
+        id: 4,
+        name: '温感传感器'
+      },],
+      abDetailList: []
     }
   },
   computed: {
