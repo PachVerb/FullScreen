@@ -18,6 +18,7 @@
     <comprehensive></comprehensive>
     <assets></assets>
     <vehicle></vehicle>
+		<peoplestatues></peoplestatues>
   </div>
 </template>
 <script>
@@ -29,6 +30,7 @@ import comprehensive from '@/components/comprehensive'
 import assets from '@/components/assets'
 import dormitory from '@/components/dormitory'
 import vehicle from '@/components/vehicle'
+import peoplestatues from '@/components/peoplestatues'
 
 import Bus from'../js/Bus';
 export default {
@@ -41,7 +43,8 @@ export default {
     comprehensive,
     assets,
 		dormitory,
-    vehicle
+    vehicle,
+		peoplestatues
   },
   data() {
     return {
