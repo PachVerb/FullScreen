@@ -21,10 +21,10 @@ export default {
       default: ''
     },
     widthL: {
-      default: '20%'
+      default: '420px'
     },
     widthR: {
-      default: '20%'
+      default: '420px'
     }
   },
   computed: {
@@ -38,15 +38,15 @@ export default {
 
 <style scoped>
 .sys-left,.sys-right{
-  height: 87%;
+  height: 90%;
   /* background-color: rgba(10,25,46, .8); */
 }
 .sys-left{
   position: fixed;
   z-index: 10;
-  bottom: 30px;
-  left: 30px;
-  font-size: .346667rem;
+  bottom: 0;
+  left: 0;
+  font-size: 12px;
   background-image: url('../assets/img/left-bg.png');
   background-size: 100% 100%;
 }
@@ -65,9 +65,9 @@ export default {
 .sys-right{
   position: fixed;
   z-index: 10;
-  bottom: 30px;
-  right: 30px;
-  font-size: .346667rem;
+  bottom: 0px;
+  right: 0px;
+  font-size: 12px;
   background-image: url('../assets/img/right-bg.png');
   background-size: 100% 100%;
 }
