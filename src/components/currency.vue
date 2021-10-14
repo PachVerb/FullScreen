@@ -4,7 +4,7 @@
 		<div class="inner">
 			<h3  :style="{'color':boxcolor}"  class="numfont">
 				{{numberToCurrency(boxnum,10)}}
-			</h3><span style="font-size: .01rem;line-height: .40rem;color:#F6FAFF;">(人)</span>
+			</h3><span style="font-size: .01rem;line-height: .3rem;color:#F6FAFF;">(人)</span>
 		</div>
 	</div>
 	<!-- numberToCurrency(oneobj.num,10) -->
@@ -45,6 +45,7 @@
 		background: url(../assets/img/currencyboxbgc.png) no-repeat;
 		width: .9rem;
 		height: .3rem;
+		background-size: 100% 80%;
 		justify-content: center;
 	}
 
@@ -55,9 +56,9 @@
 	}
 
 	.numfont {
-		font-size: .17rem;
+		font-size: .1rem;
 		font-family: Helvetica-Bold;
 		position: relative;
-		top: 8px;
+		top: 14px;
 	}
 </style>
