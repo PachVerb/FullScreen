@@ -45,7 +45,7 @@ export default {
 		display: flex;
 		background: url(../assets/img/currencyboxbgc.png) no-repeat;
 		width: 150px;
-		background-size: 100%
+		background-size: 100%;
 		height: 56px;
 		background-size: 100% 80%;
 		justify-content: center;

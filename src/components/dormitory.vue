@@ -2,108 +2,101 @@
 	<div>
 		<sideTran thisCrrentSys="dormitory">
 			<div slot="left" class="left">
-				<div style="height: 30%;">
-					<div class="side-item-title" style="width: 30%;">
-						<img src="../assets/img/side-item-title.png" alt="">
-						<span>今日归寝情况</span>
-					</div>
-					<div class="homestatues">
-						<div class="homestatuesleft">
-							<div class="homestatuesleftwz">
-								<p style="color: #00F5FF;display: inline-block;font-weight: bolder;">85.75</p><span
-									style="color:gray;">%</span>
-								<p style="color: white;">今日归寝率</p>
-							</div>
-							<div style="width: 150px;margin-top: 6px;">
-								<p style="display: inline-block;color: #00F5FF;font-weight: bolder;">21102</p><span
-									style="color:gray;">人</span>
-								<p style="color: white;position: relative;top: -10px;">住宿总人数</p>
-							</div>
-						</div>
-						<div class="homestatuesright">
-							<div class="leftstatuesbox" v-for="(item,index) in homestaueslist">
-								<div>
-									<p style="display: inline-block;color: #00F5FF;font-weight: bolder;">
-										{{item.peoplenum}}
-									</p><span style="color:gray;">人</span>
+				<sideItem title="今日归寝情况">
+					<div slot='body' style="height: 30%;">
+						<div class="homestatues">
+							<div class="homestatuesleft">
+								<div class="homestatuesleftwz">
+									<p style="color: #00F5FF;display: inline-block;font-weight: bolder;">85.75</p><span
+										style="color:gray;">%</span>
+									<p style="color: white;">今日归寝率</p>
 								</div>
-								<div style="position: relative;top: -30px;">
-									<img :src="item.homestatuesimg">
-								</div>
-								<div style="position: relative;top: -40px;">
-									<p style="color: white;">{{item.name}}</p>
+								<div style="width: 150px;margin-top: 56px;">
+									<p style="display: inline-block;color: #00F5FF;font-weight: bolder;">21102</p><span
+										style="color:gray;">人</span>
+									<p style="color: white;position: relative;">住宿总人数</p>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="border" style="position: relative;top: 50px;"><img
-							src="../assets/img/side-item-border.png" alt=""></div>
-				</div>
-				<div style="height: 30%;">
-					<div class="side-item-title" style="width: 30%;margin-top: 40px;">
-						<img src="../assets/img/side-item-title.png" alt="">
-						<span>宿舍利用情况</span>
-					</div>
-					<div class="dormitoryUtilization">
-						<div class="useleft">
-							<img src="../assets/img/pyramid.png">
-						</div>
-						<div class="useright">
-							<div class="userightbox">
-								<div class="colorbox">
-									<div style="position: relative;top: 2px;left: 20px;font-size: 14px;">
-										<span class="shu"></span>
-										<span class="userboxwz">闲置</span>
+							<div class="homestatuesright">
+								<div class="leftstatuesbox" v-for="(item,index) in homestaueslist">
+									<div style="position: relative;top:-10px">
+										<p style="display: inline-block;color: #00F5FF;font-weight: bolder;">
+											{{item.peoplenum}}
+										</p><span style="color:gray;font-size: 12px;">人</span>
 									</div>
-									<div style="position: relative;top: 2px;font-size: 14px;">
-										<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
+									<div style="position: relative;top: -10px;">
+										<img :src="item.homestatuesimg">
 									</div>
-									<div style="position: relative;top: 2px;margin-right: 10px;font-size: 14px;">
-										<span style="color: white;">查看明细</span>
-									</div>
-								</div>
-							</div>
-							<div class="userightbox" style="margin-top: 10px;">
-								<div class="colorbox">
-									<div style="position: relative;top: 2px;left: 20px;font-size: 14px;">
-										<span class="shu"></span>
-										<span class="userboxwz">闲置</span>
-									</div>
-									<div style="position: relative;top: 2px;font-size: 14px;">
-										<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
-									</div>
-									<div style="position: relative;top: 2px;margin-right: 10px;font-size: 14px;">
-										<span style="color: white;">查看明细</span>
-									</div>
-								</div>
-							</div>
-							<div class="userightbox" style="margin-top: 10px;">
-								<div class="colorbox">
-									<div style="position: relative;top: 2px;left: 20px;font-size: 14px;">
-										<span class="shu"></span>
-										<span class="userboxwz">闲置</span>
-									</div>
-									<div style="position: relative;top: 2px;font-size: 14px;">
-										<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
-									</div>
-									<div style="position: relative;top: 2px;margin-right: 10px;font-size: 14px;">
-										<span style="color: white;">查看明细</span>
+									<div style="position: relative;top: -10px;">
+										<p style="color: white;font-size: 12px;">{{item.name}}</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
-				</div>
+				</sideItem>
 
-				<div style="height: 50%;margin-top: -20px;">
-					<div class="side-item-title" style="width: 30%;">
-						<img src="../assets/img/side-item-title.png" alt="">
-						<span>各宿舍楼归寝情况</span>
+				<sideItem title="各学院资产总数统计">
+					<div style="height: 30%;" slot='body'>
+						<div class="dormitoryUtilization">
+							<div class="useleft">
+								<img src="../assets/img/pyramid.png">
+							</div>
+							<div class="useright">
+								<div class="userightbox">
+									<div class="colorbox">
+										<div style="position: relative;top: 6px;left: 10px;font-size: 14px;">
+											<span class="shu"></span>
+											<span class="userboxwz">闲置</span>
+										</div>
+										<div style="position: relative;top: 6px;font-size: 14px;">
+											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
+										</div>
+										<div style="position: relative;top: 6px;margin-right: 10px;font-size: 14px;">
+											<span style="color: white;">查看明细</span>
+										</div>
+									</div>
+								</div>
+								<div class="userightbox" style="margin-top: 20px;">
+									<div class="colorbox">
+										<div style="position: relative;top: 6px;left: 10px;font-size: 14px;">
+											<span class="shu"></span>
+											<span class="userboxwz">闲置</span>
+										</div>
+										<div style="position: relative;top: 6px;font-size: 14px;">
+											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
+										</div>
+										<div style="position: relative;top: 6px;margin-right: 10px;font-size: 14px;">
+											<span style="color: white;">查看明细</span>
+										</div>
+									</div>
+								</div>
+								<div class="userightbox" style="margin-top: 20px;">
+									<div class="colorbox">
+										<div style="position: relative;top: 6px;left: 10px;font-size: 14px;">
+											<span class="shu"></span>
+											<span class="userboxwz">闲置</span>
+										</div>
+										<div style="position: relative;top: 6px;font-size: 14px;">
+											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
+										</div>
+										<div style="position: relative;top: 6px;margin-right: 10px;font-size: 14px;">
+											<span style="color: white;">查看明细</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div id="returntoBed" ref="returntoBed">
+				</sideItem>
+
+				<sideItem title="各宿舍楼归寝情况">
+					<div slot='body' style="height: 40%;">
+						<div id="returntoBed" ref="returntoBed">
+						</div>
 					</div>
-				</div>
+				</sideItem>
+
 			</div>
 			<div slot="right" class="right">
 				<div class="side-item-title" style="margin-left: 20px;">
@@ -442,7 +435,7 @@
 <style scoped>
 	#returntoBed {
 		width: 100%;
-		height: 60%;
+		height: 230px;
 		/* margin-top: 20px; */
 	}
 
@@ -592,7 +585,7 @@
 	}
 
 	.homestatuesleftwz {
-		margin-top: 2px;
+		margin-top: 52px;
 	}
 
 	.homestatuesleftwz p {
@@ -623,7 +616,7 @@
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
-		margin-top: -50px;
+		margin-top: 10px;
 	}
 
 	.border {
@@ -648,12 +641,12 @@
 	}
 
 	.useright p {
-		font-size: 16px;
+		font-size: 12px;
 		color: white;
 	}
 
 	.useright span {
-		font-size: 16px;
+		font-size: 12px;
 		color: white;
 	}
 

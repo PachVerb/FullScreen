@@ -140,25 +140,25 @@
 					num: 22349,
 					color: "#00F5FF",
 					title: "全校学生",
-					until: "(人)"
+					until: "人"
 				},
 				secobj: {
 					num: 19496,
 					color: "#13B5B1",
 					title: "在校学生",
-					until: "(人)"
+					until: "人"
 				},
 				thirobj: {
 					num: 201,
 					color: "#DBBB8A",
 					title: "请假学生",
-					until: "(人)"
+					until: "人"
 				},
 				fourobj: {
 					num: 1697,
 					color: "#F2896B",
 					title: "不在校学生",
-					until: "(人)"
+					until: "人"
 				},
 			}
 		},
