@@ -1,13 +1,12 @@
 <template>
-	<div class="outer">
-		<p style="font-size: 14px;color: #FFFFFF;" class="title">{{boxtitle}}</p>
-		<div class="inner">
-			<h3  :style="{'color':boxcolor}"  class="numfont">
-				{{numberToCurrency(boxnum,10)}}
-			</h3><span style="font-size: 12px;line-height: 58px;color:#F6FAFF;">({{boxuntil}})</span>
-		</div>
-	</div>
-	<!-- numberToCurrency(oneobj.num,10) -->
+  <div class="outer">
+    <p style="font-size: 14px;color: #FFFFFF;" class="title">{{boxtitle}}</p>
+    <div class="inner">
+      <h3 :style="{'color':boxcolor}" class="numfont">{{numberToCurrency(boxnum,10)}}</h3>
+      <span class="unit">({{boxuntil}})</span>
+    </div>
+  </div>
+  <!-- numberToCurrency(oneobj.num,10) -->
 </template>
 
 <script>
@@ -22,7 +21,7 @@ export default {
     boxnum: Number,
     boxtitle: String,
     boxcolor: String,
-		boxuntil:String,
+    boxuntil: String,
   },
 
   mounted() {
@@ -57,15 +56,16 @@ export default {
   top: -10px;
 }
 
-	.numfont {
-		font-size: 19px;
-		font-family: Helvetica-Bold;
-		position: relative;
-		top: 14px;
-	}
-	.unit {
-	margin-left: 2px;
-  	font-size: 0.01rem;
-  	line-height: 0.4rem;
- 	 color: rgba(246, 250, 255, 0.3);
-	}</style>
+.numfont {
+  font-size: 19px;
+  font-family: Helvetica-Bold;
+  position: relative;
+  top: 14px;
+}
+.unit {
+  margin-left: 2px;
+  font-size: 0.01rem;
+  line-height: 0.4rem;
+  color: rgba(246, 250, 255, 0.3);
+}
+</style>
