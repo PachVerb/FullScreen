@@ -21,10 +21,10 @@ export default {
       default: ''
     },
     widthL: {
-      default: '420px'
+      default: '380px'
     },
     widthR: {
-      default: '420px'
+      default: '380px'
     }
   },
   computed: {

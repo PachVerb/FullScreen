@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<sideTran thisCrrentSys="dormitory" widthL="30%">
+		<sideTran thisCrrentSys="dormitory">
 			<div slot="left" class="left">
 				<div style="height: 30%;">
 					<div class="side-item-title" style="width: 30%;">
@@ -142,9 +142,11 @@
 	} from 'vuex'
 	import sideTran from './sideTran'
 	import peopleimg from "../assets/img/people.png"
+	import sideItem from './sideItem.vue'
 	export default {
 		components: {
-			sideTran
+			sideTran,
+			sideItem
 		},
 		computed: {
 			...mapGetters(['currentSys'])
@@ -160,122 +162,7 @@
 			}
 		},
 		methods: {
-			// randerBar() {
-			// 	let dormitoryChartDom, dormitoryChartChart
-			// 	dormitoryChartDom = document.getElementById('returntoBed');
-			// 	dormitoryChartChart = echarts.init(dormitoryChartDom);
-			// 	var yAxisData = ['TOP1', 'TOP2', 'TOP3', 'TOP4', 'TOP5'];
-			// 	dormitoryChartChart.setOption({
-			// 		grid: {
-			// 			left: 40,
-			// 			bottom: -10,
-			// 			right: 70,
-			// 			top: 30,
-			// 		},
-			// 		yAxis: [{
-			// 				inverse: true,
-			// 				data: yAxisData,
-			// 				axisLabel: {
-			// 					show: false,
-			// 					textStyle: {
-			// 						color: '#8db0ff',
-			// 						fontSize: 16,
-			// 						align: 'left',
-			// 					},
-			// 					formatter: '{value}\n{a|占位}\n{a|占位}',
-			// 					rich: {
-			// 						a: {
-			// 							color: 'transparent',
-			// 							lineHeight: 24,
-			// 						}
-			// 					}
-			// 				},
-			// 				//offset: 30,
-			// 				splitLine: {
-			// 					show: false
-			// 				},
-			// 				axisTick: {
-			// 					show: false
-			// 				},
-			// 				axisLine: {
-			// 					show: false
-			// 				}
-			// 			},
-			// 			{
-			// 				inverse: false,
-			// 				data: ['第一宿舍', '矿产', '服务业', '建筑业', '第一宿舍'],
-			// 				axisLabel: {
-			// 					inside: true,
-			// 					textStyle: {
-			// 						color: '#8db0ff',
-			// 						fontSize: 16,
-			// 						align: 'right',
-			// 					},
-			// 					formatter: '{value}\n{a|占位}\n{a|占位}',
-			// 					rich: {
-			// 						a: {
-			// 							color: 'transparent',
-			// 							lineHeight: 24,
-			// 							fontFamily: 'digital'
-			// 						}
-			// 					}
-			// 				},
-			// 				offset: 0,
-			// 				splitLine: {
-			// 					show: false
-			// 				},
-			// 				axisTick: {
-			// 					show: false
-			// 				},
-			// 				axisLine: {
-			// 					show: false
-			// 				},
-			// 			}
-			// 		],
-			// 		xAxis: {
-			// 			max: 120,
-			// 			show: false,
-			// 		},
-			// 		series: [{
-			// 				// 辅助系列
-			// 				type: 'bar',
-			// 				barGap: '-100%',
-			// 				silent: true,
-			// 				itemStyle: {
-			// 					color: 'rgba(255, 255, 254, 0.2)',
-			// 				},
-			// 				barWidth: 15,
-			// 				data: [120, 120, 120, 120, 120]
-			// 			},
-			// 			{
-			// 				type: 'bar',
-			// 				data: [120, 100, 90, 60, 30],
-			// 				barWidth: 15,
-			// 				label: {
-			// 					position: [10, 10],
-			// 					normal: {
-			// 						position: [0, -24],
-			// 						show: true,
-			// 						textStyle: {
-			// 							color: '#8db0ff',
-			// 							fontSize: 16,
-			// 						},
-			// 					},
-			// 				},
-			// 				itemStyle: {
-			// 					normal: {
-			// 						color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
-			// 							'#007AFF', '#00FFFF'
-			// 						].map((color, offset) => ({
-			// 							color,
-			// 							offset
-			// 						})))
-			// 					}
-			// 				}
-			// 			}
-			// 		]
-			// 	});
-			// }
+
 			randerBar() {
 				var yAxisData = ['TOP1', 'TOP2', 'TOP3', 'TOP4', 'TOP5', 'TOP6', 'TOP7', 'TOP8', 'TOP9', 'TOP10'];
 				let dormitoryChartDom, dormitoryChartChart
@@ -309,120 +196,122 @@
 				let yName = list.map((item) => item.name);
 				let xData = list.map((item) => item.value);
 				let barWidth = 18;
-				dormitoryChartChart.setOption({    xAxis: {
-        splitLine: {
-            show: false
-        },
-        axisLabel: {
-            show: false
-        },
-        axisTick: {
-            show: false
-        },
-        axisLine: {
-            show: false
-        }
-    },
-    grid: {
-        containLabel: true,
-        left: 30,
-        top: 0,
-        right: 100,
-        bottom: 0
-    },
-    yAxis: [{
-        inverse: true,
-        axisLine: {
-            show: false
-        },
-        axisTick: {
-            show: false
-        },
-        axisLabel: {
-            margin: 10,
-            textStyle: {
-                fontSize: 14,
-                color: '#fff'
-            }
-        },
-        data: yName,
-    }],
-    series: [{ //内
-            type: 'bar',
-            barWidth,
-            legendHoverLink: false,
-            symbolRepeat: true,
-            silent: true,
-            itemStyle: {
-                color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 1,
-                    y2: 0,
-                    colorStops: [{
-                        offset: 0,
-                        color: '#00abee' // 0% 处的颜色
-                    }, {
-                        offset: 1,
-                        color: '#62E6F6' // 100% 处的颜色
-                    }]
-                }
-            },
-            data: list,
-            z: 1,
-            animationEasing: 'elasticOut'
-        },
-        { // 背景
-            type: 'pictorialBar',
-            animationDuration: 0,
-            symbolRepeat: 'fixed',
-            symbolMargin: '20%',
-            symbol: 'roundRect',
-            symbolSize: [6, barWidth],
-            itemStyle: {
-                normal: {
-                    color: '#12272A',
+				dormitoryChartChart.setOption({
+					xAxis: {
+						splitLine: {
+							show: false
+						},
+						axisLabel: {
+							show: false
+						},
+						axisTick: {
+							show: false
+						},
+						axisLine: {
+							show: false
+						}
+					},
+					grid: {
+						containLabel: true,
+						left: 30,
+						top: 0,
+						right: 100,
+						bottom: 0
+					},
+					yAxis: [{
+						inverse: true,
+						axisLine: {
+							show: false
+						},
+						axisTick: {
+							show: false
+						},
+						axisLabel: {
+							margin: 10,
+							textStyle: {
+								fontSize: 14,
+								color: '#fff'
+							}
+						},
+						data: yName,
+					}],
+					series: [{ //内
+							type: 'bar',
+							barWidth,
+							legendHoverLink: false,
+							symbolRepeat: true,
+							silent: true,
+							itemStyle: {
+								color: {
+									type: 'linear',
+									x: 0,
+									y: 0,
+									x2: 1,
+									y2: 0,
+									colorStops: [{
+										offset: 0,
+										color: '#00abee' // 0% 处的颜色
+									}, {
+										offset: 1,
+										color: '#62E6F6' // 100% 处的颜色
+									}]
+								}
+							},
+							data: list,
+							z: 1,
+							animationEasing: 'elasticOut'
+						},
+						{ // 背景
+							type: 'pictorialBar',
+							animationDuration: 0,
+							symbolRepeat: 'fixed',
+							symbolMargin: '20%',
+							symbol: 'roundRect',
+							symbolSize: [6, barWidth],
+							itemStyle: {
+								normal: {
+									color: '#12272A',
 
-                }
-            },
-            label: {
-                normal: {
-                    show: true,
-                    position: 'right',
-                    offset: [0, 2],
-                    distance: 30,
-                    textStyle: {
-                        color: '#7AF8FF',
-                        fontSize: 14,
-                    },
-                    formatter: function(a, b) {
-                        return `${a.value}%`
-                    }
-                },
+								}
+							},
+							label: {
+								normal: {
+									show: true,
+									position: 'right',
+									offset: [0, 2],
+									distance: 30,
+									textStyle: {
+										color: '#7AF8FF',
+										fontSize: 14,
+									},
+									formatter: function(a, b) {
+										return `${a.value}%`
+									}
+								},
 
-            },
-            data: xData,
-            z: 0,
-            animationEasing: 'elasticOut'
-        },
-        { //分隔
-            type: 'pictorialBar',
-            itemStyle: {
-                color: '#000'
-            },
-            symbolRepeat: 'fixed',
-            symbolMargin: 4,
-            symbol: 'roundRect',
-            symbolClip: true,
-            symbolSize: [2, barWidth],
-            symbolPosition: 'start',
-            symbolOffset: [0, 0],
-            data: list,
-            z: 2,
-            animationEasing: 'elasticOut'
-        }
-    ]})
+							},
+							data: xData,
+							z: 0,
+							animationEasing: 'elasticOut'
+						},
+						{ //分隔
+							type: 'pictorialBar',
+							itemStyle: {
+								color: '#000'
+							},
+							symbolRepeat: 'fixed',
+							symbolMargin: 4,
+							symbol: 'roundRect',
+							symbolClip: true,
+							symbolSize: [2, barWidth],
+							symbolPosition: 'start',
+							symbolOffset: [0, 0],
+							data: list,
+							z: 2,
+							animationEasing: 'elasticOut'
+						}
+					]
+				})
 			}
 		},
 		mounted() {
