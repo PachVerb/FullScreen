@@ -10,7 +10,7 @@
       <!-- <div id="he-plugin-simple" style=""></div> -->
     </div>
 		<dormitory style="position: absolute;"/>
-    <!-- <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/> -->
+    <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
     <!-- SideBar这个组件写在每一个态势里面 我看ui图每个态势的右边模块宽度不一样，最好吧sideBar写在态势里面去 -->
     <SideBar></SideBar>
@@ -19,6 +19,8 @@
     <assets></assets>
     <fireSafety></fireSafety>
     <vehicle></vehicle>
+    <peoplestatues></peoplestatues>
+    <energyUsage></energyUsage>
   </div>
 </template>
 <script>
@@ -31,8 +33,11 @@ import assets from '@/components/assets'
 import dormitory from '@/components/dormitory'
 import fireSafety from '@/components/fireSafety'
 import vehicle from '@/components/vehicle'
+import peoplestatues from '@/components/peoplestatues'
+import energyUsage from '@/components/energyUsage'
 
 import Bus from'../js/Bus';
+import EnergyUsage from '../components/energyUsage.vue';
 export default {
   name: "index",
   flag:true,
@@ -43,8 +48,11 @@ export default {
     comprehensive,
     assets,
 		dormitory,
+    vehicle,
+	peoplestatues,
     fireSafety,
-    vehicle
+    vehicle,
+    energyUsage,
   },
   data() {
     return {
