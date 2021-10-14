@@ -5,7 +5,7 @@
       <div slot="left">
         <sideItem title="用电设备统计">
           <div class="deviceStati" slot="body">
-            <currency v-for="(item,i) in statiList" :key="i"></currency>
+            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
         <sideItem title="用电概况">
@@ -38,7 +38,7 @@
               </div>
               <div class="row" style="justify-content:space-around;">
                 <div class="group">
-                  <img src="../assets/img/survey.png" alt="">
+                  <img src="../assets/img/survey.png" alt />
                   <div class="percent">
                     <img class="arrow" src="../assets/img/arrow-down.png" alt />
                     <i class="perc">4.3%</i>
@@ -46,7 +46,7 @@
                   <span class="text">日均同比</span>
                 </div>
                 <div class="group">
-                  <img src="../assets/img/survey.png" alt="">
+                  <img src="../assets/img/survey.png" alt />
                   <div class="percent">
                     <img class="arrow" src="../assets/img/arrow-up.png" alt />
                     <i class="perc red">25%</i>
@@ -124,10 +124,10 @@ export default {
     //获取设备统计列表
     getDeviceStatiList() {
       this.statiList = [
-        { type: '设备总数', count: 2349 },
-        { type: '异常设备数', count: 86 },
-        { type: '超出使用设备数', count: 45 },
-        { type: '超出使用总量', count: 298 },
+        { type: '设备总数', count: 2349, color: '#00F5FF' },
+        { type: '异常设备数', count: 86, color: '#F2896B' },
+        { type: '超出使用设备数', count: 45, color: '#DBBB8A' },
+        { type: '超出使用总量', count: 298, color: '#A488EF' },
       ]
     }
   }
@@ -216,21 +216,21 @@ span {
           font-weight: 400;
           color: rgba(0, 224, 79, 0.8);
         }
-        .red{
+        .red {
           color: rgba(242, 137, 107, 0.8);
         }
-        .item{
+        .item {
           display: flex;
           align-items: flex-end;
-          .num{
+          .num {
             font-size: 18px;
           }
         }
-        .group{
+        .group {
           display: flex;
           flex-direction: column;
           align-items: center;
-          .percent{
+          .percent {
             margin: 8px 0;
           }
         }
