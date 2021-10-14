@@ -56,10 +56,10 @@ export default {
 }
 
 .numfont {
-  font-size: 0.17rem;
+  font-size: .1rem;
   font-family: Helvetica-Bold;
   position: relative;
-  top: 8px;
+  top: 14px;
 }
 .unit {
 	margin-left: 2px;
