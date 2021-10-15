@@ -2,8 +2,8 @@
 	<div>
 		<sideTran thisCrrentSys="peoplestatues">
 			<div slot="left">
-				<nowpeopleslide title="人员实时状态" style="height: 20%;">
-					<div slot='body' class="nowbox">
+				<nowpeopleslide title="人员实时状态" >
+					<div slot='body' class="nowbox" style="height: 20%;">
 						<currency class="nowboxitem" :boxnum="oneobj.num" :boxtitle="oneobj.title"
 							:boxcolor="oneobj.color" :boxuntil="oneobj.until"></currency>
 						<currency class="nowboxitem" :boxnum="secobj.num" :boxtitle="secobj.title"
@@ -14,8 +14,8 @@
 							:boxcolor="fourobj.color" :boxuntil="fourobj.until"></currency>
 					</div>
 				</nowpeopleslide>
-				<nowpeopleslide title="今日访客统计" style="height: 30%;">
-					<div slot='body' class="visitorstoday">
+				<nowpeopleslide title="今日访客统计" >
+					<div slot='body' class="visitorstoday" style="height: 20%;">
 						<div class="dormitoryUtilization">
 							<div class="useleft">
 								<img src="../assets/img/visitorstodayimg.png">
@@ -63,8 +63,8 @@
 
 					</div>
 				</nowpeopleslide>
-				<nowpeopleslide title="学校资产总额统计" style="height: 30%;">
-					<div slot='body' class="peoplestrue">
+				<nowpeopleslide title="学校资产总额统计" >
+					<div slot='body' class="peoplestrue" style="height: 20%;">
 						<div class="peoplestruebgc">
 							<div class="peoplestruebgcwz">
 								<p style="font-size: 26px;color: #00F5FF;">44466</p>
@@ -95,7 +95,7 @@
 						</div>
 					</div>
 				</nowpeopleslide>
-				<nowpeopleslide title="学生实时分布" style="height: 40%;">
+				<nowpeopleslide title="学生实时分布" >
 					<div slot='body' style="height: 40%;">
 						<div id="studentnow" :style="{width:'100%'}"></div>
 					</div>
@@ -140,25 +140,25 @@
 					num: 22349,
 					color: "#00F5FF",
 					title: "全校学生",
-					until: "(人)"
+					until: "人"
 				},
 				secobj: {
 					num: 19496,
 					color: "#13B5B1",
 					title: "在校学生",
-					until: "(人)"
+					until: "人"
 				},
 				thirobj: {
 					num: 201,
 					color: "#DBBB8A",
 					title: "请假学生",
-					until: "(人)"
+					until: "人"
 				},
 				fourobj: {
 					num: 1697,
 					color: "#F2896B",
 					title: "不在校学生",
-					until: "(人)"
+					until: "人"
 				},
 			}
 		},
@@ -599,8 +599,8 @@
 	}
 
 	.peoplestruebgc {
-		width: 40%;
-		height: .75rem;
+		width: 152px;
+		height: 144px;
 		background: url(../assets/img/peoplestrueimg.png) no-repeat;
 		background-size: 100% 100%;
 		display: flex;
