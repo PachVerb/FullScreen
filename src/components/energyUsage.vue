@@ -58,9 +58,9 @@
             <div class="r">
               <div class="group">
                 <img class="bg" src="../assets/img/frameB.png" alt />
-                <div class="title">用电概况 | 今年</div>
+                <div class="title">用电概况 | 今月</div>
                 <div class="total">
-                  <span class="num">9686</span>
+                  <span class="num">168.62</span>
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
@@ -71,9 +71,9 @@
               </div>
               <div class="group">
                 <img class="bg" src="../assets/img/frameB.png" alt />
-                <div class="title">用电概况 | 今年</div>
+                <div class="title">用电概况 | 今日</div>
                 <div class="total">
-                  <span class="num">9686</span>
+                  <span class="num">12.56</span>
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
@@ -262,7 +262,7 @@ span {
     }
     .r {
       margin-left: 10px;
-      width: 90px;
+      width: 100px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -294,6 +294,7 @@ span {
             font-weight: bold;
             color: #00f5ff;
             line-height: 0.8;
+            margin-right: 4px;
           }
           .unit {
             font-size: 12px;
