@@ -102,6 +102,7 @@ export default {
           {
             type: 'bar',
             barWidth: '5px',
+            animationDuration: 2500,
             data: [177,139,186,148,119,132,75,119,95],
             itemStyle: {
                 normal: {
@@ -197,6 +198,7 @@ export default {
           {
             data: [150, 230, 224, 218, 135, 147, 260],
             type: 'line',
+            animationDuration: 2500,
             symbol: 'circle',
             itemStyle:{
               normal:{
@@ -222,6 +224,7 @@ export default {
           {
             name: 'Access From',
             type: 'pie',
+            animationDuration: 2500,
             radius: ['90%', '100%'],
             avoidLabelOverlap: false,
             label: {
@@ -413,6 +416,7 @@ export default {
                 z: 1,
                 name: '数据',
                 type: "bar",
+                animationDuration: 2500,
                 barWidth: barWidth,
                 barGap: "0%",
                 data: data,
@@ -432,6 +436,7 @@ export default {
                 z: 2,
                 name: '数据',
                 type: "pictorialBar",
+                animationDuration: 2500,
                 data: constData,
                 symbol: "diamond",
                 symbolOffset: ["0%", "50%"],
@@ -458,6 +463,7 @@ export default {
                 z: 3,
                 name: '数据',
                 type: "pictorialBar",
+                animationDuration: 2500,
                 symbolPosition: "end",
                 data: showData,
                 symbol: "diamond",
