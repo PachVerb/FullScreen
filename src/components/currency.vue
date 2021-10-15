@@ -64,8 +64,8 @@ export default {
 }
 .unit {
   margin-left: 2px;
-  font-size: 0.01rem;
-  line-height: 0.4rem;
+  font-size: 12px;
+  line-height: 60px;
   color: rgba(246, 250, 255, 0.3);
 }
 </style>

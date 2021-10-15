@@ -61,7 +61,7 @@
 									<div class="colorbox">
 										<div style="position: relative;top: 6px;left: 10px;font-size: 14px;">
 											<span class="shu"></span>
-											<span class="userboxwz">闲置</span>
+											<span class="userboxwz">未住满</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;">
 											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
@@ -75,7 +75,7 @@
 									<div class="colorbox">
 										<div style="position: relative;top: 6px;left: 10px;font-size: 14px;">
 											<span class="shu"></span>
-											<span class="userboxwz">闲置</span>
+											<span class="userboxwz">住满</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;">
 											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
@@ -98,18 +98,16 @@
 				</sideItem>
 
 			</div>
+			<!-- 右边 -->
 			<div slot="right" class="right">
-				<div class="side-item-title" style="margin-left: 20px;">
-					<img src="../assets/img/side-item-title.png" alt="">
-					<span>未归寝人员名单</span>
-				</div>
-				<div class="nohomelist" v-for="(item,index) in nohomelist">
+				<sideItem title="未归寝名单">
+				<div class="nohomelist" v-for="(item,index) in nohomelist" slot='body'>
 					<div style="display: flex;position: relative;">
 						<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
 						<!-- <span class="fgline">-</span> -->
 						<div class="nohomelistbox">
 							<img :src="item.img" alt=""
-								style="width: .25rem;height: .25rem;position: absolute;left: 10px;top: 4px;">
+								style="width: 48px;height: 48px;position: absolute;left: 10px;top: 4px;">
 							<div class="nohomelistboxwz">
 								<p class="bottomtop" :title="item.roomname">{{item.roomname}}</p>
 								<p class="bottomtop" :title="item.name">{{item.name}}</p>
@@ -123,6 +121,7 @@
 						</div>
 					</div>
 				</div>
+				</sideItem>
 			</div>
 		</sideTran>
 	</div>
@@ -405,6 +404,24 @@
 						studentnumber: "225456565",
 						class: "01班"
 					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
 				],
 				homestaueslist: [{
 						peoplenum: "21102",
@@ -436,16 +453,13 @@
 	#returntoBed {
 		width: 100%;
 		height: 230px;
-		/* margin-top: 20px; */
 	}
 
 	.side-item-title {
-		/* margin-left: 20px; */
 		margin-top: 10px;
 		width: 40%;
 		display: flex;
 		align-items: center;
-		/* margin-top: .066667rem; */
 		padding: 3px;
 		padding-left: .106667rem;
 		color: #00F5FF;
