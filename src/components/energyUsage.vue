@@ -5,7 +5,7 @@
       <div slot="left">
         <sideItem title="用电设备统计" delay="200">
           <div class="deviceStati" slot="body">
-            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
+            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个" style="margin-top:12px;"></currency>
           </div>
         </sideItem>
         <sideItem title="用电概况" delay="400">
@@ -170,14 +170,14 @@ span {
 .energy {
   color: #f6faff;
   .deviceStati {
-    padding: 10px 16px;
+    padding: 10px 16px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
   }
   .survey {
-    padding: 10px 16px;
+    padding: 10px 16px 0;
     display: flex;
     .l {
       position: relative;
