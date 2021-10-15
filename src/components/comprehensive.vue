@@ -1,6 +1,6 @@
 <template>
   <div>
-    <sideTran thisCrrentSys="comprehensive" widthL="25%">
+    <sideTran thisCrrentSys="comprehensive">
       <div slot="left">
         <sideItem title="网络状态">
           <div class="network-status" slot='body'>

@@ -15,12 +15,12 @@
     <!-- SideBar这个组件写在每一个态势里面 我看ui图每个态势的右边模块宽度不一样，最好吧sideBar写在态势里面去 -->
     <SideBar></SideBar>
     <!-- <VideoCheck v-if="showVideo"/> -->
-    <comprehensive></comprehensive>
-    <assets></assets>
-    <fireSafety></fireSafety>
-    <vehicle></vehicle>
-    <peoplestatues></peoplestatues>
-    <energyUsage></energyUsage>
+    <comprehensive ref="comprehensive"></comprehensive>
+    <assets ref="assets"></assets>
+    <fireSafety ref="fireSafety"></fireSafety>
+    <vehicle ref="vehicle"></vehicle>
+    <peoplestatues ref="peoplestatues"></peoplestatues>
+    <energyUsage ref="energyUsage"></energyUsage>
   </div>
 </template>
 <script>
@@ -68,6 +68,12 @@ export default {
   },
   computed: {
     ...mapGetters(['mapLoad', 'map', 'currentSys'])
+  },
+  watch: {
+    currentSys(val){
+      console.log(this.$refs[val])
+      if(this.$refs[val] && this.$refs[val].init) this.$refs[val].init()
+    },
   },
   created(){
 		this.getWeather(document)

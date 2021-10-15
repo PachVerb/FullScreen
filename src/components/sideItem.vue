@@ -1,23 +1,54 @@
 <template>
-  <div class="side-item">
-    <div class="side-item-title">
-      <img src="../assets/img/side-item-title.png" alt="">
-      <span>{{title}}</span>
+  <transition :name="`go-in-item-${transitionType}`">
+    <div class="side-item" v-show="currentSys == thisCrrentSys">
+      <div class="side-item-title">
+        <img src="../assets/img/side-item-title.png" alt="">
+        <span>{{title}}</span>
+      </div>
+      <div class="title-border"></div>
+      <slot name="body"></slot>
+      <div class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
     </div>
-     <div class="title-border"></div>
-    <slot name="body"></slot>
-    <div class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
-  </div>
+  </transition>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  props: ['title'],
-  
+  props: {
+    title: '',
+    tranTime: {
+      default: 1,
+    },
+    transitionType: {
+      default: 'left'
+    },
+    delay: {
+      default: '1000'
+    }
+  },
+  data(){
+    return {
+      thisCrrentSys: ''
+    }
+  },
+  computed: {
+    ...mapGetters(['currentSys'])
+  },
+  mounted(){
+    console.log(this.$parent.thisCrrentSys,666666)
+    setTimeout(() => {
+      this.thisCrrentSys = this.$parent.thisCrrentSys
+    },this.delay)
+  }
 }
 </script>
 
 <style scoped>
+.side-item{
+  position: relative;
+  left: 0;
+}
 .side-item-title{
   display: flex;
   align-items: center;
@@ -47,5 +78,33 @@ export default {
   width: .583333rem;
   height: 1px;
   background-color: #00F5FF;
+}
+.go-in-item-left-enter{
+  opacity: 0;
+  transform: translateX(-50%);
+}
+.go-in-item-left-enter-active, .go-in-item-left-leave-active {
+  transition: all 1s ease;
+}
+.go-in-item-left-enter-to /* .fade-leave-active below version 2.1.8 */ {
+  left: 0%;
+  opacity: 1;
+}
+.go-in-item-left-leave-to{
+  transform: translateX(150rem);
+}
+.go-in-item-right-enter{
+  opacity: 0;
+  transform: translateX(150%);
+}
+.go-in-item-right-enter-active, .go-in-item-right-leave-active {
+  transition: all .8s ease;
+}
+.go-in-item-right-enter-to /* .fade-leave-active below version 2.1.8 */ {
+  right: 0%;
+  opacity: 1;
+}
+.go-in-item-right-leave-to{
+  transform: translateX(150rem);
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="fire-safety">
-    <sideTran thisCrrentSys="fireSafety" widthL="420px" widthR="420px">
+    <sideTran :thisCrrentSys="thisCrrentSys">
       <div slot="left">
-        <sideItem title="设备数量">
+        <sideItem title="设备数量" delay="500">
           <div class="num-of-eq" slot='body'>
             <div class="num-of-eq-all">
               <div><span class="num-of-eq-all-num">86</span><span>个</span></div>
@@ -13,18 +13,18 @@
                 <img :src="item.img" alt="">
                 <div>
                   <div class="num-of-detail-eq-num">{{ item.num }}<span>个</span></div>
-                  <div>{{ item.name }}</div>
+                  <div class="num-of-detail-eq-name">{{ item.name }}</div>
                 </div>
               </div>
             </div>
           </div>
         </sideItem>
-        <sideItem title="异常设备位置分析">
+        <sideItem title="异常设备位置分析" delay="1000">
           <div slot='body'>
             <div id="totalAssets"></div>
           </div>
         </sideItem>
-        <sideItem title="设备异常详情">
+        <sideItem title="设备异常详情" delay="1500">
           <div slot='body'>
             <div class="ab-nav">
               <span :class="[abCheckNav == nav.id ? 'ab-check-nav' : '']" v-for="nav in abNavList" :key="nav.id" @click="handleAbCheckNav(nav.id)">{{ nav.name }}</span>
@@ -43,14 +43,14 @@
         </sideItem>
       </div>
       <div slot="right">
-        <sideItem title="设备数量">
+        <sideItem title="设备数量" transitionType="right" delay="500">
           <div slot='body'>
             <div id="allPatrolChart" class="eq-num-box-chart"></div>
             <div id="abPatrolChart" class="eq-num-box-chart"></div>
             <div id="abPatrolEqChart" class="eq-num-box-chart"></div>
           </div>
         </sideItem>
-        <sideItem title="监控画面">
+        <sideItem title="监控画面" transitionType="right" delay="1000">
           <div slot='body'>
             <div class="up-btn"><img v-if="monitorIndex !== 1" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
             <div class="monitor-list">
@@ -62,7 +62,7 @@
             <div class="down-btn"><img v-if="this.monitorIndex >= (Math.ceil(this.monitorList.length/4))" src="../assets/img/down.png" alt=""><img v-else class="img-rotate" src="../assets/img/up.png" alt=""></div>
           </div>
         </sideItem>
-        <sideItem title="巡更人员异常概况">
+        <sideItem title="巡更人员异常概况" transitionType="right" delay="1500">
           <div slot='body'>
             <div class="table-head">
               <span :style="{width: head.width}" v-for="head in tableHead" :key="head.name">{{ head.name }}</span>
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import * as mixins from './mixins'
 import sideTran from './sideTran'
 import sideItem from './sideItem.vue'
 import { Table, TableColumn } from 'element-ui'
@@ -95,6 +96,7 @@ abPatrolOption,
 abPatrolEqChart,
 abPatrolEqOption
 export default {
+  mixins: [mixins],
   components: {
     sideTran,
     sideItem,
@@ -103,6 +105,7 @@ export default {
   },
   data(){
     return {
+      thisCrrentSys: '',
       eqList: [{
         num: 86,
         name: '消防设备总数',
@@ -182,13 +185,13 @@ export default {
         width: '40px'
       },{
         name: '异常事件',
-        width: '150px'
-      },{
-        name: '时间',
         width: '130px'
       },{
+        name: '时间',
+        width: '120px'
+      },{
         name: '操作',
-        width: '64px'
+        width: '57.6px'
       },],
       monitorList: [{
         id: '1',
@@ -213,52 +216,54 @@ export default {
     ...mapGetters(['currentSys'])
   },
   watch: {
-    currentSys(val){
-      console.log(val)
-      if(val == 'fireSafety'){
-        allPatrolOption = this.initDashboardEchartOption()
-        abPatrolOption = this.initDashboardEchartOption()
-        abPatrolEqOption = this.initDashboardEchartOption()
-        this.$nextTick(() => {
-          let allPatrolChartDom = document.getElementById('allPatrolChart');
-          allPatrolChart = echarts.init(allPatrolChartDom);
-          allPatrolChart.setOption(allPatrolOption)
-          let abPatrolChartDom = document.getElementById('abPatrolChart');
-          abPatrolChart = echarts.init(abPatrolChartDom);
-          abPatrolChart.setOption(abPatrolOption)
-          let abPatrolEqChartDom = document.getElementById('abPatrolEqChart');
-          abPatrolEqChart = echarts.init(abPatrolEqChartDom);
-          abPatrolEqChart.setOption(abPatrolEqOption)
-        })
-      }
-    }
+  
   },
+  created(){
+
+  },  
   mounted(){
     console.log('fireSafety')
     
   },
   methods: {
+    init(){
+      allPatrolOption = this.initDashboardEchartOption()
+      abPatrolOption = this.initDashboardEchartOption()
+      abPatrolEqOption = this.initDashboardEchartOption()
+      this.$nextTick(() => {
+        this.thisCrrentSys = 'fireSafety'
+        let allPatrolChartDom = document.getElementById('allPatrolChart');
+        allPatrolChart = echarts.init(allPatrolChartDom);
+        allPatrolChart.setOption(allPatrolOption)
+        let abPatrolChartDom = document.getElementById('abPatrolChart');
+        abPatrolChart = echarts.init(abPatrolChartDom);
+        abPatrolChart.setOption(abPatrolOption)
+        let abPatrolEqChartDom = document.getElementById('abPatrolEqChart');
+        abPatrolEqChart = echarts.init(abPatrolEqChartDom);
+        abPatrolEqChart.setOption(abPatrolEqOption)
+      })
+    },
     handleAbCheckNav(nav){
       this.abCheckNav = nav
     },
     initDashboardEchartOption(val){
       let angle = 0;//角度，用来做简单的动画效果的
-      let value = 15.33;
+      let value = 15;
       return {
       // backgroundColor:"#061740",
       title: {
-              text: '{a|'+ value +'}{c|%}',
+              text: '{a|'+ value +'}',
               x: 'center',
               y: 'center',
               textStyle: {
                   rich:{
                       a: {
-                          fontSize: 20,
+                          fontSize: 18,
                           color: '#29EEF3'
                       },
                       
                       c: {
-                          fontSize: 20,
+                          fontSize: 18,
                           color: '#ffffff',
                           // padding: [5,0]
                       }
@@ -311,15 +316,7 @@ export default {
                           name: "",
                           itemStyle: {
                               normal: {
-                                  color: { // 完成的圆环的颜色
-                                      colorStops: [{
-                                          offset: 0,
-                                          color: '#4FADFD' // 0% 处的颜色
-                                      }, {
-                                          offset: 1,
-                                          color: '#28E8FA' // 100% 处的颜色
-                                      }]
-                                  },
+                                  color: 'rgba(106, 176, 255, 1)' // 完成的圆环的颜色
                               }
                           }
                       },
@@ -356,7 +353,7 @@ export default {
                       length: 60,
                       lineStyle: {
                           width: 5,
-                          color: "rgb(22,45,73)"
+                          color: "rgba(22,45,73,.8)"
                       }
                   },
                   axisLabel: {
@@ -394,12 +391,12 @@ export default {
   display: inline-flex;
 }
 .num-of-eq-all{
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: .13rem;
-  width: 1.5rem;
-  height: 1.03333rem;
+  padding-top: 10px;
+  width: 100px;
+  height: 136px;
   font-size: 14px;
   background-image: url('../assets/img/number_of_eq.png');
   background-repeat: no-repeat;
@@ -413,13 +410,21 @@ export default {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 0.13rem 10px 0;
+  padding: 10px 10px 0;
+  width: 260px;
   font-size: 12px;
+  img{
+    width: 54px;
+  }
 }
 .num-of-detail-eq-num{
+  width: 60px;
   text-align: left;
   font-weight: bold;
   color: #00F5FF;
+}
+.num-of-detail-eq-num{
+  
 }
 .num-of-eq-detail-item{
   display: flex;
@@ -511,8 +516,8 @@ export default {
   padding: 0 19px;
 }
 .monitor-item{
-  width: 180px;
-  height: 120px;
+  width: 162px;
+  height: 108px;
 }
 // .monitor-item:nth-child(2n){
 //   margin-right: 20px;
@@ -528,15 +533,15 @@ export default {
   height: 26px;
 }
 .up-btn img,.down-btn img{
-  width: 33px;
-  height: 26px;
+  width: 29.6px;
+  height: 23.4px;
 }
 .img-rotate{
   transform: rotateX(180deg);
 }
 .eq-num-box-chart{
   display: inline-block;
-  width: 116px;
-  height: 166px;
+  width: 104.4px;
+  height: 149.4px;
 }
 </style>

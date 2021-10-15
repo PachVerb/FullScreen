@@ -27,11 +27,16 @@ export default {
       default: '380px'
     }
   },
+  data(){
+    return {
+      // thisCrrentSys: ''
+    }
+  },
   computed: {
     ...mapGetters(['currentSys'])
   },
   mounted(){
-    console.log(this.widthL,this.widthR)
+    
   }
 }
 </script>
@@ -57,7 +62,7 @@ export default {
   transition: all .5s;
 }
 .go-in-sys-left-enter-to /* .fade-leave-active below version 2.1.8 */ {
-  left: 1%;
+  left: 0%;
 }
 .go-in-sys-left-leave-to{
   transform: translateX(-50rem);
@@ -78,7 +83,7 @@ export default {
   transition: all .5s;
 }
 .go-in-sys-right-enter-to /* .fade-leave-active below version 2.1.8 */ {
-  right: 1%;
+  right: 0%;
 }
 .go-in-sys-right-leave-to{
   transform: translateX(150%);
