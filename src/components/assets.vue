@@ -2,27 +2,27 @@
   <div>
     <sideTran thisCrrentSys="assets">
       <div slot="left">
-        <sideItem title="学校资产统计">
+        <sideItem title="学校资产统计" :delay="500">
           <div slot='body'></div>
         </sideItem>
-        <sideItem title="各学院资产总数统计">
+        <sideItem title="各学院资产总数统计" :delay="1000">
           <div slot='body'>
             <div id="totalAssets"></div>
           </div>
         </sideItem>
-        <sideItem title="学校资产总额统计">
+        <sideItem title="学校资产总额统计" :delay="1500">
           <div slot='body'>
             <div id="allTotalAssets"></div>
           </div>
         </sideItem>
       </div>
       <div slot="right">
-        <sideItem title="网站安全统计">
+        <sideItem title="网站安全统计" :transitionType="'right'" :delay="500">
           <div slot='body'>
             <div id="webSecurity"></div>
           </div>
         </sideItem>
-        <sideItem title="服务器安全分析">
+        <sideItem title="服务器安全分析" :transitionType="'right'" :delay="1000">
           <div slot='body'>
             <div id="serverSecurity"></div>
           </div>
@@ -261,18 +261,26 @@ export default {
       console.log(val)
       if(val == 'assets'){
         this.$nextTick(() => {
-          totalAssetsChartDom = document.getElementById('totalAssets');
-          totalAssetsChart = echarts.init(totalAssetsChartDom);
-          totalAssetsChart.setOption(this.totalAssetsOption)
-          allTotalAssetschartDom = document.getElementById('allTotalAssets');
-          allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
-          allTotalAssetsChart.setOption(this.allTotalAssetsOption)
-          webSecurityChartDom = document.getElementById('webSecurity');
-          webSecurityChart = echarts.init(webSecurityChartDom);
-          webSecurityChart.setOption(this.getEcharts3DBar(['z','x'], [20,98], '01'))
-          serverSecurityChartDom = document.getElementById('serverSecurity');
-          serverSecurityChart = echarts.init(serverSecurityChartDom);
-          serverSecurityChart.setOption(this.serverSecurityOption)
+          setTimeout(() => {
+            totalAssetsChartDom = document.getElementById('totalAssets');
+            totalAssetsChart = echarts.init(totalAssetsChartDom);
+            totalAssetsChart.setOption(this.totalAssetsOption)
+          },1500)
+          setTimeout(() => {
+            allTotalAssetschartDom = document.getElementById('allTotalAssets');
+            allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
+            allTotalAssetsChart.setOption(this.allTotalAssetsOption)
+          },2000)
+          setTimeout(() => {
+            webSecurityChartDom = document.getElementById('webSecurity');
+            webSecurityChart = echarts.init(webSecurityChartDom);
+            webSecurityChart.setOption(this.getEcharts3DBar(['z','x'], [20,98], '01'))
+          },1500)
+          setTimeout(() => {
+            serverSecurityChartDom = document.getElementById('serverSecurity');
+            serverSecurityChart = echarts.init(serverSecurityChartDom);
+            serverSecurityChart.setOption(this.serverSecurityOption)
+          },2000)
           // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
         })
       }
@@ -496,19 +504,19 @@ export default {
 
 <style scoped>
 #totalAssets{
-  width: 100%;
+  width: 350px;
   height: 230px;
 }
 #allTotalAssets{
-  width: 100%;
+  width: 350px;
   height: 230px;
 }
 #webSecurity{
-  width: 100%;
+  width: 350px;
   height: 300px;
 }
 #serverSecurity{
-  width: 100%;
+  width: 350px;
   height: 100px;
 }
 </style>

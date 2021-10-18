@@ -105,7 +105,7 @@ export default {
   },
   data(){
     return {
-      thisCrrentSys: '',
+      thisCrrentSys: 'fireSafety',
       eqList: [{
         num: 86,
         name: '消防设备总数',
@@ -231,16 +231,17 @@ export default {
       abPatrolOption = this.initDashboardEchartOption()
       abPatrolEqOption = this.initDashboardEchartOption()
       this.$nextTick(() => {
-        this.thisCrrentSys = 'fireSafety'
-        let allPatrolChartDom = document.getElementById('allPatrolChart');
-        allPatrolChart = echarts.init(allPatrolChartDom);
-        allPatrolChart.setOption(allPatrolOption)
-        let abPatrolChartDom = document.getElementById('abPatrolChart');
-        abPatrolChart = echarts.init(abPatrolChartDom);
-        abPatrolChart.setOption(abPatrolOption)
-        let abPatrolEqChartDom = document.getElementById('abPatrolEqChart');
-        abPatrolEqChart = echarts.init(abPatrolEqChartDom);
-        abPatrolEqChart.setOption(abPatrolEqOption)
+        setTimeout(() => {
+          let allPatrolChartDom = document.getElementById('allPatrolChart');
+          allPatrolChart = echarts.init(allPatrolChartDom);
+          allPatrolChart.setOption(allPatrolOption)
+          let abPatrolChartDom = document.getElementById('abPatrolChart');
+          abPatrolChart = echarts.init(abPatrolChartDom);
+          abPatrolChart.setOption(abPatrolOption)
+          let abPatrolEqChartDom = document.getElementById('abPatrolEqChart');
+          abPatrolEqChart = echarts.init(abPatrolEqChartDom);
+          abPatrolEqChart.setOption(abPatrolEqOption)
+        },1500)
       })
     },
     handleAbCheckNav(nav){
