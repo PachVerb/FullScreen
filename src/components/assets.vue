@@ -27,6 +27,11 @@
             <div id="serverSecurity"></div>
           </div>
         </sideItem>
+				<sideItem title="网站安全分析">
+				  <div slot='body'>
+				    <div id="serverSecurity"></div>
+				  </div>
+				</sideItem>
       </div>
     </sideTran>
   </div>

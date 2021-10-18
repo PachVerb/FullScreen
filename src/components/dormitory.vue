@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<sideTran thisCrrentSys="dormitory">
+		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" class="left">
-				<sideItem title="今日归寝情况">
+				<sideItem title="今日归寝情况" delay="500">
 					<div slot='body' style="height: 30%;">
 						<div class="homestatues">
 							<div class="homestatuesleft">
@@ -36,7 +36,7 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各学院资产总数统计">
+				<sideItem title="各学院资产总数统计" delay="1000">
 					<div style="height: 30%;" slot='body'>
 						<div class="dormitoryUtilization">
 							<div class="useleft">
@@ -61,7 +61,7 @@
 									<div class="colorbox">
 										<div style="position: relative;top: 6px;left: 10px;font-size: 14px;">
 											<span class="shu"></span>
-											<span class="userboxwz">闲置</span>
+											<span class="userboxwz">未住满</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;">
 											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
@@ -75,7 +75,7 @@
 									<div class="colorbox">
 										<div style="position: relative;top: 6px;left: 10px;font-size: 14px;">
 											<span class="shu"></span>
-											<span class="userboxwz">闲置</span>
+											<span class="userboxwz">住满</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;">
 											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
@@ -90,7 +90,7 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各宿舍楼归寝情况">
+				<sideItem title="各宿舍楼归寝情况" delay="1500">
 					<div slot='body' style="height: 40%;">
 						<div id="returntoBed" ref="returntoBed">
 						</div>
@@ -98,31 +98,30 @@
 				</sideItem>
 
 			</div>
+			<!-- 右边 -->
 			<div slot="right" class="right">
-				<div class="side-item-title" style="margin-left: 20px;">
-					<img src="../assets/img/side-item-title.png" alt="">
-					<span>未归寝人员名单</span>
-				</div>
-				<div class="nohomelist" v-for="(item,index) in nohomelist">
-					<div style="display: flex;position: relative;">
-						<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
-						<!-- <span class="fgline">-</span> -->
-						<div class="nohomelistbox">
-							<img :src="item.img" alt=""
-								style="width: .25rem;height: .25rem;position: absolute;left: 10px;top: 4px;">
-							<div class="nohomelistboxwz">
-								<p class="bottomtop" :title="item.roomname">{{item.roomname}}</p>
-								<p class="bottomtop" :title="item.name">{{item.name}}</p>
-								<p class="bottomtop"
-									style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'
-									:title="item.promess">{{item.promess}}</p>
-								<p class="bottomp" :title="item.number">{{item.number}}</p>
-								<p class="bottomp" :title="item.studentnumber">{{item.studentnumber}}</p>
-								<p class="bottomp" :title="item.class">{{item.class}}</p>
+				<sideItem title="未归寝名单" transitionType="right" >
+					<div class="nohomelist" v-for="(item,index) in nohomelist" slot='body'>
+						<div style="display: flex;position: relative;">
+							<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
+							<!-- <span class="fgline">-</span> -->
+							<div class="nohomelistbox">
+								<img :src="item.img" alt=""
+									style="width: 48px;height: 48px;position: absolute;left: 10px;top: 4px;">
+								<div class="nohomelistboxwz">
+									<p class="bottomtop" :title="item.roomname">{{item.roomname}}</p>
+									<p class="bottomtop" :title="item.name">{{item.name}}</p>
+									<p class="bottomtop"
+										style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'
+										:title="item.promess">{{item.promess}}</p>
+									<p class="bottomp" :title="item.number">{{item.number}}</p>
+									<p class="bottomp" :title="item.studentnumber">{{item.studentnumber}}</p>
+									<p class="bottomp" :title="item.class">{{item.class}}</p>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</sideItem>
 			</div>
 		</sideTran>
 	</div>
@@ -145,17 +144,15 @@
 			...mapGetters(['currentSys'])
 		},
 		watch: {
-			currentSys(val) {
-				console.log(val)
-				if (val == 'dormitory') {
-					this.$nextTick(() => {
-						this.randerBar()
-					})
-				}
-			}
+
 		},
 		methods: {
-
+			init() {
+				this.$nextTick(() => {
+					this.thisCrrentSys = 'dormitory'
+					this.randerBar()
+				})
+			},
 			randerBar() {
 				var yAxisData = ['TOP1', 'TOP2', 'TOP3', 'TOP4', 'TOP5', 'TOP6', 'TOP7', 'TOP8', 'TOP9', 'TOP10'];
 				let dormitoryChartDom, dormitoryChartChart
@@ -314,8 +311,27 @@
 		},
 		data() {
 			return {
+				thisCrrentSys: '',
 				peopleimg: require("../assets/img/people.png"),
 				nohomelist: [{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
 						img: require("../assets/img/people.png"),
 						roomname: "修身宿舍楼",
 						name: "王猛",
@@ -434,18 +450,17 @@
 
 <style scoped>
 	#returntoBed {
-		width: 100%;
+		width: 400px;
 		height: 230px;
-		/* margin-top: 20px; */
+		position: relative;
+		left: -20px;
 	}
 
 	.side-item-title {
-		/* margin-left: 20px; */
 		margin-top: 10px;
 		width: 40%;
 		display: flex;
 		align-items: center;
-		/* margin-top: .066667rem; */
 		padding: 3px;
 		padding-left: .106667rem;
 		color: #00F5FF;

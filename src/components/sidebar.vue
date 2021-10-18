@@ -59,8 +59,8 @@ export default {
         normal: require('../assets/sidebar/normal/assets.png'),
         select: require('../assets/sidebar/select/assets.png')
       },{
-        name: '2',
-        cname: '2态势',
+        name: 'interstatues',
+        cname: '网络态势',
         normal: require('../assets/sidebar/normal/assets.png'),
         select: require('../assets/sidebar/select/assets.png')
       },{
@@ -93,6 +93,11 @@ export default {
         cname: '车辆态势',
         normal: require('../assets/sidebar/normal/vehicle.png'),
         select: require('../assets/sidebar/select/vehicle.png')
+      },{
+        name: 'publichouse',
+        cname: '公房态势',
+        normal: require('../assets/sidebar/normal/publichouse.png'),
+        select: require('../assets/sidebar/select/publichouse.png')
       }],
       sideList: [],
       thisIndex: 0,

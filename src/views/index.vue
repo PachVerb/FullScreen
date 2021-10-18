@@ -9,7 +9,6 @@
 			</div> -->
       <!-- <div id="he-plugin-simple" style=""></div> -->
     </div>
-		<dormitory style="position: absolute;"/>
     <!-- <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/> -->
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
     <!-- SideBar这个组件写在每一个态势里面 我看ui图每个态势的右边模块宽度不一样，最好吧sideBar写在态势里面去 -->
@@ -21,6 +20,9 @@
     <vehicle ref="vehicle"></vehicle>
     <peoplestatues ref="peoplestatues"></peoplestatues>
     <energyUsage ref="energyUsage"></energyUsage>
+		<dormitory ref="dormitory" style="position: absolute;"/>  
+		<interstatues ref="interstatues"></interstatues>
+		<publichouse ref="publichouse"></publichouse>
   </div>
 </template>
 <script>
@@ -31,11 +33,12 @@ import SideBar from '@/components/sidebar'
 import comprehensive from '@/components/comprehensive'
 import assets from '@/components/assets'
 import dormitory from '@/components/dormitory'
+import interstatues from '@/components/interstatues/index.vue'//网络态势
 import fireSafety from '@/components/fireSafety'
 import vehicle from '@/components/vehicle'
 import peoplestatues from '@/components/peoplestatues'
 import energyUsage from '@/components/energyUsage'
-
+import publichouse from '@/components/publichouse/index.vue'//公房态势
 import Bus from'../js/Bus';
 import EnergyUsage from '../components/energyUsage.vue';
 export default {
@@ -49,10 +52,12 @@ export default {
     assets,
 		dormitory,
     vehicle,
-	peoplestatues,
+		peoplestatues,
     fireSafety,
     vehicle,
     energyUsage,
+		interstatues,
+		publichouse
   },
   data() {
     return {

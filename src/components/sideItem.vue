@@ -65,7 +65,7 @@ export default {
 .border{
   display: flex;
   justify-content: center;
-  margin-top: .133333rem;
+  margin-top: 10px;
   padding: 0 10%;
 }
 .border img {
