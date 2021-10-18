@@ -1,0 +1,18 @@
+<svg 
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ width="171.5px" height="171.5px">
+<defs>
+<linearGradient id="PSgrad_0" x1="0%" x2="0%" y1="100%" y2="0%">
+  <stop offset="0%" stop-color="rgb(47,181,234)" stop-opacity="1" />
+  <stop offset="100%" stop-color="rgb(14,115,239)" stop-opacity="1" />
+</linearGradient>
+
+</defs>
+<path fill-rule="evenodd"  stroke="rgb(106, 176, 255)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0.502" opacity="0.702" fill="none"
+ d="M81.875,7.594 C122.744,7.594 155.875,40.725 155.875,81.594 C155.875,122.463 122.744,155.594 81.875,155.594 C41.006,155.594 7.875,122.463 7.875,81.594 C7.875,40.725 41.006,7.594 81.875,7.594 Z"/>
+<path fill-rule="evenodd"  stroke="rgb(106, 176, 255)" stroke-width="0.5px" stroke-dasharray="2, 1" stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0.502" opacity="0.702" fill="none"
+ d="M81.781,10.125 C120.993,10.125 152.781,41.913 152.781,81.125 C152.781,120.337 120.993,152.125 81.781,152.125 C42.569,152.125 10.781,120.337 10.781,81.125 C10.781,41.913 42.569,10.125 81.781,10.125 Z"/>
+<path fill-rule="evenodd"  stroke="rgb(106, 176, 255)" stroke-width="15px" stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0.2" opacity="0.702" fill="none"
+ d="M81.875,7.594 C122.744,7.594 155.875,40.725 155.875,81.594 C155.875,122.463 122.744,155.594 81.875,155.594 C41.006,155.594 7.875,122.463 7.875,81.594 C7.875,40.725 41.006,7.594 81.875,7.594 Z"/>
+</svg>

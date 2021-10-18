@@ -37,6 +37,9 @@
 				<sideItem title="公房使用单位统计">
 					<div slot='body'>
 						<div class="usebox">
+							<img src="../../assets/pieimg/piemidd.png" alt="" class="useboximg">
+							<img src="../../assets/pieimg/outpie.png" class="useboxoutpie">
+							<img src="../../assets/pieimg/gear.png" class="gear">
 							<div id="usepublic"></div>
 							<div>
 
@@ -108,8 +111,10 @@
 				// })
 				let len = this.fontcolor.length
 				let array = [];
-				for(let i = 0;i<len;i++){
-				array.push({"color":this.fontcolor[i]});
+				for (let i = 0; i < len; i++) {
+					array.push({
+						"color": this.fontcolor[i]
+					});
 				}
 				console.log(array, "bbbbbbb", this.fontcolor)
 			},
@@ -211,7 +216,7 @@
 							startAngle: '90',
 							center: ['50%', '50%'],
 							radius: ['70%', '70%'], //设置饼状图的宽高
-							// hoverAnimation: false,
+							hoverAnimation: false,
 							itemStyle: {
 								normal: {
 									label: {
@@ -311,5 +316,55 @@
 
 	.usebox {
 		display: flex;
+		position: relative;
+		left: 20px;
+	}
+
+	.icon {
+		color: #fff;
+		font-size: 24px;
+		margin-top: 8px;
+	}
+
+	.useboximg {
+		position: absolute;
+		width: 130px;
+		top: 10px;
+		left: 10px;
+	}
+
+	.useboxoutpie {
+		position: absolute;
+		width: 150px;
+		animation: myMove 5s;
+		/* -webkit-animation: myMove 5s ease-in infinite alternate; 旋转半圈以后反转*/
+		-webkit-animation: myMove 5s infinite linear;
+	}
+
+	/* 	@keyframes myMove {
+	    from {transform: rotate(0deg);}
+	    to {transform: rotate(360deg);}
+	}
+	 
+	@-webkit-keyframes myMove {
+	    from {transform: rotate(0deg);}
+	    to {transform: rotate(360deg);}
+	} 旋转半圈以后反转*/ 
+	@-webkit-keyframes myMove {
+
+		/**关键帧名称**/
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+	.gear{
+		position: absolute;
+		width: 100px;
+		top: 26px;
+		left: 25px;
 	}
 </style>
