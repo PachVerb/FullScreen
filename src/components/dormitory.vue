@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<sideTran thisCrrentSys="dormitory">
+		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" class="left">
 				<sideItem title="今日归寝情况">
 					<div slot='body' style="height: 30%;">
@@ -144,17 +144,15 @@
 			...mapGetters(['currentSys'])
 		},
 		watch: {
-			currentSys(val) {
-				console.log(val)
-				if (val == 'dormitory') {
-					this.$nextTick(() => {
-						this.randerBar()
-					})
-				}
-			}
+
 		},
 		methods: {
-
+			init(){
+						this.$nextTick(() => {
+							this.thisCrrentSys = 'dormitory'
+							this.randerBar()
+						})
+			},
 			randerBar() {
 				var yAxisData = ['TOP1', 'TOP2', 'TOP3', 'TOP4', 'TOP5', 'TOP6', 'TOP7', 'TOP8', 'TOP9', 'TOP10'];
 				let dormitoryChartDom, dormitoryChartChart
@@ -313,6 +311,7 @@
 		},
 		data() {
 			return {
+				thisCrrentSys: '',
 				peopleimg: require("../assets/img/people.png"),
 				nohomelist: [{
 						img: require("../assets/img/people.png"),
@@ -451,8 +450,10 @@
 
 <style scoped>
 	#returntoBed {
-		width: 100%;
+		width: 400px;
 		height: 230px;
+		position: relative;
+		left: -20px;
 	}
 
 	.side-item-title {

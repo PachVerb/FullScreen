@@ -15,7 +15,9 @@
 					</div>
 				</nowpeopleslide>
 				<nowpeopleslide title="今日访客统计">
+
 					<div slot='body' class="visitorstoday" style="height: 20%;">
+
 						<div class="dormitoryUtilization">
 							<div class="useleft">
 								<img src="../assets/img/visitorstodayimg.png">
@@ -154,6 +156,7 @@
 </template>
 
 <script>
+	import AnimatedNumber from "animated-number-vue";
 	import sideItem from './sideItem.vue'
 	import sideTran from './sideTran'
 	import currency from './currency' //通用box组件
@@ -169,11 +172,14 @@
 			sideTran,
 			nowpeopleslide,
 			currency,
-			sideItem
+			sideItem,
+			AnimatedNumber
 		},
 		data() {
 			return {
 				num: 888,
+				      value: 1000,
+				      duration: 1000,
 				oneobj: {
 					num: 22349,
 					color: "#00F5FF",
@@ -281,6 +287,9 @@
 
 		},
 		methods: {
+			    formatToPrice(value) {
+			      return `<h3>$ ${Number(value).toFixed(2)}</h1>`;
+			    },
 			randerBar() {
 				// 绘制主体
 				let studentnowChartDom, studentnowChartChart
@@ -1810,7 +1819,7 @@
 		top: -10px;
 	}
 	#radar{
-		width: 100%;
+		width:380px;
 		height: 150px;
 	}
 </style>

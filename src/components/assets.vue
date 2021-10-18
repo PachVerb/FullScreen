@@ -2,8 +2,10 @@
   <div>
     <sideTran thisCrrentSys="assets">
       <div slot="left">
-        <sideItem title="学校资产统计">
-          <div slot='body'></div>
+        <sideItem title="学校资产统计" >
+          <div slot='body'  style="height: 20%;">
+						
+					</div>
         </sideItem>
         <sideItem title="各学院资产总数统计">
           <div slot='body'>
@@ -27,6 +29,11 @@
             <div id="serverSecurity"></div>
           </div>
         </sideItem>
+				<sideItem title="网站安全分析">
+				  <div slot='body'>
+				    <div id="serverSecurity"></div>
+				  </div>
+				</sideItem>
       </div>
     </sideTran>
   </div>
