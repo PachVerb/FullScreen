@@ -1,6 +1,6 @@
 <template>
 	<div class="outer">
-		<p style="font-size: 14px;color: #FFFFFF;" class="title">{{boxtitle}}</p>
+		<p style="font-size: 12px;color: #FFFFFF;" class="title">{{boxtitle}}</p>
 		<div class="inner">
 			<animated-number  :value="boxnum" :formatValue="formatToPrice" :duration="duration" />
 			<!-- <h3 :style="{'color':boxcolor}" class="numfont">{{numberToCurrency(boxnum,10)}}</h3> -->
@@ -61,9 +61,9 @@
 	}
 
 	.title {
-		position: absolute;
-		left: 50px;
-		top: -10px;
+		position: relative;
+		top: 6px;
+		text-align: center;
 	}
 
 	.numfont {
