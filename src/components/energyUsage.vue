@@ -1,14 +1,14 @@
 /* 能耗态势 */
 <template>
   <div class="energy">
-    <sideTran thisCrrentSys="energyUsage" widthL="420px">
+    <sideTran thisCrrentSys="energyUsage">
       <div slot="left">
-        <sideItem title="用电设备统计">
+        <sideItem title="用电设备统计" delay="200">
           <div class="deviceStati" slot="body">
-            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
+            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个" style="margin-top:12px;"></currency>
           </div>
         </sideItem>
-        <sideItem title="用电概况">
+        <sideItem title="用电概况" delay="400">
           <div class="survey" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -25,7 +25,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="item" style="margin-right:20px;">
+                <div class="item" style="margin-right:10px;">
                   <span class="text">日均：</span>
                   <span class="num">86</span>
                   <i class="unit">KWh</i>
@@ -55,35 +55,62 @@
                 </div>
               </div>
             </div>
-            <div class="r"></div>
+            <div class="r">
+              <div class="group">
+                <img class="bg" src="../assets/img/frameB.png" alt />
+                <div class="title">用电概况 | 今月</div>
+                <div class="total">
+                  <span class="num">168.62</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+              <div class="group">
+                <img class="bg" src="../assets/img/frameB.png" alt />
+                <div class="title">用电概况 | 今日</div>
+                <div class="total">
+                  <span class="num">12.56</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
-        <sideItem title="设备用电占比">
+        <sideItem title="设备用电占比" delay="600">
           <div slot="body">
             <!-- <div id="allTotalAssets"></div> -->
           </div>
         </sideItem>
-        <sideItem title="用电趋势分析">
+        <sideItem title="用电趋势分析" delay="800">
           <div slot="body">
             <!-- <div id="allTotalAssets"></div> -->
           </div>
         </sideItem>
       </div>
       <div slot="right">
-        <sideItem title="用水设备统计">
+        <sideItem title="用水设备统计" transitionType="right" delay="200">
           <div slot="body">
             <!-- <div id="webSecurity"></div> -->
           </div>
         </sideItem>
-        <sideItem title="用水概况">
+        <sideItem title="用水概况" transitionType="right" delay="400">
           <div slot="body">
             <!-- <div id="serverSecurity"></div> -->
           </div>
         </sideItem>
-        <sideItem title="设备用水占比">
+        <sideItem title="设备用水占比" transitionType="right" delay="600">
           <div slot="body"></div>
         </sideItem>
-        <sideItem title="用水趋势分析">
+        <sideItem title="用水趋势分析" transitionType="right" delay="800">
           <div slot="body"></div>
         </sideItem>
       </div>
@@ -111,16 +138,13 @@ export default {
   computed: {
     ...mapGetters(['currentSys'])
   },
-  watch: {
-    currentSys(val) {
-      console.log('energyUsage', val)
-      if (val == 'energyUsage') {
-        this.getDeviceStatiList();
-      }
-    }
-  },
+  watch: {},
   mounted() { },
   methods: {
+    //初始化
+    init() {
+      this.getDeviceStatiList();
+    },
     //获取设备统计列表
     getDeviceStatiList() {
       this.statiList = [
@@ -146,18 +170,18 @@ span {
 .energy {
   color: #f6faff;
   .deviceStati {
-    padding: 0 12px;
+    padding: 10px 16px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
   }
   .survey {
-    padding: 18px 20px 10px;
+    padding: 10px 16px 0;
     display: flex;
     .l {
       position: relative;
-      width: 240px;
+      width: 220px;
       padding: 0 10px;
       box-sizing: border-box;
       z-index: 1;
@@ -201,10 +225,10 @@ span {
           align-items: flex-end;
         }
         .text {
+          white-space: nowrap;
           font-size: 12px;
           font-weight: 400;
           color: rgba(255, 255, 255, 0.8);
-          margin-right: 4px;
         }
         .arrow {
           margin: 0 2px;
@@ -232,6 +256,70 @@ span {
           align-items: center;
           .percent {
             margin: 8px 0;
+          }
+        }
+      }
+    }
+    .r {
+      margin-left: 10px;
+      width: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .group {
+        width: 100%;
+        padding: 0 10px 8px;
+        position: relative;
+        z-index: 1;
+        .bg {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 0;
+          z-index: -1;
+        }
+        .title {
+          text-align: left;
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.8);
+          line-height: 2.5;
+        }
+        .total {
+          padding: 0 0 10px;
+          display: flex;
+          align-items: flex-end;
+          .num {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00f5ff;
+            line-height: 0.8;
+            margin-right: 4px;
+          }
+          .unit {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(246, 250, 255, 0.3);
+          }
+        }
+
+        .percent {
+          display: flex;
+          align-items: flex-end;
+          .text {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.8);
+          }
+          .arrow {
+            margin: 0 2px;
+            width: 8px;
+            height: 12px;
+          }
+          .perc {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(0, 224, 79, 0.8);
           }
         }
       }
