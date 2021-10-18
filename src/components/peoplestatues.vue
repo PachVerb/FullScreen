@@ -2,7 +2,7 @@
 	<div>
 		<sideTran thisCrrentSys="peoplestatues">
 			<div slot="left">
-				<nowpeopleslide title="人员实时状态">
+				<sideItem title="人员实时状态">
 					<div slot='body' class="nowbox" style="height: 20%;">
 						<currency class="nowboxitem" :boxnum="oneobj.num" :boxtitle="oneobj.title"
 							:boxcolor="oneobj.color" :boxuntil="oneobj.until"></currency>
@@ -13,8 +13,8 @@
 						<currency class="nowboxitem" :boxnum="fourobj.num" :boxtitle="fourobj.title"
 							:boxcolor="fourobj.color" :boxuntil="fourobj.until"></currency>
 					</div>
-				</nowpeopleslide>
-				<nowpeopleslide title="今日访客统计">
+				</sideItem>
+				<sideItem title="今日访客统计">
 
 					<div slot='body' class="visitorstoday" style="height: 20%;">
 
@@ -64,8 +64,8 @@
 						</div>
 
 					</div>
-				</nowpeopleslide>
-				<nowpeopleslide title="学校资产总额统计">
+				</sideItem>
+				<sideItem title="学校资产总额统计">
 					<div slot='body' class="peoplestrue" style="height: 20%;">
 						<div class="peoplestruebgc">
 							<div class="peoplestruebgcwz">
@@ -96,12 +96,12 @@
 							</div>
 						</div>
 					</div>
-				</nowpeopleslide>
-				<nowpeopleslide title="学生实时分布">
+				</sideItem>
+				<sideItem title="学生实时分布">
 					<div slot='body' style="height: 40%;">
-						<div id="studentnow" :style="{width:'100%'}"></div>
+						<div id="studentnow" ></div>
 					</div>
-				</nowpeopleslide>
+				</sideItem>
 			</div>
 			<div slot="right">
 				<sideItem title="打卡异常统计" style="height: 20%;">
@@ -132,7 +132,8 @@
 						<div class="ab-list patrol">
 							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
 								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
-									{{ item.name }}</div>
+									{{ item.name }}
+								</div>
 								<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
 								<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
 								<div :style="{width: tableHead[3].width}" class="last-address table-item"></div>
@@ -178,8 +179,8 @@
 		data() {
 			return {
 				num: 888,
-				      value: 1000,
-				      duration: 1000,
+				value: 1000,
+				duration: 1000,
 				oneobj: {
 					num: 22349,
 					color: "#00F5FF",
@@ -228,24 +229,23 @@
 					id: '6',
 					name: '张海',
 					date: '无位置感知信息',
-				},{
+				}, {
 					id: '7',
 					name: '张海',
 					date: '无位置感知信息',
-				},{
+				}, {
 					id: '8',
 					name: '张海',
 					date: '无位置感知信息',
-				},{
+				}, {
 					id: '9',
 					name: '张海',
 					date: '无位置感知信息',
-				},{
+				}, {
 					id: '10',
 					name: '张海1',
 					date: '无位置感知信息',
-				},
-				],
+				}, ],
 				tableHead: [{
 					name: '姓名',
 					width: '60px'
@@ -258,38 +258,43 @@
 				}, {
 					name: '操作',
 					width: '64px'
-				},
-				 ],
+				}, ],
 			}
 		},
 		computed: {
 			...mapGetters(['currentSys'])
 		},
 		watch: {
-			currentSys(val) {
-				console.log(val)
-				if (val == 'peoplestatues') {
-					this.$nextTick(() => {
-						this.randerBar()
-						this.randernormal()
-						this.randernormalsec()
-						this.randernormalthir()
-						this.radar()
-						// studentnowChartDom = document.getElementById('studentnow');
-						// totalAssetsChart = echarts.init(studentnowChartDom);
-						// totalAssetsChart.setOption(this.totalAssetsOption)
-					})
-				}
-			}
+			// currentSys(val) {
+			// 	console.log(val)
+			// 	if (val == 'peoplestatues') {
+			// 		this.$nextTick(() => {
+			// 			this.randerBar()
+			// 			this.randernormal()
+			// 			this.randernormalsec()
+			// 			this.randernormalthir()
+			// 			this.radar()
+			// 		})
+			// 	}
+			// }
 		},
 		mounted() {
-			console.log(this.num, 'assets11', this.oneobj)
+			// console.log(this.num, 'assets11', this.oneobj)
 
 		},
 		methods: {
-			    formatToPrice(value) {
-			      return `<h3>$ ${Number(value).toFixed(2)}</h1>`;
-			    },
+			init() {
+				this.$nextTick(() => {
+					this.randerBar()
+					this.randernormal()
+					this.randernormalsec()
+					this.randernormalthir()
+					this.radar()
+				})
+			},
+			formatToPrice(value) {
+				return `<h3>$ ${Number(value).toFixed(2)}</h1>`;
+			},
 			randerBar() {
 				// 绘制主体
 				let studentnowChartDom, studentnowChartChart
@@ -1562,7 +1567,7 @@
 
 			},
 			radar() {
-				let radarChartDom, radarChartChart,option
+				let radarChartDom, radarChartChart, option
 				radarChartDom = document.getElementById('radar');
 				radarChartChart = echarts.init(radarChartDom);
 				option = {
@@ -1780,8 +1785,8 @@
 	}
 
 	#studentnow {
-		width: 100%;
-		height: 1.4rem;
+		width: 380px;
+		height: 180px;
 	}
 
 	.abnormal {
@@ -1818,8 +1823,9 @@
 		position: relative;
 		top: -10px;
 	}
-	#radar{
-		width:380px;
+
+	#radar {
+		width: 380px;
 		height: 150px;
 	}
 </style>

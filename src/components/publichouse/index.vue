@@ -39,7 +39,7 @@
 						<div class="usebox">
 							<div id="usepublic"></div>
 							<div>
-								
+
 							</div>
 						</div>
 					</div>
@@ -72,7 +72,11 @@
 		},
 		data() {
 			return {
-				thisCrrentSys: ""
+				thisCrrentSys: "",
+				name: ["生活用水", "浇灌用水", "其他"],
+				value: [1114, 444, 501],
+				fontcolor: [],
+				fontcolorobj: []
 			}
 		},
 		computed: {
@@ -89,10 +93,25 @@
 					this.thisCrrentSys = 'publichouse'
 					console.log(document.getElementById('usepublic'), "8+8888")
 					var _this = this
+					this.initcolor()
 					setTimeout(function() {
-						_this.rendpubpie() //娃娃消失
+						_this.rendpubpie()
 					}, 200);
 				})
+			},
+			initcolor() {
+				let tempobj = {}
+				this.fontcolor = color.slice(0, this.name.length);
+				// this.fontcolor.forEach(el => {
+				// 	tempobj.color = el
+				// 	this.fontcolorobj.push(tempobj)
+				// })
+				let len = this.fontcolor.length
+				let array = [];
+				for(let i = 0;i<len;i++){
+				array.push({"color":this.fontcolor[i]});
+				}
+				console.log(array, "bbbbbbb", this.fontcolor)
 			},
 			rendpubpie() {
 				console.log("进入")
@@ -102,7 +121,7 @@
 					width: 150,
 					height: 150
 				});
-				let names = ["居住", "生产", "经营"];
+				let names = ["生活用水", "浇灌用水", "其他"];
 				let data1 = [1114, 444, 501]
 				let list = []
 				let total = 0
@@ -167,7 +186,12 @@
 					tooltip: {
 						show: false
 					},
-
+					grid: {
+						containLabel: true,
+						left: 30,
+						top: 0,
+						bottom: 0
+					},
 					legend: {
 						show: false,
 						orient: 'vertical',
@@ -232,18 +256,18 @@
 										rich: {
 											c: {
 												color: 'rgba(255, 255, 255, .5)',
-												fontSize: 14,
+												fontSize: 12,
 												// fontWeight: 'bold',
 												lineHeight: 22
 											},
 											b: {
 												color: 'rgba(255, 255, 255, .5)',
-												fontSize: 14,
+												fontSize: 12,
 												lineHeight: 22
 											}
 										},
 										textStyle: {
-											fontSize: 14,
+											fontSize: 12,
 											// fontWeight: 'bold'
 										},
 										position: 'center'
@@ -284,7 +308,8 @@
 		width: 150px;
 		height: 150px;
 	}
-	.usebox{
+
+	.usebox {
 		display: flex;
 	}
 </style>
