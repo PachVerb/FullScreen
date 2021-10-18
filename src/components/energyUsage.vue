@@ -170,7 +170,7 @@ span {
 .energy {
   color: #f6faff;
   .deviceStati {
-    padding: 10px 16px 0;
+    padding: 0 16px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
