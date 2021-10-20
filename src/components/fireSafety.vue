@@ -250,134 +250,288 @@ export default {
     initDashboardEchartOption(val){
       let angle = 0;//角度，用来做简单的动画效果的
       let value = 15;
+			let config = {
+			    color: ['#F6886A', '#F6886A'],
+			    data: [
+			        {
+			            name: '',
+			            value: 77,
+			        },
+			        {
+			            name: '',
+			            value: 23,
+			        },
+			    ],
+			    title: {
+			        subtext: '公园基础设施提升',
+			    },
+			};
+			let num = config.data[0].value;
+			let unit = '%';
+			let title = '进度';
       return {
       // backgroundColor:"#061740",
-      title: {
-              text: '{a|'+ value +'}',
-              x: 'center',
-              y: 'center',
-              textStyle: {
-                  rich:{
-                      a: {
-                          fontSize: 18,
-                          color: '#29EEF3'
-                      },
+      // title: {
+      //         text: '{a|'+ value +'}',
+      //         x: 'center',
+      //         y: 'center',
+      //         textStyle: {
+      //             rich:{
+      //                 a: {
+      //                     fontSize: 18,
+      //                     color: '#29EEF3'
+      //                 },
                       
-                      c: {
-                          fontSize: 18,
-                          color: '#ffffff',
-                          // padding: [5,0]
-                      }
-                  }
-              }
-          },
-          legend: {
-              type: "plain",
-              orient: "vertical",
-              right: 0,
-              top: "10%",
-              align: "auto",
-              data: [{
-                  name: '涨价后没吃过',
-                  icon: "circle"
-              }, {
-                  name: '天天吃',
-                  icon: "circle"
-              }, {
-                  name: '三五天吃一次',
-                  icon: "circle"
-              }, {
-                  name: '半个月吃一次',
-                  icon: "circle"
-              }],
-              textStyle: {
-                  color: "white",
-                  fontSize: 16,
-                  padding: [10, 1, 10, 0]
-              },
-              selectedMode:false
-          },
-          series: [{
-                  name: '吃猪肉频率',
-                  type: 'pie',
-                  radius: ['95%', '70%'],
-                  silent: true,
-                  clockwise: true,
-                  startAngle: 90,
-                  z: 0,
-                  zlevel: 0,
-                  label: {
-                      normal: {
-                          position: "center",
+      //                 c: {
+      //                     fontSize: 18,
+      //                     color: '#ffffff',
+      //                     // padding: [5,0]
+      //                 }
+      //             }
+      //         }
+      //     },
+      //     legend: {
+      //         type: "plain",
+      //         orient: "vertical",
+      //         right: 0,
+      //         top: "10%",
+      //         align: "auto",
+      //         data: [{
+      //             name: '涨价后没吃过',
+      //             icon: "circle"
+      //         }, {
+      //             name: '天天吃',
+      //             icon: "circle"
+      //         }, {
+      //             name: '三五天吃一次',
+      //             icon: "circle"
+      //         }, {
+      //             name: '半个月吃一次',
+      //             icon: "circle"
+      //         }],
+      //         textStyle: {
+      //             color: "white",
+      //             fontSize: 16,
+      //             padding: [10, 1, 10, 0]
+      //         },
+      //         selectedMode:false
+      //     },
+      //     series: [{
+      //             name: '吃猪肉频率',
+      //             type: 'pie',
+      //             radius: ['95%', '70%'],
+      //             silent: true,
+      //             clockwise: true,
+      //             startAngle: 90,
+      //             z: 0,
+      //             zlevel: 0,
+      //             label: {
+      //                 normal: {
+      //                     position: "center",
 
-                      }
-                  },
-                  data: [{
-                          value: value,
-                          name: "",
-                          itemStyle: {
-                              normal: {
-                                  color: 'rgba(106, 176, 255, 1)' // 完成的圆环的颜色
-                              }
-                          }
-                      },
-                      {
-                          value: 100-value,
-                          name: "",
-                          label: {
-                              normal: {
-                                  show: false
-                              }
-                          },
-                          itemStyle: {
-                              normal: {
-                                  color: "rgb(39,74,110)"
-                              }
-                          }
-                      }
-                  ]
-              },
+      //                 }
+      //             },
+      //             data: [{
+      //                     value: value,
+      //                     name: "",
+      //                     itemStyle: {
+      //                         normal: {
+      //                             color: 'rgba(106, 176, 255, 1)' // 完成的圆环的颜色
+      //                         }
+      //                     }
+      //                 },
+      //                 {
+      //                     value: 100-value,
+      //                     name: "",
+      //                     label: {
+      //                         normal: {
+      //                             show: false
+      //                         }
+      //                     },
+      //                     itemStyle: {
+      //                         normal: {
+      //                             color: "rgb(39,74,110)"
+      //                         }
+      //                     }
+      //                 }
+      //             ]
+      //         },
               
-              {
-                  name: "",
-                  type: "gauge",
-                  radius: "95%",
-                  center: ['50%', '50%'],
-                  startAngle: 0,
-                  endAngle: 359.9,
-                  splitNumber: 20,
-                  hoverAnimation: true,
-                  axisTick: {
-                      show: false
-                  },
-                  splitLine: {
-                      length: 60,
-                      lineStyle: {
-                          width: 5,
-                          color: "rgba(22,45,73,.8)"
-                      }
-                  },
-                  axisLabel: {
-                      show: false
-                  },
-                  pointer: {
-                      show: false
-                  },
-                  axisLine: {
-                      lineStyle: {
-                          opacity: 0
-                      }
-                  },
-                  detail: {
-                      show: false
-                  },
-                  data: [{
-                      value: 0,
-                      name: ""
-                  }]
-              },
+      //         {
+      //             name: "",
+      //             type: "gauge",
+      //             radius: "95%",
+      //             center: ['50%', '50%'],
+      //             startAngle: 0,
+      //             endAngle: 359.9,
+      //             splitNumber: 20,
+      //             hoverAnimation: true,
+      //             axisTick: {
+      //                 show: false
+      //             },
+      //             splitLine: {
+      //                 length: 60,
+      //                 lineStyle: {
+      //                     width: 5,
+      //                     color: "rgba(22,45,73,.8)"
+      //                 }
+      //             },
+      //             axisLabel: {
+      //                 show: false
+      //             },
+      //             pointer: {
+      //                 show: false
+      //             },
+      //             axisLine: {
+      //                 lineStyle: {
+      //                     opacity: 0
+      //                 }
+      //             },
+      //             detail: {
+      //                 show: false
+      //             },
+      //             data: [{
+      //                 value: 0,
+      //                 name: ""
+      //             }]
+      //         },
               
-          ]
+      //     ]
+			    //backgroundColor: '#0a1723',
+			    color: [
+			        {
+			            type: 'linear',
+			            x: 0,
+			            y: 0,
+			            x2: 1,
+			            y2: 1,
+			            colorStops: [
+			                {
+			                    offset: 0,
+			                    color: config.color[0],
+			                },
+			                {
+			                    offset: 1,
+			                    color: config.color[1],
+			                },
+			            ],
+			            global: false,
+			        },
+			        '#252f54',
+			    ],
+			    title: Object.assign(
+			        {
+			            text: '{a|' + num + '}{b|' + unit + '}\n{c|' + title + '}',
+			            x: 'center',
+			            y: 'center',
+			            textStyle: {
+			                rich: {
+			                    a: {
+			                        fontSize: 46,
+			                        color: '#fff',
+			                        fontWeight: '500',
+			                        margin: '0 5px 0 0',
+			                    },
+			                    b: {
+			                        fontSize: 14,
+			                        color: '#fff',
+			                        padding: [0, 0, -10, 0],
+			                        fontWeight: '500',
+			                    },
+			                    c: {
+			                        fontSize: 24,
+			                        color: 'rgba(255,255,255,.7)',
+			                        padding: [5, 0],
+			                    },
+			                },
+			            },
+			            subtext: '',
+			            top: '44%',
+			            left: '49%',
+			            textAlign: 'center',
+			            itemGap: 280,
+			            subtextStyle: {
+			                color: '#fff',
+			                fontSize: 36,
+			                align: 'center',
+			            },
+			        },
+			        config.title
+			    ),
+			    series: [
+			        //环形
+			        {
+			            name: '',
+			            type: 'pie',
+			            radius: ['45%', '65%'],
+			            center: ['50%', '50%'],
+			             hoverAnimation: false,//4.x版本使用取消悬浮放大
+			            emphasis: {
+			                //5.x版本使用取消悬浮放大
+			                scale: false,
+			                label: {
+			                    show: false /* 5.x版本是label.emphasis */,
+			                },
+			            },
+			            // label: { 4.x版本是label.emphasis
+			            //     // normal: {
+			            //         show: false,
+			            //     // },
+			            //     emphasis: {
+			            //         show: false,
+			            //     },
+			            // },
+			            zlevel: 1,
+			            labelLine: {
+			                // normal: {/* 5.x版本中去掉了normal */
+			                show: false,
+			                // },
+			            },
+			            data: config.data,
+			        },
+			        //环形分割线
+			        {
+			            name: '分割线',
+			            type: 'gauge',
+			            radius: '55%', //配合splitLine里的length一起调
+			            clockwise: true,
+			            startAngle: '90',
+			            center: ['50%', '50%'],
+			            endAngle: '-269.9999',
+			            splitNumber: 14,
+			            zlevel: 2,
+			            detail: {
+			                offsetCenter: [10, 20],
+			                formatter: ' ',
+			            },
+			            axisLine: {
+			                lineStyle: {
+			                    width: 1,
+			                    opacity: 0,
+			                },
+			            },
+			            axisTick: {
+			                show: false,
+			            },
+			            markArea: {
+			                itemStyle: {
+			                    color: '#0f0',
+			                },
+			            },
+			            splitLine: {
+			                show: true,
+			                length: 40, //配合radius一起调
+			                padding: [0, 0, 0],
+			                lineStyle: {
+			                    color: '#121d43',
+			                    width: 5,
+			                },
+			            },
+			            axisLabel: {
+			                show: false,
+			            },
+			        },
+			    ],
       };
     }
   }

@@ -8,7 +8,9 @@
           </div>
         </sideItem>
         <sideItem title="违规事件统计">
-          <div slot='body'></div>
+          <div slot='body'>
+						<div id="violationpie"></div>
+					</div>
         </sideItem>
         <sideItem title="违规车辆详情">
           <div slot='body'>
@@ -46,5 +48,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+#violationpie{
+	width: 130px;
+	height: 130px;
+}
 </style>
