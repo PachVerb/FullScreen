@@ -44,10 +44,23 @@
       </div>
       <div slot="right">
         <sideItem title="设备数量" transitionType="right" delay="500">
-          <div slot='body'>
-            <div id="allPatrolChart" class="eq-num-box-chart"></div>
-            <div id="abPatrolChart" class="eq-num-box-chart"></div>
-            <div id="abPatrolEqChart" class="eq-num-box-chart"></div>
+          <div slot='body' class="rightonebox">
+						<div class="allpiebox">
+							<div id="allPatrolChart" class="eq-num-box-chart">
+							</div>
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
+						</div>
+						<div class="allpiebox">
+							<div id="abPatrolChart" class="eq-num-box-chart"></div>
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
+						</div>
+						<div class="allpiebox">
+							<div id="abPatrolEqChart" class="eq-num-box-chart"></div>
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
+						</div>
           </div>
         </sideItem>
         <sideItem title="监控画面" transitionType="right" delay="1000">
@@ -106,6 +119,9 @@ export default {
   data(){
     return {
       thisCrrentSys: 'fireSafety',
+			colorone:["#6AB0FF",'#6AB0FF'],
+			colortwo:["#F6886A","#F6886A"],
+			colorthir:["#E5BC80","#E5BC80"],
       eqList: [{
         num: 86,
         name: '消防设备总数',
@@ -227,9 +243,9 @@ export default {
   },
   methods: {
     init(){
-      allPatrolOption = this.initDashboardEchartOption()
-      abPatrolOption = this.initDashboardEchartOption()
-      abPatrolEqOption = this.initDashboardEchartOption()
+      allPatrolOption = this.initDashboardEchartOption(this.colorone)
+      abPatrolOption = this.initDashboardEchartOption(this.colortwo)
+      abPatrolEqOption = this.initDashboardEchartOption(this.colorthir)
       this.$nextTick(() => {
         setTimeout(() => {
           let allPatrolChartDom = document.getElementById('allPatrolChart');
@@ -248,10 +264,11 @@ export default {
       this.abCheckNav = nav
     },
     initDashboardEchartOption(val){
+			console.log(val,"45655")
       let angle = 0;//角度，用来做简单的动画效果的
       let value = 15;
 			let config = {
-			    color: ['#F6886A', '#F6886A'],
+			    color: val,
 			    data: [
 			        {
 			            name: '',
@@ -270,134 +287,7 @@ export default {
 			let unit = '%';
 			let title = '进度';
       return {
-      // backgroundColor:"#061740",
-      // title: {
-      //         text: '{a|'+ value +'}',
-      //         x: 'center',
-      //         y: 'center',
-      //         textStyle: {
-      //             rich:{
-      //                 a: {
-      //                     fontSize: 18,
-      //                     color: '#29EEF3'
-      //                 },
-                      
-      //                 c: {
-      //                     fontSize: 18,
-      //                     color: '#ffffff',
-      //                     // padding: [5,0]
-      //                 }
-      //             }
-      //         }
-      //     },
-      //     legend: {
-      //         type: "plain",
-      //         orient: "vertical",
-      //         right: 0,
-      //         top: "10%",
-      //         align: "auto",
-      //         data: [{
-      //             name: '涨价后没吃过',
-      //             icon: "circle"
-      //         }, {
-      //             name: '天天吃',
-      //             icon: "circle"
-      //         }, {
-      //             name: '三五天吃一次',
-      //             icon: "circle"
-      //         }, {
-      //             name: '半个月吃一次',
-      //             icon: "circle"
-      //         }],
-      //         textStyle: {
-      //             color: "white",
-      //             fontSize: 16,
-      //             padding: [10, 1, 10, 0]
-      //         },
-      //         selectedMode:false
-      //     },
-      //     series: [{
-      //             name: '吃猪肉频率',
-      //             type: 'pie',
-      //             radius: ['95%', '70%'],
-      //             silent: true,
-      //             clockwise: true,
-      //             startAngle: 90,
-      //             z: 0,
-      //             zlevel: 0,
-      //             label: {
-      //                 normal: {
-      //                     position: "center",
-
-      //                 }
-      //             },
-      //             data: [{
-      //                     value: value,
-      //                     name: "",
-      //                     itemStyle: {
-      //                         normal: {
-      //                             color: 'rgba(106, 176, 255, 1)' // 完成的圆环的颜色
-      //                         }
-      //                     }
-      //                 },
-      //                 {
-      //                     value: 100-value,
-      //                     name: "",
-      //                     label: {
-      //                         normal: {
-      //                             show: false
-      //                         }
-      //                     },
-      //                     itemStyle: {
-      //                         normal: {
-      //                             color: "rgb(39,74,110)"
-      //                         }
-      //                     }
-      //                 }
-      //             ]
-      //         },
-              
-      //         {
-      //             name: "",
-      //             type: "gauge",
-      //             radius: "95%",
-      //             center: ['50%', '50%'],
-      //             startAngle: 0,
-      //             endAngle: 359.9,
-      //             splitNumber: 20,
-      //             hoverAnimation: true,
-      //             axisTick: {
-      //                 show: false
-      //             },
-      //             splitLine: {
-      //                 length: 60,
-      //                 lineStyle: {
-      //                     width: 5,
-      //                     color: "rgba(22,45,73,.8)"
-      //                 }
-      //             },
-      //             axisLabel: {
-      //                 show: false
-      //             },
-      //             pointer: {
-      //                 show: false
-      //             },
-      //             axisLine: {
-      //                 lineStyle: {
-      //                     opacity: 0
-      //                 }
-      //             },
-      //             detail: {
-      //                 show: false
-      //             },
-      //             data: [{
-      //                 value: 0,
-      //                 name: ""
-      //             }]
-      //         },
-              
-      //     ]
-			    //backgroundColor: '#0a1723',
+     
 			    color: [
 			        {
 			            type: 'linear',
@@ -421,33 +311,23 @@ export default {
 			    ],
 			    title: Object.assign(
 			        {
-			            text: '{a|' + num + '}{b|' + unit + '}\n{c|' + title + '}',
+			            text: '{a|' + num + '}',
 			            x: 'center',
 			            y: 'center',
 			            textStyle: {
 			                rich: {
 			                    a: {
-			                        fontSize: 46,
-			                        color: '#fff',
-			                        fontWeight: '500',
-			                        margin: '0 5px 0 0',
-			                    },
-			                    b: {
-			                        fontSize: 14,
-			                        color: '#fff',
-			                        padding: [0, 0, -10, 0],
-			                        fontWeight: '500',
-			                    },
-			                    c: {
-			                        fontSize: 24,
-			                        color: 'rgba(255,255,255,.7)',
-			                        padding: [5, 0],
+			                        fontSize: 22,
+			                        color: '#00F5FF',
+			                        fontWeight: '800',
+															// lineHeight: 22,
+			                        // marginRight: '100px 138px 0 0',
 			                    },
 			                },
 			            },
 			            subtext: '',
 			            top: '44%',
-			            left: '49%',
+			            left: '46%',
 			            textAlign: 'center',
 			            itemGap: 280,
 			            subtextStyle: {
@@ -463,7 +343,7 @@ export default {
 			        {
 			            name: '',
 			            type: 'pie',
-			            radius: ['45%', '65%'],
+			            radius: ['60%', '80%'],
 			            center: ['50%', '50%'],
 			             hoverAnimation: false,//4.x版本使用取消悬浮放大
 			            emphasis: {
@@ -493,7 +373,7 @@ export default {
 			        {
 			            name: '分割线',
 			            type: 'gauge',
-			            radius: '55%', //配合splitLine里的length一起调
+			            radius: '78%', //配合splitLine里的length一起调
 			            clockwise: true,
 			            startAngle: '90',
 			            center: ['50%', '50%'],
@@ -520,11 +400,11 @@ export default {
 			            },
 			            splitLine: {
 			                show: true,
-			                length: 40, //配合radius一起调
+			                length: 11, //配合radius一起调
 			                padding: [0, 0, 0],
 			                lineStyle: {
 			                    color: '#121d43',
-			                    width: 5,
+			                    width: 3,
 			                },
 			            },
 			            axisLabel: {
@@ -695,8 +575,37 @@ export default {
   transform: rotateX(180deg);
 }
 .eq-num-box-chart{
+
   display: inline-block;
   width: 104.4px;
   height: 149.4px;
+	position: relative;
+	top: -15px;
+}
+.rightonebox{
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-around;
+}
+.allpiebox{
+	position: relative;
+}
+.gear{
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	top: 30px;
+	left:22px;
+}
+.allpiebox{
+	background: url(../assets/pieimg/fire/firebg.png) no-repeat;
+	background-size: contain;
+}
+.gearout{
+	width: 98px;
+	height: 98px;
+	position: absolute;
+	left: 3px;
+	top: 10px;;
 }
 </style>

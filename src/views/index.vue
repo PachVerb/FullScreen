@@ -9,7 +9,7 @@
 			</div> -->
       <!-- <div id="he-plugin-simple" style=""></div> -->
     </div>
-    <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
+    <!-- <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/> -->
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
     <!-- SideBar这个组件写在每一个态势里面 我看ui图每个态势的右边模块宽度不一样，最好吧sideBar写在态势里面去 -->
     <SideBar></SideBar>
