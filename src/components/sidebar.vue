@@ -2,8 +2,8 @@
   <div class="sidebar">
     <div class="up" @click="checkSideList('up')"><img v-if="thisIndex == 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
     <div class="swiper">
-      <div class="side-list" :style="{transform: `translateX(${-thisIndex*430}px)`}">
-        <div :class="['side-item', returnSideItemClass(index,thisIndex), `tran-type-${type}`]" v-for="(sideItem,index) in allSideList" :key="index" @click="checkCurrentSys(sideItem)">
+      <div class="side-list">
+        <div :class="['side-item','side-bar-item-aa',]" v-for="(sideItem,index) in allSideList" :key="index" @click="checkCurrentSys(sideItem)">
           <!-- <div class="sys-tips" v-show="sideItem.name === currentSys"><span>{{ sideItem.cname }}</span></div> -->
           <div :class="['side-normal',sideItem.name === currentSys ? 'side-select' : '']">
             <img class="side-normal-img" :src="sideItem.normal" alt="">
@@ -87,6 +87,7 @@ export default {
       size: 7,
       type: 'down',
       mid: 0,
+      ani: null
     }
   },
   computed:{
@@ -116,12 +117,12 @@ export default {
       return className
     },
     returnClassType(val,thisIndex){
-      console.log(thisIndex)
       let type = 0
-      let mid = Math.ceil(this.sideList[this.thisIndex].length/2)
+      let mid = 4//Math.ceil(this.sideList[this.thisIndex].length/2)
       type = Math.abs(mid-(val+1))
       type = Math.abs(type - this.thisIndex*this.size)
-      return `side-item-${type}`
+      console.log(type)
+      return type
     },
     checkSideList(type){
       this.type = type
@@ -136,6 +137,17 @@ export default {
       //     return item
       //   }
       // })
+      // this.ani = setInterval(() => {
+
+      // },100)
+      let sideDomList = document.getElementsByClassName('side-bar-item-aa')
+      sideDomList = [...sideDomList]
+      sideDomList.forEach((dom,index) => {
+        let a = this.returnClassType(index,this.thisIndex)
+        dom.style.left = (index - this.thisIndex*this.size)*105 + 'px'
+        // console.log(a)
+        dom.style.top = (42-(a-1)*17) + 'px'
+      })
     },
     checkCurrentSys(side){
       this.SET_CURRENTSYS(side.name)
@@ -160,21 +172,21 @@ export default {
 .up,.down{
   position: absolute;
   z-index: 10;
-  top: 0;
+  top: 60px;
   height: 100%;
 }
 .up{
-  left: 0;
+  left: -30px;
 }
 .down{
-  right: 0;
+  right: -30px;
 }
 .up img,.down img{
   width: .226667rem;
   height: .16rem;
 }
 .down img{
-  transform: rotateZ(35deg);
+  transform: rotateZ(60deg);
 }
 .up img{
   transform: rotateZ(-35deg);
@@ -187,18 +199,19 @@ export default {
   // display: flex;
   // flex-direction: column;
   // justify-content: space-around;
+  position: relative;
   overflow: hidden;
-  width: 730px;
-  height: 150px;
+  width: 800px;
+  height: 175px;
   background-image: url('../assets/sidebar/sidebar-bg.png');
   background-repeat: no-repeat;
-  background-size: 100% 73%;
+  background-size: 130% 73%;
   background-position-x: center;
-  background-position-y: 0px;
+  background-position-y: 50px;
   transition: all 1s;
 }
 .side-item{
-  position: relative;
+  position: absolute;
   margin: 0.04rem;
   display: inline-block;
   width: 81px;
@@ -242,7 +255,7 @@ export default {
   text-align: center;
 }
 .sidebar .img-rotate{
-  transform: rotateZ(145deg);
+  transform: rotateZ(120deg);
 }
 .swiper{
   overflow-y: hidden;
@@ -264,6 +277,10 @@ export default {
   transition: all .5s;
 }
 .side-normal{
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .side-normal-img{
     display: block;
   }
@@ -306,26 +323,26 @@ export default {
   height: 80px;
 }
 .right-side-item{
-  // display: none;
-  position: relative;
-  top: -80px;
-  right: -80px;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  margin-bottom: 63px;
-  // transition: all .5s;
+  animation: right-side-item-ani 1.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+} 
+@keyframes right-side-item-ani{
+  0%{
+    transform: rotateX(90deg) rotateY(90deg) rotateZ(90deg);
+  }
+  100%{
+    transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg);
+  }
 }
 .left-side-item{
-  // display: none;
-  position: relative;
-  top: 80px;
-  right: 80px;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  margin-bottom: 63px;
-  // transition: all .5s;
+  animation: left-side-item-ani 1.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes left-side-item-ani{
+  0%{
+    transform: rotateX(90deg) rotateY(90deg) rotateZ(90deg);
+  }
+  100%{
+    transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg);
+  }
 }
 .side-item-3{
   top: 3px;
