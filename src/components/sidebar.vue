@@ -43,8 +43,8 @@ export default {
         normal: require('../assets/sidebar/normal/assets.png'),
         select: require('../assets/sidebar/select/assets.png')
       },{
-        name: '3',
-        cname: '3态势',
+        name: 'studystatues',
+        cname: '教学态势',
         normal: require('../assets/sidebar/normal/assets.png'),
         select: require('../assets/sidebar/select/assets.png')
       },{
