@@ -23,6 +23,7 @@
 		<dormitory ref="dormitory" style="position: absolute;"/>  
 		<interstatues ref="interstatues"></interstatues>
 		<publichouse ref="publichouse"></publichouse>
+		<studystatues ref="studystatues"></studystatues>
   </div>
 </template>
 <script>
@@ -34,6 +35,7 @@ import comprehensive from '@/components/comprehensive'
 import assets from '@/components/assets'
 import dormitory from '@/components/dormitory'
 import interstatues from '@/components/interstatues/index.vue'//网络态势
+import studystatues from '@/components/studystatues/index.vue'//教学态势
 import fireSafety from '@/components/fireSafety'
 import vehicle from '@/components/vehicle'
 import peoplestatues from '@/components/peoplestatues'
@@ -57,7 +59,8 @@ export default {
     vehicle,
     energyUsage,
 		interstatues,
-		publichouse
+		publichouse,
+		studystatues
   },
   data() {
     return {
