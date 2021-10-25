@@ -1574,6 +1574,7 @@
 					{name:'教学楼',val:80},
 					{name:'教学楼',val:45},
 					{name:'教学楼',val:25},
+					{name:'教学楼',val:20},
 					{name:'教学楼',val:15},
 					{name:'宿舍楼',val:42},
 				]
@@ -1584,7 +1585,15 @@
 					// backgroundColor:"#031d33",
 					animationEasing: 'cubicInout',
         	animationDuration:1000,
-					tooltip: {},
+					tooltip: {
+						formatter: function() {
+							var html = '';
+							data.forEach(item => {
+								html += `${item.name} : ${item.val/100}<br/>`;
+							});
+							return html
+						},
+					},
 					radar: {
 						radius: "75%", //大小
 						nameGap: 5, // 图中工艺等字距离图的距离
@@ -1653,7 +1662,7 @@
 								// width: 1
 							},
 						data:[{
-								value: [0,0,0,0,0],
+								value: [0,0,0,0,0,0],
 							}]
 					}]
 				}
