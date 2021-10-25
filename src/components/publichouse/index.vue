@@ -36,7 +36,11 @@
 				</sideItem>
 				<sideItem title="公房使用单位统计">
 					<div slot='body' class="usepublicunitbox">
-						<div id="usepublic"></div>
+						<div class="usebox">
+							<div id="usepublic"></div>
+							<img src="../../assets/pieimg/publichouseout.png" class="useboxoutpie">
+							<img src="../../assets/pieimg/publichouseout.png" class="gear">
+						</div>
 <!-- 						<div class="usebox">
 							<img src="../../assets/pieimg/piemidd.png" alt="" class="useboximg">
 							<img src="../../assets/pieimg/outpie.png" class="useboxoutpie">
@@ -477,9 +481,10 @@
 	.useboxoutpie {
 		position: absolute;
 		width: 150px;
-		animation: myMove 5s;
-		/* -webkit-animation: myMove 5s ease-in infinite alternate; 旋转半圈以后反转*/
-		-webkit-animation: myMove 5s infinite linear;
+		top: 25px;
+		left: 115px;
+/* 		animation: myMove 5s; 外圈旋转动画
+		-webkit-animation: myMove 5s infinite linear; */
 	}
 
 	/* 	@keyframes myMove {
@@ -491,6 +496,8 @@
 	    from {transform: rotate(0deg);}
 	    to {transform: rotate(360deg);}
 	} 旋转半圈以后反转*/ 
+	
+	/* 外圈旋转动画 */
 	@-webkit-keyframes myMove {
 
 		/**关键帧名称**/
@@ -501,12 +508,13 @@
 		100% {
 			-webkit-transform: rotate(360deg);
 		}
-	}
+	} 
 	.gear{
 		position: absolute;
-		width: 100px;
-		top: 26px;
-		left: 25px;
+		width: 80px;
+		top: 60px;
+		left: 151px;
+		
 	}
 	.userladnd{
 		height: 300px;

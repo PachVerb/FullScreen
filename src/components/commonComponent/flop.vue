@@ -139,14 +139,14 @@
 		width: 30px;
 		height: 40px;
 		/* 背景图片 */
-		background: url(/images/text-bg-blue.png) no-repeat center center;
+		background: url(../../assets/images/numbackground.png) no-repeat center center;
 		background-size: 100% 100%;
 		// background: #ccc;
 		list-style: none;
 		margin-right: 5px;
 		// background:rgba(250,250,250,1);
 		border-radius: 4px;
-		border: 1px solid rgba(221, 221, 221, 1);
+		/* border: 1px solid rgba(221, 221, 221, 1); */
 
 		&>span {
 			position: relative;

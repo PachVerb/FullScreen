@@ -42,7 +42,8 @@ const threeLayer = new creeper.ThreeLayer({
     threemapOption:{
         useDraggingObjects:false,
         useTooltip: false,
-        useSelectingObjects:false
+        useSelectingObjects:false,
+				usePostprocessing:true
     }
 });
 // 计数器，计算点数
@@ -257,6 +258,7 @@ export default {
     // 加载3D建筑
     loadBuildFn() {
       let that = this
+			const buildingpng=require("../../public/static/building.png")
       this.vMap.flyTo({
         bearing:40,
         center:[ 104.05619359161085, 30.594327139005628],
@@ -266,7 +268,7 @@ export default {
           if (t==1) {
             //加载建筑
             console.log("1111111111111111111111111111");
-            let building_3D=threeLayer.threemap.objects.building(that.buildingdata)
+            let building_3D=threeLayer.threemap.objects.building(that.buildingdata,buildingpng)
             threeLayer.threemap.add(building_3D)
             //建筑标签
             that.buildingdata.forEach(e=>{
