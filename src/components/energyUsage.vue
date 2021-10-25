@@ -3,7 +3,7 @@
   <div class="energy">
     <sideTran thisCrrentSys="energyUsage">
       <div slot="left">
-        <sideItem title="用电设备统计" delay="200">
+        <sideItem title="用电设备统计" delay="100">
           <div class="deviceStati" slot="body">
             <currency
               v-for="(item,i) in statiList"
@@ -16,7 +16,7 @@
             ></currency>
           </div>
         </sideItem>
-        <sideItem title="用电概况" delay="400">
+        <sideItem title="用电概况" delay="200">
           <div class="survey" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -99,12 +99,12 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用电占比" delay="600">
+        <sideItem title="设备用电占比" delay="300">
           <div slot="body">
             <!-- <div id="allTotalAssets"></div> -->
           </div>
         </sideItem>
-        <sideItem title="用电趋势分析" delay="800">
+        <sideItem title="用电趋势分析" delay="400">
           <div slot="body">
             <!-- <div id="allTotalAssets"></div> -->
           </div>
@@ -257,12 +257,12 @@ export default {
           }]
         }],
       };
-      chart.setOption(option);
+      chart.setOption(option,true);
       setTimeout(() => {
         chart.clear();//清除动画
         option.series[1].data=[{value:75}];
-        chart.setOption(option);
-      }, 1200)
+        chart.setOption(option,true);
+      }, 600)
     },
 
   }

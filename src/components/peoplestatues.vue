@@ -2,7 +2,7 @@
 	<div>
 		<sideTran thisCrrentSys="peoplestatues">
 			<div slot="left">
-				<sideItem title="人员实时状态">
+				<sideItem title="人员实时状态" delay="100">
 					<div slot='body' class="nowbox" style="height: 20%;">
 						<currency class="nowboxitem" :boxnum="oneobj.num" :boxtitle="oneobj.title"
 							:boxcolor="oneobj.color" :boxuntil="oneobj.until"></currency>
@@ -14,7 +14,7 @@
 							:boxcolor="fourobj.color" :boxuntil="fourobj.until"></currency>
 					</div>
 				</sideItem>
-				<sideItem title="今日访客统计">
+				<sideItem title="今日访客统计" delay="200">
 
 					<div slot='body' class="visitorstoday" style="height: 20%;">
 
@@ -65,7 +65,7 @@
 
 					</div>
 				</sideItem>
-				<sideItem title="学校资产总额统计">
+				<sideItem title="学校资产总额统计" delay="300">
 					<div slot='body' class="peoplestrue" style="height: 20%;">
 						<div class="peoplestruebgc">
 							<div class="peoplestruebgcwz">
@@ -97,14 +97,14 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="学生实时分布">
+				<sideItem title="学生实时分布" delay="400">
 					<div slot='body' style="height: 40%;">
 						<div id="studentnow" ></div>
 					</div>
 				</sideItem>
 			</div>
 			<div slot="right">
-				<sideItem title="打卡异常统计" style="height: 20%;">
+				<sideItem title="打卡异常统计" style="height: 20%;" delay="100">
 					<div slot='body' style="height: 20%;" class="abnormal">
 						<div class="abnormalbox">
 							<div id="abnormalecharts"></div>
@@ -120,14 +120,14 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="常去位置分析" style="height: 20%;">
+				<sideItem title="常去位置分析" style="height: 20%;" delay="200">
 					<div slot='body' style="height: 20%;">
 						<div id="radar">
 
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="长期异常监测" style="height: 60%;">
+				<sideItem title="长期异常监测" style="height: 60%;" delay="300">
 					<div slot='body' style="height: 340px;overflow-y: scroll;">
 						<div class="ab-list patrol">
 							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
@@ -290,8 +290,8 @@
 						this.randernormal()
 						this.randernormalsec()
 						this.randernormalthir()
-						this.radar()
 					},1500)
+					this.radar()
 
 				})
 			},
@@ -1570,105 +1570,99 @@
 
 			},
 			radar() {
+				let data=[
+					{name:'教学楼',val:80},
+					{name:'教学楼',val:45},
+					{name:'教学楼',val:25},
+					{name:'教学楼',val:15},
+					{name:'宿舍楼',val:42},
+				]
 				let radarChartDom, radarChartChart, option
 				radarChartDom = document.getElementById('radar');
 				radarChartChart = echarts.init(radarChartDom);
 				option = {
 					// backgroundColor:"#031d33",
+					animationEasing: 'cubicInout',
+        	animationDuration:1000,
 					tooltip: {},
 					radar: {
-						radius: "80%", //大小
-						nameGap: 1, // 图中工艺等字距离图的距离
+						radius: "75%", //大小
+						nameGap: 5, // 图中工艺等字距离图的距离
 						center: ["50%", "50%"], // 图的位置
 						name: {
 							textStyle: {
-								color: "rgba(101, 213, 255, 1)",
-								fontSize: 16
+								color: "rgba(255, 255, 255, 0.8)",
+								fontSize: 14,
+								rich:{
+									per:{
+										color:'#00F5FF',
+										fontSize:15
+									}
+								}
 							},
-							formatter: function(name) {
-								return name;
+							formatter: function(name,parma) {
+								return `${name} {per|${parma.val/parma.max}}`;
 							}
 						},
-						indicator: [{
-								"name": 'a',
-								"max": "100"
-							},
-							{
-								"name": 'b',
-								"max": "100"
-							},
-							{
-								"name": 'c',
-								"max": "100"
-							},
-							{
-								"name": 'd',
-								"max": "100"
-							},
-							{
-								"name": 'e',
-								"max": "100"
-							},
-							{
-								"name": 'a',
-								"max": "100"
-							},
-
-						],
+						indicator: data.map(item=>{
+							return {...item,max:100};
+						}),
 						axisLine: {
 							lineStyle: {
-
+								type:'dotted',
 								color: "rgba(153, 209, 246, 0.2)"
 							}
 						},
 						splitArea: {
-							show: false,
+							show: true,
 							areaStyle: {
-								color: "rgba(255,0,0,0)" // 图表背景的颜色
+								color: [
+									'rgba(106, 176, 255, 0.5)',
+									'rgba(106, 176, 255, 0.4)',
+									'rgba(106, 176, 255, 0.3)',
+									'rgba(106, 176, 255, 0.2)',
+									'rgba(106, 176, 255, 0.1)',
+									] // 图表背景的颜色
 							}
 						},
 						splitLine: {
 							show: true,
 							lineStyle: {
+								type:'dotted',
 								width: 1,
 								color: "rgba(153, 209, 246, 0.2)" // 设置网格的颜色
 							}
-						}
+						},
 					},
 
 					series: [{
 						name: "报警类型分析",
 						type: "radar",
-						symbol: "angle",
+						symbol: "circle",
+						areaStyle: {
+								color: "rgba(0, 245, 255, 0.4)"
+							},
 						itemStyle: {
-							normal: {
-								areaStyle: {
-									type: "default"
-								}
-							}
+							color: "rgba(0, 245, 255, 1)",
+									borderColor: "rgba(0, 245, 255, 1)",
+									shadowBlur: 4,
+                	shadowColor: 'rgba(146, 225, 255, 1)',
 						},
-						data: [{
-							symbol: "circle",
-							symbolSize: 5,
-							value: [70, 42, 63, 84, 75, 34],
-							areaStyle: {
-								color: "rgba(64, 205, 241, 0.2)"
-							},
-							itemStyle: {
-								normal: {
-									borderWidth: 1,
-									color: "RGBA(0, 34, 66, 1)",
-									borderColor: "rgba(146, 225, 255, 1)"
-								}
-							},
-							lineStyle: {
+						lineStyle: {
 								color: "rgba(146, 225, 255, 1)",
-								width: 1
-							}
-						}]
+								// width: 1
+							},
+						data:[{
+								value: [0,0,0,0,0],
+							}]
 					}]
 				}
 				radarChartChart.setOption(option, true)
+				setTimeout(() => {
+        	radarChartChart.clear();//清除动画
+					option.series[0].data[0].value=data.map(item=>item.val);
+					radarChartChart.setOption(option,true);
+				}, 600)
 			}
 		}
 	}
@@ -1829,7 +1823,7 @@
 
 	#radar {
 		width: 380px;
-		height: 150px;
+		height: 180px;
 	}
 </style>
 <style lang="less" scoped>
