@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <div class="up" @click="checkSideList('up')"><img v-if="thisIndex == 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
+    <div class="up" @click="checkSideList('up')"><img v-if="thisIndex !== 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
     <div class="swiper">
       <div class="side-list">
         <div :class="['side-item','side-bar-item-aa',]" v-for="(sideItem,index) in allSideList" :key="index" @click="checkCurrentSys(sideItem)">
@@ -15,7 +15,7 @@
         </div> -->
       </div>
     </div>
-    <div class="down" @click="checkSideList('down')"><img class="img-rotate" v-if="this.thisIndex >= (Math.floor(this.allSideList.length/6))" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
+    <div class="down" @click="checkSideList('down')"><img class="img-rotate1" v-if="this.thisIndex < (Math.floor(this.allSideList.length/this.size))" src="../assets/img/down.png" alt=""><img class="img-rotate2" v-else src="../assets/img/up.png" alt=""></div>
   </div>
 </template>
 
@@ -201,13 +201,8 @@ export default {
   // justify-content: space-around;
   position: relative;
   overflow: hidden;
-  width: 800px;
+  width: 730px;
   height: 175px;
-  background-image: url('../assets/sidebar/sidebar-bg.png');
-  background-repeat: no-repeat;
-  background-size: 130% 73%;
-  background-position-x: center;
-  background-position-y: 50px;
   transition: all 1s;
 }
 .side-item{
@@ -257,9 +252,22 @@ export default {
 .sidebar .img-rotate{
   transform: rotateZ(120deg);
 }
+.sidebar .img-rotate1{
+  transform: rotateZ(240deg);
+}
+.sidebar .img-rotate2{
+  transform: rotateZ(60deg);
+}
 .swiper{
+  display: flex;
+  justify-content: center;
   overflow-y: hidden;
-  width: 730px;
+  width: 800px;
+  background-image: url('../assets/sidebar/sidebar-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 73%;
+  background-position-x: center;
+  background-position-y: 50px;
   .swiper-container{
     height: 100%;
     // overflow-y: hidden;
