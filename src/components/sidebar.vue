@@ -1,50 +1,29 @@
 <template>
   <div class="sidebar">
-    <div class="up" @click="checkSideList('up')"><img v-if="thisIndex == 1" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
+    <div class="up" @click="checkSideList('up')"><img v-if="thisIndex !== 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
     <div class="swiper">
-      <Swiper :options='swiperOption' ref="sideBarSwiper">
-        <SwiperSlide v-for="(sideBar,sideIndex) in sideList" :key="sideIndex" >
-          <div class="side-list" v-show="thisIndex == sideIndex">
-            <div :class="['side-item', `side-item-${returnClassType(index)}`]" v-for="(sideItem,index) in sideBar" :key="index" @click="checkCurrentSys(sideItem)">
-              <div class="sys-tips" v-show="sideItem.name === currentSys"><span>{{ sideItem.cname }}</span></div>
-              <div :class="['side-normal',sideItem.name === currentSys ? 'side-select' : '']">
-                <img class="side-normal-img" :src="sideItem.normal" alt="">
-                <img class="side-select-img" :src="sideItem.select" alt="">
-              </div>
-            </div>
-            <div class="side-position-item" v-for="(sideItem,index) in (sideBar.length % size)" :key="index+'position'">
-            </div>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-      <!-- <transition :name="`side-bar-list-${type}`" v-for="(sideBar,sideIndex) in sideList" :key="sideIndex">
-        <div class="side-list" v-if="thisIndex == sideIndex">
-          <div class="side-item" v-for="(sideItem,index) in sideBar" :key="index" @click="checkCurrentSys(sideItem)">
-            <div class="sys-tips" v-show="sideItem.name === currentSys"><span>{{ sideItem.cname }}</span></div>
-            <div :class="['side-normal',sideItem.name === currentSys ? 'side-select' : '']">
-              <img class="side-normal-img" :src="sideItem.normal" alt="">
-              <img class="side-select-img" :src="sideItem.select" alt="">
-            </div>
-          </div>
-          <div class="side-position-item" v-for="(sideItem,index) in (sideBar.length % size)" :key="index+'position'">
+      <div class="side-list">
+        <div :class="['side-item','side-bar-item-aa',]" v-for="(sideItem,index) in allSideList" :key="index" @click="checkCurrentSys(sideItem)">
+          <!-- <div class="sys-tips" v-show="sideItem.name === currentSys"><span>{{ sideItem.cname }}</span></div> -->
+          <div :class="['side-normal',sideItem.name === currentSys ? 'side-select' : '']">
+            <img class="side-normal-img" :src="sideItem.normal" alt="">
+            <img class="side-select-img" :src="sideItem.select" alt="">
+            <div class="side-cname">{{ sideItem.cname }}</div>
           </div>
         </div>
-      </transition> -->
+        <!-- <div class="side-position-item" v-for="(sideItem,index) in (sideBar.length % size)" :key="index+'position'">
+        </div> -->
+      </div>
     </div>
-    <div class="down" @click="checkSideList('down')"><img v-if="this.thisIndex >= (Math.ceil(this.allSideList.length/6))" src="../assets/img/down.png" alt=""><img v-else class="img-rotate" src="../assets/img/up.png" alt=""></div>
+    <div class="down" @click="checkSideList('down')"><img class="img-rotate1" v-if="this.thisIndex < (Math.floor(this.allSideList.length/this.size))" src="../assets/img/down.png" alt=""><img class="img-rotate2" v-else src="../assets/img/up.png" alt=""></div>
   </div>
 </template>
 
 <script>
-import {Swiper,SwiperSlide} from 'vue-awesome-swiper'
-import { Carousel, CarouselItem } from 'element-ui'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   components: {
-    Carousel,
-    CarouselItem,
-    Swiper,
-    SwiperSlide
+    
   },
   data(){
     return {
@@ -64,8 +43,8 @@ export default {
         normal: require('../assets/sidebar/normal/assets.png'),
         select: require('../assets/sidebar/select/assets.png')
       },{
-        name: '3',
-        cname: '3态势',
+        name: 'studystatues',
+        cname: '教学态势',
         normal: require('../assets/sidebar/normal/assets.png'),
         select: require('../assets/sidebar/select/assets.png')
       },{
@@ -99,7 +78,7 @@ export default {
         normal: require('../assets/sidebar/normal/publichouse.png'),
         select: require('../assets/sidebar/select/publichouse.png')
       }],
-      sideList: [],
+      sideList: [[]],
       thisIndex: 0,
       swiperOption: {
 
@@ -108,6 +87,7 @@ export default {
       size: 7,
       type: 'down',
       mid: 0,
+      ani: null
     }
   },
   computed:{
@@ -126,10 +106,22 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_CURRENTSYS']),
-    returnClassType(val){
+    returnSideItemClass(val,thisIndex){
+      let className = ''
+      let index = val + this.thisIndex*this.size
+      if(index >= (this.thisIndex+1)*this.size){
+        className = 'right-side-item'
+      } else if(index < this.thisIndex*this.size){
+        className = 'left-side-item'
+      }
+      return className
+    },
+    returnClassType(val,thisIndex){
       let type = 0
-      let mid = Math.ceil(this.sideList[this.thisIndex].length/2)
+      let mid = 4//Math.ceil(this.sideList[this.thisIndex].length/2)
       type = Math.abs(mid-(val+1))
+      type = Math.abs(type - this.thisIndex*this.size)
+      console.log(type)
       return type
     },
     checkSideList(type){
@@ -139,16 +131,23 @@ export default {
       } else if(type == 'down' && this.thisIndex < (Math.floor(this.allSideList.length/6))) {
         this.thisIndex += 1
       }
-      console.log(this.thisIndex)
-      this.$nextTick(() => {
-        this.$refs.sideBarSwiper.$swiper.slideTo(this.thisIndex,500,false)
-      })
-      // console.log(this.$refs.sideBarSwiper,6666)
+      console.log(this.sideList[this.thisIndex],6666)
       // this.sideList = this.allSideList.filter((item,index) => {
       //   if(index < this.thisIndex*6 && index >= (this.thisIndex-1)*6){
       //     return item
       //   }
       // })
+      // this.ani = setInterval(() => {
+
+      // },100)
+      let sideDomList = document.getElementsByClassName('side-bar-item-aa')
+      sideDomList = [...sideDomList]
+      sideDomList.forEach((dom,index) => {
+        let a = this.returnClassType(index,this.thisIndex)
+        dom.style.left = (index - this.thisIndex*this.size)*105 + 'px'
+        // console.log(a)
+        dom.style.top = (42-(a-1)*17) + 'px'
+      })
     },
     checkCurrentSys(side){
       this.SET_CURRENTSYS(side.name)
@@ -171,29 +170,48 @@ export default {
   /* height: 86%; */
 }
 .up,.down{
-  position: relative;
+  position: absolute;
   z-index: 10;
+  top: 60px;
   height: 100%;
+}
+.up{
+  left: -30px;
+}
+.down{
+  right: -30px;
 }
 .up img,.down img{
   width: .226667rem;
   height: .16rem;
-  transform: rotateX(75deg);
+}
+.down img{
+  transform: rotateZ(60deg);
+}
+.up img{
+  transform: rotateZ(-35deg);
 }
 .side-item img{
-  width: 80px;
-  height: 80px;
+  width: 68px;
+  height: 68px;
 }
 .side-list{
   // display: flex;
   // flex-direction: column;
   // justify-content: space-around;
-  /* overflow: hidden; */
+  position: relative;
+  overflow: hidden;
+  width: 730px;
+  height: 175px;
+  transition: all 1s;
 }
 .side-item{
-  position: relative;
-  margin: 0.06rem;
+  position: absolute;
+  margin: 0.04rem;
   display: inline-block;
+  width: 81px;
+  height: 81px;
+  transition: all 1s;
 }
 .sys-tips{
   position: absolute;
@@ -221,18 +239,35 @@ export default {
     opacity: 1;
   }
 }
-
+.side-cname{
+  color: rgba(255, 255, 255, .8);
+  font-size: 14px;
+}
 .sys-tips span{
   display: inline-block;
   margin-right: .09rem;
   width: .48rem;
   text-align: center;
 }
-.img-rotate{
-  transform: rotateX(180deg);
+.sidebar .img-rotate{
+  transform: rotateZ(120deg);
+}
+.sidebar .img-rotate1{
+  transform: rotateZ(240deg);
+}
+.sidebar .img-rotate2{
+  transform: rotateZ(60deg);
 }
 .swiper{
-  // overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  overflow-y: hidden;
+  width: 800px;
+  background-image: url('../assets/sidebar/sidebar-bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 73%;
+  background-position-x: center;
+  background-position-y: 50px;
   .swiper-container{
     height: 100%;
     // overflow-y: hidden;
@@ -250,6 +285,10 @@ export default {
   transition: all .5s;
 }
 .side-normal{
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .side-normal-img{
     display: block;
   }
@@ -263,6 +302,13 @@ export default {
   }
   .side-select-img{
     display: block;
+    width: 81px;
+    height: 81px;
+  }
+  .side-cname{
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    font-weight: bold;
   }
 }
 .side-item:hover{
@@ -275,51 +321,66 @@ export default {
     }
     .side-select-img{
       display: block;
+      width: 81px;
+      height: 81px;
     }
   }
-}
-.side-bar-list-up-enter{
-  opacity: 0;
-  transform: translateY(-100%);
-}
-.side-bar-list-up-enter-active, .side-bar-list-up-leave-active {
-  transition: all 1s ease;
-}
-.side-bar-list-up-enter-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 1;
-  transform: translateY(0%);
-}
-.side-bar-list-up-leave-to{
-  transform: translateY(-150%);
-}
-.side-bar-list-down-enter{
-  opacity: 0;
-  transform: translateY(0%);
-}
-.side-bar-list-down-enter-active, .side-bar-list-down-leave-active {
-  transition: all 1s ease;
-}
-.side-bar-list-down-enter-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 1;
-  transform: translateY(0%);
-}
-.side-bar-list-down-leave-to{
-  transform: translateY(100%);
 }
 .side-position-item{
   width: 80px;
   height: 80px;
 }
+.right-side-item{
+  animation: right-side-item-ani 1.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+} 
+@keyframes right-side-item-ani{
+  0%{
+    transform: rotateX(90deg) rotateY(90deg) rotateZ(90deg);
+  }
+  100%{
+    transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg);
+  }
+}
+.left-side-item{
+  animation: left-side-item-ani 1.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+@keyframes left-side-item-ani{
+  0%{
+    transform: rotateX(90deg) rotateY(90deg) rotateZ(90deg);
+  }
+  100%{
+    transform: rotateX(45deg) rotateY(45deg) rotateZ(45deg);
+  }
+}
 .side-item-3{
-  margin-bottom: 53px;
+  top: 3px;
+  // transition: all .5s;
 }
 .side-item-2{
-  margin-bottom: 33px;
+  top: 20px;
+  // transition: all .5s;
 }
 .side-item-1{
-  margin-bottom: 16px;
+  top: 39px;
+  // transition: all .5s;
 }
 .side-item-0{
-  margin-bottom: 6px;
+  top: 53px;
+  // transition: all .5s;
 }
+// .tran-type-up{
+//   position: relative;
+//   top: -80px;
+//   left: -80px;
+// }
+// .tran-type-down{
+//   position: relative;
+//   top: -80px;
+//   left: -80px;
+// }
+// .side-item{
+//   top: 0;
+//   left: 0;
+//   transition: all .5s;
+// }
 </style>

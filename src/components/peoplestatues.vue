@@ -285,11 +285,14 @@
 		methods: {
 			init() {
 				this.$nextTick(() => {
-					this.randerBar()
-					this.randernormal()
-					this.randernormalsec()
-					this.randernormalthir()
-					this.radar()
+					setTimeout(()=>{
+						this.randerBar()
+						this.randernormal()
+						this.randernormalsec()
+						this.randernormalthir()
+						this.radar()
+					},1500)
+
 				})
 			},
 			formatToPrice(value) {
