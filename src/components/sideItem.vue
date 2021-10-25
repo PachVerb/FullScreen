@@ -1,6 +1,6 @@
 <template>
   <transition :name="`go-in-item-${transitionType}`">
-    <div class="side-item" v-if="currentSys == thisCrrentSys">
+    <div class="side-item" v-show="currentSys == thisCrrentSys">
       <div class="side-item-title">
         <img src="../assets/img/side-item-title.png" alt="">
         <span>{{title}}</span>
