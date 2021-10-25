@@ -48,20 +48,24 @@
                 <div class="group">
                   <div id="dayPerc" class="chart-survey"></div>
                   <!-- <img src="../assets/img/survey.png" alt /> -->
-                  <div class="percent">
-                    <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                    <i class="perc">4.3%</i>
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                      <i class="perc">4.3%</i>
+                    </div>
+                    <span class="text">日均同比</span>
                   </div>
-                  <span class="text">日均同比</span>
                 </div>
                 <div class="group">
                   <div id="monthPerc" class="chart-survey"></div>
                   <!-- <img src="../assets/img/survey.png" alt /> -->
-                  <div class="percent">
-                    <img class="arrow" src="../assets/img/arrow-up.png" alt />
-                    <i class="perc red">25%</i>
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-up.png" alt />
+                      <i class="perc red">25%</i>
+                    </div>
+                    <span class="text">月均同比</span>
                   </div>
-                  <span class="text">月均同比</span>
                 </div>
               </div>
             </div>
@@ -153,9 +157,11 @@ export default {
   methods: {
     //初始化
     init() {
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.getDeviceStatiList();
-        this.getSurveyData();
+          this.getSurveyData();
+        // setTimeout(() => {
+        // }, 1400)
       })
     },
     //获取设备统计列表
@@ -179,14 +185,43 @@ export default {
       let dom = document.getElementById(id);
       let chart = echarts.init(dom);
       let option = {
-        series: [{
+        animationEasing: 'cubicInout',
+        animationDuration:2000,
+        series: [
+        {
+          type: 'gauge',
+          startAngle: 180,
+          endAngle: 0,
+          radius: '100%',
+          axisLine: {//轴线
+            show: true,
+            roundCap: true,
+            lineStyle: {
+              width: 8,
+              color: [[0.3, '#6AB0FF'], [0.7, '#4EB78C'], [1, '#F2896B']],
+            }
+          },
+          axisTick: {//轴线刻度
+            show: false
+          },
+          splitLine: {//分割段数,每段大刻度
+            show: false
+          },
+          axisLabel: {//刻度标签
+            show: false
+          },
+          title: {//标题
+            show: false
+          },
+          detail: { show: false },
+        }, {
           type: 'gauge',
           startAngle: 180,
           endAngle: 0,
           min: 0,
           max: 100,
-          radius:'100%',
-          splitNumber: 10,
+          radius: '75%',
+          splitNumber: 4,
           itemStyle: {//指针样式
             color: '#4EB78C',
           },
@@ -196,32 +231,38 @@ export default {
             offsetCenter: [0, '5%']
           },
           axisLine: {//轴线
-            roundCap: true,
-            lineStyle: {
-              width: 8,
-              color: [[0.3,'#6AB0FF'],[0.7,'#4EB78C'],[1,'#F2896B']],
-            }
+            show: false,
+          },
+          axisTick: {//轴线刻度
+            show: true,
+            length: 2,
           },
           splitLine: {//分割段数,每段大刻度
-            length: 12,
+            length: 4,
             lineStyle: {
               color: '#479aef'
             }
           },
           axisLabel: {//刻度标签
+            show: false,
             color: '#fff',
-            fontSize:'4px',
+            fontSize: '10px',
           },
           title: {//标题
             show: false
           },
-          detail:{show: false},
+          detail: { show: false },
           data: [{
-            value: 88
+            value: 0
           }]
-        }]
+        }],
       };
       chart.setOption(option);
+      setTimeout(() => {
+        chart.clear();//清除动画
+        option.series[1].data=[{value:75}];
+        chart.setOption(option);
+      }, 1200)
     },
 
   }
@@ -321,12 +362,21 @@ span {
           }
         }
         .group {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          .chart-survey{
+          position: relative;
+          height: 80px;
+          .chart-survey {
             width: 74px;
             height: 74px;
+            // width: 100px;
+            // height: 100px;
+          }
+          .perBox {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
           }
           .percent {
             margin: 8px 0;
