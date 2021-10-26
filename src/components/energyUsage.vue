@@ -3,12 +3,20 @@
   <div class="energy">
     <sideTran thisCrrentSys="energyUsage">
       <div slot="left">
-        <sideItem title="用电设备统计" delay="200">
+        <sideItem title="用电设备统计" delay="100">
           <div class="deviceStati" slot="body">
-            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个" style="margin-top:12px;"></currency>
+            <currency
+              v-for="(item,i) in statiList"
+              :key="i"
+              :boxnum="item.count"
+              :boxtitle="item.type"
+              :boxcolor="item.color"
+              boxuntil="个"
+              style="margin-top:12px;"
+            ></currency>
           </div>
         </sideItem>
-        <sideItem title="用电概况" delay="400">
+        <sideItem title="用电概况" delay="200">
           <div class="survey" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -38,20 +46,26 @@
               </div>
               <div class="row" style="justify-content:space-around;">
                 <div class="group">
-                  <img src="../assets/img/survey.png" alt />
-                  <div class="percent">
-                    <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                    <i class="perc">4.3%</i>
+                  <div id="dayPerc" class="chart-survey"></div>
+                  <!-- <img src="../assets/img/survey.png" alt /> -->
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                      <i class="perc">4.3%</i>
+                    </div>
+                    <span class="text">日均同比</span>
                   </div>
-                  <span class="text">日均同比</span>
                 </div>
                 <div class="group">
-                  <img src="../assets/img/survey.png" alt />
-                  <div class="percent">
-                    <img class="arrow" src="../assets/img/arrow-up.png" alt />
-                    <i class="perc red">25%</i>
+                  <div id="monthPerc" class="chart-survey"></div>
+                  <!-- <img src="../assets/img/survey.png" alt /> -->
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-up.png" alt />
+                      <i class="perc red">25%</i>
+                    </div>
+                    <span class="text">月均同比</span>
                   </div>
-                  <span class="text">月均同比</span>
                 </div>
               </div>
             </div>
@@ -85,12 +99,12 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用电占比" delay="600">
+        <sideItem title="设备用电占比" delay="300">
           <div slot="body">
             <!-- <div id="allTotalAssets"></div> -->
           </div>
         </sideItem>
-        <sideItem title="用电趋势分析" delay="800">
+        <sideItem title="用电趋势分析" delay="400">
           <div slot="body">
             <!-- <div id="allTotalAssets"></div> -->
           </div>
@@ -143,7 +157,12 @@ export default {
   methods: {
     //初始化
     init() {
-      this.getDeviceStatiList();
+      this.$nextTick(() => {
+        this.getDeviceStatiList();
+          this.getSurveyData();
+        // setTimeout(() => {
+        // }, 1400)
+      })
     },
     //获取设备统计列表
     getDeviceStatiList() {
@@ -153,7 +172,99 @@ export default {
         { type: '超出使用设备数', count: 45, color: '#DBBB8A' },
         { type: '超出使用总量', count: 298, color: '#A488EF' },
       ]
-    }
+    },
+
+    //获取用电概况数据
+    getSurveyData() {
+      //初始化用电概况图表
+      this.loadSurveyCharts('dayPerc', {});
+      this.loadSurveyCharts('monthPerc', {});
+    },
+    //加载用电概况图表
+    loadSurveyCharts(id, data) {
+      let dom = document.getElementById(id);
+      let chart = echarts.init(dom);
+      let option = {
+        animationEasing: 'cubicInout',
+        animationDuration:2000,
+        series: [
+        {
+          type: 'gauge',
+          startAngle: 180,
+          endAngle: 0,
+          radius: '100%',
+          axisLine: {//轴线
+            show: true,
+            roundCap: true,
+            lineStyle: {
+              width: 8,
+              color: [[0.3, '#6AB0FF'], [0.7, '#4EB78C'], [1, '#F2896B']],
+            }
+          },
+          axisTick: {//轴线刻度
+            show: false
+          },
+          splitLine: {//分割段数,每段大刻度
+            show: false
+          },
+          axisLabel: {//刻度标签
+            show: false
+          },
+          title: {//标题
+            show: false
+          },
+          detail: { show: false },
+        }, {
+          type: 'gauge',
+          startAngle: 180,
+          endAngle: 0,
+          min: 0,
+          max: 100,
+          radius: '75%',
+          splitNumber: 4,
+          itemStyle: {//指针样式
+            color: '#4EB78C',
+          },
+          pointer: {//指针
+            length: '74%',
+            width: 2,
+            offsetCenter: [0, '5%']
+          },
+          axisLine: {//轴线
+            show: false,
+          },
+          axisTick: {//轴线刻度
+            show: true,
+            length: 2,
+          },
+          splitLine: {//分割段数,每段大刻度
+            length: 4,
+            lineStyle: {
+              color: '#479aef'
+            }
+          },
+          axisLabel: {//刻度标签
+            show: false,
+            color: '#fff',
+            fontSize: '10px',
+          },
+          title: {//标题
+            show: false
+          },
+          detail: { show: false },
+          data: [{
+            value: 0
+          }]
+        }],
+      };
+      chart.setOption(option,true);
+      setTimeout(() => {
+        chart.clear();//清除动画
+        option.series[1].data=[{value:75}];
+        chart.setOption(option,true);
+      }, 600)
+    },
+
   }
 }
 </script>
@@ -251,9 +362,22 @@ span {
           }
         }
         .group {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+          position: relative;
+          height: 80px;
+          .chart-survey {
+            width: 74px;
+            height: 74px;
+            // width: 100px;
+            // height: 100px;
+          }
+          .perBox {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          }
           .percent {
             margin: 8px 0;
           }
