@@ -111,26 +111,119 @@
               <div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
               <div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
             </div>
-            <div id="trendChart"></div>
+            <div class="chart-trendChart" id="trendChart"></div>
           </div>
         </sideItem>
       </div>
       <div slot="right">
         <sideItem title="用水设备统计" transitionType="right" delay="200">
-          <div slot="body">
-            <!-- <div id="webSecurity"></div> -->
+          <div class="deviceStati water" slot="body">
+            <currency
+              v-for="(item,i) in statiList"
+              :key="i"
+              :boxnum="item.count"
+              :boxtitle="item.type"
+              :boxcolor="item.color"
+              boxuntil="个"
+              style="margin-top:12px;"
+            ></currency>
           </div>
         </sideItem>
         <sideItem title="用水概况" transitionType="right" delay="400">
-          <div slot="body">
-            <!-- <div id="serverSecurity"></div> -->
+          <div class="survey water" slot="body">
+            <div class="l">
+              <img class="bg" src="../assets/img/frameA.png" alt />
+              <div class="title">用水概况 | 今年</div>
+              <div class="row">
+                <div class="total">
+                  <span class="num">9686</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+              <div class="row">
+                <div class="item" style="margin-right:10px;">
+                  <span class="text">日均：</span>
+                  <span class="num">86</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="item">
+                  <span class="text">月均：</span>
+                  <span class="num">256</span>
+                  <i class="unit">KWh</i>
+                </div>
+              </div>
+              <div class="row" style="justify-content:space-around;">
+                <div class="group">
+                  <div id="dayPerc_water" class="chart-survey"></div>
+                  <!-- <img src="../assets/img/survey.png" alt /> -->
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                      <i class="perc">4.3%</i>
+                    </div>
+                    <span class="text">日均同比</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <div id="monthPerc_water" class="chart-survey"></div>
+                  <!-- <img src="../assets/img/survey.png" alt /> -->
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-up.png" alt />
+                      <i class="perc red">25%</i>
+                    </div>
+                    <span class="text">月均同比</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="r">
+              <div class="group">
+                <img class="bg" src="../assets/img/frameB.png" alt />
+                <div class="title">用水概况 | 今月</div>
+                <div class="total">
+                  <span class="num">168.62</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+              <div class="group">
+                <img class="bg" src="../assets/img/frameB.png" alt />
+                <div class="title">用水概况 | 今日</div>
+                <div class="total">
+                  <span class="num">12.56</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
         <sideItem title="设备用水占比" transitionType="right" delay="600">
           <div slot="body"></div>
         </sideItem>
         <sideItem title="用水趋势分析" transitionType="right" delay="800">
-          <div slot="body"></div>
+          <div class="trendAnalysis water" slot="body">
+            <div class="checkBox">
+              <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
+              <div :class="trendWaterKey==1?'btn checked':'btn'" @click="getTrendAnalyWaterData(1)">近一月</div>
+              <div :class="trendWaterKey==2?'btn checked':'btn'" @click="getTrendAnalyWaterData(2)">近一年</div>
+            </div>
+            <div class="chart-trendChart" id="trendChart_water"></div>
+          </div>
         </sideItem>
       </div>
     </sideTran>
@@ -153,7 +246,7 @@ export default {
     return {
       statiList: [],//设备统计
       trendKey:2,
-      trendChart:null,
+      trendWaterKey:2,
     }
   },
   computed: {
@@ -167,7 +260,9 @@ export default {
       this.$nextTick(() => {
         this.getDeviceStatiList();
         this.getSurveyData();
+        this.getSurveyWaterData();
         this.getTrendAnalyData(2);
+        this.getTrendAnalyWaterData(2);
         // setTimeout(() => {
         // }, 1400)
       })
@@ -182,6 +277,12 @@ export default {
       ]
     },
 
+    //获取用水概况数据
+    getSurveyWaterData() {
+      //初始化用水概况图表
+      this.loadSurveyCharts('dayPerc_water', {});
+      this.loadSurveyCharts('monthPerc_water', {});
+    },
     //获取用电概况数据
     getSurveyData() {
       //初始化用电概况图表
@@ -287,10 +388,8 @@ export default {
     },
     //加载用电趋势分析图表
     loadTrendAnalyCharts(id, data) {
-      if(this.trendChart==null){
-        let dom = document.getElementById(id);
-        this.trendChart = echarts.init(dom);
-      }
+      let dom = document.getElementById(id);
+      let chart = echarts.init(dom);
       let parma = {
         unit: '单位(KWh)',
         names: ['总量', '超出'],
@@ -391,13 +490,45 @@ export default {
         },
         series: lineY
       }
-      this.trendChart.clear();//清除动画
-      this.trendChart.setOption(option, true);
+      chart.clear();//清除动画
+      chart.setOption(option, true);
       // setTimeout(() => {
       //   chart.clear();//清除动画
       //   chart.setOption(option, true);
       // }, 600)
-    }
+    },
+    //获取用水趋势分析
+    getTrendAnalyWaterData(index) {
+      this.trendWaterKey = index;
+      let charts = {};
+      if (index == 0) {
+        charts = {
+          lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+          value: [
+            [251, 152, 103, 334, 95, 236, 217],
+            [160, 345, 80, 192, 330, 280, 192]
+          ]
+        }
+      } else if (index == 1) {
+        charts = {
+          lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
+          value: [
+            [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
+            [160, 545, 80, 192, 330, 580, 192, 80, 250, 253, 52]
+          ]
+        }
+      } else if (index == 2) {
+        charts = {
+          lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          value: [
+            [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
+            [360, 545, 80, 192, 330, 580, 192, 80, 250, 453, 352, 28]
+          ]
+        }
+      }
+
+      this.loadTrendAnalyCharts('trendChart_water', charts)
+    },
   }
 }
 </script>
@@ -606,7 +737,7 @@ span {
         background: url(../assets/img/btn-check.png) no-repeat 100%;
       }
     }
-    #trendChart{
+    .chart-trendChart{
       width: 340px;
       height: 200px;
     }
