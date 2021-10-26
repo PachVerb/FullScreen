@@ -187,40 +187,13 @@ export default {
       let option = {
         animationEasing: 'cubicInout',
         animationDuration:2000,
-        series: [
-        {
-          type: 'gauge',
-          startAngle: 180,
-          endAngle: 0,
-          radius: '100%',
-          axisLine: {//轴线
-            show: true,
-            roundCap: true,
-            lineStyle: {
-              width: 8,
-              color: [[0.3, '#6AB0FF'], [0.7, '#4EB78C'], [1, '#F2896B']],
-            }
-          },
-          axisTick: {//轴线刻度
-            show: false
-          },
-          splitLine: {//分割段数,每段大刻度
-            show: false
-          },
-          axisLabel: {//刻度标签
-            show: false
-          },
-          title: {//标题
-            show: false
-          },
-          detail: { show: false },
-        }, {
+        series: [{
           type: 'gauge',
           startAngle: 180,
           endAngle: 0,
           min: 0,
           max: 100,
-          radius: '75%',
+          radius: '100%',
           splitNumber: 4,
           itemStyle: {//指针样式
             color: '#4EB78C',
@@ -231,15 +204,23 @@ export default {
             offsetCenter: [0, '5%']
           },
           axisLine: {//轴线
-            show: false,
+            show: true,
+            roundCap: true,
+            lineStyle: {
+              width: 8,
+              color: [[0.3, '#6AB0FF'], [0.7, '#4EB78C'], [1, '#F2896B']],
+            }
           },
           axisTick: {//轴线刻度
             show: true,
+            distance:0,
             length: 2,
           },
           splitLine: {//分割段数,每段大刻度
+            distance:0,
             length: 4,
             lineStyle: {
+              width:1,
               color: '#479aef'
             }
           },
@@ -260,7 +241,7 @@ export default {
       chart.setOption(option,true);
       setTimeout(() => {
         chart.clear();//清除动画
-        option.series[1].data=[{value:75}];
+        option.series[0].data=[{value:75}];
         chart.setOption(option,true);
       }, 600)
     },

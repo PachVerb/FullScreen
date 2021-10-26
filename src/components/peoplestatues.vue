@@ -1582,10 +1582,13 @@
 				radarChartDom = document.getElementById('radar');
 				radarChartChart = echarts.init(radarChartDom);
 				option = {
-					// backgroundColor:"#031d33",
 					animationEasing: 'cubicInout',
         	animationDuration:1000,
 					tooltip: {
+						backgroundColor:'rgba(44,62,80,0.8)',
+						textStyle:{
+							color:'rgba(255,255,255,0.8)',
+						},
 						formatter: function() {
 							var html = '';
 							data.forEach(item => {
@@ -1606,11 +1609,18 @@
 									per:{
 										color:'#00F5FF',
 										fontSize:15
+									},
+									hr: {
+										borderColor: 'rgba(153, 209, 246, 0.2)',
+										width: '100%',
+										borderWidth: 1,
+										height: 0,
+										align: 'left'
 									}
 								}
 							},
 							formatter: function(name,parma) {
-								return `${name} {per|${parma.val/parma.max}}`;
+								return `${name} {per|${parma.val/parma.max}}\n{hr|}`;
 							}
 						},
 						indicator: data.map(item=>{
@@ -1619,6 +1629,7 @@
 						axisLine: {
 							lineStyle: {
 								type:'dotted',
+								width: 2,
 								color: "rgba(153, 209, 246, 0.2)"
 							}
 						},
@@ -1638,7 +1649,7 @@
 							show: true,
 							lineStyle: {
 								type:'dotted',
-								width: 1,
+								width: 2,
 								color: "rgba(153, 209, 246, 0.2)" // 设置网格的颜色
 							}
 						},
@@ -1653,14 +1664,24 @@
 							},
 						itemStyle: {
 							color: "rgba(0, 245, 255, 1)",
-									borderColor: "rgba(0, 245, 255, 1)",
-									shadowBlur: 4,
-                	shadowColor: 'rgba(146, 225, 255, 1)',
+							// borderColor: "rgba(0, 245, 255, 1)",
+							borderWidth:0,
+							shadowBlur: 4,
+							shadowColor: 'rgba(146, 225, 255, 1)',
 						},
 						lineStyle: {
-								color: "rgba(146, 225, 255, 1)",
-								// width: 1
-							},
+							color: "rgba(146, 225, 255, 1)",
+							// width: 1
+						},
+						labelLine: {
+							normal: {
+								length:20,
+								length2: 0,
+								lineStyle: {
+										color:'#a2c7f3'
+								}
+							}
+						},
 						data:[{
 								value: [0,0,0,0,0,0],
 							}]
