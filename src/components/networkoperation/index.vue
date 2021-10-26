@@ -25,7 +25,10 @@
 			</div>
 			<div slot="right">
 				<sideItem title="智能警告分析">
-					<div slot='body'>
+					<div slot='body' class="intelligentwarningbox">
+						<img src="../../assets/pieimg/Networkoperation/intergear.png" alt="" class="intergear">
+						<img src="../../assets/pieimg/Networkoperation/interoutpie.png" alt="" class="interoutpie">
+						<div class="intelligentwarningbar"></div>
 						<div id="intelwarning"></div>
 					</div>
 				</sideItem>
@@ -43,7 +46,7 @@
 						</div> -->
 					</div>
 				</sideItem>
-				
+
 			</div>
 		</sideTran>
 	</div>
@@ -88,84 +91,99 @@
 				})
 			},
 
-			renderpie(){
+			renderpie() {
+				let colors = ['#598BF1', '#E2B46D', '#F2896B', '#2B63D5', '#2039C3', ]
+				let colortwo = ['#F2896B']
+				let datas = [{
+						value: 335,
+						name: '次要警告'
+					},
+					{
+						value: 310,
+						name: '重要警告'
+					},
+
+				]
+				let datatwo = [{
+					value: 234,
+					name: '紧急警告'
+				}, ]
 				let intelwarningChartDom, intelwarningChartChart, option
 				intelwarningChartDom = document.getElementById('intelwarning');
 				intelwarningChartChart = echarts.init(intelwarningChartDom);
-				
-				var chartData = [{name: 'Mon', value: 130},{name: 'Tue', value: 200},{name: 'Wed', value: 150},{name: 'Fri', value: 180},{name: 'Sat', value: 220},{name: 'Sun', value: 210}]
-				
+
 				intelwarningChartChart.setOption({
-				    tooltip: {
-				        show: true,
-				        trigger: 'item',
-				        // 饼图百分比显示计算
-				        formatter: function(d) {
-				            let num = d.percent;
-				            if (d.percent >= 99) { num = '>99' }
-				            if (d.percent <= 1) { num = '<1' }
-				            return d.name + ' : ' + d.value  + ' (' + num + '%)';
-				        },
-				        transitionDuration: 0
-				    },
-				    color: ['#0082e6', '#15dbc6', '#37d066', '#cbc758', '#c48517', '#c44a07', '#b0222f', '#b63393', '#7a19ac', '#5d12ce', '#5460fa', '#97acfa'],  // 每个区域颜色
-				    series: [
-				        {
-				            name: '',
-				            type: 'pie',
-				            center: ['50%', '50%'], // 饼图的圆心坐标
-				            radius: ['60%', '72%'], // 饼图的半径
-				            minAngle: 5, // 最小的扇区角度（0 ~ 360），用于防止某个值过小导致扇区太小影响交互
-				            hoverOffset: 10, // 高亮扇区的偏移距离
-				            itemStyle: {
-				                normal: {
-				                    borderColor: 12,
-				                    borderWidth: '#fff',
-				                },
-				            },
-				            emphasis: {
-				                label: {
-				                    show: true,
-				                    // fontSize: '18',
-				                    // fontWeight: 'bold',
-				                    formatter: function(item){
-				                        return '{b|' + item.value + '}\n{c|'+ item.name + '}'
-				                    },
-				                    rich: {
-				                        // 中间数据的样式
-				                        b: {
-				                            fontSize: '20',
-				                            fontWeight: 'bold',
-				                            padding: [2, 0, 10, 0],
-				                        },
-				                        // 中间名字的样式
-				                        c: {
-				                            fontSize: '24',
-				                        },
-				                    },
-				                },
-				            },
-				            // 饼图图形上的文本标签
-				            label: {
-				                show: false,
-				                position: 'center',
-				            },
-				            // 标签的视觉引导线样式
-				            labelLine: {
-				                normal: {
-				                    show: false,
-				                }
-				            },
-				        }
-				    ],
+					legend: [{
+						icon:"rect",
+							itemWidth: 3,
+							top:10,
+							itemHeight: 8,
+							textStyle: {
+								fontSize: 12,
+								color: "#fft"//与图块颜色对应,牛逼
+							},
+							// data: legendData,
+							data:["次要警告",'重要警告']
+						},
+						{
+							icon:"rect",
+							// orient: 'horizontal',
+							itemWidth: 3,
+							itemHeight: 8,
+							bottom: 10,
+							// data: legendDatatwo,
+							data:['紧急警告'],
+							textStyle: {
+								fontSize: 12,
+								color: "#fft"
+							}
+						}
+					],
+					  tooltip: {
+					    show:true,
+					    trigger: 'item',
+					    formatter: '{b} : {c} ({d}%)'
+					  },
+					series: [{
+							// name: '访问来源',
+							color: ['#598BF1', '#E2B46D', '#F2896B', '#2B63D5', '#2039C3', '#2ECACE',
+								'#6F81DA'
+							],
+							type: 'pie',
+							radius: ['50%', '60%'],
+							avoidLabelOverlap: false,
+							hoverAnimation: false,
+							label: {
+								show: false,
+								position: 'center'
+							},
+							emphasis: {
+								label: {
+									show: false,
+									fontSize: '30',
+									fontWeight: 'bold'
+								}
+							},
+							labelLine: {
+								show: false
+							},
+							data: [{
+									value: 335,
+									name: '次要警告'
+								},
+								{
+									value: 310,
+									name: '重要警告'
+								},
+								{
+									value: 234,
+									name: '紧急警告'
+								},
+							]
+						},
+
+					]
 				});
-				
-				// option.legend.data = chartData.map(item => item.name);
-				// 得到系列数据
-				// option.series[0].data = chartData.map(item => ({
-				//     value: item.value || null,
-				//     name: item.name || ''
-				// }));
 			}
 
 		}
@@ -192,10 +210,12 @@
 		width: 100%;
 		height: 150px;
 	}
-	.intelwarningunitbox{
-		width: 100%;
-		height: 210px;
+
+	.intelwarningunitbox {
+		width: 50%;
+		height: 180px;
 	}
+
 	#intelwarning {
 		width: 200px;
 		height: 200px;
@@ -226,7 +246,7 @@
 		width: 150px;
 		top: 25px;
 		left: 115px;
-/* 		animation: myMove 5s; 外圈旋转动画
+		/* 		animation: myMove 5s; 外圈旋转动画
 		-webkit-animation: myMove 5s infinite linear; */
 	}
 
@@ -238,8 +258,8 @@
 	@-webkit-keyframes myMove {
 	    from {transform: rotate(0deg);}
 	    to {transform: rotate(360deg);}
-	} 旋转半圈以后反转*/ 
-	
+	} 旋转半圈以后反转*/
+
 	/* 外圈旋转动画 */
 	@-webkit-keyframes myMove {
 
@@ -251,15 +271,42 @@
 		100% {
 			-webkit-transform: rotate(360deg);
 		}
-	} 
-	.gear{
+	}
+
+	.gear {
 		position: absolute;
 		width: 80px;
 		top: 60px;
 		left: 151px;
-		
+
 	}
-	.userladnd{
+
+	.userladnd {
 		height: 300px;
+	}
+
+	.intelligentwarningbox {
+		position: relative;
+		display: flex;
+		height: 180px;
+	}
+
+	.intelligentwarningbar {
+		width: 50%;
+		height: 180px;
+	}
+
+	.intergear {
+		position: absolute;
+		right: 51px;
+		width: 90px;
+		top: 55px;
+	}
+
+	.interoutpie {
+		position: absolute;
+		right: 31PX;
+		width: 133px;
+		top: 34px;
 	}
 </style>
