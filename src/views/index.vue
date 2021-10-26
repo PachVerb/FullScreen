@@ -24,6 +24,7 @@
 		<interstatues ref="interstatues"></interstatues>
 		<publichouse ref="publichouse"></publichouse>
 		<studystatues ref="studystatues"></studystatues>
+		<networkoperation ref="networkoperation"></networkoperation>
   </div>
 </template>
 <script>
@@ -41,6 +42,7 @@ import vehicle from '@/components/vehicle'
 import peoplestatues from '@/components/peoplestatues'
 import energyUsage from '@/components/energyUsage'
 import publichouse from '@/components/publichouse/index.vue'//公房态势
+import networkoperation from '@/components/networkoperation/index.vue'//网络运维
 import Bus from'../js/Bus';
 import EnergyUsage from '../components/energyUsage.vue';
 export default {
@@ -60,7 +62,8 @@ export default {
     energyUsage,
 		interstatues,
 		publichouse,
-		studystatues
+		studystatues,
+		networkoperation
   },
   data() {
     return {

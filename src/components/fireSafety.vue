@@ -20,8 +20,11 @@
 					</div>
 				</sideItem>
 				<sideItem title="异常设备位置分析" delay="1000">
-					<div slot='body'>
+					<div slot='body' class="abnormaldevice">
+						<img src="../assets/pieimg/fire/firearc.png" class="abnormaldeviceimg fireleftarc">
+						<img src="../assets/pieimg/fire/fireleftgear.png" class="abnormaldeviceimg fireleftgear">
 						<div id="totalAssets"></div>
+						<div class="abnormaldevicebox"></div>
 					</div>
 				</sideItem>
 				<sideItem title="设备异常详情" delay="1500">
@@ -88,7 +91,8 @@
 						<div class="ab-list patrol">
 							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
 								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
-									{{ item.name }}</div>
+									{{ item.name }}
+								</div>
 								<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
 								<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
 								<div :style="{width: tableHead[3].width}" class="last-address table-item"></div>
@@ -102,6 +106,9 @@
 </template>
 
 <script>
+	// let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6', '#ad46f3',
+	// 	'#f845f1'
+	// ];
 	import * as mixins from './mixins'
 	import sideTran from './sideTran'
 	import sideItem from './sideItem.vue'
@@ -268,9 +275,11 @@
 						let abPatrolEqChartDom = document.getElementById('abPatrolEqChart');
 						abPatrolEqChart = echarts.init(abPatrolEqChartDom);
 						abPatrolEqChart.setOption(abPatrolEqOption)
+						this.rendpubpie()
 					}, 1500)
 				})
 			},
+
 			handleAbCheckNav(nav) {
 				this.abCheckNav = nav
 			},
@@ -422,6 +431,168 @@
 						},
 					],
 				};
+			},
+			rendpubpie() {
+				let totalAssetsChartDom, totalAssetsChartChart, option
+				totalAssetsChartDom = document.getElementById('totalAssets');
+				totalAssetsChartChart = echarts.init(totalAssetsChartDom, {
+					width: 150,
+					height: 150
+				});
+				let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6',
+					'#ad46f3',
+					'#f845f1'
+				];
+				let names = ["居住", "生产", "经营"];
+				let data1 = [1114, 444, 501]
+				let list = []
+				let total = 0
+				for (let i in data1) {
+					total += data1[i]
+				}
+
+				let placeHolderStyle = {
+					normal: {
+						label: {
+							show: false
+						},
+						labelLine: {
+							show: false
+						},
+						color: 'rgba(0, 0, 0, 0)',
+						borderColor: 'rgba(0, 0, 0, 0)',
+						borderWidth: 0
+					}
+				};
+
+				let rich = {
+					white: {
+						align: 'center',
+						padding: [3, 0]
+					}
+				};
+
+				for (let i in data1) {
+					list.push({
+						value: data1[i],
+						name: names[i],
+						itemStyle: {
+							normal: {
+								borderWidth: 5,
+								shadowBlur: 20,
+								borderColor: color[i],
+								shadowColor: color[i],
+								color: color[i]
+							}
+						}
+					}, {
+						value: total / 30,
+						name: '',
+						itemStyle: placeHolderStyle
+					})
+				}
+
+				let func = (params) => {
+					let percent = ((params.value / total) * 100).toFixed(1)
+					let name = params.name.replace(/\n/g, '')
+					if (params.name !== '') {
+						return name + '\n{white|' + percent + '%}'
+					} else {
+						return ''
+					}
+				}
+
+
+
+				totalAssetsChartChart.setOption({
+					tooltip: {
+						show: false
+					},
+					legend: {
+						show: false,
+						orient: 'vertical',
+						data: names,
+						icon: 'circle',
+						right: '5px',
+						top: '10px',
+						textStyle: {
+							color: '#fff',
+							fontSize: 20
+						}
+					},
+					series: [{
+							name: '',
+							type: 'pie',
+							clockWise: false,
+							startAngle: '90',
+							center: ['50%', '50%'],
+							radius: ['80%', '81%'],
+							hoverAnimation: false,
+							itemStyle: {
+								normal: {
+									label: {
+										show: false,
+										position: 'outside',
+										formatter: func,
+										rich: rich
+									},
+									labelLine: {
+										length: 40,
+										length2: 100,
+										show: true,
+										color: '#00ffff'
+									}
+								}
+							},
+							data: list,
+							animationType: 'scale',
+							animationEasing: 'elasticOut',
+							animationDelay: function(idx) {
+								return idx * 550;
+							}
+						},
+						{
+							name: '',
+							type: 'pie',
+							center: ['50%', '50%'],
+							radius: ['70%', '70%'], //设置饼状图的宽高
+							itemStyle: {
+								color: 'transparant'
+							},
+							startAngle: '90',
+							data: [{
+								value: total,
+								name: '',
+								label: {
+									normal: {
+										show: true,
+										formatter: '{c|异常设备}' + '\n' + '{active|位置分析}',
+
+										// formatter: '用电纪录',
+										rich: {
+											c: {
+												color: 'rgba(255, 255, 255, .8)',
+												fontSize: 12,
+												// fontWeight: 'bold',
+												lineHeight: 22
+											},
+											b: {
+												color: 'rgba(255, 255, 255, .8)',
+												fontSize: 12,
+												lineHeight: 22
+											}
+										},
+										textStyle: {
+											fontSize: 12,
+											// fontWeight: 'bold'
+										},
+										position: 'center'
+									}
+								}
+							}]
+						}
+					]
+				});
 			}
 		}
 	}
@@ -652,5 +823,47 @@
 		left: 3px;
 		top: 10px;
 		;
+	}
+	.abnormaldevice{
+		height: 200px;
+		display: flex;
+		justify-content: space-around;
+		position: relative;
+	}
+	
+	#totalAssets {
+		height: 200px;
+		width: 50%;
+		position: absolute;
+		left: 20px;
+		top: 20px;
+	}
+	.fireleftarc{
+		width: 160px;
+		height: 160px;
+		position:absolute;
+		left:14px;
+		top:17px;
+		animation: myMove 5s; //外圈旋转动画
+		-webkit-animation: myMove 5s infinite linear;
+	}
+	/* 外圈旋转动画 */
+	@-webkit-keyframes myMove {
+	
+		/**关键帧名称**/
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+	
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	} 
+	.fireleftgear{
+		width: 110px;
+		height: 110px;
+		position:absolute;
+		left:41px;
+		top:41px;
 	}
 </style>

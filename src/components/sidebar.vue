@@ -77,7 +77,13 @@ export default {
         cname: '公房态势',
         normal: require('../assets/sidebar/normal/publichouse.png'),
         select: require('../assets/sidebar/select/publichouse.png')
-      }],
+      },{
+        name: 'networkoperation',
+        cname: '网络运维',
+        normal: require('../assets/sidebar/normal/networkoperation.png'),
+        select: require('../assets/sidebar/select/networkoperation.png')
+      }
+			],
       sideList: [[]],
       thisIndex: 0,
       swiperOption: {

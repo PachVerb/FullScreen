@@ -150,7 +150,9 @@
 			init() {
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'dormitory'
-					this.randerBar()
+					setTimeout(()=>{
+						this.randerBar()
+					},1500)
 				})
 			},
 			randerBar() {

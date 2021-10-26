@@ -18,20 +18,18 @@
       </div>
       <div slot="right">
         <sideItem title="网站安全统计" :transitionType="'right'" :delay="500">
-          <div slot='body'>
+          <div slot='body' class="websafe">
             <div id="webSecurity"></div>
           </div>
         </sideItem>
         <sideItem title="服务器安全分析" :transitionType="'right'" :delay="1000">
-          <div slot='body'>
+          <div slot='body' class="serversafebox">
+						<img src="../assets/pieimg/assets/assetsarc.png" class="assetsarc">
+						<img src="../assets/pieimg/assets/assetsinner.png" class="assetsinner">
             <div id="serverSecurity"></div>
           </div>
         </sideItem>
-				<sideItem title="网站安全分析">
-				  <div slot='body'>
-				    <div id="serverSecurity"></div>
-				  </div>
-				</sideItem>
+				
       </div>
     </sideTran>
   </div>
@@ -521,7 +519,46 @@ export default {
   height: 300px;
 }
 #serverSecurity{
-  width: 350px;
-  height: 100px;
+  width: 180px;
+  height: 180px;
+	margin-left: 100px;
+	/* margin-top: 24px; */
+	position: absolute;
+	left: 0;
+}
+.serversafebox{
+	position: relative;
+	height: 340px;
+}
+.websafe{
+	height: 360px;
+}
+.assetsarc{
+	position: absolute;
+	left: 84px;
+	top: -14px;
+	width: 210px;
+	height: 210px;
+	animation: myMove 5s;
+	-webkit-animation: myMove 5s infinite linear;
+}
+	/* 外圈旋转动画 */
+	@-webkit-keyframes myMove {
+	
+		/**关键帧名称**/
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+	
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	} 
+.assetsinner{
+	position: absolute;
+	left: 116px;
+	top: 14px;;
+	width: 150px;
+	height: 150px;
 }
 </style>
