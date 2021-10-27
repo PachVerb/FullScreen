@@ -18,7 +18,7 @@
 	export default {
 		data() {
 			return {
-				duration: 1000
+				duration: 4000
 			};
 		},
 		props: {
@@ -36,7 +36,7 @@
 		methods: {
 			formatToPrice(value) {
 				let color =  this.boxcolor
-				return `<h3  style="color:${color};font-size: 19px;font-family: Helvetica-Bold;position: relative;top: 14px;"  >${Number(value).toFixed(0)}</h3>`;
+				return `<h3  style="color:${color};font-size: 26px;font-family: Helvetica-Bold;position: relative;top: 10px;"  >${Number(value).toFixed(0)}</h3>`;
 			},
 			numberToCurrency(data, cut) {
 				return numberFilter(data, cut)
@@ -56,7 +56,7 @@
 		width: 150px;
 		background-size: 100%;
 		height: 56px;
-		background-size: 100% 80%;
+		/* background-size: 100% 80%; */
 		justify-content: center;
 	}
 
@@ -76,7 +76,7 @@
 	.unit {
 		margin-left: 2px;
 		font-size: 12px;
-		line-height: 60px;
+		line-height: 64px;
 		color: rgba(246, 250, 255, 0.3);
 	}
 </style>
