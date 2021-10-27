@@ -91,6 +91,7 @@ export default {
 	},
   mounted(){
 		// this.copyWeatherHtml()
+    this.SET_CURRENTSYS('comprehensive')
 	},
   methods:{
     zoomdata(data){
@@ -146,7 +147,7 @@ export default {
         })
       },
 
-    ...mapMutations(['SET_ISINDOOR']),
+    ...mapMutations(['SET_ISINDOOR','SET_CURRENTSYS']),
   }
 };
 </script>
