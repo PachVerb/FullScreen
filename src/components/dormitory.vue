@@ -6,7 +6,15 @@
 					<div slot='body' style="height: 30%;">
 						<div class="homestatues">
 							<div class="homestatuesleft">
-								<div class="homestatuesleftwz">
+								<img src="../assets/pieimg/dormitory/arc.png" class="arcposition ">
+								<img src="../assets/pieimg/dormitory/innercir.png" class="cirposition ">
+								<div id="todayhome"></div>
+								<div style="width: 150px;margin-top: 136px;margin-left: -20px;">
+									<p style="display: inline-block;color: #00F5FF;font-weight: bolder;">21102</p><span
+										style="color:gray;">人</span>
+									<p style="color: white;position: relative;">住宿总人数</p>
+								</div>
+								<!-- 								<div class="homestatuesleftwz">
 									<p style="color: #00F5FF;display: inline-block;font-weight: bolder;">85.75</p><span
 										style="color:gray;">%</span>
 									<p style="color: white;">今日归寝率</p>
@@ -15,7 +23,7 @@
 									<p style="display: inline-block;color: #00F5FF;font-weight: bolder;">21102</p><span
 										style="color:gray;">人</span>
 									<p style="color: white;position: relative;">住宿总人数</p>
-								</div>
+								</div> -->
 							</div>
 							<div class="homestatuesright">
 								<div class="leftstatuesbox" v-for="(item,index) in homestaueslist">
@@ -100,7 +108,7 @@
 			</div>
 			<!-- 右边 -->
 			<div slot="right" class="right">
-				<sideItem title="未归寝名单" transitionType="right" >
+				<sideItem title="未归寝名单" transitionType="right">
 					<div class="nohomelist" v-for="(item,index) in nohomelist" slot='body'>
 						<div style="display: flex;position: relative;">
 							<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
@@ -150,10 +158,111 @@
 			init() {
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'dormitory'
-					setTimeout(()=>{
+					setTimeout(() => {
 						this.randerBar()
-					},1500)
+						this.renderpie()
+					}, 1500)
 				})
+			},
+
+			renderpie() {
+				let todayhomeChartDom, todayhomeChartChart
+				todayhomeChartDom = document.getElementById('todayhome');
+				todayhomeChartChart = echarts.init(todayhomeChartDom);
+				var value = 0.54;
+				todayhomeChartChart.setOption({
+					// backgroundColor: '#182s3s',
+					title: [{
+						text: `${(value * 100).toFixed(2)}%`,
+						subtext: "今日归寝率",
+						left: '48%',
+						top: '42%',
+						textAlign: 'center',
+						textStyle: {
+							fontSize: '14',
+							fontWeight: '500',
+							color: '#00F5FF',
+							textAlign: 'center',
+							textBorderColor: 'rgba(0, 0, 0, 0)',
+							textShadowColor: '#000',
+							textShadowBlur: '0',
+							textShadowOffsetX: 0,
+							textShadowOffsetY: 1,
+							lineHeight: 4
+						},
+						subtextStyle: {
+							fontSize: 12,
+							 lineHeight: 48
+						}
+					}, ],
+					polar: {
+						radius: ['38%', '45%'],
+						center: ['50%', '50%'],
+					},
+					angleAxis: {
+						startAngle: 180,
+						max: 100,
+						clockwise: false,
+						axisLine: {
+							show: false,
+						},
+						axisTick: {
+							show: false,
+						},
+						axisLabel: {
+							show: false,
+						},
+						splitLine: {
+							show: false,
+						},
+					},
+					radiusAxis: {
+						type: 'category',
+						show: true,
+						axisLabel: {
+							show: false,
+						},
+						axisLine: {
+							show: false,
+						},
+						axisTick: {
+							show: false,
+						},
+					},
+					series: [
+
+						{
+							name: '',
+							type: 'bar',
+							roundCap: true,
+							z: 2,
+							startAngle: 60,
+							showBackground: true,
+							backgroundStyle: {
+								color: '#3F546B',
+							},
+							data: [75],
+							coordinateSystem: 'polar',
+							itemStyle: {
+								normal: {
+									color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [ //设置渐变色
+										{
+											offset: 0,
+											color: '#69AFFD',
+										},
+										{
+											offset: 1,
+
+
+											color: '#69AFFD',
+										},
+									]),
+								},
+							},
+						},
+					],
+				});
+
 			},
 			randerBar() {
 				var yAxisData = ['TOP1', 'TOP2', 'TOP3', 'TOP4', 'TOP5', 'TOP6', 'TOP7', 'TOP8', 'TOP9', 'TOP10'];
@@ -582,12 +691,12 @@
 	}
 
 	.homestatuesleft {
-		border: 1px solid transparent;
-		background: url(../assets/img/diamaryhomebg.png);
 		width: 150px;
 		height: 150px;
+		/* 		border: 1px solid transparent;
+		background: url(../assets/img/diamaryhomebg.png);
 		background-color: rgba(68, 92, 121, 0.6);
-		background-size: 100% 100%;
+		background-size: 100% 100%; */
 		position: relative;
 	}
 
@@ -694,5 +803,43 @@
 		margin-top: 3px;
 		/* 		width: 80%;
 		background-color: red; */
+	}
+
+	#todayhome {
+		width: 200px;
+		height: 200px;
+		position: absolute;
+		left: -50px;
+		top: -40px;
+	}
+
+	.arcposition {
+		position: absolute;
+		left: -20px;
+		top: -10px;
+		width: 140px;
+		animation: myMove 5s;
+		/* -webkit-animation: myMove 5s ease-in infinite alternate; 旋转半圈以后反转*/
+		-webkit-animation: myMove 5s infinite linear;
+	}
+
+	@-webkit-keyframes myMove {
+
+		/**关键帧名称**/
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
+	}
+
+	.cirposition {
+		position: absolute;
+		left: -20px;
+		width: 140px;
+		top: -10px;
+		;
 	}
 </style>

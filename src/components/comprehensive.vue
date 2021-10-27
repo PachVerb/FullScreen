@@ -36,12 +36,14 @@
 				<sideItem title="车辆态势">
 				  <div slot='body'></div>
 				</sideItem>
-				<sideItem title="学生实时分布2122" transitionType="right" delay="1500">
+				<sideItem title="学生实时分布" transitionType="right" delay="1500">
 				  <div slot='body' class="studentdistribution">
+						<img src="../assets/pieimg/comprehensive/comprehensiveoutpie.png" class="comprehensiveoutpie">
+						<img src="../assets/pieimg/comprehensive/innercircle.png" class="innercircle">
 						<div id="studentdistribution"></div>
 					</div>
 				</sideItem>
-				<sideItem title="AI摄像机态势">4
+				<sideItem title="AI摄像机态势">
 				  <div slot='body'></div>
 				</sideItem>
 				<sideItem title="国有资产">
@@ -118,27 +120,27 @@ export default {
 			let pieDatas = [
 			    {
 			        "value": 30,
-			        "name": "系列一"
+			        "name": "教学楼"
 			    },
 			    {
 			        "value": 14,
-			        "name": "系列二"
+			        "name": "图书馆"
 			    },
 			    {
 			        "value": 26,
-			        "name": "系列三"
+			        "name": "宿舍楼"
 			    },
 			    {
 			        "value": 20,
-			        "name": "系列四"
+			        "name": "实验楼"
 			    },
 			    {
 			        "value": 10,
-			        "name": "系列五"
+			        "name": "餐厅/食堂"
 			    },
 			    {
 			        "value": 10,
-			        "name": "系列六"
+			        "name": "其他位置"
 			    }
 			];
 			let maxRadius =  80,
@@ -334,10 +336,24 @@ export default {
 }
 .studentdistribution{
 	height:200px;
-	width: 50%;
+	width: 380px;
+	position: relative;
 }
 #studentdistribution{
 	height: 200px;
-	height: 200px;
+	width: 330px;
+	position: absolute;
+	left: 0px;
+}
+.comprehensiveoutpie{
+	position: absolute;
+	width: 186px;
+	left: 6px;
+	top: 7px;
+}
+.innercircle{
+	position: absolute;
+	left: 23%;
+	top: 43%;
 }
 </style>
