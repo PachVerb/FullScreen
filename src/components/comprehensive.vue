@@ -1,11 +1,11 @@
 <template>
   <div>
-    <sideTran thisCrrentSys="comprehensive">
+    <sideTran :thisCrrentSys="thisCrrentSys">
       <div slot="left">
         <sideItem title="网络状态">
           <div class="network-status" slot='body'>
             <div class="network-status-left">
-              <div class="btn-item" v-for="item in btnList" :key="item.name">
+              <div class="btn-item" v-for="(item,index) in btnList" :key="index">
                 <div class="btn-icon"><img src="../assets/img/people-up-num.png" alt=""></div>
                 <div class="btn-detail">
                   <span class="btn-name">{{item.name}}</span>
@@ -34,9 +34,9 @@
       </div>
       <div slot="right">
 				<sideItem title="车辆态势">
-				  <div name='body'></div>
+				  <div slot='body'></div>
 				</sideItem>
-				<sideItem title="学生实时分布2122">
+				<sideItem title="学生实时分布2122" transitionType="right" delay="1500">
 				  <div slot='body' class="studentdistribution">
 						<div id="studentdistribution"></div>
 					</div>
@@ -70,6 +70,7 @@ export default {
 	},
   data(){
     return {
+      thisCrrentSys: 'comprehensive',
       btnList: [{
         name: '在线人数',
         text: '2222',
@@ -100,7 +101,7 @@ export default {
 	methods:{
 		init() {
 			this.$nextTick(() => {
-				this.thisCrrentSys = 'networkoperation'
+				this.thisCrrentSys = 'comprehensive'
 				var _this = this
 				// this.initcolor()
 				setTimeout(function() {

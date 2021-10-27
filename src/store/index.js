@@ -9,7 +9,7 @@ const state = {
     currentFloor: 0, // 当前楼层
     isInDoor: false, // 是否是室内
     currentPanelIndex: 0, // 当前模块
-    currentSys: 'comprehensive'
+    currentSys: ''
 }
 
 const mutations = {
