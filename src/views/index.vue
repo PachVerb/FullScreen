@@ -2,7 +2,7 @@
   <div class="index">
     <!-- <img src="../assets/img/2.png" alt=""> -->
     <div class="index_top" >
-      <img alt="logo" src="../assets/img/toptitle.png"  style="width: 50%; display: inline-block;"/>
+      <img alt="logo" src="../assets/img/toptitle.png"  style="width: 95%; display: inline-block;"/>
 <!-- 			<div style="margin-right: 10px;display: inline-block;position: absolute;margin-top: 20px">
 				<selectschool style="position: absolute;width:340px" />
 				<clock style="margin-left: 150px;" />
