@@ -360,6 +360,7 @@ export default {
       let charts = {};
       if (index == 0) {
         charts = {
+          unit: '单位(KWh)',
           lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
           value: [
             [251, 152, 103, 334, 95, 236, 217],
@@ -368,6 +369,7 @@ export default {
         }
       } else if (index == 1) {
         charts = {
+          unit: '单位(KWh)',
           lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
           value: [
             [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
@@ -376,6 +378,7 @@ export default {
         }
       } else if (index == 2) {
         charts = {
+          unit: '单位(KWh)',
           lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
           value: [
             [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
@@ -391,7 +394,6 @@ export default {
       let dom = document.getElementById(id);
       let chart = echarts.init(dom);
       let parma = {
-        unit: '单位(KWh)',
         names: ['总量', '超出'],
         ...data
       };
@@ -429,6 +431,7 @@ export default {
           backgroundColor: 'rgba(44,62,80,0.8)',
           borderColor: 'rgba(153, 209, 246, 0.6)',
           textStyle: {
+            align:'left',
             fontSize: 12,
             color: 'rgba(255,255,255,0.8)',
           },
@@ -503,6 +506,7 @@ export default {
       let charts = {};
       if (index == 0) {
         charts = {
+          unit: '单位(㎡)',
           lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
           value: [
             [251, 152, 103, 334, 95, 236, 217],
@@ -511,6 +515,7 @@ export default {
         }
       } else if (index == 1) {
         charts = {
+          unit: '单位(㎡)',
           lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
           value: [
             [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
@@ -519,6 +524,7 @@ export default {
         }
       } else if (index == 2) {
         charts = {
+          unit: '单位(㎡)',
           lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
           value: [
             [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
