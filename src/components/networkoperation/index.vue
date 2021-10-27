@@ -113,7 +113,7 @@
 				intelwarningChartChart = echarts.init(intelwarningChartDom);
 
 				intelwarningChartChart.setOption({
-					legend: [{
+					legend: [{  //分行的原理是用数组表示,下一个也是用数组表示,切记,data里面直接传入数组的名字.文字颜色用#fft,自动适配颜色
 						icon:"rect",
 							itemWidth: 3,
 							top:10,
