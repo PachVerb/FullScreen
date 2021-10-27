@@ -12,7 +12,6 @@
               :boxtitle="item.type"
               :boxcolor="item.color"
               boxuntil="个"
-              style="margin-top:12px;"
             ></currency>
           </div>
         </sideItem>
@@ -100,7 +99,7 @@
           </div>
         </sideItem>
         <sideItem title="设备用电占比" delay="300">
-          <div slot="body">
+          <div slot="body" style="height:135px;">
             <!-- <div id="allTotalAssets"></div> -->
           </div>
         </sideItem>
@@ -125,7 +124,6 @@
               :boxtitle="item.type"
               :boxcolor="item.color"
               boxuntil="个"
-              style="margin-top:12px;"
             ></currency>
           </div>
         </sideItem>
@@ -213,7 +211,7 @@
           </div>
         </sideItem>
         <sideItem title="设备用水占比" transitionType="right" delay="600">
-          <div slot="body"></div>
+          <div slot="body" style="height:135px;"></div>
         </sideItem>
         <sideItem title="用水趋势分析" transitionType="right" delay="800">
           <div class="trendAnalysis water" slot="body">

@@ -179,7 +179,8 @@ export default {
   position: absolute;
   z-index: 10;
   top: 60px;
-  height: 100%;
+  // height: 100%;
+  cursor: pointer;
 }
 .up{
   left: -30px;
@@ -295,6 +296,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   .side-normal-img{
     display: block;
   }
