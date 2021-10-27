@@ -150,7 +150,7 @@ export default {
       sideDomList = [...sideDomList]
       sideDomList.forEach((dom,index) => {
         let a = this.returnClassType(index,this.thisIndex)
-        dom.style.left = (index - this.thisIndex*this.size)*105 + 'px'
+        dom.style.left = 10 + (index - this.thisIndex*this.size)*105 + 'px'
         // console.log(a)
         dom.style.top = (42-(a-1)*17) + 'px'
       })
