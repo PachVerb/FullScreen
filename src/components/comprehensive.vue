@@ -36,12 +36,12 @@
 				<sideItem title="车辆态势">
 				  <div name='body'></div>
 				</sideItem>
-				<sideItem title="学生实时分布2122">
+				<sideItem title="学生实时分布">
 				  <div slot='body' class="studentdistribution">
-						<div id="studentdistribution"></div>
+						<div id="studentdistributionpie"></div>
 					</div>
 				</sideItem>
-				<sideItem title="AI摄像机态势">4
+				<sideItem title="AI摄像机态势">
 				  <div slot='body'></div>
 				</sideItem>
 				<sideItem title="国有资产">
@@ -111,7 +111,7 @@ export default {
 		renderpie(){
 			
 			let studentdistributionChartDom, studentdistributionChartChart, option
-			studentdistributionChartDom = document.getElementById('studentdistribution');
+			studentdistributionChartDom = document.getElementById('studentdistributionpie');
 			studentdistributionChartChart = echarts.init(studentdistributionChartDom);
 			let series = [];
 			let pieDatas = [
@@ -247,7 +247,7 @@ export default {
 			})
 			studentdistributionChartChart.setOption({
 			    grid: {
-			        left:  0,
+			        left:  "50%",
 			        right:  0,
 			        top:  0,
 			        bottom:  0,
@@ -333,10 +333,10 @@ export default {
 }
 .studentdistribution{
 	height:200px;
-	width: 50%;
+	width: 380px;;
 }
-#studentdistribution{
+#studentdistributionpie{
 	height: 200px;
-	height: 200px;
+	width: 50%;
 }
 </style>
