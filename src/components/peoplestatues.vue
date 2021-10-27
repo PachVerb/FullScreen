@@ -1658,7 +1658,7 @@
 					series: [{
 						name: "报警类型分析",
 						type: "radar",
-						symbol: "circle",
+						// symbol: "circle",
 						areaStyle: {
 								color: "rgba(0, 245, 255, 0.4)"
 							},
@@ -1666,21 +1666,12 @@
 							color: "rgba(0, 245, 255, 1)",
 							// borderColor: "rgba(0, 245, 255, 1)",
 							borderWidth:0,
-							shadowBlur: 4,
+							shadowBlur: 2,
 							shadowColor: 'rgba(146, 225, 255, 1)',
 						},
 						lineStyle: {
 							color: "rgba(146, 225, 255, 1)",
 							// width: 1
-						},
-						labelLine: {
-							normal: {
-								length:20,
-								length2: 0,
-								lineStyle: {
-										color:'#a2c7f3'
-								}
-							}
 						},
 						data:[{
 								value: [0,0,0,0,0,0],
