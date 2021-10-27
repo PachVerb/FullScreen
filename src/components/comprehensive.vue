@@ -1,11 +1,11 @@
 <template>
   <div>
-    <sideTran thisCrrentSys="comprehensive">
+    <sideTran :thisCrrentSys="thisCrrentSys">
       <div slot="left">
         <sideItem title="网络状态">
           <div class="network-status" slot='body'>
             <div class="network-status-left">
-              <div class="btn-item" v-for="item in btnList" :key="item.name">
+              <div class="btn-item" v-for="(item,index) in btnList" :key="index">
                 <div class="btn-icon"><img src="../assets/img/people-up-num.png" alt=""></div>
                 <div class="btn-detail">
                   <span class="btn-name">{{item.name}}</span>
@@ -34,14 +34,14 @@
       </div>
       <div slot="right">
 				<sideItem title="车辆态势">
-				  <div name='body'></div>
+				  <div slot='body'></div>
 				</sideItem>
-				<sideItem title="学生实时分布">
+				<sideItem title="学生实时分布2122" transitionType="right" delay="1500">
 				  <div slot='body' class="studentdistribution">
-						<div id="studentdistributionpie"></div>
+						<div id="studentdistribution"></div>
 					</div>
 				</sideItem>
-				<sideItem title="AI摄像机态势">
+				<sideItem title="AI摄像机态势">4
 				  <div slot='body'></div>
 				</sideItem>
 				<sideItem title="国有资产">
@@ -70,6 +70,7 @@ export default {
 	},
   data(){
     return {
+      thisCrrentSys: 'comprehensive',
       btnList: [{
         name: '在线人数',
         text: '2222',
@@ -100,7 +101,7 @@ export default {
 	methods:{
 		init() {
 			this.$nextTick(() => {
-				this.thisCrrentSys = 'networkoperation'
+				this.thisCrrentSys = 'comprehensive'
 				var _this = this
 				// this.initcolor()
 				setTimeout(function() {
@@ -111,7 +112,7 @@ export default {
 		renderpie(){
 			
 			let studentdistributionChartDom, studentdistributionChartChart, option
-			studentdistributionChartDom = document.getElementById('studentdistributionpie');
+			studentdistributionChartDom = document.getElementById('studentdistribution');
 			studentdistributionChartChart = echarts.init(studentdistributionChartDom);
 			let series = [];
 			let pieDatas = [
@@ -247,7 +248,7 @@ export default {
 			})
 			studentdistributionChartChart.setOption({
 			    grid: {
-			        left:  "50%",
+			        left:  0,
 			        right:  0,
 			        top:  0,
 			        bottom:  0,
@@ -333,10 +334,10 @@ export default {
 }
 .studentdistribution{
 	height:200px;
-	width: 380px;;
-}
-#studentdistributionpie{
-	height: 200px;
 	width: 50%;
+}
+#studentdistribution{
+	height: 200px;
+	height: 200px;
 }
 </style>
