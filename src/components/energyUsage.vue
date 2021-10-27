@@ -105,27 +105,125 @@
           </div>
         </sideItem>
         <sideItem title="用电趋势分析" delay="400">
-          <div slot="body">
-            <!-- <div id="allTotalAssets"></div> -->
+          <div class="trendAnalysis" slot="body">
+            <div class="checkBox">
+              <div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
+              <div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
+              <div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
+            </div>
+            <div class="chart-trendChart" id="trendChart"></div>
           </div>
         </sideItem>
       </div>
       <div slot="right">
         <sideItem title="用水设备统计" transitionType="right" delay="200">
-          <div slot="body">
-            <!-- <div id="webSecurity"></div> -->
+          <div class="deviceStati water" slot="body">
+            <currency
+              v-for="(item,i) in statiList"
+              :key="i"
+              :boxnum="item.count"
+              :boxtitle="item.type"
+              :boxcolor="item.color"
+              boxuntil="个"
+              style="margin-top:12px;"
+            ></currency>
           </div>
         </sideItem>
         <sideItem title="用水概况" transitionType="right" delay="400">
-          <div slot="body">
-            <!-- <div id="serverSecurity"></div> -->
+          <div class="survey water" slot="body">
+            <div class="l">
+              <img class="bg" src="../assets/img/frameA.png" alt />
+              <div class="title">用水概况 | 今年</div>
+              <div class="row">
+                <div class="total">
+                  <span class="num">9686</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+              <div class="row">
+                <div class="item" style="margin-right:10px;">
+                  <span class="text">日均：</span>
+                  <span class="num">86</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="item">
+                  <span class="text">月均：</span>
+                  <span class="num">256</span>
+                  <i class="unit">KWh</i>
+                </div>
+              </div>
+              <div class="row" style="justify-content:space-around;">
+                <div class="group">
+                  <div id="dayPerc_water" class="chart-survey"></div>
+                  <!-- <img src="../assets/img/survey.png" alt /> -->
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                      <i class="perc">4.3%</i>
+                    </div>
+                    <span class="text">日均同比</span>
+                  </div>
+                </div>
+                <div class="group">
+                  <div id="monthPerc_water" class="chart-survey"></div>
+                  <!-- <img src="../assets/img/survey.png" alt /> -->
+                  <div class="perBox">
+                    <div class="percent">
+                      <img class="arrow" src="../assets/img/arrow-up.png" alt />
+                      <i class="perc red">25%</i>
+                    </div>
+                    <span class="text">月均同比</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="r">
+              <div class="group">
+                <img class="bg" src="../assets/img/frameB.png" alt />
+                <div class="title">用水概况 | 今月</div>
+                <div class="total">
+                  <span class="num">168.62</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+              <div class="group">
+                <img class="bg" src="../assets/img/frameB.png" alt />
+                <div class="title">用水概况 | 今日</div>
+                <div class="total">
+                  <span class="num">12.56</span>
+                  <i class="unit">KWh</i>
+                </div>
+                <div class="percent">
+                  <span class="text">比去年</span>
+                  <img class="arrow" src="../assets/img/arrow-down.png" alt />
+                  <i class="perc">42%</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
         <sideItem title="设备用水占比" transitionType="right" delay="600">
           <div slot="body"></div>
         </sideItem>
         <sideItem title="用水趋势分析" transitionType="right" delay="800">
-          <div slot="body"></div>
+          <div class="trendAnalysis water" slot="body">
+            <div class="checkBox">
+              <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
+              <div :class="trendWaterKey==1?'btn checked':'btn'" @click="getTrendAnalyWaterData(1)">近一月</div>
+              <div :class="trendWaterKey==2?'btn checked':'btn'" @click="getTrendAnalyWaterData(2)">近一年</div>
+            </div>
+            <div class="chart-trendChart" id="trendChart_water"></div>
+          </div>
         </sideItem>
       </div>
     </sideTran>
@@ -147,6 +245,8 @@ export default {
   data() {
     return {
       statiList: [],//设备统计
+      trendKey:2,
+      trendWaterKey:2,
     }
   },
   computed: {
@@ -159,7 +259,10 @@ export default {
     init() {
       this.$nextTick(() => {
         this.getDeviceStatiList();
-          this.getSurveyData();
+        this.getSurveyData();
+        this.getSurveyWaterData();
+        this.getTrendAnalyData(2);
+        this.getTrendAnalyWaterData(2);
         // setTimeout(() => {
         // }, 1400)
       })
@@ -174,6 +277,12 @@ export default {
       ]
     },
 
+    //获取用水概况数据
+    getSurveyWaterData() {
+      //初始化用水概况图表
+      this.loadSurveyCharts('dayPerc_water', {});
+      this.loadSurveyCharts('monthPerc_water', {});
+    },
     //获取用电概况数据
     getSurveyData() {
       //初始化用电概况图表
@@ -186,7 +295,7 @@ export default {
       let chart = echarts.init(dom);
       let option = {
         animationEasing: 'cubicInout',
-        animationDuration:2000,
+        animationDuration: 2000,
         series: [{
           type: 'gauge',
           startAngle: 180,
@@ -213,14 +322,14 @@ export default {
           },
           axisTick: {//轴线刻度
             show: true,
-            distance:0,
+            distance: 0,
             length: 2,
           },
           splitLine: {//分割段数,每段大刻度
-            distance:0,
+            distance: 0,
             length: 4,
             lineStyle: {
-              width:1,
+              width: 1,
               color: '#479aef'
             }
           },
@@ -238,14 +347,188 @@ export default {
           }]
         }],
       };
-      chart.setOption(option,true);
+      chart.setOption(option, true);
       setTimeout(() => {
         chart.clear();//清除动画
-        option.series[0].data=[{value:75}];
-        chart.setOption(option,true);
+        option.series[0].data = [{ value: 75 }];
+        chart.setOption(option, true);
       }, 600)
     },
+    //获取用电趋势分析
+    getTrendAnalyData(index) {
+      this.trendKey = index;
+      let charts = {};
+      if (index == 0) {
+        charts = {
+          lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+          value: [
+            [251, 152, 103, 334, 95, 236, 217],
+            [160, 345, 80, 192, 330, 280, 192]
+          ]
+        }
+      } else if (index == 1) {
+        charts = {
+          lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
+          value: [
+            [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
+            [160, 545, 80, 192, 330, 580, 192, 80, 250, 253, 52]
+          ]
+        }
+      } else if (index == 2) {
+        charts = {
+          lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          value: [
+            [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
+            [360, 545, 80, 192, 330, 580, 192, 80, 250, 453, 352, 28]
+          ]
+        }
+      }
 
+      this.loadTrendAnalyCharts('trendChart', charts)
+    },
+    //加载用电趋势分析图表
+    loadTrendAnalyCharts(id, data) {
+      let dom = document.getElementById(id);
+      let chart = echarts.init(dom);
+      let parma = {
+        unit: '单位(KWh)',
+        names: ['总量', '超出'],
+        ...data
+      };
+      let color = ['rgba(205, 173, 62', 'rgba(93, 255, 255']
+      let lineY = []
+      for (let i = 0; i < parma.names.length; i++) {
+        let data = {
+          name: parma.names[i],
+          type: 'line',
+          animationDuration: 2000,
+          color: color[i] + ')',
+          smooth: false,
+          areaStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                offset: 0,
+                color: color[i] + ', 0.3)'
+              }, {
+                offset: 0.8,
+                color: color[i] + ', 0)'
+              }], false),
+              shadowColor: 'rgba(0, 0, 0, 0.1)',
+              shadowBlur: 10
+            }
+          },
+          symbol: 'circle',
+          symbolSize: 5,
+          data: parma.value[i]
+        }
+        lineY.push(data)
+      }
+      let option = {
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
+        legend: {
+          top: '0px',
+          data: parma.names,
+          textStyle: {
+            fontSize: 12,
+            color: 'F1F1F3'
+          },
+          right: '20px'
+        },
+        grid: {
+          top: '30px',
+          left: '0px',
+          right: '14px',
+          bottom: '0px',
+          containLabel: true
+        },
+        xAxis: {
+          show: true,
+          type: 'category',
+          boundaryGap: false,
+          data: parma.lineX,
+          axisLabel: {
+            textStyle: {
+              color: 'rgb(0,253,255,0.6)'
+            },
+          }
+        },
+        yAxis: {
+          show: true,
+          splitArea: {
+            show: true,
+            areaStyle: {
+              color: "transparent"
+            }
+          },
+          name: parma.unit,
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}',
+            textStyle: {
+              color: 'rgb(0,253,255,0.6)'
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgb(23,255,243,0.3)'
+            }
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgb(0,253,255,0.6)'
+            }
+          }
+        },
+        series: lineY
+      }
+      chart.clear();//清除动画
+      chart.setOption(option, true);
+      // setTimeout(() => {
+      //   chart.clear();//清除动画
+      //   chart.setOption(option, true);
+      // }, 600)
+    },
+    //获取用水趋势分析
+    getTrendAnalyWaterData(index) {
+      this.trendWaterKey = index;
+      let charts = {};
+      if (index == 0) {
+        charts = {
+          lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+          value: [
+            [251, 152, 103, 334, 95, 236, 217],
+            [160, 345, 80, 192, 330, 280, 192]
+          ]
+        }
+      } else if (index == 1) {
+        charts = {
+          lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
+          value: [
+            [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
+            [160, 545, 80, 192, 330, 580, 192, 80, 250, 253, 52]
+          ]
+        }
+      } else if (index == 2) {
+        charts = {
+          lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          value: [
+            [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
+            [360, 545, 80, 192, 330, 580, 192, 80, 250, 453, 352, 28]
+          ]
+        }
+      }
+
+      this.loadTrendAnalyCharts('trendChart_water', charts)
+    },
   }
 }
 </script>
@@ -428,6 +711,35 @@ span {
           }
         }
       }
+    }
+  }
+  .trendAnalysis {
+    position: relative;
+    padding: 10px 16px 0;
+    .checkBox {
+      position: absolute;
+      right: 16px;
+      top: -20px;
+      display: flex;
+      align-items: center;
+      .btn {
+        width: 48px;
+        line-height: 22px;
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.6);
+        background: url(../assets/img/btn.png) no-repeat 100%;
+        margin: 0 4px;
+        cursor: pointer;
+      }
+      .checked {
+        color: #00f5ff;
+        background: url(../assets/img/btn-check.png) no-repeat 100%;
+      }
+    }
+    .chart-trendChart{
+      width: 340px;
+      height: 200px;
     }
   }
 }
