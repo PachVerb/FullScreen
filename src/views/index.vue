@@ -77,11 +77,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['mapLoad', 'map', 'currentSys'])
+    ...mapGetters(['mapLoad', 'map', 'currentSys', 'oldCurrentSys'])
   },
   watch: {
     currentSys(val){
       console.log(this.$refs[val])
+      if(this.$refs[this.oldCurrentSys] && this.$refs[this.oldCurrentSys].destroy) this.$refs[this.oldCurrentSys].destroy()
       if(this.$refs[val] && this.$refs[val].init) this.$refs[val].init()
     },
   },

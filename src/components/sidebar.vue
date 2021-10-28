@@ -1,10 +1,20 @@
 <template>
   <div class="sidebar">
+    <div class="sys-tips" 
+      :style="{width: checkSideItem.children ? (checkSideItem.children.length + 1)*106 + 'px' : 0,
+        top: SysTop,
+        left: SysLeft}" 
+      v-show="checkSideItem.name === currentSys && checkSideItem.children">
+      <span :class="['sys-sidechild-normal', checkSideItem.name === currentSysModule ? 'sys-sidechild-select' : '']" 
+        v-for="checkSideItem in checkSideItem.children" 
+        :key="checkSideItem.name"
+        @click="checkCurrentSysModule(checkSideItem)"
+      >{{ checkSideItem.cname }}</span>
+    </div>
     <div class="up" @click="checkSideList('up')"><img v-if="thisIndex !== 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
     <div class="swiper">
       <div class="side-list">
-        <div :class="['side-item','side-bar-item-aa',]" v-for="(sideItem,index) in allSideList" :key="index" @click="checkCurrentSys(sideItem)">
-          <!-- <div class="sys-tips" v-show="sideItem.name === currentSys"><span>{{ sideItem.cname }}</span></div> -->
+        <div :class="['side-item','side-bar-item-aa', sideItem.children ? 'side-item-has-child' : '']" v-for="(sideItem,index) in allSideList" :key="index" @click="checkCurrentSys(sideItem,index)">
           <div :class="['side-normal',sideItem.name === currentSys ? 'side-select' : '']">
             <img class="side-normal-img" :src="sideItem.normal" alt="">
             <img class="side-select-img" :src="sideItem.select" alt="">
@@ -66,12 +76,12 @@ export default {
         name: 'peoplestatues',
         cname: '人员态势',
         normal: require('../assets/sidebar/normal/peoplestatues.png'),
-        select: require('../assets/sidebar/select/peoplestatues.png')
+        select: require('../assets/sidebar/select/peoplestatues.png'),
       },{
         name: 'vehicle',
         cname: '车辆态势',
         normal: require('../assets/sidebar/normal/vehicle.png'),
-        select: require('../assets/sidebar/select/vehicle.png')
+        select: require('../assets/sidebar/select/vehicle.png'),
       },{
         name: 'publichouse',
         cname: '公房态势',
@@ -81,7 +91,17 @@ export default {
         name: 'networkoperation',
         cname: '网络运维',
         normal: require('../assets/sidebar/normal/networkoperation.png'),
-        select: require('../assets/sidebar/select/networkoperation.png')
+        select: require('../assets/sidebar/select/networkoperation.png'),
+        children: [{
+          name: 'networkEquipment',
+          cname: '网络设备态势'
+        },{
+          name: 'networkHeat',
+          cname: '网络连接热力图'
+        },{
+          name: 'networkOpticalFiber',
+          cname: '网络光纤态势'
+        }]
       }
 			],
       sideList: [[]],
@@ -93,11 +113,14 @@ export default {
       size: 7,
       type: 'down',
       mid: 0,
-      ani: null
+      ani: null,
+      checkSideItem: {},
+      SysTop: '',
+      SysLeft: ''
     }
   },
   computed:{
-    ...mapGetters(['currentSys']),
+    ...mapGetters(['currentSys','currentSysModule']),
   },
   mounted(){
     this.page = Math.ceil(this.allSideList.length/this.size)
@@ -111,7 +134,7 @@ export default {
     this.checkSideList()
   },
   methods: {
-    ...mapMutations(['SET_CURRENTSYS']),
+    ...mapMutations(['SET_CURRENTSYS', 'SET_OLD_CURRENTSYS','SET_CURRENTSYS_MODULE']),
     returnSideItemClass(val,thisIndex){
       let className = ''
       let index = val + this.thisIndex*this.size
@@ -151,12 +174,20 @@ export default {
       sideDomList.forEach((dom,index) => {
         let a = this.returnClassType(index,this.thisIndex)
         dom.style.left = 10 + (index - this.thisIndex*this.size)*105 + 'px'
-        // console.log(a)
         dom.style.top = (42-(a-1)*17) + 'px'
       })
     },
-    checkCurrentSys(side){
+    checkCurrentSys(side,index){
+      this.SET_OLD_CURRENTSYS(this.currentSys)
+      this.checkSideItem = JSON.parse(JSON.stringify(side))
       this.SET_CURRENTSYS(side.name)
+      let a = this.returnClassType(index,this.thisIndex)
+      this.SysTop = (42-(a-1)*17) - 70 + 'px'
+      let marginLeft = side.children ? (side.children.length)*105/2 : 0
+      this.SysLeft = 38 + (index - this.thisIndex*this.size)*105 - marginLeft + 'px'
+    },
+    checkCurrentSysModule(sideChild){
+      this.SET_CURRENTSYS_MODULE(sideChild.name)
     }
   }
 }
@@ -222,17 +253,20 @@ export default {
 }
 .sys-tips{
   position: absolute;
-  transform: translateY(50%);
-  left: -116px;
-  width: 116px;
-  height: 47.7px;
-  background-image: url('../assets/img/sys-tips.png');
+  z-index: 10;
+  // transform: translateY(50%);
+  // top: -70px;
+  // margin-left: -30%;
+  // padding-right: 10px;
+  height: 55px;
+  background-image: url('../assets/sidebar/sidebar-btn-box.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   font-size: 12px;
   color: #fff;
   line-height: 47.7px;
-  animation: tilt-in-right-1 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: tilt-in-right-1 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  transition: all 1s;
 }
 @keyframes tilt-in-right-1 {
   0% {
@@ -246,15 +280,26 @@ export default {
     opacity: 1;
   }
 }
+.sys-sidechild-normal{
+  display: inline-block;
+  width: 140px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-image: url('../assets/sidebar/sidebar-normal-btn.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.sys-sidechild-normal:hover{
+  background-image: url('../assets/sidebar/sidebar-select-btn.png');
+}
+.sys-sidechild-select{
+  background-image: url('../assets/sidebar/sidebar-select-btn.png');
+}
 .side-cname{
   color: rgba(255, 255, 255, .8);
   font-size: 14px;
-}
-.sys-tips span{
-  display: inline-block;
-  margin-right: .09rem;
-  width: .48rem;
-  text-align: center;
 }
 .sidebar .img-rotate{
   transform: rotateZ(120deg);
@@ -321,9 +366,6 @@ export default {
   }
 }
 .side-item:hover{
-  .sys-tips{
-    display: block !important;
-  }
   .side-normal{
     .side-normal-img{
       display: none;
@@ -333,6 +375,11 @@ export default {
       width: 81px;
       height: 81px;
     }
+  }
+}
+.side-item-has-child:hover{
+  .sys-tips{
+    display: block !important;
   }
 }
 .side-position-item{

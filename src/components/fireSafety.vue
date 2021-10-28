@@ -2,10 +2,18 @@
 	<div class="fire-safety">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left">
-				<sideItem title="设备数量" delay="500" :loading="loading">
+				<sideItem title="设备数量" delay="500">
 					<div class="num-of-eq" slot='body'>
 						<div class="num-of-eq-all">
 							<div><span class="num-of-eq-all-num">86</span><span>个</span></div>
+							<div class="num-of-eq-all-ani">
+								<img class="num-of-eq-all-ani-top" src="../assets/eqNum/top.png" alt="">
+								<img class="num-of-eq-all-ani-middle1"  src="../assets/eqNum/middle1.png" alt="">	
+								<img class="num-of-eq-all-ani-middle2" src="../assets/eqNum/middle2.png" alt="">
+								
+								<img class="num-of-eq-all-ani-bottom" src="../assets/eqNum/bottom.png" alt="">
+								<img class="num-of-eq-all-ani-middle3"  src="../assets/eqNum/middle2.png" alt="">
+							</div>
 							<span>设备总数量</span>
 						</div>
 						<div class="num-of-eq-detail">
@@ -615,6 +623,7 @@
 	}
 
 	.num-of-eq-all {
+		position: relative;
 		display: inline-flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -622,10 +631,6 @@
 		width: 100px;
 		height: 136px;
 		font-size: 14px;
-		background-image: url('../assets/img/number_of_eq.png');
-		background-repeat: no-repeat;
-		background-size: 100% 100%;
-
 		.num-of-eq-all-num {
 			color: #00F5FF;
 			font-weight: bold;
@@ -722,6 +727,7 @@
 		background-image: url('../assets/img/last-address.png');
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
+		cursor: pointer;
 	}
 
 	.patrol {
@@ -872,5 +878,84 @@
 		position:absolute;
 		left:41px;
 		top:41px;
+	}
+	.num-of-eq-all-ani{
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+	}
+	.num-of-eq-all-ani-top{
+		position: absolute;
+		top: 10px;
+		z-index: 4;
+		transform: scale(.8);
+		animation: num-of-eq-all-ani-top-start 1.8s infinite linear;
+	}
+	.num-of-eq-all-ani-middle1{
+		position: absolute;
+		top: 26px;
+		z-index: 3;
+		transform: scale(.8);
+		animation: num-of-eq-all-ani-middle1-start 1.8s infinite linear;
+	}
+	.num-of-eq-all-ani-middle2{
+		position: absolute;
+		// top: 37px;
+		bottom: 31px;
+		z-index: 1;
+		transform: scale(.8);
+		animation: num-of-eq-all-ani-middle2-start 1.8s infinite linear;
+	}
+	.num-of-eq-all-ani-middle3{
+		position: absolute;
+		// top: 37px;
+		bottom: 38px;
+		z-index: 2;
+		transform: scale(.8);
+	}
+	.num-of-eq-all-ani-bottom{
+		position: absolute;
+		top: 25px;
+		z-index: 2;
+		transform: scale(.8);
+	}
+	@keyframes num-of-eq-all-ani-top-start{
+		0%{
+			top: 20px;
+		}
+		50%{
+			top: 10px;
+		}
+		100%{
+			top: 20px;
+		}
+	}
+	@keyframes num-of-eq-all-ani-middle1-start{
+		0%{
+			top: 35px;
+		}
+		50%{
+			top: 26px;
+		}
+		100%{
+			top: 35px;
+		}
+	}
+	@keyframes num-of-eq-all-ani-middle2-start{
+		0%{
+			width: 30px;
+			opacity: 0;
+		}
+		50%{
+			// width: 89px;
+			opacity: 1;
+		}
+		100%{
+			width: 119px;
+			opacity: .6;
+		}
 	}
 </style>

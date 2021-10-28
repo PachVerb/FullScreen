@@ -2,7 +2,7 @@
 	<div>
 		<sideTran thisCrrentSys="vehicle">
 			<div slot="left">
-				<sideItem title="违规车辆统计">
+				<sideItem title="违规车辆统计" :delay="500">
 					<div class="network-status" slot='body'>
 						<currency
               v-for="(item,i) in statiList"
@@ -15,7 +15,7 @@
             ></currency>
 					</div>
 				</sideItem>
-				<sideItem title="违规事件统计">
+				<sideItem title="违规事件统计" :delay="1000">
 					<div slot='body' class="violations">
 						<img class="outpieimg" src="../assets/pieimg/vehicle/vehiclebox.png" >
 						<img class="topleft topbsize" src="../assets/pieimg/vehicle/topleft.png" alt="">
@@ -29,15 +29,65 @@
 						<div id="violationpie"></div>
 					</div>
 				</sideItem>
-				<sideItem title="违规车辆详情">
+				<sideItem title="违规车辆详情" :delay="1500">
 					<div slot='body'>
 						<date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期"
 							end-placeholder="结束日期">
 						</date-picker>
+						<div>
+							<div class="table-head">
+								<span :style="{width: head.width}" v-for="head in tableHead"
+									:key="head.name">{{ head.name }}</span>
+							</div>
+							<div class="ab-list patrol">
+								<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
+									<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
+										{{ item.name }}
+									</div>
+									<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
+									<div class="table-item" :style="{width: tableHead[2].width}">{{ item.methods }}</div>
+									<div class="table-item" :style="{width: tableHead[3].width}">{{ item.date }}</div>
+									<div :style="{width: tableHead[4].width}" class="table-item">
+										<span v-if="checkTrajector == item.id" class="close-trajectory" @click="handleCloseTrajector(item.id)">关闭轨迹</span>
+										<span v-else class="check-trajectory" @click="handleCheckTrajector(item.id)">查看轨迹</span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</sideItem>
 			</div>
-			<div slot="right"></div>
+			<div slot="right">
+				<sideItem title="土地情况" :delay="500" transitionType="right">
+					<div slot='body' class="parking">
+						<div class="parking-item">
+							<img src="../assets/img/goin.png" alt="">
+							<div class="parking-num">892</div>
+							<div class="parking-title">驶入车辆</div>
+						</div>
+						<div class="parking-item">
+							<img src="../assets/img/goout.png" alt="">
+							<div class="parking-num">892</div>
+							<div class="parking-title">驶出车辆</div>
+						</div>
+						<div class="parking-item">
+							<img src="../assets/img/stop.png" alt="">
+							<div class="parking-num">892</div>
+							<div class="parking-title">停滞车辆</div>
+						</div>
+					</div>
+				</sideItem>
+				<sideItem title="停车位统计" :delay="1000" transitionType="right">
+					<div slot='body' class="violations">
+
+					</div>
+				</sideItem>
+				<sideItem title="设备统计" :delay="1500" transitionType="right">
+					<div slot='body' class="violations">
+
+					</div>
+				</sideItem>
+			</div>
 		</sideTran>
 	</div>
 </template>
@@ -67,6 +117,59 @@
 			return {
 				value1: '',
 				statiList: [],//违章车辆统计
+				abDetailList: [{
+					id: '1',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				}, {
+					id: '2',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				}, {
+					id: '3',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				}, {
+					id: '4',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				}, {
+					id: '5',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				}, ],
+				tableHead: [{
+					name: '车牌号',
+					key: 'name',
+					width: '40px'
+				}, {
+					name: '位置',
+					key: 'address',
+					width: '80px'
+				},{
+					name: '违章事件',
+					key: 'methods',
+					width: '50px'
+				}, {
+					name: '违规时间',
+					key: 'date',
+					width: '120px'
+				}, {
+					name: '操作',
+					key: '',
+					width: '57.6px'
+				}, ],
+				checkTrajector: ''
 			}
 		},
 		methods: {
@@ -78,6 +181,12 @@
 						this.randerBar()
 					}, 1500)
 				})
+			},
+			handleCheckTrajector(id){
+				this.checkTrajector = id
+			},
+			handleCloseTrajector(id){
+				this.checkTrajector = ''
 			},
 			//获取设备统计列表
 			getDeviceStatiList() {
@@ -289,5 +398,103 @@
 		// margin-top: 10px;
 		line-height: 50px;
 		color: white;
+	}
+	.ab-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 6px 16px 0;
+		padding: 0 0 6px;
+		border-bottom: 1px solid rgba(63, 151, 207, .5);
+	}
+
+	.ab-item-name,
+	.ab-item-date {
+		margin-top: 5px;
+		padding-left: 6px;
+		text-align: left;
+		// border-left: 1px solid #00F5FF;
+		color: #fff;
+	}
+
+	.ab-item-name {
+		font-size: 14px;
+		color: #F6FAFF;
+		font-weight: bold;
+	}
+
+	.ab-close-btn {
+		width: 58px;
+		height: 30px;
+		text-align: center;
+		line-height: 30px;
+		background-image: url('../assets/img/btn-close-img.png');
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+	}
+
+	.last-address {
+		width: 64px;
+		height: 26px;
+		background-image: url('../assets/img/last-address.png');
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		cursor: pointer;
+	}
+	.table-head {
+		margin: 0 16px;
+		font-size: 12px;
+		color: #fff;
+		border-bottom: 1px solid rgba(63, 151, 207, .5);
+
+		span {
+			display: inline-block;
+			line-height: 40px;
+			text-align: center;
+		}
+	}
+
+	.table-item {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: #fff;
+	}
+	.close-trajectory{
+		display: inline-block;
+		width: 58px;
+		height: 18px;
+		background: #F2896B;
+		opacity: 0.58;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	.check-trajectory{
+		display: inline-block;
+		width: 58px;
+		height: 18px;
+		background: #1E9A5C;
+		opacity: 0.58;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	.parking{
+		display: flex;
+		justify-content: space-around;
+		padding: 20px 0 15px;
+		.parking-item{
+			display: flex;
+			flex-direction: column;
+			justify-items: center;
+			.parking-num{
+				margin: 11px 0 8px;
+				font-size: 22px;
+				color: #00F5FF;
+			}
+			.parking-title{
+				font-size: 12px;
+				color: #fff;
+			}
+		}
 	}
 </style>
