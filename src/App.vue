@@ -36,7 +36,7 @@ body {
   color: #2c3e50;
   width: 100%;
   height:100%;
-
+  user-select: none;
 }
 .v-modal{
   z-index: 9 !important;
