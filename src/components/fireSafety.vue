@@ -2,7 +2,7 @@
 	<div class="fire-safety">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left">
-				<sideItem title="设备数量" delay="500">
+				<sideItem title="设备数量" delay="500" :loading="loading">
 					<div class="num-of-eq" slot='body'>
 						<div class="num-of-eq-all">
 							<div><span class="num-of-eq-all-num">86</span><span>个</span></div>
@@ -98,6 +98,7 @@
 								<div :style="{width: tableHead[3].width}" class="last-address table-item"></div>
 							</div>
 						</div>
+						<pageination></pageination>
 					</div>
 				</sideItem>
 			</div>
@@ -112,9 +113,10 @@
 	import * as mixins from './mixins'
 	import sideTran from './sideTran'
 	import sideItem from './sideItem.vue'
+	import pageination from './commonComponent/pagination.vue'
 	import {
 		Table,
-		TableColumn
+		TableColumn,
 	} from 'element-ui'
 	import {
 		mapGetters
@@ -132,7 +134,8 @@
 			sideTran,
 			sideItem,
 			Table,
-			TableColumn
+			TableColumn,
+			pageination
 		},
 		data() {
 			return {
@@ -243,7 +246,8 @@
 				monitorIndex: 1,
 				allPatrolOption: {},
 				abPatrolOption: {},
-				abPatrolEqOption: {}
+				abPatrolEqOption: {},
+				loading: true
 			}
 		},
 		computed: {
@@ -276,6 +280,9 @@
 						abPatrolEqChart = echarts.init(abPatrolEqChartDom);
 						abPatrolEqChart.setOption(abPatrolEqOption)
 						this.rendpubpie()
+						setTimeout(() => {
+							this.loading = false
+						},5000)
 					}, 1500)
 				})
 			},
