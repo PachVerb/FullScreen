@@ -5,7 +5,7 @@
         <img src="../assets/img/side-item-title.png" alt="">
         <span>{{title}}</span>
       </div>
-      <div class="title-border"></div>
+      <!-- <div class="title-border"></div> -->
       <div class="side-item-body" v-show="!loading">
         <slot name="body"></slot>
       </div>
@@ -62,13 +62,15 @@ export default {
   left: 0;
 }
 .side-item-title{
+  width: fit-content;
   display: flex;
   align-items: center;
   margin-top: .066667rem;
   padding: 3px;
-  padding-left: .106667rem;
+  margin-left: .106667rem;
   color: #00F5FF;
   font-size: .08rem;
+  border-bottom: 1px solid #00F5FF;
 }
 .side-item-title img{
   margin-right: .04rem;

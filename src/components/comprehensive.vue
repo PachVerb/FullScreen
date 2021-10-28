@@ -1,359 +1,737 @@
 <template>
   <div>
-    <sideTran :thisCrrentSys="thisCrrentSys">
+    <sideTran thisCrrentSys="comprehensive">
       <div slot="left">
-        <sideItem title="网络状态">
-          <div class="network-status" slot='body'>
-            <div class="network-status-left">
-              <div class="btn-item" v-for="(item,index) in btnList" :key="index">
-                <div class="btn-icon"><img src="../assets/img/people-up-num.png" alt=""></div>
+        <sideItem title="网络状态" :delay="100">
+          <div class="network-status" slot="body">
+            <div class="network-status-start">
+              <div class="btn-item" v-for="(item,index) in netList" :key="index">
+                <img class="btn-icon" :src="item.icon" alt />
+                <i class="line"></i>
                 <div class="btn-detail">
                   <span class="btn-name">{{item.name}}</span>
-                  <span class="btn-mes">{{item.text}}</span>
-                  <span class="btn-unit">{{item.unit}}</span>
+                  <span class="btn-mes">
+                    {{item.val}}
+                    <i class="btn-unit">{{item.unit}}</i>
+                  </span>
                 </div>
               </div>
             </div>
             <div class="network-status-center">
-
+              <div class="left">
+                <div class="btn-net">
+                  <span class="name">old·教科网</span>
+                  <span class="value">
+                    46.95
+                    <i>Mbps</i>
+                  </span>
+                </div>
+                <div class="btn-net pos">
+                  <span class="name">新校园网移动</span>
+                  <span class="value">
+                    66.81
+                    <i>Mbps</i>
+                  </span>
+                </div>
+                <div class="btn-net">
+                  <span class="name">老cmcc·移动</span>
+                  <span class="value">
+                    68.88
+                    <i>Mbps</i>
+                  </span>
+                </div>
+              </div>
+              <div class="middle">
+                <img class="net-img" src="../assets/compre/net.png" alt />
+                <div class="btn-net">
+                  <span class="name">cucc联动</span>
+                  <span class="value">
+                    2.88
+                    <i>Mbps</i>
+                  </span>
+                </div>
+              </div>
+              <div class="right">
+                <div class="btn-net">
+                  <span class="name">old·电信</span>
+                  <span class="value">
+                    90.95
+                    <i>Mbps</i>
+                  </span>
+                </div>
+                <div class="btn-net pos">
+                  <span class="name">校园网电信</span>
+                  <span class="value">
+                    166.81
+                    <i>Mbps</i>
+                  </span>
+                </div>
+                <div class="btn-net">
+                  <span class="name">校园网电信2</span>
+                  <span class="value">
+                    468.88
+                    <i>Mbps</i>
+                  </span>
+                </div>
+              </div>
             </div>
-            <div class="network-status-right">
-
+            <div class="network-status-end">
+              <div class="btn-net" v-for="(item,i) in netList1" :style="`background-image:url(${item.icon})`" :key="i">
+                <span class="name">{{item.name}}</span>
+                <span class="value">
+                  {{item.val}}
+                  <i>Mbps</i>
+                </span>
+              </div>
             </div>
           </div>
         </sideItem>
-        <sideItem title="一卡通状态">
-          <div name='body'></div>
+        <sideItem title="一卡通状态" :delay="200">
+          <div class="card-status" slot="body">
+						<div class="row" v-for="(item,i) in cardList" :key="i">
+							<span class="title">{{item.title}}</span>
+							<span class="box" style="left:12px;">
+								<span class="text">金额</span>
+								<span class="value">{{item.val}}<i>元</i></span>
+							</span>
+							<span class="box" style="left:-12px;">
+								<span class="text">人次</span>
+								<span class="value">{{item.count}}<i>次</i></span>
+							</span>
+						</div>
+					</div>
         </sideItem>
-        <sideItem title="AI摄像机态势">
-          <div name='body'></div>
-        </sideItem>
-        <sideItem title="馆藏图书">
-          <div name='body'></div>
+        <sideItem title="近十日各消费类别趋势" :delay="300">
+          <div class="conmuse-status" slot="body">
+						<div class="chart-conm" id="conmuseChart"></div>
+					</div>
         </sideItem>
       </div>
       <div slot="right">
-				<sideItem title="车辆态势">
-				  <div slot='body'></div>
-				</sideItem>
-				<sideItem title="学生实时分布" transitionType="right" delay="1500">
-				  <div slot='body' class="studentdistribution">
-						<img src="../assets/pieimg/comprehensive/comprehensiveoutpie.png" class="comprehensiveoutpie">
-						<img src="../assets/pieimg/comprehensive/innercircle.png" class="innercircle">
-						<div id="studentdistribution"></div>
-					</div>
-				</sideItem>
-				<sideItem title="AI摄像机态势">
-				  <div slot='body'></div>
-				</sideItem>
-				<sideItem title="国有资产">
-				  <div slot='body'></div>
-				</sideItem>
-			</div>
+        <sideItem title="车辆态势">
+          <div slot="body"></div>
+        </sideItem>
+        <sideItem title="学生实时分布" transitionType="right" delay="1500">
+          <div slot="body" class="studentdistribution">
+            <img src="../assets/pieimg/comprehensive/comprehensiveoutpie.png" class="comprehensiveoutpie" />
+            <img src="../assets/pieimg/comprehensive/innercircle.png" class="innercircle" />
+            <div id="studentdistribution"></div>
+          </div>
+        </sideItem>
+        <sideItem title="AI摄像机态势">
+          <div slot="body"></div>
+        </sideItem>
+        <sideItem title="国有资产">
+          <div slot="body"></div>
+        </sideItem>
+      </div>
     </sideTran>
   </div>
 </template>
 
 <script>
-	import sideTran from './sideTran'
-	import nowpeopleslide from './nowpeopleslide.vue'
-	import sideItem from './sideItem.vue'
-	import {
-		mapGetters
-	} from 'vuex'
-	import * as echarts from 'echarts';
+import sideTran from './sideTran'
+import nowpeopleslide from './nowpeopleslide.vue'
+import sideItem from './sideItem.vue'
+import {
+  mapGetters
+} from 'vuex'
+import * as echarts from 'echarts';
 export default {
   components: {
     sideTran,
     sideItem
   },
-	computed: {
-		...mapGetters(['currentSys'])
-	},
-  data(){
+  computed: {
+    ...mapGetters(['currentSys'])
+  },
+  data() {
     return {
-      thisCrrentSys: 'comprehensive',
-      btnList: [{
-        name: '在线人数',
-        text: '2222',
-        unit: '人'
-      },{
-        name: '在线人数',
-        text: '2222',
-        unit: '人'
-      },{
-        name: '在线人数',
-        text: '2222',
-        unit: '人'
-      },{
-        name: '在线人数',
-        text: '2222',
-        unit: '人'
-      },{
-        name: '在线人数',
-        text: '2222',
-        unit: '人'
-      },{
-        name: '在线人数',
-        text: '2222',
-        unit: '人'
-      },]
+      netList: [],
+      netList1: [],
+			cardList:[],
     }
   },
-	methods:{
-		init() {
-			this.$nextTick(() => {
-				this.thisCrrentSys = 'comprehensive'
-				var _this = this
-				// this.initcolor()
-				setTimeout(function() {
-					_this.renderpie()
-				}, 1500);
-			})
+  methods: {
+    init() {
+      this.$nextTick(() => {
+        this.getNetStatus();
+				this.getCardStatus();
+				this.getConmuseStatus();
+        var _this = this
+        // this.initcolor()
+        setTimeout(function () {
+          _this.renderpie()
+        }, 1500);
+      })
+    },
+    //获取网络状态数据
+    getNetStatus() {
+      this.netList = [
+        { name: '在线人数', val: '2364', unit: '人', icon: require('../assets/compre/people-up-num.png') },
+        { name: '当日累积', val: '4095', unit: '人', icon: require('../assets/compre/people-all-num.png') },
+        { name: '累计上行流量', val: '1', unit: 'TB', icon: require('../assets/compre/up-flow.png') },
+        { name: '累计下行流量', val: '111', unit: 'GB', icon: require('../assets/compre/down-flow.png') },
+        { name: '时延', val: '4.76', unit: 'ms', icon: require('../assets/compre/time.png') },
+        { name: '丢包率', val: '0.72', unit: '%', icon: require('../assets/compre/packetLoss.png') },
+      ]
+      this.netList1 = [
+        { name: '运营商电信', val: '9.95', icon: require('../assets/compre/btn-net1.png') },
+        { name: '运营商移动', val: '229.95', icon: require('../assets/compre/btn-net2.png') },
+        { name: '运营商联通', val: '39.95', icon: require('../assets/compre/btn-net3.png') }
+      ]
+    },
+		//获取一卡通状态
+		getCardStatus(){
+			this.cardList = [
+				{title:'今日消费',val:5798.62,count:653},
+				{title:'今日充值',val:5798.62,count:653},
+				{title:'今日餐饮',val:5798.62,count:653},
+			]
 		},
-		renderpie(){
-			
-			let studentdistributionChartDom, studentdistributionChartChart, option
-			studentdistributionChartDom = document.getElementById('studentdistribution');
-			studentdistributionChartChart = echarts.init(studentdistributionChartDom);
-			let series = [];
-			let pieDatas = [
-			    {
-			        "value": 30,
-			        "name": "教学楼"
-			    },
-			    {
-			        "value": 14,
-			        "name": "图书馆"
-			    },
-			    {
-			        "value": 26,
-			        "name": "宿舍楼"
-			    },
-			    {
-			        "value": 20,
-			        "name": "实验楼"
-			    },
-			    {
-			        "value": 10,
-			        "name": "餐厅/食堂"
-			    },
-			    {
-			        "value": 10,
-			        "name": "其他位置"
-			    }
-			];
-			let maxRadius =  80,
-			    barWidth = 5,
-			    barGap =  5;
-			let sumValue = 0;
-			let showValue = true,showPercent = true;
-			pieDatas.map(item => {
-			    sumValue += item.value;
-			})
-			let barColor =  [
-			        {
-			            "color1": "rgba(222, 125, 255, 1)",
-			            "color2": ""
-			        },
-			        {
-			            "color1": "rgba(250, 118, 121, 1)",
-			            "color2": ""
-			        },
-			        {
-			            "color1": "rgba(53, 198, 215, 1)",
-			            "color2": ""
-			        },
-			        {
-			            "color1": "rgba(101, 223, 138, 1)",
-			            "color2": ""
-			        },
-			        {
-			            "color1": "rgba(253, 161, 79, 1)",
-			            "color2": ""
-			        },
-			        {
-			            "color1": "rgba(68,165,255,1)",
-			            "color2": ""
-			        }
-			    ];
-			pieDatas.map((item, i) => {
-			    series.push({
-			        type: 'pie',
-			        clockWise: false, //顺时加载
-			        hoverAnimation: false, //鼠标移入变大
-			        radius: [(maxRadius - i * (barGap + barWidth)) + '%', (maxRadius - (i + 1) * barWidth - i * barGap) + '%'],
-			        center: [ "30%", "50%"],
-			        label: {
-			            show: false
-			        },
-			        itemStyle: {
-			            label: {
-			                show: false,
-			            },
-			            labelLine: {
-			                show: false
-			            },
-			            borderWidth: 5,
-			        },
-			        data: [{
-			            value: item.value,
-			            name: item.name,
-			            itemStyle: {
-			                color: barColor[i]&&barColor[i].color1 || 'rgba(68,165,255,1)'
-			            }
-			        }, {
-			            value: sumValue - item.value,
-			            name: '',
-			            itemStyle: {
-			                color: "transparent",
-			            },
-			            tooltip: {
-			                show: false
-			            },
-			            hoverAnimation: false
-			        }]
-			    })
-			    series.push({
-			        name: 'blank',
-			        type: 'pie',
-			        silent: true,
-			        z: 0,
-			        clockWise: false, //顺时加载
-			        hoverAnimation: false, //鼠标移入变大
-			        radius: [(maxRadius - i * (barGap + barWidth)) + '%', (maxRadius - (i + 1) * barWidth - i * barGap) + '%'],
-			        center: [ "30%", "50%"],
-			        label: {
-			            show: false
-			        },
-			        itemStyle: {
-			            label: {
-			                show: false,
-			            },
-			            labelLine: {
-			                show: false
-			            },
-			            borderWidth: 5,
-			        },
-			        data: [{
-			            value: 1,
-			            itemStyle: {
-			                color: "rgba(255, 255, 255,.13)",
-			                borderWidth: 0
-			            },
-			            tooltip: {
-			                show: false
-			            },
-			            hoverAnimation: false
-			        }]
-			    });
-			})
-			studentdistributionChartChart.setOption({
-			    grid: {
-			        left:  0,
-			        right:  0,
-			        top:  0,
-			        bottom:  0,
-			    },
-			    tooltip: {
-			        show: true,
-			        trigger: "item",
-			    },
-			    legend: {
-			        show: false,
-			        left: '60%',
-			        top: 'middle',
-			        icon: "circle",
-			        itemWidth: 10,
-			        itemHeight: 10,
-			        itemGap:  20,
-			        textStyle: {
-			            fontSize:  16,
-			            color:  '#fff',
-			        },
-			        formatter: (name) => {
-			                var datas = pieDatas;
-			                let total = 0;
-			                datas.map(item => {
-			                    total += (item.value - 0)
-			                })
-			                let valueIndex = datas.map(item => item.name).indexOf(name);
-			                return name + "  " + (showValue ? datas[valueIndex].value + (option.legendValueUnit || '') + ' ' : '') + (showPercent ? ((datas[valueIndex].value / total) * 100).toFixed(2) + "%" : '');
-			            } ,
-			    },
-			    series: series,
-			});
+		//近十日各消费类别趋势
+		getConmuseStatus(){
+			let dom = document.getElementById('conmuseChart');
+      let chart = echarts.init(dom);
+      let parma = {
+        names: ['餐饮', '淋浴','购物','金额'],
+				lineX: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07'],
+				value: [
+					[251, 152, 103, 334, 95, 236, 217],
+					[160, 345, 80, 192, 330, 280, 192],
+					[60, 145, 280, 92, 430, 80, 92],
+					[360, 245, 180, 52, 30, 180, 392],
+				]
+      };
+      let color = ['rgba(205,120,73', 'rgba(91,139,218','rgba(164,109,215','rgba(70,191,195']
+      let lineY = []
+      for (let i = 0; i < parma.names.length; i++) {
+        let data = {
+          name: parma.names[i],
+          type: 'line',
+          animationDuration: 2000,
+          color: color[i] + ')',
+          smooth: true,//曲线
+          areaStyle: {
+            normal: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                offset: 0,
+                color: color[i] + ', 0.5)'
+              }, {
+                offset: 0.8,
+                color: color[i] + ', 0)'
+              }], false),
+              shadowColor: 'rgba(0, 0, 0, 0.1)',
+              shadowBlur: 10
+            }
+          },
+          symbol: 'circle',
+          symbolSize: 0,
+          data: parma.value[i]
+        }
+        lineY.push(data)
+      }
+      let option = {
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
+        legend: {
+          top: '0px',
+          data: parma.names,
+					icon: 'stack',
+					itemWidth:3,
+					itemHeight:6,
+          textStyle: {
+            fontSize: 12,
+            color: 'F1F1F3'
+          },
+          right: '20px'
+        },
+        grid: {
+          top: '25px',
+          left: '0px',
+          right: '14px',
+          bottom: '0px',
+          containLabel: true
+        },
+        xAxis: {
+          show: true,
+          type: 'category',
+          data: parma.lineX,
+					splitLine: {
+						show: true,
+						lineStyle: {
+							color: "rgba(106, 176, 255, 0.4)",
+							type:'dotted',
+							width:2
+						}
+          },
+					axisLine: {
+						show:true,
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.7)',
+							type:'solid',
+							width:2
+            }
+          },
+          axisLabel: {
+            textStyle: {
+              color: 'rgba(246, 250, 255, 0.8)'
+            },
+          }
+        },
+        yAxis: {
+          show: true,
+					type: 'value',
+          splitArea: {
+            show: true,
+            areaStyle: {
+              color: "transparent"
+            }
+          },
+          axisLabel: {
+            formatter: '{value}',
+            textStyle: {
+              color: 'rgba(246, 250, 255, 0.8)'
+            }
+          },
+          splitLine: {
+						show: true,
+						lineStyle: {
+							color: "rgba(106, 176, 255, 0.4)",
+							type:'dotted',
+							width:2
+						}
+          },
+          axisLine: {
+						show:true,
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.7)',
+							type:'solid',
+							width:2
+            }
+          }
+        },
+        series: lineY
+      }
+      chart.clear();//清除动画
+      chart.setOption(option, true);
+      // setTimeout(() => {
+      //   chart.clear();//清除动画
+      //   chart.setOption(option, true);
+      // }, 600)
+		},
+    renderpie() {
+      let studentdistributionChartDom, studentdistributionChartChart, option
+      studentdistributionChartDom = document.getElementById('studentdistribution');
+      studentdistributionChartChart = echarts.init(studentdistributionChartDom);
+      let series = [];
+      let pieDatas = [
+        {
+          "value": 30,
+          "name": "教学楼"
+        },
+        {
+          "value": 14,
+          "name": "图书馆"
+        },
+        {
+          "value": 26,
+          "name": "宿舍楼"
+        },
+        {
+          "value": 20,
+          "name": "实验楼"
+        },
+        {
+          "value": 10,
+          "name": "餐厅/食堂"
+        },
+        {
+          "value": 10,
+          "name": "其他位置"
+        }
+      ];
+      let maxRadius = 80,
+        barWidth = 5,
+        barGap = 5;
+      let sumValue = 0;
+      let showValue = true, showPercent = true;
+      pieDatas.map(item => {
+        sumValue += item.value;
+      })
+      let barColor = [
+        {
+          "color1": "rgba(222, 125, 255, 1)",
+          "color2": ""
+        },
+        {
+          "color1": "rgba(250, 118, 121, 1)",
+          "color2": ""
+        },
+        {
+          "color1": "rgba(53, 198, 215, 1)",
+          "color2": ""
+        },
+        {
+          "color1": "rgba(101, 223, 138, 1)",
+          "color2": ""
+        },
+        {
+          "color1": "rgba(253, 161, 79, 1)",
+          "color2": ""
+        },
+        {
+          "color1": "rgba(68,165,255,1)",
+          "color2": ""
+        }
+      ];
+      pieDatas.map((item, i) => {
+        series.push({
+          type: 'pie',
+          clockWise: false, //顺时加载
+          hoverAnimation: false, //鼠标移入变大
+          radius: [(maxRadius - i * (barGap + barWidth)) + '%', (maxRadius - (i + 1) * barWidth - i * barGap) + '%'],
+          center: ["30%", "50%"],
+          label: {
+            show: false
+          },
+          itemStyle: {
+            label: {
+              show: false,
+            },
+            labelLine: {
+              show: false
+            },
+            borderWidth: 5,
+          },
+          data: [{
+            value: item.value,
+            name: item.name,
+            itemStyle: {
+              color: barColor[i] && barColor[i].color1 || 'rgba(68,165,255,1)'
+            }
+          }, {
+            value: sumValue - item.value,
+            name: '',
+            itemStyle: {
+              color: "transparent",
+            },
+            tooltip: {
+              show: false
+            },
+            hoverAnimation: false
+          }]
+        })
+        series.push({
+          name: 'blank',
+          type: 'pie',
+          silent: true,
+          z: 0,
+          clockWise: false, //顺时加载
+          hoverAnimation: false, //鼠标移入变大
+          radius: [(maxRadius - i * (barGap + barWidth)) + '%', (maxRadius - (i + 1) * barWidth - i * barGap) + '%'],
+          center: ["30%", "50%"],
+          label: {
+            show: false
+          },
+          itemStyle: {
+            label: {
+              show: false,
+            },
+            labelLine: {
+              show: false
+            },
+            borderWidth: 5,
+          },
+          data: [{
+            value: 1,
+            itemStyle: {
+              color: "rgba(255, 255, 255,.13)",
+              borderWidth: 0
+            },
+            tooltip: {
+              show: false
+            },
+            hoverAnimation: false
+          }]
+        });
+      })
+      studentdistributionChartChart.setOption({
+        grid: {
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+        },
+        tooltip: {
+          show: true,
+          trigger: "item",
+        },
+        legend: {
+          show: false,
+          left: '60%',
+          top: 'middle',
+          icon: "circle",
+          itemWidth: 10,
+          itemHeight: 10,
+          itemGap: 20,
+          textStyle: {
+            fontSize: 16,
+            color: '#fff',
+          },
+          formatter: (name) => {
+            var datas = pieDatas;
+            let total = 0;
+            datas.map(item => {
+              total += (item.value - 0)
+            })
+            let valueIndex = datas.map(item => item.name).indexOf(name);
+            return name + "  " + (showValue ? datas[valueIndex].value + (option.legendValueUnit || '') + ' ' : '') + (showPercent ? ((datas[valueIndex].value / total) * 100).toFixed(2) + "%" : '');
+          },
+        },
+        series: series,
+      });
 
-		}
-	}
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
-.network-status-left{
-  margin-left: .106rem;
-  text-align: left;
+i {
+  font-style: normal;
+  line-height: 1;
 }
-.btn-item{
-  display: inline-flex;
-  align-items: center;
-  margin-right: 0.05rem;
-  font-size: .106667rem;
-  .btn-icon{
+span {
+  display: inline-block;
+  line-height: 1;
+}
+.network-status {
+  padding: 0 14px;
+  .network-status-start {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    margin-right: .053333rem;
-    width: .20rem;
-    height: .20rem;
-    background-image: url('../assets/img/btn-bg.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    img{
-      width: .13rem;
+    .btn-item {
+			margin-top: 8px;
+      display: flex;
+      align-items: center;
+      background: url("../assets/compre/bg-net.png") no-repeat;
+      background-size: 100%;
+      padding: 4px;
+      .btn-icon {
+        width: 25px;
+        height: 25px;
+        background: rgba(106, 176, 255, 0.2);
+      }
+      .line {
+        margin: 0 2px;
+        width: 2px;
+        height: 0;
+        border: 1px solid #6ab0ff;
+      }
+      .btn-detail {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(106, 176, 255, 0.2);
+        width: 130px;
+        height: 25px;
+        padding: 5px;
+        box-sizing: border-box;
+        .btn-name {
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.8);
+        }
+        .btn-mes {
+          font-size: 14px;
+          color: #00f5ff;
+          font-weight: bold;
+          display: flex;
+          align-items: flex-end;
+        }
+        .btn-unit {
+          margin-left: 2px;
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(246, 250, 255, 0.4);
+        }
+      }
     }
   }
-  .btn-detail{
+  .network-status-center {
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    // align-items: center;
-    padding: 0 .053333rem;
-    width: .766667rem;
-    height: .20rem;
-    line-height: .2rem;
-    background-image: url('../assets/img/btn-img.png');
-    background-size: 100% 100%;
-    font-size: 14px;
-    color: rgba(255, 255, 255, .5);
-    .btn-mes{
-      color: rgba(0, 245, 255, 1);
-      font-weight: bold;
-    }
-    .btn-unit{
+    .btn-net {
+      width: 86px;
+      height: 36px;
+      background: url("../assets/compre/btn-net.png") no-repeat;
+      background-size: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: 400;
       font-size: 12px;
+
+      .name {
+        color: rgba(246, 250, 255, 0.8);
+        margin-bottom: 2px;
+      }
+      .value {
+        display: flex;
+        align-items: flex-end;
+        color: #00f5ff;
+        i {
+          margin-left: 2px;
+          color: rgba(246, 250, 255, 0.4);
+        }
+      }
+    }
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .pos {
+        position: relative;
+        left: 16px;
+      }
+    }
+    .middle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .net-img {
+        width: 172px;
+      }
+    }
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .pos {
+        position: relative;
+        right: 16px;
+      }
+    }
+  }
+  .network-status-end {
+    margin-top: 10px;
+		padding-top: 4px;
+    display: flex;
+    justify-content: space-between;
+    .btn-net {
+      width: 112px;
+      height: 44px;
+      background-repeat: no-repeat;
+      background-size: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: flex-end;
+      font-weight: 400;
+      font-size: 12px;
+
+      .name {
+        color: #fff;
+        position: relative;
+        right: 8px;
+        top: -10px;
+      }
+      .value {
+        display: flex;
+        align-items: flex-end;
+        color: #00f5ff;
+        position: relative;
+        right: 7px;
+        bottom: 5px;
+        i {
+          color: rgba(246, 250, 255, 0.4);
+        }
+      }
     }
   }
 }
-.studentdistribution{
-	height:200px;
-	width: 380px;
-	position: relative;
+.card-status{
+	padding: 10px 14px 0;
+	height: 150px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	.row{
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		width: 340px;
+		height: 40px;
+		background: url('../assets/compre/bg-card.png') no-repeat;
+		background-size: 100% 100%;
+		font-size: 12px;
+		font-weight: 400;
+		.title{
+			position: relative;
+			left: 14px;
+			color: rgba(246, 250, 255, 0.8);
+		}
+		.box{
+			position: relative;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.text{
+				color: rgba(246, 250, 255, 0.8);
+				margin-right: 14px;
+			}
+			.value{
+				color: #00F5FF;
+				i{
+					margin-left: 2px;
+					color: rgba(246, 250, 255, 0.4);
+				}
+			}
+		}
+	}
 }
-#studentdistribution{
-	height: 200px;
-	width: 330px;
-	position: absolute;
-	left: 0px;
+.conmuse-status{
+	padding: 0 14px;
+	.chart-conm{
+		width: 360px;
+		height: 220px;
+	}
 }
-.comprehensiveoutpie{
-	position: absolute;
-	width: 186px;
-	left: 6px;
-	top: 7px;
+
+.studentdistribution {
+  height: 200px;
+  width: 380px;
+  position: relative;
 }
-.innercircle{
-	position: absolute;
-	left: 23%;
-	top: 43%;
+#studentdistribution {
+  height: 200px;
+  width: 330px;
+  position: absolute;
+  left: 0px;
+}
+.comprehensiveoutpie {
+  position: absolute;
+  width: 186px;
+  left: 6px;
+  top: 7px;
+}
+.innercircle {
+  position: absolute;
+  left: 23%;
+  top: 43%;
 }
 </style>
