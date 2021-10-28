@@ -15,26 +15,26 @@
               <div class="title">用电概况 | 今年</div>
               <div class="row">
                 <div class="total">
-                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
               <div class="row">
                 <div class="item" style="margin-right:10px;">
                   <span class="text">日均：</span>
-                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="item">
                   <span class="text">月均：</span>
-                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
               </div>
@@ -46,7 +46,7 @@
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-down.png" alt />
                       <i class="perc">
-                        <animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="5000" />%
+                        <animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
                       </i>
                     </div>
                     <span class="text">日均同比</span>
@@ -59,7 +59,7 @@
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-up.png" alt />
                       <i class="perc red">
-                        <animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="5000" />%
+                        <animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
                       </i>
                     </div>
                     <span class="text">月均同比</span>
@@ -72,14 +72,14 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用电概况 | 今月</div>
                 <div class="total">
-                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
@@ -87,14 +87,14 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用电概况 | 今日</div>
                 <div class="total">
-                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
@@ -144,26 +144,26 @@
               <div class="title">用水概况 | 今年</div>
               <div class="row">
                 <div class="total">
-                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
               <div class="row">
                 <div class="item" style="margin-right:10px;">
                   <span class="text">日均：</span>
-                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="item">
                   <span class="text">月均：</span>
-                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
               </div>
@@ -175,7 +175,7 @@
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-down.png" alt />
                       <i class="perc">
-                        <animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="5000" />%
+                        <animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
                       </i>
                     </div>
                     <span class="text">日均同比</span>
@@ -188,7 +188,7 @@
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-up.png" alt />
                       <i class="perc red">
-                        <animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="5000" />%
+                        <animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
                       </i>
                     </div>
                     <span class="text">月均同比</span>
@@ -201,14 +201,14 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用水概况 | 今月</div>
                 <div class="total">
-                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
@@ -216,14 +216,14 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用水概况 | 今日</div>
                 <div class="total">
-                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
@@ -691,10 +691,9 @@ export default {
     //获取设备用水占比
     getRatioWaterData(){
       this.ratioWaterList = [
-        {name:"照明",val:1100,color:'rgba(169,133,238,0.8)'},
-        {name:"空调",val:444,color:'rgba(196,144,191,0.8)'},
-        {name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
-        {name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
+        {name:"生活用水",val:1100,color:'rgba(169,133,238,0.8)'},
+        {name:"浇灌用水",val:444,color:'rgba(196,144,191,0.8)'},
+        {name:"其他",val:501,color:'rgba(19,181,177,0.8)'},
       ]
       let dom = document.getElementById('ratioChart_water');
       let chart = echarts.init(dom);
