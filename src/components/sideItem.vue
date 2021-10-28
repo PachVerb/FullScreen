@@ -5,8 +5,13 @@
         <img src="../assets/img/side-item-title.png" alt="">
         <span>{{title}}</span>
       </div>
-      <div class="title-border"></div>
-      <slot name="body"></slot>
+      <!-- <div class="title-border"></div> -->
+      <div class="side-item-body" v-show="!loading">
+        <slot name="body"></slot>
+      </div>
+      <div :class="[loading ?'side-item-loading' : '']" v-if="loading">
+        <loading/>
+      </div>
       <div class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
     </div>
   </transition>
@@ -14,6 +19,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import loading from './commonComponent/loading.vue'
 export default {
   props: {
     title: '',
@@ -25,7 +31,13 @@ export default {
     },
     delay: {
       default: '1000'
+    },
+    loading: {
+      default: false
     }
+  },
+  components: {
+    loading
   },
   data(){
     return {
@@ -50,17 +62,22 @@ export default {
   left: 0;
 }
 .side-item-title{
+  width: fit-content;
   display: flex;
   align-items: center;
   margin-top: .066667rem;
   padding: 3px;
-  padding-left: .106667rem;
+  margin-left: .106667rem;
   color: #00F5FF;
   font-size: .08rem;
+  border-bottom: 1px solid #00F5FF;
 }
 .side-item-title img{
   margin-right: .04rem;
   width: .106667rem;
+}
+.side-item-loading{
+  min-height: 150px;
 }
 .border{
   display: flex;
@@ -106,5 +123,19 @@ export default {
 }
 .go-in-item-right-leave-to{
   transform: translateX(150rem);
+}
+.loading-enter{
+  opacity: 0;
+}
+.loading-enter-active, .loading-leave-active {
+  transition: all 1s ease;
+}
+.loading-enter-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 1;
+}
+.loading-leave-to{
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 </style>

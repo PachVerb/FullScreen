@@ -310,6 +310,7 @@ export default {
   }
   .side-select-img{
     display: block;
+    margin-top: -13px;
     width: 81px;
     height: 81px;
   }

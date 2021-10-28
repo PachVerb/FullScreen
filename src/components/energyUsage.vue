@@ -5,14 +5,7 @@
       <div slot="left">
         <sideItem title="用电设备统计" delay="100">
           <div class="deviceStati" slot="body">
-            <currency
-              v-for="(item,i) in statiList"
-              :key="i"
-              :boxnum="item.count"
-              :boxtitle="item.type"
-              :boxcolor="item.color"
-              boxuntil="个"
-            ></currency>
+            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
         <sideItem title="用电概况" delay="200">
@@ -22,24 +15,26 @@
               <div class="title">用电概况 | 今年</div>
               <div class="row">
                 <div class="total">
-                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                  <i class="perc"><animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%</i>
+                  <i class="perc">
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                  </i>
                 </div>
               </div>
               <div class="row">
                 <div class="item" style="margin-right:10px;">
                   <span class="text">日均：</span>
-                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="item">
                   <span class="text">月均：</span>
-                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
               </div>
@@ -50,7 +45,9 @@
                   <div class="perBox">
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                      <i class="perc"><animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="5000" />%</i>
+                      <i class="perc">
+                        <animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
+                      </i>
                     </div>
                     <span class="text">日均同比</span>
                   </div>
@@ -61,7 +58,9 @@
                   <div class="perBox">
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-up.png" alt />
-                      <i class="perc red"><animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="5000" />%</i>
+                      <i class="perc red">
+                        <animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
+                      </i>
                     </div>
                     <span class="text">月均同比</span>
                   </div>
@@ -73,34 +72,52 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用电概况 | 今月</div>
                 <div class="total">
-                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                  <i class="perc"><animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%</i>
+                  <i class="perc">
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                  </i>
                 </div>
               </div>
               <div class="group">
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用电概况 | 今日</div>
                 <div class="total">
-                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">KWh</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                  <i class="perc"><animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%</i>
+                  <i class="perc">
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                  </i>
                 </div>
               </div>
             </div>
           </div>
         </sideItem>
         <sideItem title="设备用电占比" delay="300">
-          <div slot="body" style="height:160px;">
-            <!-- <div id="allTotalAssets"></div> -->
+          <div class="ratio" slot="body">
+            <div class="chartBox">
+              <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
+              <img src="../assets/pieimg/fire/fireleftgear.png" class="bg-ratio" />
+              <div class="chart-ratio" id="ratioChart"></div>
+            </div>
+            <div class="detailBox">
+              <div class="row" v-for="(item,i) in ratioList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i><span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <animated-number :value="item.val/ratioWaterTotal*100" :formatValue="val=>val.toFixed()" :duration="4000" /><i>%</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
         <sideItem title="用电趋势分析" delay="400">
@@ -110,21 +127,14 @@
               <div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
               <div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
             </div>
-            <div class="chart-trendChart" id="trendChart"></div>
+            <div class="chart-trend" id="trendChart"></div>
           </div>
         </sideItem>
       </div>
       <div slot="right">
         <sideItem title="用水设备统计" transitionType="right" delay="200">
           <div class="deviceStati water" slot="body">
-            <currency
-              v-for="(item,i) in statiList"
-              :key="i"
-              :boxnum="item.count"
-              :boxtitle="item.type"
-              :boxcolor="item.color"
-              boxuntil="个"
-            ></currency>
+            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
         <sideItem title="用水概况" transitionType="right" delay="400">
@@ -134,24 +144,26 @@
               <div class="title">用水概况 | 今年</div>
               <div class="row">
                 <div class="total">
-                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                  <i class="perc"><animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%</i>
+                  <i class="perc">
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                  </i>
                 </div>
               </div>
               <div class="row">
                 <div class="item" style="margin-right:10px;">
                   <span class="text">日均：</span>
-                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="item">
                   <span class="text">月均：</span>
-                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="5000" />
+                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
               </div>
@@ -162,7 +174,9 @@
                   <div class="perBox">
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                      <i class="perc"><animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="5000" />%</i>
+                      <i class="perc">
+                        <animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
+                      </i>
                     </div>
                     <span class="text">日均同比</span>
                   </div>
@@ -173,7 +187,9 @@
                   <div class="perBox">
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-up.png" alt />
-                      <i class="perc red"><animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="5000" />%</i>
+                      <i class="perc red">
+                        <animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
+                      </i>
                     </div>
                     <span class="text">月均同比</span>
                   </div>
@@ -185,33 +201,54 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用水概况 | 今月</div>
                 <div class="total">
-                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                  <i class="perc"><animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%</i>
+                  <i class="perc">
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                  </i>
                 </div>
               </div>
               <div class="group">
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用水概况 | 今日</div>
                 <div class="total">
-                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="5000" />
+                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
-                  <i class="perc"><animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="5000" />%</i>
+                  <i class="perc">
+                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                  </i>
                 </div>
               </div>
             </div>
           </div>
         </sideItem>
         <sideItem title="设备用水占比" transitionType="right" delay="600">
-          <div slot="body" style="height:160px;"></div>
+           <div class="ratio water" slot="body">
+            <div class="chartBox">
+              <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
+              <img src="../assets/pieimg/fire/fireleftgear.png" class="bg-ratio" />
+              <div class="chart-ratio" id="ratioChart_water"></div>
+            </div>
+            <div class="detailBox">
+              <div class="row" v-for="(item,i) in ratioWaterList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i><span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <animated-number :value="item.val/ratioWaterTotal*100" :formatValue="val=>val.toFixed()" :duration="4000" />
+                  <i>%</i>
+                </div>
+              </div>
+            </div>
+          </div>
         </sideItem>
         <sideItem title="用水趋势分析" transitionType="right" delay="800">
           <div class="trendAnalysis water" slot="body">
@@ -220,7 +257,7 @@
               <div :class="trendWaterKey==1?'btn checked':'btn'" @click="getTrendAnalyWaterData(1)">近一月</div>
               <div :class="trendWaterKey==2?'btn checked':'btn'" @click="getTrendAnalyWaterData(2)">近一年</div>
             </div>
-            <div class="chart-trendChart" id="trendChart_water"></div>
+            <div class="chart-trend" id="trendChart_water"></div>
           </div>
         </sideItem>
       </div>
@@ -245,12 +282,20 @@ export default {
   data() {
     return {
       statiList: [],//设备统计
-      trendKey:2,
-      trendWaterKey:2,
+      trendKey: 2,
+      trendWaterKey: 2,
+      ratioList:[],
+      ratioWaterList:[],
     }
   },
   computed: {
-    ...mapGetters(['currentSys'])
+    ...mapGetters(['currentSys']),
+    ratioTotal(){
+      return this.ratioList.reduce((sum,item)=>sum+item.val,0);
+    },
+    ratioWaterTotal(){
+      return this.ratioWaterList.reduce((sum,item)=>sum+item.val,0);
+    },
   },
   watch: {},
   mounted() { },
@@ -263,6 +308,8 @@ export default {
         this.getSurveyWaterData();
         this.getTrendAnalyData(2);
         this.getTrendAnalyWaterData(2);
+        this.getRatioData();
+        this.getRatioWaterData();
         // setTimeout(() => {
         // }, 1400)
       })
@@ -431,7 +478,7 @@ export default {
           backgroundColor: 'rgba(44,62,80,0.8)',
           borderColor: 'rgba(153, 209, 246, 0.6)',
           textStyle: {
-            align:'left',
+            align: 'left',
             fontSize: 12,
             color: 'rgba(255,255,255,0.8)',
           },
@@ -535,6 +582,212 @@ export default {
 
       this.loadTrendAnalyCharts('trendChart_water', charts)
     },
+    //获取设备用电占比
+    getRatioData() {
+      this.ratioList = [
+        {name:"照明",val:1100,color:'rgba(169,133,238,0.8)'},
+        {name:"空调",val:444,color:'rgba(196,144,191,0.8)'},
+        {name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
+        {name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
+      ]
+      let dom = document.getElementById('ratioChart');
+      let chart = echarts.init(dom);
+      let total = this.ratioList.reduce((sum,item)=>sum+item.val,0);
+      let list = []
+
+      for (let i in this.ratioList) {
+        list.push({
+          value: this.ratioList[i].val,
+          name: this.ratioList[i].name,
+          itemStyle: {
+            normal: {
+              borderWidth: 5,
+              shadowBlur: 20,
+              borderColor: this.ratioList[i].color,
+              shadowColor: this.ratioList[i].color,
+            }
+          }
+        }, {
+          value: total / 30,
+          name: '',
+          itemStyle: {
+            normal: {
+              label: {
+                show: false
+              },
+              labelLine: {
+                show: false
+              },
+              color: 'rgba(0, 0, 0, 0)',
+              borderColor: 'rgba(0, 0, 0, 0)',
+              borderWidth: 0
+            }
+          }
+        })
+      }
+      
+      let option = {
+        tooltip: {
+          show: false
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            clockWise: false,
+            startAngle: '90',
+            center: ['50%', '50%'],
+            radius: ['80%', '81%'],
+            hoverAnimation: false,
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                }
+              }
+            },
+            data: list,
+            animationType: 'scale',
+            animationEasing: 'elasticOut',
+            animationDelay: function (idx) {
+              return idx * 550;
+            }
+          },
+          {
+            name: '',
+            type: 'pie',
+            center: ['50%', '50%'],
+            radius: ['70%', '70%'], //设置饼状图的宽高
+            itemStyle: {
+              color: 'transparant'
+            },
+            startAngle: '90',
+            data: [{
+              value: total,
+              name: '',
+              label: {
+                normal: {
+                  show: true,
+                  formatter: '{c|设备}' + '\n' + '{c|用电占比}',
+                  rich: {
+                    c: {
+                      color: 'rgba(255, 255, 255, .8)',
+                      fontSize: 14,
+                      lineHeight: 20
+                    }
+                  },
+                  position: 'center'
+                }
+              }
+            }]
+          }
+        ]
+      }
+      chart.setOption(option, true);
+    },
+    //获取设备用水占比
+    getRatioWaterData(){
+      this.ratioWaterList = [
+        {name:"生活用水",val:1100,color:'rgba(169,133,238,0.8)'},
+        {name:"浇灌用水",val:444,color:'rgba(196,144,191,0.8)'},
+        {name:"其他",val:501,color:'rgba(19,181,177,0.8)'},
+      ]
+      let dom = document.getElementById('ratioChart_water');
+      let chart = echarts.init(dom);
+      let total = this.ratioWaterList.reduce((sum,item)=>sum+item.val,0);
+      let list = []
+
+      for (let i in this.ratioWaterList) {
+        list.push({
+          value: this.ratioWaterList[i].val,
+          name: this.ratioWaterList[i].name,
+          itemStyle: {
+            normal: {
+              borderWidth: 5,
+              shadowBlur: 20,
+              borderColor: this.ratioWaterList[i].color,
+              shadowColor: this.ratioWaterList[i].color,
+            }
+          }
+        }, {
+          value: total / 30,
+          name: '',
+          itemStyle: {
+            normal: {
+              label: {
+                show: false
+              },
+              labelLine: {
+                show: false
+              },
+              color: 'rgba(0, 0, 0, 0)',
+              borderColor: 'rgba(0, 0, 0, 0)',
+              borderWidth: 0
+            }
+          }
+        })
+      }
+      
+      let option = {
+        tooltip: {
+          show: false
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            clockWise: false,
+            startAngle: '90',
+            center: ['50%', '50%'],
+            radius: ['80%', '81%'],
+            hoverAnimation: false,
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                }
+              }
+            },
+            data: list,
+          },
+          {
+            name: '',
+            type: 'pie',
+            center: ['50%', '50%'],
+            radius: ['70%', '70%'], //设置饼状图的宽高
+            itemStyle: {
+              color: 'transparant'
+            },
+            startAngle: '90',
+            data: [{
+              value: total,
+              name: '',
+              label: {
+                normal: {
+                  show: true,
+                  formatter: '{c|设备}' + '\n' + '{c|用水占比}',
+                  rich: {
+                    c: {
+                      color: 'rgba(255, 255, 255, .8)',
+                      fontSize: 14,
+                      lineHeight: 20
+                    }
+                  },
+                  position: 'center'
+                }
+              }
+            }]
+          }
+        ]
+      }
+      chart.setOption(option, true);
+    }
   }
 }
 </script>
@@ -743,9 +996,94 @@ span {
         background: url(../assets/img/btn-check.png) no-repeat 100%;
       }
     }
-    .chart-trendChart{
+    .chart-trend {
       width: 340px;
       height: 180px;
+    }
+  }
+  .ratio {
+    height: 160px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .chartBox {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .bg-ratio-animImg {
+        width: 160px;
+        height: 160px;
+        position: absolute;
+        left: calc(50% - 80px);
+        top: calc(50% - 80px);
+        animation: myMove 5s; //外圈旋转动画
+        -webkit-animation: myMove 5s infinite linear;
+      }
+      .bg-ratio {
+        width: 110px;
+        height: 110px;
+        position: absolute;
+        left: calc(50% - 55px);
+        top: calc(50% - 55px);
+      }
+      .chart-ratio {
+        width: 150px;
+        height: 150px;
+      }
+    }
+    .detailBox {
+      flex: 1;
+      height: 100%;
+      margin-left: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .row{
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding-bottom: 5px;
+         border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+         .title{
+           i{
+             border: 2px solid;
+             border-radius: 4px;
+             display: inline-block;
+              height: 5px;
+              margin-right: 4px;
+           }
+           span{
+             font-size: 14px;
+           }
+         }
+         .value{
+           span{
+              font-size: 14px;
+              font-weight: 400;
+              color: #00F5FF;
+              margin-right: 2px;
+           }
+           i{
+              font-size: 12px;
+              font-weight: 400;
+              color: rgba(255, 255, 255, 0.5);
+           }
+         }
+      }
+    }
+  }
+
+  /* 外圈旋转动画 */
+  @-webkit-keyframes myMove {
+    /**关键帧名称**/
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
     }
   }
 }

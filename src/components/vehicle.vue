@@ -4,7 +4,15 @@
 			<div slot="left">
 				<sideItem title="违规车辆统计">
 					<div class="network-status" slot='body'>
-
+						<currency
+              v-for="(item,i) in statiList"
+              :key="i"
+              :boxnum="item.count"
+              :boxtitle="item.type"
+              :boxcolor="item.color"
+              boxuntil="个"
+              style="margin-top:12px;"
+            ></currency>
 					</div>
 				</sideItem>
 				<sideItem title="违规事件统计">
@@ -41,6 +49,7 @@
 	} from 'vuex'
 	import sideTran from './sideTran'
 	import sideItem from './sideItem.vue'
+	import currency from './currency.vue'
 	import {
 		DatePicker
 	} from 'element-ui'
@@ -48,24 +57,36 @@
 		components: {
 			sideTran,
 			sideItem,
-			DatePicker
+			DatePicker,
+			currency
 		},
 		computed: {
 			...mapGetters(['currentSys'])
 		},
 		data() {
 			return {
-				value1: ''
+				value1: '',
+				statiList: [],//违章车辆统计
 			}
 		},
 		methods: {
 			init() {
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'vehicle'
+					this.getDeviceStatiList()
 					setTimeout(() => {
 						this.randerBar()
 					}, 1500)
 				})
+			},
+			//获取设备统计列表
+			getDeviceStatiList() {
+				this.statiList = [
+					{ type: '总数', count: 2349, color: '#00F5FF' },
+					{ type: '今日', count: 86, color: '#F2896B' },
+					{ type: '本周', count: 45, color: '#DBBB8A' },
+					{ type: '本月', count: 298, color: '#A488EF' },
+				]
 			},
 			randerBar() {
 				let vehicleChartDom, vehicleChartChart
@@ -199,7 +220,11 @@
 	}
 
 	.network-status {
-		height: 120px;
+    padding: 0 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
 	}
 
 	.violations {
