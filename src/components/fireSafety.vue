@@ -106,9 +106,9 @@
 </template>
 
 <script>
-	// let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6', '#ad46f3',
-	// 	'#f845f1'
-	// ];
+	let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6', '#ad46f3',
+		'#f845f1'
+	];
 	import * as mixins from './mixins'
 	import sideTran from './sideTran'
 	import sideItem from './sideItem.vue'
@@ -279,7 +279,9 @@
 					}, 1500)
 				})
 			},
-
+			initcolors(){
+				
+			},
 			handleAbCheckNav(nav) {
 				this.abCheckNav = nav
 			},
@@ -439,10 +441,10 @@
 					width: 150,
 					height: 150
 				});
-				let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6',
-					'#ad46f3',
-					'#f845f1'
-				];
+				// let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6',
+				// 	'#ad46f3',
+				// 	'#f845f1'
+				// ];
 				let names = ["居住", "生产", "经营"];
 				let data1 = [1114, 444, 501]
 				let list = []
