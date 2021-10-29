@@ -931,7 +931,7 @@
 		bottom: 31px;
 		z-index: 1;
 		transform: scale(.8);
-		animation: num-of-eq-all-ani-middle2-start 1.8s infinite linear;
+		animation: num-of-eq-all-ani-middle2-start 3s infinite linear;
 	}
 	.num-of-eq-all-ani-middle3{
 		position: absolute;
@@ -974,12 +974,16 @@
 			opacity: 0;
 		}
 		50%{
-			// width: 89px;
+			width: 119px;
 			opacity: 1;
+		}
+		75%{
+			width: 119px;
+			opacity: .5;
 		}
 		100%{
 			width: 119px;
-			opacity: .6;
+			opacity: 0;
 		}
 	}
 	.detailBox {

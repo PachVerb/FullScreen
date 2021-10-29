@@ -81,7 +81,7 @@
 				</sideItem>
 				<sideItem title="停车位统计" :delay="1000" transitionType="right">
 					<div slot='body' class="parking-space-wrap">
-						<div class="parking-space">
+						<div class="parking-space" v-for="item in parkingList" :key="item.id">
 							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
 							<div class="parking-space-ani">
 								<img class="parking-space-top" src="../assets/eqNum/top2.png" alt="">
@@ -89,37 +89,7 @@
 								<img class="parking-space-middle1" src="../assets/eqNum/middle3.png" alt="">
 								<img class="parking-space-bottom" src="../assets/eqNum/bottom2.png" alt="">
 							</div>
-							<div class="eq-statistics-item-name">总停车位</div>
-						</div>
-						<div class="parking-space">
-							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
-							<div class="parking-space-ani">
-								<img class="parking-space-top" src="../assets/eqNum/top2.png" alt="">
-								<img class="parking-space-middle" src="../assets/eqNum/middle3.png" alt="">
-								<img class="parking-space-middle1" src="../assets/eqNum/middle3.png" alt="">
-								<img class="parking-space-bottom" src="../assets/eqNum/bottom2.png" alt="">
-							</div>
-							<div class="eq-statistics-item-name">停车区域</div>
-						</div>
-						<div class="parking-space">
-							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
-							<div class="parking-space-ani">
-								<img class="parking-space-top" src="../assets/eqNum/top2.png" alt="">
-								<img class="parking-space-middle" src="../assets/eqNum/middle3.png" alt="">
-								<img class="parking-space-middle1" src="../assets/eqNum/middle3.png" alt="">
-								<img class="parking-space-bottom" src="../assets/eqNum/bottom2.png" alt="">
-							</div>
-							<div class="eq-statistics-item-name">已停车位</div>
-						</div>
-						<div class="parking-space">
-							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
-							<div class="parking-space-ani">
-								<img class="parking-space-top" src="../assets/eqNum/top2.png" alt="">
-								<img class="parking-space-middle" src="../assets/eqNum/middle3.png" alt="">
-								<img class="parking-space-middle1" src="../assets/eqNum/middle3.png" alt="">
-								<img class="parking-space-bottom" src="../assets/eqNum/bottom2.png" alt="">
-							</div>
-							<div class="eq-statistics-item-name">空闲车位</div>
+							<div class="eq-statistics-item-name">{{ item.cname }}</div>
 						</div>
 					</div>
 				</sideItem>
@@ -231,7 +201,20 @@
 					key: '',
 					width: '57.6px'
 				}, ],
-				checkTrajector: ''
+				checkTrajector: '',
+				parkingList: [{
+					cname: '总共停车位',
+					id: 1
+				},{
+					cname: '停车区域',
+					id: 2
+				},{
+					cname: '已停车位',
+					id: 3
+				},{
+					cname: '空闲车位',
+					id: 4
+				},]
 			}
 		},
 		methods: {
