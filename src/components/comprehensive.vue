@@ -110,7 +110,21 @@
       <div slot="right">
         <sideItem title="车辆态势">
           <div class="car-status" slot="body">
-						
+						<img class="box-car" src="../assets/compre/bg-car.png" alt=""/>
+            <div class="detail">
+              <div class="item">
+								<span class="value">1202<i>辆</i></span>
+                <span class="text">驶入车辆数</span>
+              </div>
+              <div class="item">
+								<span class="value">1202<i>辆</i></span>
+                <span class="text">超速车辆数</span>
+              </div>
+              <div class="item">
+								<span class="value">7<i>辆</i></span>
+                <span class="text">驶出车辆数</span>
+              </div>
+            </div>
 					</div>
         </sideItem>
         <sideItem title="学生实时分布" transitionType="right" delay="1500">
@@ -712,6 +726,43 @@ span {
 		width: 360px;
 		height: 200px;
 	}
+}
+.car-status{
+  padding: 0 16px;
+  .box-car{
+    margin-top: 10px;
+    width: 100%;
+  }
+  .detail{
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .item{
+      height: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      .value{
+        font-size: 16px;
+        font-weight: bold;
+        color: #00F5FF;
+        i{
+          margin-left: 2px;
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.4);
+        }
+      }
+      .text{
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
 }
 
 .studentdistribution {
