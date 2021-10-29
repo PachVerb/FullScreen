@@ -27,21 +27,23 @@
 						</div>
 						<div class="ab-list patrol">
 							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
-								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}" >
+								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
 									{{ item.name }}
 								</div>
-								<div class="table-item" :style="{width: tableHead[1].width}" :title=item.reason>{{ item.reason }}</div>
-								<div class="table-item" :style="{width: tableHead[2].width}" :title=item.date>{{ item.date }}</div>
+								<div class="table-item" :style="{width: tableHead[1].width}" :title=item.reason>
+									{{ item.reason }}</div>
+								<div class="table-item" :style="{width: tableHead[2].width}" :title=item.date>
+									{{ item.date }}</div>
 							</div>
 						</div>
 					</div>
 				</sideItem>
 				<sideItem title="设备告警详情">
 					<div slot='body' class="deviceDetail">
-						<div class="checkBox" >
-						  <div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
-						  <div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
-						  <div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
+						<div class="checkBox">
+							<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
+							<div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
+							<div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
 						</div>
 						<div class="chart-trendChart" id="trendChart"></div>
 					</div>
@@ -49,13 +51,18 @@
 			</div>
 			<div slot="right">
 				<sideItem title="网站安全统计">
-					<div slot='body'>
-						<div id="webSecurity"></div>
+					<div slot='body' class="webSecuritytotal">
+						<div class="calendar"></div>
+						<div id="webSecuritytotalpie"></div>
+						<!-- <div class="echartspie" ref='topPie'></div> -->
 					</div>
 				</sideItem>
 				<sideItem title="服务器安全分析">
-					<div slot='body'>
-						<div id="serverSecurity"></div>
+					<div slot='body' class="serverSecuritytotal">
+					</div>
+				</sideItem>
+				<sideItem title="网站安全分析">
+					<div slot='body' class="websiteSecurityanalysis">
 					</div>
 				</sideItem>
 			</div>
@@ -87,8 +94,8 @@
 		},
 		data() {
 			return {
-				trendKey:2,
-				trendWaterKey:2,
+				trendKey: 2,
+				trendWaterKey: 2,
 				thisCrrentSys: '',
 				num: 12345,
 				numtow: 67898,
@@ -107,27 +114,27 @@
 					id: '1',
 					name: '一般',
 					date: '2021-11-09 15:22:47',
-					reason:"#2015柜内存使用率超标"
+					reason: "#2015柜内存使用率超标"
 				}, {
 					id: '2',
 					name: '正常',
 					date: '2021-11-09 15:22:47',
-					reason:"#2015柜内存使用率超标"
+					reason: "#2015柜内存使用率超标"
 				}, {
 					id: '3',
 					name: '正常',
 					date: '2021-11-09 15:22:47',
-					reason:"#2015柜内存使用率超标"
+					reason: "#2015柜内存使用率超标"
 				}, {
 					id: '4',
 					name: '正常',
 					date: '2021-11-09 15:22:47',
-					reason:"#2015柜内存使用率超标"
+					reason: "#2015柜内存使用率超标"
 				}, {
 					id: '5',
 					name: '正常',
 					date: '2021-11-09 15:22:47',
-					reason:"#2015柜内存使用率超标"
+					reason: "#2015柜内存使用率超标"
 				}, ],
 			}
 		},
@@ -145,10 +152,64 @@
 					setTimeout(() => {
 						this.randerBar()
 						this.getTrendAnalyData(2);
+						// this.renderrightpie()
 					}, 1500)
 				})
 			},
+ 
 
+			renderrightpie() {
+				let webSecuritytotalpieChartDom, webSecuritytotalpieChartChart
+				webSecuritytotalpieChartDom = document.getElementById('webSecuritytotalpie');
+				webSecuritytotalpieChartChart = echarts.init(webSecuritytotalpieChartDom);
+				const colorList = ['#47A2FF ', '#53C8D1', '#59CB74', '#FBD444', '#7F6AAD', '#585247']
+
+				let option = {
+
+					tooltip: {
+						trigger: 'item',
+					},
+					color: colorList,
+					series: [{
+						name: '姓名',
+						type: 'pie',
+						radius: [70, 90],
+						center: ['40%', '50%'],
+						label: {
+							show: false
+						},
+						labelLine: {
+							show: false
+						},
+						itemStyle: {
+							borderWidth: 3,
+							borderColor: '#fff'
+						},
+						data: [{
+								name: '南京a',
+								value: 100
+							},
+							{
+								name: '南京b',
+								value: 100
+							},
+							{
+								name: '南京c',
+								value: 100
+							},
+							{
+								name: '南京d',
+								value: 100
+							},
+							{
+								name: '南京e',
+								value: 100
+							},
+						],
+					}]
+				};
+				webSecuritytotalpieChartChart.setOption(option)
+			},
 			randerBar() {
 				let networkdevicetotalChartDom, networkdevicetotalChartChart
 				networkdevicetotalChartDom = document.getElementById('networkdevicetotal');
@@ -279,151 +340,151 @@
 				networkdevicetotalChartChart.setOption(option);
 			},
 			getTrendAnalyData(index) {
-			  this.trendKey = index;
-			  let charts = {};
-			  if (index == 0) {
-			    charts = {
-			      unit: '',
-			      lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-			      value: [
-			        [251, 152, 103, 334, 95, 236, 217],
-			      ]
-			    }
-			  } else if (index == 1) {
-			    charts = {
-			      unit: '',
-			      lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
-			      value: [
-			        [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
-			      ]
-			    }
-			  } else if (index == 2) {
-			    charts = {
-			      unit: '',
-			      lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-			      value: [
-			        [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
-			      ]
-			    }
-			  }
-			
-			  this.loadTrendAnalyCharts('trendChart', charts)
+				this.trendKey = index;
+				let charts = {};
+				if (index == 0) {
+					charts = {
+						unit: '',
+						lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+						value: [
+							[251, 152, 103, 334, 95, 236, 217],
+						]
+					}
+				} else if (index == 1) {
+					charts = {
+						unit: '',
+						lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
+						value: [
+							[151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
+						]
+					}
+				} else if (index == 2) {
+					charts = {
+						unit: '',
+						lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+						value: [
+							[451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
+						]
+					}
+				}
+
+				this.loadTrendAnalyCharts('trendChart', charts)
 			},
 			loadTrendAnalyCharts(id, data) {
-			  let dom = document.getElementById(id);
-			  let chart = echarts.init(dom);
-			  let parma = {
-			    names: ['告警次数'],
-			    ...data
-			  };
+				let dom = document.getElementById(id);
+				let chart = echarts.init(dom);
+				let parma = {
+					names: ['告警次数'],
+					...data
+				};
 				// rgba(106, 176, 255, 1)
-			  let color = ['rgba(106, 176, 255', 'rgba(106, 176, 255']
-			  let lineY = []
-			  for (let i = 0; i < parma.names.length; i++) {
-			    let data = {
-			      name: parma.names[i],
-			      type: 'line',
-			      animationDuration: 2000,
-			      color: color[i] + ')',
-			      // smooth: false,
-			      // areaStyle: {
-			      //   normal: {
-			      //     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-			      //       offset: 0,
-			      //       color: color[i] + ', 0.3)'
-			      //     }, {
-			      //       offset: 0.8,
-			      //       color: color[i] + ', 0)'
-			      //     }], false),
-			      //     shadowColor: 'rgba(0, 0, 0, 0.1)',
-			      //     shadowBlur: 10
-			      //   }
-			      // },
-			      symbol: 'circle',
-			      symbolSize: 5,
-			      data: parma.value[i]
-			    }
-			    lineY.push(data)
-			  }
-			  let option = {
-			    tooltip: {
-			      trigger: 'axis',
-			      textStyle: {
-			        align:'left',
-			        fontSize: 12,
-			        color: 'rgba(255,255,255,0.8)',
-			      },
-			    },
-			    legend: {
-						show:false,
-			      top: '0px',
-			      data: parma.names,
-			      textStyle: {
-			        fontSize: 12,
-			        color: 'F1F1F3'
-			      },
-			      right: '20px'
-			    },
-			    grid: {
-			      top: '10px',
-			      left: '0px',
-			      right: '14px',
-			      bottom: '0px',
-			      containLabel: true
-			    },
-			    xAxis: {
-			      show: true,
-			      type: 'category',
-			      boundaryGap: false,
-			      data: parma.lineX,
-						axisLine: {
-						  show: true,
-						  lineStyle: {
-						    color: 'rgba(106, 176, 255, 1)'
-						  }
+				let color = ['rgba(106, 176, 255', 'rgba(106, 176, 255']
+				let lineY = []
+				for (let i = 0; i < parma.names.length; i++) {
+					let data = {
+						name: parma.names[i],
+						type: 'line',
+						animationDuration: 2000,
+						color: color[i] + ')',
+						// smooth: false,
+						// areaStyle: {
+						//   normal: {
+						//     color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+						//       offset: 0,
+						//       color: color[i] + ', 0.3)'
+						//     }, {
+						//       offset: 0.8,
+						//       color: color[i] + ', 0)'
+						//     }], false),
+						//     shadowColor: 'rgba(0, 0, 0, 0.1)',
+						//     shadowBlur: 10
+						//   }
+						// },
+						symbol: 'circle',
+						symbolSize: 5,
+						data: parma.value[i]
+					}
+					lineY.push(data)
+				}
+				let option = {
+					tooltip: {
+						trigger: 'axis',
+						textStyle: {
+							align: 'left',
+							fontSize: 12,
+							color: 'rgba(255,255,255,0.8)',
 						},
-			      axisLabel: {
-			        textStyle: {
-			          color: 'white'
-			        },
-			      }
-			    },
-			    yAxis: {
-			      show: true,
-			      splitArea: {
-			        show: false,
-			        areaStyle: {
-			          color: "transparent"
-			        }
-			      },
-			      type: 'value',
-			      axisLabel: {
-			        formatter: '{value}',
-			        textStyle: {
-			          color: 'white'
-			        }
-			      },
-			      splitLine: {
-			        lineStyle: {
-			          color: 'rgba(106, 176, 255, 1)',
+					},
+					legend: {
+						show: false,
+						top: '0px',
+						data: parma.names,
+						textStyle: {
+							fontSize: 12,
+							color: 'F1F1F3'
+						},
+						right: '20px'
+					},
+					grid: {
+						top: '10px',
+						left: '0px',
+						right: '14px',
+						bottom: '0px',
+						containLabel: true
+					},
+					xAxis: {
+						show: true,
+						type: 'category',
+						boundaryGap: false,
+						data: parma.lineX,
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: 'rgba(106, 176, 255, 1)'
+							}
+						},
+						axisLabel: {
+							textStyle: {
+								color: 'white'
+							},
+						}
+					},
+					yAxis: {
+						show: true,
+						splitArea: {
+							show: false,
+							areaStyle: {
+								color: "transparent"
+							}
+						},
+						type: 'value',
+						axisLabel: {
+							formatter: '{value}',
+							textStyle: {
+								color: 'white'
+							}
+						},
+						splitLine: {
+							lineStyle: {
+								color: 'rgba(106, 176, 255, 1)',
 								type: "dashed"
-			        }
-			      },
-			      axisLine: {
-			        show: true,
-			        lineStyle: {
-			          color: 'rgba(106, 176, 255, 1)'
-			        }
-			      }
-			    },
-			    series: lineY
-			  }
-			  chart.clear();//清除动画
-			  chart.setOption(option, true);
-			  // setTimeout(() => {
-			  //   chart.clear();//清除动画
-			  //   chart.setOption(option, true);
-			  // }, 600)
+							}
+						},
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: 'rgba(106, 176, 255, 1)'
+							}
+						}
+					},
+					series: lineY
+				}
+				chart.clear(); //清除动画
+				chart.setOption(option, true);
+				// setTimeout(() => {
+				//   chart.clear();//清除动画
+				//   chart.setOption(option, true);
+				// }, 600)
 			},
 		}
 	}
@@ -454,15 +515,17 @@
 		height: 140px;
 		margin-top: 20px;
 	}
-.table-head {
+
+	.table-head {
 		margin: 0 16px;
 		font-size: 14px;
-/* 		position: relative;
+		/* 		position: relative;
 		top: -10px; */
 		color: rgba(255, 255, 255, .8);
 		border-bottom: 1px solid rgba(63, 151, 207, .5);
 		display: flex;
 		justify-content: space-around;
+
 		span {
 			display: inline-block;
 			line-height: 40px;
@@ -477,10 +540,11 @@
 		padding-right: 10px;
 		color: white;
 	}
+
 	.ab-list {
 		font-size: 12px;
 	}
-	
+
 	.ab-item {
 		display: flex;
 		justify-content: space-between;
@@ -489,7 +553,7 @@
 		padding: 0 0 6px;
 		border-bottom: 1px solid rgba(63, 151, 207, .5);
 	}
-	
+
 	.ab-item-name,
 	.ab-item-date {
 		/* margin-top: 5px; */
@@ -498,58 +562,88 @@
 		/* border-left: 1px solid #00F5FF; */
 		color: rgba(255, 255, 255, .5);
 	}
-	
+
 	.ab-item-name {
 		font-size: 12px;
 		color: #F6FAFF;
 		/* font-weight: bold; */
 	}
-	
-	
+
+
 	.patrol {
 		font-size: 12px;
 		height: 120px;
 		overflow-y: scroll;
+
 		.ab-item-name {
 			margin-top: 0;
 			font-size: 12px;
 			border: none;
 		}
 	}
-	.deviceDetail{
+
+	.deviceDetail {
 		height: 220px;
 	}
+
 	.deviceDetail {
-	  position: relative;
-	  padding: 10px 16px 0;
-	  .checkBox {
-	    position: absolute;
-	    right: 16px;
-	    top: -20px;
-	    display: flex;
-	    align-items: center;
-	    .btn {
-	      width: 48px;
-	      line-height: 22px;
-	      font-size: 12px;
-	      font-weight: 400;
-	      color: rgba(255, 255, 255, 0.6);
-	      background: url(../../assets/img/btn.png) no-repeat 100%;
-	      margin: 0 4px;
-	      cursor: pointer;
-	    }
-	    .checked {
-	      color: #00f5ff;
-	      background: url(../../assets/img/btn-check.png) no-repeat 100%;
-	    }
-	  }
-	  .chart-trendChart{
-	    width: 340px;
-	    height: 180px;
+		position: relative;
+		padding: 10px 16px 0;
+
+		.checkBox {
+			position: absolute;
+			right: 16px;
+			top: -20px;
+			display: flex;
+			align-items: center;
+
+			.btn {
+				width: 48px;
+				line-height: 22px;
+				font-size: 12px;
+				font-weight: 400;
+				color: rgba(255, 255, 255, 0.6);
+				background: url(../../assets/img/btn.png) no-repeat 100%;
+				margin: 0 4px;
+				cursor: pointer;
+			}
+
+			.checked {
+				color: #00f5ff;
+				background: url(../../assets/img/btn-check.png) no-repeat 100%;
+			}
+		}
+
+		.chart-trendChart {
+			width: 340px;
+			height: 180px;
 			margin-top: 20px;
-	  }
+		}
 	}
-	
+
+	#webSecuritytotalpie {
+		width: 100%;
+		height: 100%;
+	}
+
+	.webSecuritytotal {
+		height: 380px;
+
+		.calendar {
+			height: 40px;
+			background-color: greenyellow;
+		}
+
+	}
+
+	.serverSecuritytotal {
+		height: 150px;
+	}
+
+	.websiteSecurityanalysis {
+		height: 150px;
+	}
+
 </style>
 <!-- <style type="text/css">
 	.el-table, .el-table__expanded-cell {background-color: transparent !important;}

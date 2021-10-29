@@ -508,6 +508,12 @@ export default {
             textStyle: {
               color: 'rgb(0,253,255,0.6)'
             },
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgb(0,253,255,0.6)'
+            }
           }
         },
         yAxis: {
@@ -804,6 +810,7 @@ span {
 .energy {
   color: #f6faff;
   .deviceStati {
+		// min-height: 124px;
     padding: 0 16px;
     display: flex;
     flex-wrap: wrap;
@@ -811,6 +818,7 @@ span {
     align-items: center;
   }
   .survey {
+		// min-height: 180px;
     padding: 10px 16px 0;
     display: flex;
     .l {
@@ -973,6 +981,7 @@ span {
     }
   }
   .trendAnalysis {
+		// min-height: 130px;
     position: relative;
     padding: 10px 16px 0;
     .checkBox {
@@ -998,11 +1007,11 @@ span {
     }
     .chart-trend {
       width: 340px;
-      height: 180px;
+      height: 150px;
     }
   }
   .ratio {
-    height: 160px;
+    // min-height: 140px;
     padding: 0 16px;
     display: flex;
     justify-content: space-between;
