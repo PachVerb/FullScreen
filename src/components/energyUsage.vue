@@ -508,6 +508,12 @@ export default {
             textStyle: {
               color: 'rgb(0,253,255,0.6)'
             },
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgb(0,253,255,0.6)'
+            }
           }
         },
         yAxis: {
@@ -1001,7 +1007,7 @@ span {
     }
     .chart-trend {
       width: 340px;
-      height: 180px;
+      height: 150px;
     }
   }
   .ratio {
