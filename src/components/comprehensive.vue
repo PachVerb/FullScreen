@@ -1008,19 +1008,19 @@ span {
     height: 180px;
   }
   .bg1{
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    left: calc(50% - 50px);
-    top: calc(50% - 50px);
-    animation: rotateAnim1 5s infinite linear; 
-  }
-  .bg2{
     width: 140px;
     height: 140px;
     position: absolute;
     left: calc(50% - 70px);
     top: calc(50% - 70px);
+    animation: rotateAnim1 5s infinite linear; 
+  }
+  .bg2{
+    width: 180px;
+    height: 180px;
+    position: absolute;
+    left: calc(50% - 90px);
+    top: calc(50% - 90px);
     animation: rotateAnim2 5s infinite linear; 
   }
 }
