@@ -53,9 +53,9 @@
 	.inner {
 		display: flex;
 		background: url(../assets/img/currencyboxbgc.png) no-repeat;
-		width: 150px;
+		width: 140px;
 		background-size: 100%;
-		height: 56px;
+		height: 50px;
 		/* background-size: 100% 80%; */
 		justify-content: center;
 	}

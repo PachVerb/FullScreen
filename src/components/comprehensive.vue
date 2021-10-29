@@ -109,7 +109,9 @@
       </div>
       <div slot="right">
         <sideItem title="车辆态势">
-          <div slot="body"></div>
+          <div class="car-status" slot="body">
+						
+					</div>
         </sideItem>
         <sideItem title="学生实时分布" transitionType="right" delay="1500">
           <div slot="body" class="studentdistribution">
@@ -665,7 +667,7 @@ span {
 }
 .card-status{
 	padding: 10px 14px 0;
-	height: 150px;
+	height: 140px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -708,7 +710,7 @@ span {
 	padding: 0 14px;
 	.chart-conm{
 		width: 360px;
-		height: 220px;
+		height: 200px;
 	}
 }
 
