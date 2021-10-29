@@ -108,7 +108,7 @@
         </sideItem>
       </div>
       <div slot="right">
-        <sideItem title="车辆态势">
+        <sideItem title="车辆态势" transitionType="right" :delay="100">
           <div class="car-status" slot="body">
 						<img class="box-car" src="../assets/compre/bg-car.png" alt=""/>
             <div class="detail">
@@ -127,17 +127,48 @@
             </div>
 					</div>
         </sideItem>
-        <sideItem title="学生实时分布" transitionType="right" delay="1500">
+        <sideItem title="学生实时分布" transitionType="right" :delay="200">
           <div slot="body" class="studentdistribution">
             <img src="../assets/pieimg/comprehensive/comprehensiveoutpie.png" class="comprehensiveoutpie" />
             <img src="../assets/pieimg/comprehensive/innercircle.png" class="innercircle" />
             <div id="studentdistribution"></div>
+            <div class="detailBox">
+              <div class="row" v-for="(item,i) in stuDisList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i><span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <span>{{item.value}}</span><i>人</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
-        <sideItem title="AI摄像机态势">
-          <div slot="body"></div>
+        <sideItem title="AI摄像机态势" transitionType="right" :delay="300">
+          <div slot="body" class="camera-status">
+            <dir class="item">
+              <img src="../assets/compre/bg-ai1.png" alt=""/>
+              <span class="value">122323<i>次</i></span>
+              <span class="name">总识别数量</span>
+            </dir>
+            <dir class="item">
+              <img src="../assets/compre/bg-ai2.png" alt=""/>
+              <span class="value">1026<i>次</i></span>
+              <span class="name">本月识别数量</span>
+            </dir>
+            <dir class="item">
+              <img src="../assets/compre/bg-ai3.png" alt=""/>
+              <span class="value">3467<i>次</i></span>
+              <span class="name">本周识别数量</span>
+            </dir>
+            <dir class="item">
+              <img src="../assets/compre/bg-ai4.png" alt=""/>
+              <span class="value">1265<i>次</i></span>
+              <span class="name">今日识别数量</span>
+            </dir>
+          </div>
         </sideItem>
-        <sideItem title="国有资产">
+        <sideItem title="国有资产" transitionType="right" :delay="400">
           <div slot="body"></div>
         </sideItem>
       </div>
@@ -166,6 +197,7 @@ export default {
       netList: [],
       netList1: [],
 			cardList:[],
+      stuDisList:[]
     }
   },
   methods: {
@@ -174,11 +206,7 @@ export default {
         this.getNetStatus();
 				this.getCardStatus();
 				this.getConmuseStatus();
-        var _this = this
-        // this.initcolor()
-        setTimeout(function () {
-          _this.renderpie()
-        }, 1500);
+        this.renderpie()
       })
     },
     //获取网络状态数据
@@ -344,78 +372,31 @@ export default {
       //   chart.setOption(option, true);
       // }, 600)
 		},
+    //学生实时分布
     renderpie() {
-      let studentdistributionChartDom, studentdistributionChartChart, option
-      studentdistributionChartDom = document.getElementById('studentdistribution');
-      studentdistributionChartChart = echarts.init(studentdistributionChartDom);
+      let studentdistributionChartDom = document.getElementById('studentdistribution');
+      let studentdistributionChartChart = echarts.init(studentdistributionChartDom);
       let series = [];
-      let pieDatas = [
-        {
-          "value": 30,
-          "name": "教学楼"
-        },
-        {
-          "value": 14,
-          "name": "图书馆"
-        },
-        {
-          "value": 26,
-          "name": "宿舍楼"
-        },
-        {
-          "value": 20,
-          "name": "实验楼"
-        },
-        {
-          "value": 10,
-          "name": "餐厅/食堂"
-        },
-        {
-          "value": 10,
-          "name": "其他位置"
-        }
+      this.stuDisList = [
+        { "value": 30, "name": "教学楼", color:"rgba(222, 125, 255, 1)" },
+        { "value": 14, "name": "图书馆", color:"rgba(250, 118, 121, 1)" },
+        { "value": 26, "name": "宿舍楼", color:"rgba(53, 198, 215, 1)" },
+        { "value": 20, "name": "实验楼", color:"rgba(101, 223, 138, 1)" },
+        { "value": 10, "name": "餐厅/食堂", color:"rgba(253, 161, 79, 1)" },
+        { "value": 10, "name": "其他位置", color:"rgba(68,165,255,1)" }
       ];
       let maxRadius = 80,
         barWidth = 5,
         barGap = 5;
-      let sumValue = 0;
-      let showValue = true, showPercent = true;
-      pieDatas.map(item => {
-        sumValue += item.value;
-      })
-      let barColor = [
-        {
-          "color1": "rgba(222, 125, 255, 1)",
-          "color2": ""
-        },
-        {
-          "color1": "rgba(250, 118, 121, 1)",
-          "color2": ""
-        },
-        {
-          "color1": "rgba(53, 198, 215, 1)",
-          "color2": ""
-        },
-        {
-          "color1": "rgba(101, 223, 138, 1)",
-          "color2": ""
-        },
-        {
-          "color1": "rgba(253, 161, 79, 1)",
-          "color2": ""
-        },
-        {
-          "color1": "rgba(68,165,255,1)",
-          "color2": ""
-        }
-      ];
-      pieDatas.map((item, i) => {
+      let sumValue = this.stuDisList.reduce((sum,item)=>sum+item.value,0);
+      this.stuDisList.forEach((item, i) => {
         series.push({
           type: 'pie',
+          animationDuration: 2000,
           clockWise: false, //顺时加载
           hoverAnimation: false, //鼠标移入变大
           radius: [(maxRadius - i * (barGap + barWidth)) + '%', (maxRadius - (i + 1) * barWidth - i * barGap) + '%'],
-          center: ["30%", "50%"],
+          center: ["50%", "50%"],
           label: {
             show: false
           },
@@ -432,7 +413,7 @@ export default {
             value: item.value,
             name: item.name,
             itemStyle: {
-              color: barColor[i] && barColor[i].color1 || 'rgba(68,165,255,1)'
+              color: item.color
             }
           }, {
             value: sumValue - item.value,
@@ -449,12 +430,13 @@ export default {
         series.push({
           name: 'blank',
           type: 'pie',
+          animationDuration: 2000,
           silent: true,
           z: 0,
           clockWise: false, //顺时加载
           hoverAnimation: false, //鼠标移入变大
           radius: [(maxRadius - i * (barGap + barWidth)) + '%', (maxRadius - (i + 1) * barWidth - i * barGap) + '%'],
-          center: ["30%", "50%"],
+          center: ["50%", "50%"],
           label: {
             show: false
           },
@@ -480,43 +462,28 @@ export default {
           }]
         });
       })
-      studentdistributionChartChart.setOption({
-        grid: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-        },
+      let option = {
         tooltip: {
           show: true,
           trigger: "item",
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
         },
         legend: {
-          show: false,
-          left: '60%',
-          top: 'middle',
-          icon: "circle",
-          itemWidth: 10,
-          itemHeight: 10,
-          itemGap: 20,
-          textStyle: {
-            fontSize: 16,
-            color: '#fff',
-          },
-          formatter: (name) => {
-            var datas = pieDatas;
-            let total = 0;
-            datas.map(item => {
-              total += (item.value - 0)
-            })
-            let valueIndex = datas.map(item => item.name).indexOf(name);
-            return name + "  " + (showValue ? datas[valueIndex].value + (option.legendValueUnit || '') + ' ' : '') + (showPercent ? ((datas[valueIndex].value / total) * 100).toFixed(2) + "%" : '');
-          },
+          show: false
         },
         series: series,
-      });
-
-    }
+      }
+      studentdistributionChartChart.setOption(option, true);
+      setTimeout(() => {
+        studentdistributionChartChart.clear();//清除动画
+        studentdistributionChartChart.setOption(option, true);
+      }, 800)
+    },
   }
 }
 </script>
@@ -728,7 +695,7 @@ span {
 	}
 }
 .car-status{
-  padding: 0 16px;
+  padding: 0 30px;
   .box-car{
     margin-top: 10px;
     width: 100%;
@@ -766,25 +733,108 @@ span {
 }
 
 .studentdistribution {
-  height: 200px;
-  width: 380px;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  #studentdistribution {
+    height: 200px;
+    width: 200px;
+    // position: absolute;
+    // left: 0px;
+  }
+  .comprehensiveoutpie {
+    position: absolute;
+    width: 186px;
+    left: 6px;
+    top: 7px;
+  }
+  .innercircle {
+    position: absolute;
+    left: 23%;
+    top: 43%;
+  }
+  .detailBox {
+      flex: 1;
+      height: 200px;
+      margin: 0 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .row{
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding-bottom: 5px;
+         border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+         .title{
+           i{
+             border: 2px solid;
+             border-radius: 4px;
+             display: inline-block;
+              height: 5px;
+              margin-right: 4px;
+           }
+           span{
+             font-size: 14px;
+           }
+         }
+         .value{
+           span{
+              font-size: 14px;
+              font-weight: 400;
+              color: #00F5FF;
+              margin-right: 2px;
+           }
+           i{
+              font-size: 12px;
+              font-weight: 400;
+              color: rgba(255, 255, 255, 0.5);
+           }
+         }
+      }
+    }
 }
-#studentdistribution {
-  height: 200px;
-  width: 330px;
-  position: absolute;
-  left: 0px;
-}
-.comprehensiveoutpie {
-  position: absolute;
-  width: 186px;
-  left: 6px;
-  top: 7px;
-}
-.innercircle {
-  position: absolute;
-  left: 23%;
-  top: 43%;
+.camera-status{
+  padding: 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  .item{
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    width: 160px;
+    height: 60px;
+    img{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .value {
+      color: #00f5ff;
+      font-size: 16px;
+      font-weight: bold;
+      position: relative;
+      top: 10px;
+      i {
+        margin-left: 2px;
+        color: rgba(246, 250, 255, 0.4);
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+    .name {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
 }
 </style>
