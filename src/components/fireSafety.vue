@@ -622,6 +622,7 @@
 
 	.num-of-eq {
 		display: inline-flex;
+		// min-height: 150px;
 	}
 
 	.num-of-eq-all {
