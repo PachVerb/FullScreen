@@ -30,7 +30,7 @@
 					</div>
 				</sideItem>
 				<sideItem title="违规车辆详情" :delay="1500">
-					<div slot='body'>
+					<div slot='body' class="violation-detail">
 						<date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期"
 							end-placeholder="结束日期">
 						</date-picker>
@@ -62,29 +62,59 @@
 					<div slot='body' class="parking">
 						<div class="parking-item">
 							<img src="../assets/img/goin.png" alt="">
-							<div class="parking-num">892</div>
+							<div class="parking-num">
+								<animated-number :value="892" :formatValue="val=>val.toFixed()" :duration="4000" />
+							</div>
 							<div class="parking-title">驶入车辆</div>
 						</div>
 						<div class="parking-item">
 							<img src="../assets/img/goout.png" alt="">
-							<div class="parking-num">892</div>
+							<div class="parking-num"><animated-number :value="892" :formatValue="val=>val.toFixed()" :duration="4000" /></div>
 							<div class="parking-title">驶出车辆</div>
 						</div>
 						<div class="parking-item">
 							<img src="../assets/img/stop.png" alt="">
-							<div class="parking-num">892</div>
+							<div class="parking-num"><animated-number :value="892" :formatValue="val=>val.toFixed()" :duration="4000" /></div>
 							<div class="parking-title">停滞车辆</div>
 						</div>
 					</div>
 				</sideItem>
 				<sideItem title="停车位统计" :delay="1000" transitionType="right">
-					<div slot='body' class="violations">
-
+					<div slot='body' class="parking-space-wrap">
+						<div class="parking-space" v-for="item in parkingList" :key="item.id">
+							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
+							<div class="parking-space-ani">
+								<img class="parking-space-top" src="../assets/eqNum/top2.png" alt="">
+								<img class="parking-space-middle" src="../assets/eqNum/middle3.png" alt="">
+								<img class="parking-space-middle1" src="../assets/eqNum/middle3.png" alt="">
+								<img class="parking-space-bottom" src="../assets/eqNum/bottom2.png" alt="">
+							</div>
+							<div class="eq-statistics-item-name">{{ item.cname }}</div>
+						</div>
 					</div>
 				</sideItem>
 				<sideItem title="设备统计" :delay="1500" transitionType="right">
-					<div slot='body' class="violations">
-
+					<div slot='body' class="eq-statistics">
+						<div class="eq-statistics-item">
+							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
+							<img class="eq-statistics-item-img" src="../assets/img/eq-type1.png" alt="">
+							<div class="eq-statistics-item-name">道闸设备</div>
+						</div>
+						<div class="eq-statistics-item">
+							<div><span class="eq-statistics-item-num eq-statistics-item-num-ab">6</span><span class="eq-statistics-item-unit">(个)</span></div>
+							<img class="eq-statistics-item-img" src="../assets/img/eq-type2.png" alt="">
+							<div class="eq-statistics-item-name">故障道闸设备</div>
+						</div>
+						<div class="eq-statistics-item">
+							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
+							<img class="eq-statistics-item-img" src="../assets/img/eq-type4.png" alt="">
+							<div class="eq-statistics-item-name">测速设备</div>
+						</div>
+						<div class="eq-statistics-item">
+							<div><span class="eq-statistics-item-num eq-statistics-item-num-ab">6</span><span class="eq-statistics-item-unit">(个)</span></div>
+							<img class="eq-statistics-item-img" src="../assets/img/eq-type3.png" alt="">
+							<div class="eq-statistics-item-name">故障测速设备</div>
+						</div>
 					</div>
 				</sideItem>
 			</div>
@@ -103,12 +133,14 @@
 	import {
 		DatePicker
 	} from 'element-ui'
+	import AnimatedNumber from "animated-number-vue";
 	export default {
 		components: {
 			sideTran,
 			sideItem,
 			DatePicker,
-			currency
+			currency,
+			AnimatedNumber
 		},
 		computed: {
 			...mapGetters(['currentSys'])
@@ -169,7 +201,20 @@
 					key: '',
 					width: '57.6px'
 				}, ],
-				checkTrajector: ''
+				checkTrajector: '',
+				parkingList: [{
+					cname: '总共停车位',
+					id: 1
+				},{
+					cname: '停车区域',
+					id: 2
+				},{
+					cname: '已停车位',
+					id: 3
+				},{
+					cname: '空闲车位',
+					id: 4
+				},]
 			}
 		},
 		methods: {
@@ -496,5 +541,146 @@
 				color: #fff;
 			}
 		}
+	}
+	.violation-detail{
+		padding-top: 10px;
+		/deep/.el-date-editor{
+			height: 30px;
+			font-size: 12px;
+			background-image: url('../assets/img/date-bg.png');
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			border: none;
+			.el-range__icon{
+				position: absolute;
+				left: 300px;
+				line-height: 30px;
+			}
+			.el-range-input{
+				background-color: transparent;
+				color: #00F5FF;
+				font-size: 12px;
+			}
+			.el-range-separator{
+				color: rgba(0, 245, 255, .6);
+				font-size: 12px;
+				line-height: 26px;
+			}
+		}
+	}
+	.eq-statistics{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		margin-bottom: 30px;
+		padding: 0 10px;
+		font-size: 12px;
+	}
+	.eq-statistics-item{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		margin-top: 20px;
+		padding-left: 100px;
+		width: 57.6px;
+		height: 70.4px;
+	}
+	.eq-statistics-item-img{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	.eq-statistics-item-name{
+		color: rgba(255,255,255, .8);
+	}
+	.eq-statistics-item-unit{
+		color: rgba(255,255,255, .4)
+	}
+	.eq-statistics-item-num{
+		font-size: 22px;
+		font-weight: bold;
+		color: rgba(0, 245, 255, 1);
+	}
+	.eq-statistics-item-num-ab{
+		color: rgba(242, 137, 107, 1);
+	}
+	.parking-space-wrap{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		padding: 0 18px;
+		font-size: 12px;
+	}
+	.parking-space{
+		margin-top: 10px;
+	}
+	.parking-space-ani{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 150px;
+		height: 115px;
+		overflow: hidden;
+	}
+	.parking-space-top{
+		position: absolute;
+		top: 21px;
+		z-index: 3;
+		width: 70px;
+		animation: parking-space-top-start 2s infinite linear;
+	}
+	@keyframes parking-space-top-start{
+		0%{
+			top: 21px
+		}
+		25%{
+			top: 15px
+		}
+		50%{
+			top: 20px
+		}
+		75%{
+			top: 28px;
+		}
+		100%{
+			top: 21px
+		}
+	}
+	.parking-space-middle{
+		position: absolute;
+		top: 13px;
+		z-index: 2;
+		width: 100px;
+	}
+	.parking-space-middle1{
+		position: absolute;
+		bottom: -4px;
+		animation: parking-space-middle1-start 4s infinite linear;
+	}
+	@keyframes parking-space-middle1-start{
+		0%{
+			width: 100px;
+			opacity: 1;
+		}
+		50%{
+			width: 130px;
+			opacity: 1;
+		}
+		100%{
+			width: 130px;
+			opacity: 0;
+		}
+	}
+	.parking-space-bottom{
+		position: absolute;
+		top: 30px;
+		z-index: 1;
+		width: 130px;
 	}
 </style>
