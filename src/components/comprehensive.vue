@@ -88,44 +88,59 @@
         </sideItem>
         <sideItem title="一卡通状态" :delay="200">
           <div class="card-status" slot="body">
-						<div class="row" v-for="(item,i) in cardList" :key="i">
-							<span class="title">{{item.title}}</span>
-							<span class="box" style="left:12px;">
-								<span class="text">金额</span>
-								<span class="value">{{item.val}}<i>元</i></span>
-							</span>
-							<span class="box" style="left:-12px;">
-								<span class="text">人次</span>
-								<span class="value">{{item.count}}<i>次</i></span>
-							</span>
-						</div>
-					</div>
+            <div class="row" v-for="(item,i) in cardList" :key="i">
+              <span class="title">{{item.title}}</span>
+              <span class="box" style="left:12px;">
+                <span class="text">金额</span>
+                <span class="value">
+                  {{item.val}}
+                  <i>元</i>
+                </span>
+              </span>
+              <span class="box" style="left:-12px;">
+                <span class="text">人次</span>
+                <span class="value">
+                  {{item.count}}
+                  <i>次</i>
+                </span>
+              </span>
+            </div>
+          </div>
         </sideItem>
         <sideItem title="近十日各消费类别趋势" :delay="300">
           <div class="conmuse-status" slot="body">
-						<div class="chart-conm" id="conmuseChart"></div>
-					</div>
+            <div class="chart-conm" id="conmuseChart"></div>
+          </div>
         </sideItem>
       </div>
       <div slot="right">
         <sideItem title="车辆态势" transitionType="right" :delay="100">
           <div class="car-status" slot="body">
-						<img class="box-car" src="../assets/compre/bg-car.png" alt=""/>
+            <img class="box-car" src="../assets/compre/bg-car.png" alt />
             <div class="detail">
               <div class="item">
-								<span class="value">1202<i>辆</i></span>
+                <span class="value">
+                  1202
+                  <i>辆</i>
+                </span>
                 <span class="text">驶入车辆数</span>
               </div>
               <div class="item">
-								<span class="value">1202<i>辆</i></span>
+                <span class="value">
+                  1202
+                  <i>辆</i>
+                </span>
                 <span class="text">超速车辆数</span>
               </div>
               <div class="item">
-								<span class="value">7<i>辆</i></span>
+                <span class="value">
+                  7
+                  <i>辆</i>
+                </span>
                 <span class="text">驶出车辆数</span>
               </div>
             </div>
-					</div>
+          </div>
         </sideItem>
         <sideItem title="学生实时分布" transitionType="right" :delay="200">
           <div slot="body" class="studentdistribution">
@@ -135,10 +150,12 @@
             <div class="detailBox">
               <div class="row" v-for="(item,i) in stuDisList" :key="i">
                 <div class="title">
-                  <i :style="`border-color:${item.color};`"></i><span :style="`color:${item.color};`">{{item.name}}</span>
+                  <i :style="`border-color:${item.color};`"></i>
+                  <span :style="`color:${item.color};`">{{item.name}}</span>
                 </div>
                 <div class="value">
-                  <span>{{item.value}}</span><i>人</i>
+                  <span>{{item.value}}</span>
+                  <i>人</i>
                 </div>
               </div>
             </div>
@@ -147,29 +164,45 @@
         <sideItem title="AI摄像机态势" transitionType="right" :delay="300">
           <div slot="body" class="camera-status">
             <dir class="item">
-              <img src="../assets/compre/bg-ai1.png" alt=""/>
-              <span class="value">122323<i>次</i></span>
+              <img src="../assets/compre/bg-ai1.png" alt />
+              <span class="value">
+                122323
+                <i>次</i>
+              </span>
               <span class="name">总识别数量</span>
             </dir>
             <dir class="item">
-              <img src="../assets/compre/bg-ai2.png" alt=""/>
-              <span class="value">1026<i>次</i></span>
+              <img src="../assets/compre/bg-ai2.png" alt />
+              <span class="value">
+                1026
+                <i>次</i>
+              </span>
               <span class="name">本月识别数量</span>
             </dir>
             <dir class="item">
-              <img src="../assets/compre/bg-ai3.png" alt=""/>
-              <span class="value">3467<i>次</i></span>
+              <img src="../assets/compre/bg-ai3.png" alt />
+              <span class="value">
+                3467
+                <i>次</i>
+              </span>
               <span class="name">本周识别数量</span>
             </dir>
             <dir class="item">
-              <img src="../assets/compre/bg-ai4.png" alt=""/>
-              <span class="value">1265<i>次</i></span>
+              <img src="../assets/compre/bg-ai4.png" alt />
+              <span class="value">
+                1265
+                <i>次</i>
+              </span>
               <span class="name">今日识别数量</span>
             </dir>
           </div>
         </sideItem>
         <sideItem title="国有资产" transitionType="right" :delay="400">
-          <div slot="body"></div>
+          <div slot="body" class="assets-Status">
+            <img class="bg1" src="../assets/compre/bg-asset1.png" alt=""/>
+            <img class="bg2" src="../assets/compre/bg-asset2.png" alt=""/>
+            <div class="chart-asset" id="assetChart"></div>
+          </div>
         </sideItem>
       </div>
     </sideTran>
@@ -196,17 +229,18 @@ export default {
     return {
       netList: [],
       netList1: [],
-			cardList:[],
-      stuDisList:[]
+      cardList: [],
+      stuDisList: []
     }
   },
   methods: {
     init() {
       this.$nextTick(() => {
         this.getNetStatus();
-				this.getCardStatus();
-				this.getConmuseStatus();
-        this.renderpie()
+        this.getCardStatus();
+        this.getConmuseStatus();
+        this.renderpie();
+        this.getAssetsStatus();
       })
     },
     //获取网络状态数据
@@ -225,29 +259,29 @@ export default {
         { name: '运营商联通', val: '39.95', icon: require('../assets/compre/btn-net3.png') }
       ]
     },
-		//获取一卡通状态
-		getCardStatus(){
-			this.cardList = [
-				{title:'今日消费',val:5798.62,count:653},
-				{title:'今日充值',val:5798.62,count:653},
-				{title:'今日餐饮',val:5798.62,count:653},
-			]
-		},
-		//近十日各消费类别趋势
-		getConmuseStatus(){
-			let dom = document.getElementById('conmuseChart');
+    //获取一卡通状态
+    getCardStatus() {
+      this.cardList = [
+        { title: '今日消费', val: 5798.62, count: 653 },
+        { title: '今日充值', val: 5798.62, count: 653 },
+        { title: '今日餐饮', val: 5798.62, count: 653 },
+      ]
+    },
+    //近十日各消费类别趋势
+    getConmuseStatus() {
+      let dom = document.getElementById('conmuseChart');
       let chart = echarts.init(dom);
       let parma = {
-        names: ['餐饮', '淋浴','购物','金额'],
-				lineX: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07'],
-				value: [
-					[251, 152, 103, 334, 95, 236, 217],
-					[160, 345, 80, 192, 330, 280, 192],
-					[60, 145, 280, 92, 430, 80, 92],
-					[360, 245, 180, 52, 30, 180, 392],
-				]
+        names: ['餐饮', '淋浴', '购物', '金额'],
+        lineX: ['09-01', '09-02', '09-03', '09-04', '09-05', '09-06', '09-07'],
+        value: [
+          [251, 152, 103, 334, 95, 236, 217],
+          [160, 345, 80, 192, 330, 280, 192],
+          [60, 145, 280, 92, 430, 80, 92],
+          [360, 245, 180, 52, 30, 180, 392],
+        ]
       };
-      let color = ['rgba(205,120,73', 'rgba(91,139,218','rgba(164,109,215','rgba(70,191,195']
+      let color = ['rgba(205,120,73', 'rgba(91,139,218', 'rgba(164,109,215', 'rgba(70,191,195']
       let lineY = []
       for (let i = 0; i < parma.names.length; i++) {
         let data = {
@@ -289,9 +323,9 @@ export default {
         legend: {
           top: '0px',
           data: parma.names,
-					icon: 'stack',
-					itemWidth:3,
-					itemHeight:6,
+          icon: 'stack',
+          itemWidth: 3,
+          itemHeight: 6,
           textStyle: {
             fontSize: 12,
             color: 'F1F1F3'
@@ -309,20 +343,20 @@ export default {
           show: true,
           type: 'category',
           data: parma.lineX,
-					splitLine: {
-						show: true,
-						lineStyle: {
-							color: "rgba(106, 176, 255, 0.4)",
-							type:'dotted',
-							width:2
-						}
+          splitLine: {
+            show: true,
+            lineStyle: {
+              color: "rgba(106, 176, 255, 0.4)",
+              type: 'dotted',
+              width: 2
+            }
           },
-					axisLine: {
-						show:true,
+          axisLine: {
+            show: true,
             lineStyle: {
               color: 'rgba(106, 176, 255, 0.7)',
-							type:'solid',
-							width:2
+              type: 'solid',
+              width: 2
             }
           },
           axisLabel: {
@@ -333,7 +367,7 @@ export default {
         },
         yAxis: {
           show: true,
-					type: 'value',
+          type: 'value',
           splitArea: {
             show: true,
             areaStyle: {
@@ -347,19 +381,19 @@ export default {
             }
           },
           splitLine: {
-						show: true,
-						lineStyle: {
-							color: "rgba(106, 176, 255, 0.4)",
-							type:'dotted',
-							width:2
-						}
+            show: true,
+            lineStyle: {
+              color: "rgba(106, 176, 255, 0.4)",
+              type: 'dotted',
+              width: 2
+            }
           },
           axisLine: {
-						show:true,
+            show: true,
             lineStyle: {
               color: 'rgba(106, 176, 255, 0.7)',
-							type:'solid',
-							width:2
+              type: 'solid',
+              width: 2
             }
           }
         },
@@ -371,24 +405,24 @@ export default {
       //   chart.clear();//清除动画
       //   chart.setOption(option, true);
       // }, 600)
-		},
+    },
     //学生实时分布
     renderpie() {
       let studentdistributionChartDom = document.getElementById('studentdistribution');
       let studentdistributionChartChart = echarts.init(studentdistributionChartDom);
       let series = [];
       this.stuDisList = [
-        { "value": 30, "name": "教学楼", color:"rgba(222, 125, 255, 1)" },
-        { "value": 14, "name": "图书馆", color:"rgba(250, 118, 121, 1)" },
-        { "value": 26, "name": "宿舍楼", color:"rgba(53, 198, 215, 1)" },
-        { "value": 20, "name": "实验楼", color:"rgba(101, 223, 138, 1)" },
-        { "value": 10, "name": "餐厅/食堂", color:"rgba(253, 161, 79, 1)" },
-        { "value": 10, "name": "其他位置", color:"rgba(68,165,255,1)" }
+        { "value": 30, "name": "教学楼", color: "rgba(222, 125, 255, 1)" },
+        { "value": 14, "name": "图书馆", color: "rgba(250, 118, 121, 1)" },
+        { "value": 26, "name": "宿舍楼", color: "rgba(53, 198, 215, 1)" },
+        { "value": 20, "name": "实验楼", color: "rgba(101, 223, 138, 1)" },
+        { "value": 10, "name": "餐厅/食堂", color: "rgba(253, 161, 79, 1)" },
+        { "value": 10, "name": "其他位置", color: "rgba(68,165,255,1)" }
       ];
       let maxRadius = 80,
         barWidth = 5,
         barGap = 5;
-      let sumValue = this.stuDisList.reduce((sum,item)=>sum+item.value,0);
+      let sumValue = this.stuDisList.reduce((sum, item) => sum + item.value, 0);
       this.stuDisList.forEach((item, i) => {
         series.push({
           type: 'pie',
@@ -484,6 +518,134 @@ export default {
         studentdistributionChartChart.setOption(option, true);
       }, 800)
     },
+    //国有资产
+    getAssetsStatus() {
+      let dom = document.getElementById('assetChart');
+      let chart = echarts.init(dom);
+      let parma = [
+        { name: "专用资产", val: 90.11, max: 100 },
+        { name: "通用资产", val: 85.23, max: 100 },
+        { name: "家具资产", val: 55.03, max: 100 },
+        { name: "土地房屋", val: 60.44, max: 100 },
+        { name: "图书档案", val: 60.14, max: 100 },
+        { name: "文物资产", val: 80.09, max: 100 },
+      ]
+      let option = {
+        tooltip: {
+          show: true,
+          trigger: "item"
+        },
+        legend: {
+          show: false,
+        },
+        radar: {
+          "center": ["50%", "50%"],
+          "radius": "70%",//雷达图相对于盒子的大小
+          "startAngle": 120,//坐标轴方向
+          "splitNumber": 5,
+          "shape": "circle",
+          name: {
+            show: false
+          },
+          "splitArea": {
+            "areaStyle": {
+              "color": ["transparent"]
+            }
+          },
+          "axisLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "rgba(106, 176, 255, 1)",
+              type: 'dotted',
+              width: 1,
+            }
+          },
+          "splitLine": {
+            "show": true,
+            "lineStyle": {
+              "color": "rgba(106, 176, 255, 1)",
+              type: 'dashed',
+              width: 1,
+            }
+          },
+          "indicator": parma
+        },
+        series: [
+          {
+            "name": "风格偏好",
+            "type": "radar",
+            "symbol": "circle",
+            "symbolSize": 0,
+            "areaStyle": {
+              "normal": {
+                "color": "rgba(0, 245, 255, 0.5)"
+              }
+            },
+            "lineStyle": {
+              "normal": {
+                "color": "rgba(0, 245, 255, 1)",
+                "width": 2
+              }
+            },
+            "data": [parma.map(item => item.val)]
+          }, {
+            type: 'pie',
+            hoverAnimation: false,
+            legendHoverLink: false,
+            radius: ['71%', '71%'],
+            center: ['50%', '50%'],
+             tooltip:{
+                show:false
+            },
+            label: {
+              normal: {
+                formatter: (e) => {
+                  return `{per|${parma[e.dataIndex].name}}\n{hr|}\n{a|${parma[e.dataIndex].val}}{b|%}`;
+                },
+                padding: [0, -10],//取消hr线跟延长线之间的间隙
+                rich: {
+                  per: {
+                    padding: [4, 0],
+                    color:'rgba(255, 255, 255, 0.8)',
+                    fontSize:'12px'
+                  },
+                  hr: {//设置hr是为了让中间线能够自适应长度
+                    borderColor: 'rgba(106, 176, 255, 1)',
+                    width: '105%',
+                    borderWidth: 0.5,
+                    height: 0.5,
+                  },
+                  a: {
+                    color: '#00F5FF',
+                    lineHeight: 20,
+                    align: 'center'
+                  },
+                  b: {
+                    color: 'rgba(255, 255, 255, 0.3)',
+                    lineHeight: 20,
+                    align: 'center'
+                  },
+                }
+              }
+            },
+            labelLine: {
+              show: true,
+              length: 30,
+              length2: 10,
+              lineStyle: {
+                color: 'rgba(106, 176, 255, 1)'
+              },
+            },
+            data: Array(parma.length).fill(1),
+          },
+        ]
+      };
+      chart.setOption(option, true);
+      // setTimeout(() => {
+      //   chart.clear();//清除动画
+      //   chart.setOption(option, true);
+      // }, 600)
+    }
   }
 }
 </script>
@@ -505,7 +667,7 @@ span {
     justify-content: space-between;
     align-items: center;
     .btn-item {
-			margin-top: 8px;
+      margin-top: 8px;
       display: flex;
       align-items: center;
       background: url("../assets/compre/bg-net.png") no-repeat;
@@ -611,7 +773,7 @@ span {
   }
   .network-status-end {
     margin-top: 10px;
-		padding-top: 4px;
+    padding-top: 4px;
     display: flex;
     justify-content: space-between;
     .btn-net {
@@ -646,84 +808,84 @@ span {
     }
   }
 }
-.card-status{
-	padding: 10px 14px 0;
-	height: 140px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	.row{
-		display: flex;
-		justify-content: space-around;
-		align-items: center;
-		width: 340px;
-		height: 40px;
-		background: url('../assets/compre/bg-card.png') no-repeat;
-		background-size: 100% 100%;
-		font-size: 12px;
-		font-weight: 400;
-		.title{
-			position: relative;
-			left: 14px;
-			color: rgba(246, 250, 255, 0.8);
-		}
-		.box{
-			position: relative;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			.text{
-				color: rgba(246, 250, 255, 0.8);
-				margin-right: 14px;
-			}
-			.value{
-				color: #00F5FF;
-				i{
-					margin-left: 2px;
-					color: rgba(246, 250, 255, 0.4);
-				}
-			}
-		}
-	}
+.card-status {
+  padding: 10px 14px 0;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  .row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 340px;
+    height: 40px;
+    background: url("../assets/compre/bg-card.png") no-repeat;
+    background-size: 100% 100%;
+    font-size: 12px;
+    font-weight: 400;
+    .title {
+      position: relative;
+      left: 14px;
+      color: rgba(246, 250, 255, 0.8);
+    }
+    .box {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .text {
+        color: rgba(246, 250, 255, 0.8);
+        margin-right: 14px;
+      }
+      .value {
+        color: #00f5ff;
+        i {
+          margin-left: 2px;
+          color: rgba(246, 250, 255, 0.4);
+        }
+      }
+    }
+  }
 }
-.conmuse-status{
-	padding: 0 14px;
-	.chart-conm{
-		width: 360px;
-		height: 200px;
-	}
+.conmuse-status {
+  padding: 0 14px;
+  .chart-conm {
+    width: 360px;
+    height: 200px;
+  }
 }
-.car-status{
+.car-status {
   padding: 0 30px;
-  .box-car{
+  .box-car {
     margin-top: 10px;
     width: 100%;
   }
-  .detail{
+  .detail {
     margin-top: 5px;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .item{
+    .item {
       height: 34px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      .value{
+      .value {
         font-size: 16px;
         font-weight: bold;
-        color: #00F5FF;
-        i{
+        color: #00f5ff;
+        i {
           margin-left: 2px;
           font-size: 12px;
           font-weight: 400;
           color: rgba(255, 255, 255, 0.4);
         }
       }
-      .text{
+      .text {
         font-size: 14px;
         font-weight: 400;
         color: rgba(255, 255, 255, 0.8);
@@ -755,53 +917,53 @@ span {
     top: 43%;
   }
   .detailBox {
-      flex: 1;
-      height: 200px;
-      margin: 0 10px;
+    flex: 1;
+    height: 200px;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .row {
       display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      .row{
-         display: flex;
-         justify-content: space-between;
-         align-items: center;
-         padding-bottom: 5px;
-         border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
-         .title{
-           i{
-             border: 2px solid;
-             border-radius: 4px;
-             display: inline-block;
-              height: 5px;
-              margin-right: 4px;
-           }
-           span{
-             font-size: 14px;
-           }
-         }
-         .value{
-           span{
-              font-size: 14px;
-              font-weight: 400;
-              color: #00F5FF;
-              margin-right: 2px;
-           }
-           i{
-              font-size: 12px;
-              font-weight: 400;
-              color: rgba(255, 255, 255, 0.5);
-           }
-         }
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 5px;
+      border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+      .title {
+        i {
+          border: 2px solid;
+          border-radius: 4px;
+          display: inline-block;
+          height: 5px;
+          margin-right: 4px;
+        }
+        span {
+          font-size: 14px;
+        }
+      }
+      .value {
+        span {
+          font-size: 14px;
+          font-weight: 400;
+          color: #00f5ff;
+          margin-right: 2px;
+        }
+        i {
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.5);
+        }
       }
     }
+  }
 }
-.camera-status{
+.camera-status {
   padding: 0 16px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  .item{
+  .item {
     margin-top: 8px;
     display: flex;
     flex-direction: column;
@@ -810,7 +972,7 @@ span {
     position: relative;
     width: 160px;
     height: 60px;
-    img{
+    img {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -835,6 +997,48 @@ span {
       font-weight: 400;
       color: rgba(255, 255, 255, 0.8);
     }
+  }
+}
+.assets-Status {
+  padding: 0 16px;
+  width: 340px;
+  position: relative;
+  .chart-asset {
+    width: 340px;
+    height: 180px;
+  }
+  .bg1{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: calc(50% - 50px);
+    top: calc(50% - 50px);
+    animation: rotateAnim1 5s infinite linear; 
+  }
+  .bg2{
+    width: 140px;
+    height: 140px;
+    position: absolute;
+    left: calc(50% - 70px);
+    top: calc(50% - 70px);
+    animation: rotateAnim2 5s infinite linear; 
+  }
+}
+/* 旋转动画 */
+@-webkit-keyframes rotateAnim1 {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotateAnim2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(-360deg);
   }
 }
 </style>

@@ -666,10 +666,9 @@
 		height: 100%;
 	}
 
-	.right::-webkit-scrollbar {
+	/* .right::-webkit-scrollbar {
 		width: 10px;
 		height: 10px;
-		/**/
 	}
 
 	.right::-webkit-scrollbar-track {
@@ -688,7 +687,7 @@
 
 	.right::-webkit-scrollbar-corner {
 		background: #179a16;
-	}
+	} */
 
 	.homestatuesleft {
 		width: 150px;
@@ -840,6 +839,5 @@
 		left: -20px;
 		width: 140px;
 		top: -10px;
-		;
 	}
 </style>
