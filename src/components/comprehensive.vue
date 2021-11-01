@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <sideTran thisCrrentSys="comprehensive">
-      <div slot="left">
-        <sideItem title="网络状态" :delay="100">
+      <div slot="left" style="height: 100%;">
+        <sideItem title="网络状态" :delay="100" height="44.2%">
           <div class="network-status" slot="body">
             <div class="network-status-start">
               <div class="btn-item" v-for="(item,index) in netList" :key="index">
@@ -86,7 +86,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="一卡通状态" :delay="200">
+        <sideItem title="一卡通状态" :delay="200" height="23%">
           <div class="card-status" slot="body">
             <div class="row" v-for="(item,i) in cardList" :key="i">
               <span class="title">{{item.title}}</span>
@@ -107,14 +107,14 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="近十日各消费类别趋势" :delay="300">
+        <sideItem title="近十日各消费类别趋势" :delay="300" height="28.7%">
           <div class="conmuse-status" slot="body">
             <div class="chart-conm" id="conmuseChart"></div>
           </div>
         </sideItem>
       </div>
-      <div slot="right">
-        <sideItem title="车辆态势" transitionType="right" :delay="100">
+      <div slot="right" style="height: 100%;">
+        <sideItem title="车辆态势" transitionType="right" :delay="100" height="23.5%">
           <div class="car-status" slot="body">
             <img class="box-car" src="../assets/compre/bg-car.png" alt />
             <div class="detail">
@@ -142,7 +142,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="学生实时分布" transitionType="right" :delay="200">
+        <sideItem title="学生实时分布" transitionType="right" :delay="200" height="25.3%">
           <div slot="body" class="studentdistribution">
             <div class="box">
               <img src="../assets/pieimg/comprehensive/comprehensiveoutpie.png" class="comprehensiveoutpie" />
@@ -163,7 +163,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="AI摄像机态势" transitionType="right" :delay="300">
+        <sideItem title="AI摄像机态势" transitionType="right" :delay="300" height="21.4%">
           <div slot="body" class="camera-status">
             <dir class="item">
               <img src="../assets/compre/bg-ai1.png" alt />
@@ -199,7 +199,7 @@
             </dir>
           </div>
         </sideItem>
-        <sideItem title="国有资产" transitionType="right" :delay="400">
+        <sideItem title="国有资产" transitionType="right" :delay="400" height="27.5%">
           <div slot="body" class="assets-Status">
             <img class="bg1" src="../assets/compre/bg-asset1.png" alt />
             <img class="bg2" src="../assets/compre/bg-asset2.png" alt />
@@ -1010,11 +1010,10 @@ span {
 }
 .assets-Status {
   margin-top: 10px;
-  padding: 0 16px;
-  width: 340px;
+  width: 100%;
   position: relative;
   .chart-asset {
-    width: 340px;
+    width: 380px;
     height: 180px;
   }
   .bg1 {

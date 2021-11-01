@@ -1,14 +1,14 @@
 /* 能耗态势 */
 <template>
-  <div class="energy">
+  <div class="energy" style="height: 100%;">
     <sideTran thisCrrentSys="energyUsage">
-      <div slot="left">
-        <sideItem title="用电设备统计" delay="100">
+      <div slot="left" style="height: 100%;">
+        <sideItem title="用电设备统计" delay="100" height="21%">
           <div class="deviceStati" slot="body">
             <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
-        <sideItem title="用电概况" delay="200">
+        <sideItem title="用电概况" delay="200" height="26.5%">
           <div class="survey" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -101,7 +101,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用电占比" delay="300">
+        <sideItem title="设备用电占比" delay="300" height="25.2%">
           <div class="ratio" slot="body">
             <div class="chartBox">
               <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
@@ -120,7 +120,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用电趋势分析" delay="400">
+        <sideItem title="用电趋势分析" delay="400" height="24.1%">
           <div class="trendAnalysis" slot="body">
             <div class="checkBox">
               <div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
@@ -131,13 +131,13 @@
           </div>
         </sideItem>
       </div>
-      <div slot="right">
-        <sideItem title="用水设备统计" transitionType="right" delay="200">
+      <div slot="right" style="height: 100%;">
+        <sideItem title="用水设备统计" transitionType="right" delay="200" height="21%">
           <div class="deviceStati water" slot="body">
             <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
-        <sideItem title="用水概况" transitionType="right" delay="400">
+        <sideItem title="用水概况" transitionType="right" delay="400" height="26.5%">
           <div class="survey water" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -230,7 +230,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用水占比" transitionType="right" delay="600">
+        <sideItem title="设备用水占比" transitionType="right" delay="600" height="25.2%">
            <div class="ratio water" slot="body">
             <div class="chartBox">
               <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
@@ -250,7 +250,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用水趋势分析" transitionType="right" delay="800">
+        <sideItem title="用水趋势分析" transitionType="right" delay="800" height="24.1%">
           <div class="trendAnalysis water" slot="body">
             <div class="checkBox">
               <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
@@ -812,6 +812,7 @@ span {
   .deviceStati {
 		// min-height: 124px;
     padding: 0 16px;
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -820,6 +821,7 @@ span {
   .survey {
 		// min-height: 180px;
     padding: 10px 16px 0;
+    width: 100%;
     display: flex;
     .l {
       position: relative;
@@ -982,6 +984,7 @@ span {
   }
   .trendAnalysis {
 		// min-height: 130px;
+    width: 100%;
     position: relative;
     padding: 10px 16px 0;
     .checkBox {
@@ -1012,7 +1015,8 @@ span {
   }
   .ratio {
     // min-height: 140px;
-    padding: 0 16px;
+    padding: 10px 16px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
