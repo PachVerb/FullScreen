@@ -632,7 +632,7 @@ export default {
             },
             labelLine: {
               show: true,
-              length: 30,
+              length: 40,
               length2: 10,
               lineStyle: {
                 color: 'rgba(106, 176, 255, 1)'
