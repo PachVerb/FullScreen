@@ -653,14 +653,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-i {
-  font-style: normal;
-  line-height: 1;
-}
-span {
-  display: inline-block;
-  line-height: 1;
-}
 .network-status {
   padding: 0 14px;
   .network-status-start {

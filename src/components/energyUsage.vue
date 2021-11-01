@@ -799,14 +799,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-i {
-  font-style: normal;
-  line-height: 1;
-}
-span {
-  display: inline-block;
-  line-height: 1;
-}
 .energy {
   color: #f6faff;
   .deviceStati {
