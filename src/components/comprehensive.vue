@@ -898,6 +898,8 @@ span {
 
 .studentdistribution {
   margin-top: 10px;
+  padding: 0 10px;
+  width: 100%;
   position: relative;
   display: flex;
   justify-content: space-between;
