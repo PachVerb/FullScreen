@@ -28,11 +28,23 @@
 					</div>
 				</sideItem>
 				<sideItem title="异常设备位置分析" delay="1000">
-					<div slot='body' class="abnormaldevice">
-						<img src="../assets/pieimg/fire/firearc.png" class="abnormaldeviceimg fireleftarc">
-						<img src="../assets/pieimg/fire/fireleftgear.png" class="abnormaldeviceimg fireleftgear">
-						<div id="totalAssets"></div>
-						<div class="abnormaldevicebox"></div>
+					<div slot='body' class="abnormaldevice-box">
+						<div class="abnormaldevice">
+							<img src="../assets/pieimg/fire/firearc.png" class="abnormaldeviceimg fireleftarc">
+							<img src="../assets/pieimg/fire/fireleftgear.png" class="abnormaldeviceimg fireleftgear">
+							<div id="totalAssets"></div>
+							<div class="abnormaldevicebox"></div>
+						</div>
+						<div class="detailBox">
+							<div class="row" v-for="(item,i) in ratioList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i><span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <animated-number :value="item.val/ratioAbTotal*100" :formatValue="val=>val.toFixed()" :duration="4000" /><i>%</i>
+                </div>
+              </div>
+						</div>
 					</div>
 				</sideItem>
 				<sideItem title="设备异常详情" delay="1500">
@@ -122,6 +134,7 @@
 	import sideTran from './sideTran'
 	import sideItem from './sideItem.vue'
 	import pageination from './commonComponent/pagination.vue'
+	import AnimatedNumber from "animated-number-vue";
 	import {
 		Table,
 		TableColumn,
@@ -143,7 +156,8 @@
 			sideItem,
 			Table,
 			TableColumn,
-			pageination
+			pageination,
+			AnimatedNumber
 		},
 		data() {
 			return {
@@ -255,11 +269,15 @@
 				allPatrolOption: {},
 				abPatrolOption: {},
 				abPatrolEqOption: {},
-				loading: true
+				loading: true,
+      	ratioList:[],
 			}
 		},
 		computed: {
-			...mapGetters(['currentSys'])
+			...mapGetters(['currentSys']),
+			ratioAbTotal(){
+				return this.ratioList.reduce((sum,item)=>sum+item.val,0);
+			},
 		},
 		watch: {
 
@@ -268,7 +286,6 @@
 
 		},
 		mounted() {
-			console.log('fireSafety')
 
 		},
 		methods: {
@@ -288,9 +305,12 @@
 						abPatrolEqChart = echarts.init(abPatrolEqChartDom);
 						abPatrolEqChart.setOption(abPatrolEqOption)
 						this.rendpubpie()
-						setTimeout(() => {
-							this.loading = false
-						},5000)
+						this.ratioList = [
+								{name:"照明",val:1100,color:'rgba(169,133,238,0.8)'},
+								{name:"空调",val:444,color:'rgba(196,144,191,0.8)'},
+								{name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
+								{name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
+							]
 					}, 1500)
 				})
 			},
@@ -841,6 +861,7 @@
 		;
 	}
 	.abnormaldevice{
+		width: 190px;
 		height: 200px;
 		display: flex;
 		justify-content: space-around;
@@ -910,7 +931,7 @@
 		bottom: 31px;
 		z-index: 1;
 		transform: scale(.8);
-		animation: num-of-eq-all-ani-middle2-start 1.8s infinite linear;
+		animation: num-of-eq-all-ani-middle2-start 3s infinite linear;
 	}
 	.num-of-eq-all-ani-middle3{
 		position: absolute;
@@ -953,12 +974,61 @@
 			opacity: 0;
 		}
 		50%{
-			// width: 89px;
+			width: 119px;
 			opacity: 1;
+		}
+		75%{
+			width: 119px;
+			opacity: .5;
 		}
 		100%{
 			width: 119px;
-			opacity: .6;
+			opacity: 0;
 		}
+	}
+	.detailBox {
+		flex: 1;
+		height: 100%;
+		margin-left: 34px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		.row{
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding-bottom: 5px;
+				border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+				.title{
+					i{
+						border: 2px solid;
+						border-radius: 4px;
+						display: inline-block;
+						height: 5px;
+						margin-right: 4px;
+					}
+					span{
+						font-size: 14px;
+					}
+				}
+				.value{
+					span{
+						font-size: 14px;
+						font-weight: 400;
+						color: #00F5FF;
+						margin-right: 2px;
+					}
+					i{
+						font-size: 12px;
+						font-weight: 400;
+						color: rgba(255, 255, 255, 0.5);
+					}
+				}
+		}
+	}
+	.abnormaldevice-box{
+		display: flex;
+		padding-right: 15px;
+		height: 200px;
 	}
 </style>
