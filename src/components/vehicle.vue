@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="height: 100%;">
 		<sideTran thisCrrentSys="vehicle">
 			<div slot="left">
 				<sideItem title="违规车辆统计" :delay="500">
@@ -57,7 +57,7 @@
 					</div>
 				</sideItem>
 			</div>
-			<div slot="right">
+			<div slot="right" style="height: 100%;">
 				<sideItem title="土地情况" :delay="500" transitionType="right">
 					<div slot='body' class="parking">
 						<div class="parking-item">
@@ -79,7 +79,7 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="停车位统计" :delay="1000" transitionType="right">
+				<sideItem title="停车位统计" :delay="1000" transitionType="right" height="45%">
 					<div slot='body' class="parking-space-wrap">
 						<div class="parking-space" v-for="item in parkingList" :key="item.id">
 							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
@@ -93,7 +93,7 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="设备统计" :delay="1500" transitionType="right">
+				<sideItem title="设备统计" :delay="1500" transitionType="right" height="30%">
 					<div slot='body' class="eq-statistics">
 						<div class="eq-statistics-item">
 							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
@@ -383,6 +383,7 @@
 
 	.violations {
 		height: 200px;
+		width: 100%;
 		display: flex;
 		// color: transparent;
 		/*!*flex-direction: column;*!可写可不写*/
@@ -527,6 +528,7 @@
 		display: flex;
 		justify-content: space-around;
 		padding: 20px 0 15px;
+		width: 100%;
 		.parking-item{
 			display: flex;
 			flex-direction: column;

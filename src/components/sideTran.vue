@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <transition name="go-in-sys-left">
       <div class="sys-left" :style="{width: widthL}" v-if="currentSys === thisCrrentSys">
         <slot name="left"/>

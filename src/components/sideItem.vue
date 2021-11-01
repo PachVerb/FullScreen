@@ -1,6 +1,6 @@
 <template>
   <transition :name="`go-in-item-${transitionType}`">
-    <div class="side-item" v-show="currentSys == thisCrrentSys">
+    <div class="side-item" :style="{height}" v-show="currentSys == thisCrrentSys">
       <div class="side-item-title">
         <img src="../assets/img/side-item-title.png" alt="">
         <span>{{title}}</span>
@@ -34,6 +34,9 @@ export default {
     },
     loading: {
       default: false
+    },
+    height: {
+      default: ''
     }
   },
   components: {
@@ -60,6 +63,8 @@ export default {
 .side-item{
   position: relative;
   left: 0;
+  display: flex;
+  flex-direction: column;
 }
 .side-item-title{
   width: fit-content;
@@ -75,6 +80,12 @@ export default {
 .side-item-title img{
   margin-right: .04rem;
   width: .106667rem;
+}
+.side-item-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
 .side-item-loading{
   min-height: 150px;
