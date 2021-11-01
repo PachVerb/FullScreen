@@ -1044,7 +1044,7 @@ span {
     }
     .detailBox {
       flex: 1;
-      height: 100%;
+      height: 150px;
       margin-left: 34px;
       display: flex;
       flex-direction: column;
