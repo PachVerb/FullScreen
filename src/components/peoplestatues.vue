@@ -1,9 +1,9 @@
 <template>
-	<div>
+	<div style="height: 100%;">
 		<sideTran thisCrrentSys="peoplestatues">
-			<div slot="left">
-				<sideItem title="人员实时状态" delay="100">
-					<div slot='body' class="nowbox" style="height: 20%;">
+			<div slot="left" style="height: 100%;">
+				<sideItem title="人员实时状态" delay="100" height="25%">
+					<div slot='body' class="nowbox" >
 						<currency class="nowboxitem" :boxnum="oneobj.num" :boxtitle="oneobj.title"
 							:boxcolor="oneobj.color" :boxuntil="oneobj.until"></currency>
 						<currency class="nowboxitem" :boxnum="secobj.num" :boxtitle="secobj.title"
@@ -14,9 +14,9 @@
 							:boxcolor="fourobj.color" :boxuntil="fourobj.until"></currency>
 					</div>
 				</sideItem>
-				<sideItem title="今日访客统计" delay="200">
+				<sideItem title="今日访客统计" delay="200"  height="25%">
 
-					<div slot='body' class="visitorstoday" style="height: 20%;">
+					<div slot='body' class="visitorstoday">
 
 						<div class="dormitoryUtilization">
 							<div class="useleft">
@@ -25,7 +25,7 @@
 							<div class="useright">
 								<div class="userightbox">
 									<div class="colorbox">
-										<div style="position: relative;top: 4px;font-size: 14px; width: 130px;">
+										<div style="position: relative;top: 2px;font-size: 14px; width: 130px;">
 											<span class="shu"></span>
 											<span class="userboxwz">来访人员总数</span>
 										</div>
@@ -38,7 +38,7 @@
 								<div class="userightbox" style="margin-top: 10px;">
 									<div class="colorbox">
 										<div
-											style="position: relative;top: 4px;left: -14px;  font-size: 14px;width: 130px;">
+											style="position: relative;top: 2px;left: -14px;  font-size: 14px;width: 130px;">
 											<span class="shu"></span>
 											<span class="userboxwz">在访人员</span>
 										</div>
@@ -65,8 +65,8 @@
 
 					</div>
 				</sideItem>
-				<sideItem title="学生结构" delay="300">
-					<div slot='body' class="peoplestrue" style="height: 20%;">
+				<sideItem title="学生结构" delay="300"  height="25%">
+					<div slot='body' class="peoplestrue" >
 						<div class="peoplestruebgc">
 							<!-- <div class="peoplestruebgcwz">
 								<p style="font-size: 26px;color: #00F5FF;">44466</p>
@@ -102,8 +102,8 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="学生实时分布" delay="400">
-					<div slot='body' style="height: 40%;">
+				<sideItem title="学生实时分布" delay="400"  height="25%">
+					<div slot='body' >
 						<div id="studentnow" ></div>
 					</div>
 				</sideItem>
@@ -390,11 +390,16 @@
 				          label: {
 				            normal: {
 				              show: true,
-				              formatter: '{c|value}' + '\n' + '{c|学生总人数}',
+				              formatter: '{b|'+total+'}' + '\n' + '{c|学生总人数}',
 				              rich: {
+												b: {
+												  color: 'rgba(0, 245, 255, 1)',
+												  fontSize: 13,
+												  lineHeight: 18
+												},
 				                c: {
 				                  color: 'rgba(255, 255, 255, .8)',
-				                  fontSize: 14,
+				                  fontSize: 10,
 				                  lineHeight: 20
 				                }
 				              },
@@ -1895,7 +1900,7 @@
 	}
 
 	.peoplestruebox {
-		width: 50%;
+		width: 60%;
 		height: .75rem;
 		margin-left: 10px;
 	}
@@ -2066,7 +2071,7 @@
 	  height: 120px;
 		position: absolute;
 		left: 0;
-		top:40px;
+		top:50px;
 		left:20px;
 	}
 	.bg-ratio-animImg {
@@ -2074,7 +2079,7 @@
 	  height: 130px;
 	  position: absolute;
 	  left: calc(50% - 176px);
-	  top: calc(50% - 56px);
+	  top: calc(50% - 58px);
 	  animation: myMove 5s; //外圈旋转动画
 	  -webkit-animation: myMove 5s infinite linear;
 	}
@@ -2093,7 +2098,7 @@
 	  width: 84px;
 	  height: 84px;
 	  position: absolute;
-	  left: calc(50% - 151px);
-	  top: calc(50% - 30px);
+	  left: calc(50% - 152px);
+	  top: calc(50% - 38px);
 	}
 </style>

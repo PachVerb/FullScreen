@@ -1,7 +1,7 @@
 <template>
-	<div>
+	<div style="height: 100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
-			<div slot="left" class="left">
+			<div slot="left" class="left" style="height: 100%;">
 				<sideItem title="今日归寝情况" delay="500">
 					<div slot='body' style="height: 30%;">
 						<div class="homestatues">
@@ -107,8 +107,9 @@
 
 			</div>
 			<!-- 右边 -->
-			<div slot="right" class="right">
-				<sideItem title="未归寝名单" transitionType="right">
+			<div slot="right" class="right" style="height: 100%;">
+				<sideItem title="未归寝名单" transitionType="right" height="100%" style="width: 380px;">
+					<div>
 					<div class="nohomelist" v-for="(item,index) in nohomelist" slot='body'>
 						<div style="display: flex;position: relative;">
 							<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
@@ -128,6 +129,7 @@
 								</div>
 							</div>
 						</div>
+					</div>
 					</div>
 				</sideItem>
 			</div>
