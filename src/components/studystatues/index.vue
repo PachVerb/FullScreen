@@ -39,7 +39,6 @@
             </div>
           </div>
         </sideItem>
-
         <sideItem title="各宿舍楼归寝情况" delay="300" height="51.9%">
           <div slot="body" class="dormState">
             <div class="statiBox">
@@ -85,7 +84,28 @@
       </div>
       <!-- 右边 -->
       <div slot="right" style="height: 100%;">
-        <sideItem title="未归寝名单" transitionType="right" delay="100"></sideItem>
+        <sideItem title="教室分类统计" transitionType="right" delay="100" height="25.19%">
+          <div class="roomTyp" slot="body">
+            <div class="chartBox">
+              <img src="../../assets/study/bg-type.png" class="bg-type" />
+              <div class="chart-room" id="roomChart"></div>
+            </div>
+            <div class="detailBox">
+              <div class="row" v-for="(item,i) in roomList" :key="i">
+                <div class="title">
+                  <i :style="`background:linear-gradient(${item.color[0]},${item.color[1]});`"></i>
+                  <span>{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <span>{{item.val}}</span>
+                  <i>%</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sideItem>
+        <sideItem title="当前行课统计" transitionType="right" delay="200"></sideItem>
+        <sideItem title="出勤异常统计" transitionType="right" delay="300"></sideItem>
       </div>
     </sideTran>
   </div>
@@ -108,8 +128,9 @@ export default {
       loading1: false,
       classList: [],
       staList: [],
-      dormKey:true,//使用中,空闲中
-      dormList:[],
+      dormKey: true,//使用中,空闲中
+      dormList: [],
+      roomList: [],
     }
   },
   computed: {
@@ -118,9 +139,12 @@ export default {
   watch: {},
   methods: {
     init() {
-      this.getStuClass();
-      this.getStudyStatus();
-      this.getDormStatus();
+      this.$nextTick(() => {
+        this.getStuClass();
+        this.getStudyStatus();
+        this.getDormStatus();
+        this.getRoomType();
+      })
     },
     //学生到课统计
     getStuClass() {
@@ -136,7 +160,7 @@ export default {
         this.$nextTick(() => {
           this.renderBar();
         })
-      },3000)
+      }, 3000)
     },
     renderBar() {
       let chartDom = document.getElementById('studentchart');
@@ -232,17 +256,127 @@ export default {
       ]
     },
     //各宿舍楼归寝情况
-    getDormStatus(){
-      this.dormList=[
-        { room: '法医实验室', loca: '文科实验楼',person:'张锦' },
-        { room: '化学实验室', loca: '文科实验楼',person:'李达' },
-        { room: '统计大数据实验室', loca: '文科实验楼',person:'王晓悦' },
-        { room: '现代旅游服务技能实验室', loca: '文科实验楼',person:'程慕' },
-        { room: '网络统计实验室', loca: '文科实验楼',person:'杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼',person:'杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼',person:'杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼',person:'杨澜' },
+    getDormStatus() {
+      this.dormList = [
+        { room: '法医实验室', loca: '文科实验楼', person: '张锦' },
+        { room: '化学实验室', loca: '文科实验楼', person: '李达' },
+        { room: '统计大数据实验室', loca: '文科实验楼', person: '王晓悦' },
+        { room: '现代旅游服务技能实验室', loca: '文科实验楼', person: '程慕' },
+        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
+        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
+        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
+        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
       ]
+    },
+    //教室分类统计
+    getRoomType() {
+      this.roomList = [
+        { name: "普通教室", val: 40, color: ['#D3A4FF', '#6F76FF'] },
+        { name: "实验室", val: 25, color: ['#FF95C4', '#FFBBAE'] },
+        { name: "智慧教室", val: 20, color: ['#FF7B57', '#F5BB90'] },
+        { name: "培训教室", val: 15, color: ['#08B6AC', '#58F2BE'] }
+      ];
+      let dom = document.getElementById('roomChart');
+      let chart = echarts.init(dom);
+      let list = []
+      for (let i in this.roomList) {
+        list.push({
+          value: this.roomList[i].val,
+          name: this.roomList[i].name,
+          itemStyle: {
+            normal: {
+              borderWidth: 5,
+              borderColor: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: this.roomList[i].color[0] },
+                { offset: 1, color: this.roomList[i].color[1] },
+              ]),
+            }
+          }
+        }, {
+          value: 100 / 30,
+          name: '',
+          itemStyle: {
+            normal: {
+              label: {
+                show: false
+              },
+              labelLine: {
+                show: false
+              },
+              color: 'transparent',
+              borderColor: 'transparent',
+              borderWidth: 0
+            }
+          }
+        })
+      }
+      let option = {
+        tooltip: {
+          show: false
+        },
+        series: [
+          {
+            name: '',
+            type: 'pie',
+            clockWise: false,
+            startAngle: '90',
+            center: ['50%', '50%'],
+            radius: ['80%', '81%'],
+            hoverAnimation: false,
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false
+                },
+                labelLine: {
+                  show: false
+                }
+              }
+            },
+            data: list,
+            animationDuration: 3000,
+          },
+          {
+            name: '',
+            type: 'pie',
+            center: ['50%', '50%'],
+            radius: ['70%', '70%'], //设置饼状图的宽高
+            itemStyle: {
+              color: 'transparant'
+            },
+            startAngle: '90',
+            data: [{
+              value: 100,
+              name: '',
+              label: {
+                normal: {
+                  show: true,
+                  formatter: '{c|总计}' + '\n' + '{a|854}{b|间}',
+                  rich: {
+                    c: {
+                      color: 'rgba(255, 255, 255, .8)',
+                      fontSize: 14,
+                      lineHeight: 22
+                    },
+                    a: {
+                      color: 'rgba(0, 245, 255, 0.8)',
+                      fontSize: 22,
+                      lineHeight: 22
+                    },
+                    b: {
+                      color: 'rgba(255, 255, 255, .4)',
+                      fontSize: 12,
+                      lineHeight: 20
+                    },
+                  },
+                  position: 'center'
+                }
+              }
+            }]
+          }
+        ]
+      }
+      chart.setOption(option, true);
     }
   }
 }
@@ -337,37 +471,37 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  .item{
+  .item {
     margin-top: 10px;
     display: flex;
     flex-direction: column;
-    .row{
+    .row {
       padding: 0 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .name{
+      .name {
         font-size: 14px;
         font-weight: bold;
         color: rgba(255, 255, 255, 0.8);
       }
-      .value{
+      .value {
         padding: 6px 10px;
-        background: #1BB5B8;
+        background: #1bb5b8;
         font-size: 16px;
         font-weight: bold;
-        color: #FFFFFF;
+        color: #ffffff;
         border-radius: 2px;
       }
     }
-    .line{
+    .line {
       margin-top: 5px;
       position: relative;
       width: 164px;
       height: 1px;
       background: rgba(105, 175, 253, 1);
-      &:before{
-        content: '';
+      &:before {
+        content: "";
         width: 3px;
         height: 3px;
         background: rgba(105, 175, 253, 1);
@@ -376,8 +510,8 @@ export default {
         left: 0;
         top: calc(50% - 1.5px);
       }
-      &:after{
-        content: '';
+      &:after {
+        content: "";
         width: 3px;
         height: 3px;
         background: rgba(105, 175, 253, 1);
@@ -389,7 +523,7 @@ export default {
     }
   }
 }
-.dormState{
+.dormState {
   padding: 10px 12px 0;
   box-sizing: border-box;
   width: 100%;
@@ -397,50 +531,50 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  .statiBox{
+  .statiBox {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    .group{
+    .group {
       display: flex;
       align-items: center;
-      .p{
+      .p {
         width: 3px;
         height: 6px;
         border-radius: 50%;
         margin-right: 5px;
       }
-      .detail{
+      .detail {
         font-size: 12px;
         font-weight: 400;
         margin-right: 10px;
       }
-      .value{
+      .value {
         font-size: 16px;
         font-weight: bold;
       }
     }
   }
-  .bar{
+  .bar {
     margin-top: 5px;
     width: 100%;
     padding: 4px;
     box-sizing: border-box;
-    background: url('../../assets/study/bg-bar.png') no-repeat;
+    background: url("../../assets/study/bg-bar.png") no-repeat;
     background-size: 100% 100%;
-    .pro{
+    .pro {
       width: 100%;
       height: 14px;
-      background: #E5BC80;
+      background: #e5bc80;
       display: flex;
     }
-    .val{
+    .val {
       height: 100%;
-      background: #46B1F6;
+      background: #46b1f6;
     }
   }
-  .navBox{
+  .navBox {
     margin-top: 5px;
     display: flex;
     justify-content: center;
@@ -448,31 +582,31 @@ export default {
     font-size: 14px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.6);
-    .text{
+    .text {
       cursor: pointer;
     }
-    .checked{
+    .checked {
       position: relative;
       font-size: 16px;
       font-weight: 500;
-      color: #00F5FF;
-      &::before{
-        content: '';
+      color: #00f5ff;
+      &::before {
+        content: "";
         width: 100%;
         height: 2px;
-        background: linear-gradient(to left,#0F6878,#00F5FF,#0F6878);
+        background: linear-gradient(to left, #0f6878, #00f5ff, #0f6878);
         position: absolute;
         left: 0;
         bottom: -4px;
       }
     }
   }
-  .listBox{
+  .listBox {
     margin-top: 10px;
     width: 100%;
     height: 300px;
     overflow-y: auto;
-    .head{
+    .head {
       position: relative;
       padding: 10px 0;
       width: 100%;
@@ -480,21 +614,21 @@ export default {
       align-items: center;
       font-size: 14px;
       font-weight: 500;
-      color: #FFFFFF;
-      span{
-        flex:1;
+      color: #ffffff;
+      span {
+        flex: 1;
       }
-      &::before{
-        content: '';
+      &::before {
+        content: "";
         width: 100%;
         height: 1px;
-        background: linear-gradient(to left,#112D46,#1B4465,#112D46);
+        background: linear-gradient(to left, #112d46, #1b4465, #112d46);
         position: absolute;
         left: 0;
         bottom: -1px;
       }
     }
-    .row{
+    .row {
       position: relative;
       padding: 10px 0;
       width: 100%;
@@ -504,35 +638,98 @@ export default {
       font-weight: 400;
       color: rgba(255, 255, 255, 0.8);
       border-radius: 2px;
-      span{
-        flex:1;
+      span {
+        flex: 1;
         white-space: nowrap;
         text-overflow: ellipsis;
-        overflow:hidden;
+        overflow: hidden;
       }
-      &::before{
-        content: '';
+      &::before {
+        content: "";
         width: 100%;
         height: 1px;
-        background: linear-gradient(to left,#112D46,#1B4465,#112D46);
+        background: linear-gradient(to left, #112d46, #1b4465, #112d46);
         position: absolute;
         left: 0;
         bottom: -1px;
       }
-      &:hover{
+      &:hover {
         background: rgba(106, 176, 255, 0.2);
       }
-      .btn-check{
+      .btn-check {
         width: 58px;
         height: 30px;
         color: rgba(255, 255, 255, 0.6);
-        background: url('../../assets/study/btn.png') no-repeat;
+        background: url("../../assets/study/btn.png") no-repeat;
         background-size: 100% 100%;
         text-align: center;
         line-height: 30px;
         cursor: pointer;
-        &:hover{
+        &:hover {
           color: rgba(255, 255, 255, 1);
+        }
+      }
+    }
+  }
+}
+.roomTyp {
+  padding: 10px 16px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .chartBox {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .bg-type {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+    }
+    .chart-room {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  .detailBox {
+    flex: 1;
+    height: 150px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 5px;
+      border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+      .title {
+        i {
+          width: 10px;
+          height: 10px;
+          display: inline-block;
+          margin-right: 4px;
+        }
+        span {
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.8);
+        }
+      }
+      .value {
+        span {
+          font-size: 14px;
+          font-weight: 400;
+          color: #00f5ff;
+          margin-right: 2px;
+        }
+        i {
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.5);
         }
       }
     }
