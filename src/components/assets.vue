@@ -1,32 +1,53 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <sideTran thisCrrentSys="assets">
-      <div slot="left">
-        <sideItem title="学校资产统计" :delay="500">
-          <div slot='body'></div>
-        </sideItem>
-        <sideItem title="各学院资产总数统计" :delay="1000">
+      <div slot="left" style="height: 100%;">
+        <nowpeopleslide title="学校资产统计" :delay="500" height="20%">
+          <div slot='body' style="width: 100%;">
+						<div class="flopbox">
+							<p class="flopboxtitle">资产总数</p>
+							<flop :num="num" :unitil="'套'"></flop>
+						</div>
+						<div class="flopbox">
+							<p class="flopboxtitle">资产价值</p>
+							<flop :num="numtow" :unitil="'万元'"></flop>
+						</div>
+					</div>
+        </nowpeopleslide>
+        <sideItem title="各学院资产总数统计" :delay="1000" height="40%">
           <div slot='body'>
             <div id="totalAssets"></div>
           </div>
         </sideItem>
-        <sideItem title="学校资产总额统计" :delay="1500">
+        <sideItem title="学校资产总额统计" :delay="1500" height="40%">
           <div slot='body'>
             <div id="allTotalAssets"></div>
           </div>
         </sideItem>
       </div>
-      <div slot="right">
-        <sideItem title="网站安全统计" :transitionType="'right'" :delay="500">
+      <div slot="right" style="height: 100%;">
+        <sideItem title="网站安全统计" :transitionType="'right'" :delay="500" height="45%">
           <div slot='body' class="websafe">
             <div id="webSecurity"></div>
           </div>
         </sideItem>
-        <sideItem title="服务器安全分析" :transitionType="'right'" :delay="1000">
-          <div slot='body' class="serversafebox">
-						<img src="../assets/pieimg/assets/assetsarc.png" class="assetsarc">
-						<img src="../assets/pieimg/assets/assetsinner.png" class="assetsinner">
-            <div id="serverSecurity"></div>
+        <sideItem title="服务器安全分析" :transitionType="'right'" :delay="1000" height="55%">
+          <div slot='body' class="serversafebox-wrap">
+            <div class="serversafebox" >
+              <img src="../assets/pieimg/assets/assetsarc.png" class="assetsarc">
+              <img src="../assets/pieimg/assets/assetsinner.png" class="assetsinner">
+              <div id="serverSecurity"></div>
+            </div>
+            <div class="detailBox">
+							<div class="row" v-for="(item,i) in ratioList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i><span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <animated-number :value="item.val/ratioAbTotal*100" :formatValue="val=>val.toFixed()" :duration="4000" /><i>%</i>
+                </div>
+              </div>
+						</div>
           </div>
         </sideItem>
 				
@@ -40,6 +61,9 @@ import sideTran from './sideTran'
 import sideItem from './sideItem.vue'
 import { mapGetters } from 'vuex'
 import * as echarts from 'echarts';
+import nowpeopleslide from '@/components/nowpeopleslide.vue'
+import flop from '@/components/commonComponent/flop.vue'
+import AnimatedNumber from "animated-number-vue";
 let totalAssetsChartDom,
 totalAssetsChart,
 allTotalAssetschartDom,
@@ -51,10 +75,14 @@ serverSecurityChart
 export default {
   components: {
     sideTran,
-    sideItem
+    sideItem,
+    nowpeopleslide,
+    flop,
+    AnimatedNumber
   },
   data(){
     return {
+      ratioList:[],
       totalAssetsOption: {
         grid: { 
           top: '10px',
@@ -146,7 +174,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
           axisLine: {
             lineStyle: {
               color: '#6AB0FF'
@@ -253,47 +281,57 @@ export default {
             ]
           }
         ]
-      }
+      },
+      num: 12345,
+      numtow: 67898,
+      unitil: "人",
     }
   },
   computed: {
-    ...mapGetters(['currentSys'])
+    ...mapGetters(['currentSys']),
+    ratioAbTotal(){
+      return this.ratioList.reduce((sum,item)=>sum+item.val,0);
+    },
   },
   watch: {
-    currentSys(val){
-      console.log(val)
-      if(val == 'assets'){
-        this.$nextTick(() => {
-          setTimeout(() => {
-            totalAssetsChartDom = document.getElementById('totalAssets');
-            totalAssetsChart = echarts.init(totalAssetsChartDom);
-            totalAssetsChart.setOption(this.totalAssetsOption)
-          },1500)
-          setTimeout(() => {
-            allTotalAssetschartDom = document.getElementById('allTotalAssets');
-            allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
-            allTotalAssetsChart.setOption(this.allTotalAssetsOption)
-          },2000)
-          setTimeout(() => {
-            webSecurityChartDom = document.getElementById('webSecurity');
-            webSecurityChart = echarts.init(webSecurityChartDom);
-            webSecurityChart.setOption(this.getEcharts3DBar(['z','x'], [20,98], '01'))
-          },1500)
-          setTimeout(() => {
-            serverSecurityChartDom = document.getElementById('serverSecurity');
-            serverSecurityChart = echarts.init(serverSecurityChartDom);
-            serverSecurityChart.setOption(this.serverSecurityOption)
-          },2000)
-          // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
-        })
-      }
-    }
+
   },
   mounted(){
     console.log('assets')
     
   },
   methods: {
+    init(){
+      this.$nextTick(() => {
+        setTimeout(() => {
+          totalAssetsChartDom = document.getElementById('totalAssets');
+          totalAssetsChart = echarts.init(totalAssetsChartDom);
+          totalAssetsChart.setOption(this.totalAssetsOption)
+        },1500)
+        setTimeout(() => {
+          allTotalAssetschartDom = document.getElementById('allTotalAssets');
+          allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
+          allTotalAssetsChart.setOption(this.allTotalAssetsOption)
+        },2000)
+        setTimeout(() => {
+          webSecurityChartDom = document.getElementById('webSecurity');
+          webSecurityChart = echarts.init(webSecurityChartDom);
+          webSecurityChart.setOption(this.getEcharts3DBar(['z','x'], [20,98], '01'))
+          this.ratioList = [
+            {name:"照明",val:1100,color:'rgba(169,133,238,0.8)'},
+            {name:"空调",val:444,color:'rgba(196,144,191,0.8)'},
+            {name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
+            {name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
+          ]
+        },1500)
+        setTimeout(() => {
+          serverSecurityChartDom = document.getElementById('serverSecurity');
+          serverSecurityChart = echarts.init(serverSecurityChartDom);
+          serverSecurityChart.setOption(this.serverSecurityOption)
+        },2000)
+        // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
+      })
+    },
     getEcharts3DBar (xAxisData, data, colorType) {
       var colorArr = [];
       if (colorType == '01') {
@@ -505,7 +543,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 #totalAssets{
   width: 350px;
   height: 230px;
@@ -526,12 +564,16 @@ export default {
 	position: absolute;
 	left: 0;
 }
+.serversafebox-wrap{
+  width: 100%;
+}
 .serversafebox{
 	position: relative;
-	height: 340px;
+  margin: 20px 0;
+	height: 180px;
 }
 .websafe{
-	height: 360px;
+	/* height: 360px; */
 }
 .assetsarc{
 	position: absolute;
@@ -560,5 +602,56 @@ export default {
 	top: 14px;;
 	width: 150px;
 	height: 150px;
+}
+.flopbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flopboxtitle {
+  color: rgba(255, 255, 255, .8);
+  text-align: left;
+}
+.detailBox {
+  flex: 1;
+  height: 100%;
+  margin: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  .row{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 18px;
+      padding-bottom: 5px;
+      border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+      .title{
+        i{
+          border: 2px solid;
+          border-radius: 4px;
+          display: inline-block;
+          height: 5px;
+          margin-right: 4px;
+        }
+        span{
+          font-size: 14px;
+        }
+      }
+      .value{
+        span{
+          font-size: 14px;
+          font-weight: 400;
+          color: #00F5FF;
+          margin-right: 2px;
+        }
+        i{
+          font-size: 12px;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+  }
 }
 </style>

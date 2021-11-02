@@ -1,8 +1,8 @@
 <template>
 	<div style="height: 100%;">
 		<sideTran thisCrrentSys="vehicle">
-			<div slot="left">
-				<sideItem title="违规车辆统计" :delay="500">
+			<div slot="left" style="height: 100%;">
+				<sideItem title="违规车辆统计" :delay="500"  height="26%">
 					<div class="network-status" slot='body'>
 						<currency
               v-for="(item,i) in statiList"
@@ -15,7 +15,7 @@
             ></currency>
 					</div>
 				</sideItem>
-				<sideItem title="违规事件统计" :delay="1000">
+				<sideItem title="违规事件统计" :delay="1000" height="34%">
 					<div slot='body' class="violations">
 						<img class="outpieimg" src="../assets/pieimg/vehicle/vehiclebox.png" >
 						<img class="topleft topbsize" src="../assets/pieimg/vehicle/topleft.png" alt="">
@@ -29,7 +29,7 @@
 						<div id="violationpie"></div>
 					</div>
 				</sideItem>
-				<sideItem title="违规车辆详情" :delay="1500">
+				<sideItem title="违规车辆详情" :delay="1500" height="40%">
 					<div slot='body' class="violation-detail">
 						<date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期"
 							end-placeholder="结束日期">

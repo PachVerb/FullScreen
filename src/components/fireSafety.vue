@@ -1,8 +1,8 @@
 <template>
 	<div class="fire-safety">
 		<sideTran :thisCrrentSys="thisCrrentSys">
-			<div slot="left">
-				<sideItem title="设备数量" delay="500">
+			<div slot="left" style="height: 100%;">
+				<sideItem title="设备数量" delay="500" height="25%">
 					<div class="num-of-eq" slot='body'>
 						<div class="num-of-eq-all">
 							<div><span class="num-of-eq-all-num">86</span><span>个</span></div>
@@ -27,7 +27,7 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="异常设备位置分析" delay="1000">
+				<sideItem title="异常设备位置分析" delay="1000" height="30%">
 					<div slot='body' class="abnormaldevice-box">
 						<div class="abnormaldevice">
 							<img src="../assets/pieimg/fire/firearc.png" class="abnormaldeviceimg fireleftarc">
@@ -47,8 +47,8 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="设备异常详情" delay="1500">
-					<div slot='body'>
+				<sideItem title="设备异常详情" delay="1500" height="45%">
+					<div slot='body' style="width: 100%;">
 						<div class="ab-nav">
 							<span :class="[abCheckNav == nav.id ? 'ab-check-nav' : '']" v-for="nav in abNavList"
 								:key="nav.id" @click="handleAbCheckNav(nav.id)">{{ nav.name }}</span>
@@ -66,8 +66,8 @@
 					</div>
 				</sideItem>
 			</div>
-			<div slot="right">
-				<sideItem title="设备数量" transitionType="right" delay="500">
+			<div slot="right" style="height: 100%;">
+				<sideItem title="设备数量" transitionType="right" delay="500" height="25%">
 					<div slot='body' class="rightonebox">
 						<div class="allpiebox">
 							<div id="allPatrolChart" class="eq-num-box-chart">
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="监控画面" transitionType="right" delay="1000">
+				<sideItem title="监控画面" transitionType="right" delay="1000" height="38%">
 					<div slot='body'>
 						<div class="up-btn"><img v-if="monitorIndex !== 1" class="img-rotate"
 								src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
@@ -102,7 +102,7 @@
 								src="../assets/img/up.png" alt=""></div>
 					</div>
 				</sideItem>
-				<sideItem title="巡更人员异常概况" transitionType="right" delay="1500">
+				<sideItem title="巡更人员异常概况" transitionType="right" delay="1500" height="37%">
 					<div slot='body'>
 						<div class="table-head">
 							<span :style="{width: head.width}" v-for="head in tableHead"
@@ -637,6 +637,7 @@
 
 <style lang="less" scoped>
 	.fire-safety {
+		height: 100%;
 		color: #F6FAFF;
 	}
 
@@ -833,6 +834,7 @@
 		margin-top: 10px;
 		display: flex;
 		justify-content: space-around;
+		width: 100%;
 	}
 
 	.allpiebox {
@@ -869,8 +871,8 @@
 	}
 	
 	#totalAssets {
-		height: 200px;
-		width: 50%;
+		height: 160px;
+		width: 160px;
 		position: absolute;
 		left: 20px;
 		top: 20px;
