@@ -534,8 +534,18 @@ export default {
       ]
       let option = {
         tooltip: {
-          show: true,
-          trigger: "item"
+          // show: true,
+          // trigger: "item",
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+          // formatter:(e)=>{
+          //   console.log(e)
+          // }
         },
         legend: {
           show: false,
@@ -546,8 +556,11 @@ export default {
           "startAngle": 120,//坐标轴方向
           "splitNumber": 5,
           "shape": "circle",
-          name: {
-            show: false
+          name: {//用于提示框显示
+            show: true,
+             textStyle: {
+              color: "transparent"
+            }
           },
           "splitArea": {
             "areaStyle": {
@@ -589,7 +602,7 @@ export default {
                 "width": 2
               }
             },
-            "data": [parma.map(item => item.val)]
+            "data": [parma.map(item => item.val)],
           }, {
             type: 'pie',
             hoverAnimation: false,
