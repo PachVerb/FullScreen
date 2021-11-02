@@ -9,7 +9,7 @@
       <div class="side-item-body" v-show="!loading">
         <slot name="body"></slot>
       </div>
-      <div :class="[loading ?'side-item-loading' : '']" v-if="loading">
+      <div :class="[loading ?'side-item-loading' : '']" v-show="loading">
         <loading/>
       </div>
       <div class="border"><img src="../assets/img/side-item-border.png" alt=""></div>

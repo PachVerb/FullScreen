@@ -8,7 +8,7 @@
             <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
-        <sideItem title="用电概况" delay="200" height="26.5%">
+        <sideItem title="用电概况" delay="200" height="27.4%">
           <div class="survey" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -101,7 +101,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用电占比" delay="300" height="25.2%">
+        <sideItem title="设备用电占比" delay="300" height="26.39%">
           <div class="ratio" slot="body">
             <div class="chartBox">
               <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
@@ -120,7 +120,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用电趋势分析" delay="400" height="24.1%">
+        <sideItem title="用电趋势分析" delay="400" height="25.19%">
           <div class="trendAnalysis" slot="body">
             <div class="checkBox">
               <div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
@@ -137,7 +137,7 @@
             <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
-        <sideItem title="用水概况" transitionType="right" delay="400" height="26.5%">
+        <sideItem title="用水概况" transitionType="right" delay="400" height="27.4%">
           <div class="survey water" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -230,7 +230,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用水占比" transitionType="right" delay="600" height="25.2%">
+        <sideItem title="设备用水占比" transitionType="right" delay="600" height="26.39%">
            <div class="ratio water" slot="body">
             <div class="chartBox">
               <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
@@ -250,7 +250,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用水趋势分析" transitionType="right" delay="800" height="24.1%">
+        <sideItem title="用水趋势分析" transitionType="right" delay="800" height="25.19%">
           <div class="trendAnalysis water" slot="body">
             <div class="checkBox">
               <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
