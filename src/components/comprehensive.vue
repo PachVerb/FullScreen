@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <sideTran thisCrrentSys="comprehensive">
-      <div slot="left">
-        <sideItem title="网络状态" :delay="100">
+      <div slot="left" style="height: 100%;">
+        <sideItem title="网络状态" :delay="100" height="44.2%">
           <div class="network-status" slot="body">
             <div class="network-status-start">
               <div class="btn-item" v-for="(item,index) in netList" :key="index">
@@ -86,7 +86,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="一卡通状态" :delay="200">
+        <sideItem title="一卡通状态" :delay="200" height="23%">
           <div class="card-status" slot="body">
             <div class="row" v-for="(item,i) in cardList" :key="i">
               <span class="title">{{item.title}}</span>
@@ -107,14 +107,14 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="近十日各消费类别趋势" :delay="300">
+        <sideItem title="近十日各消费类别趋势" :delay="300" height="28.7%">
           <div class="conmuse-status" slot="body">
             <div class="chart-conm" id="conmuseChart"></div>
           </div>
         </sideItem>
       </div>
-      <div slot="right">
-        <sideItem title="车辆态势" transitionType="right" :delay="100">
+      <div slot="right" style="height: 100%;">
+        <sideItem title="车辆态势" transitionType="right" :delay="100" height="23.5%">
           <div class="car-status" slot="body">
             <img class="box-car" src="../assets/compre/bg-car.png" alt />
             <div class="detail">
@@ -142,11 +142,13 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="学生实时分布" transitionType="right" :delay="200">
+        <sideItem title="学生实时分布" transitionType="right" :delay="200" height="25.3%">
           <div slot="body" class="studentdistribution">
-            <img src="../assets/pieimg/comprehensive/comprehensiveoutpie.png" class="comprehensiveoutpie" />
-            <img src="../assets/pieimg/comprehensive/innercircle.png" class="innercircle" />
-            <div id="studentdistribution"></div>
+            <div class="box">
+              <img src="../assets/pieimg/comprehensive/comprehensiveoutpie.png" class="comprehensiveoutpie" />
+              <img src="../assets/pieimg/comprehensive/innercircle.png" class="innercircle" />
+              <div id="studentdistribution"></div>
+            </div>
             <div class="detailBox">
               <div class="row" v-for="(item,i) in stuDisList" :key="i">
                 <div class="title">
@@ -161,7 +163,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="AI摄像机态势" transitionType="right" :delay="300">
+        <sideItem title="AI摄像机态势" transitionType="right" :delay="300" height="21.4%">
           <div slot="body" class="camera-status">
             <dir class="item">
               <img src="../assets/compre/bg-ai1.png" alt />
@@ -197,10 +199,10 @@
             </dir>
           </div>
         </sideItem>
-        <sideItem title="国有资产" transitionType="right" :delay="400">
+        <sideItem title="国有资产" transitionType="right" :delay="400" height="27.5%">
           <div slot="body" class="assets-Status">
-            <img class="bg1" src="../assets/compre/bg-asset1.png" alt=""/>
-            <img class="bg2" src="../assets/compre/bg-asset2.png" alt=""/>
+            <img class="bg1" src="../assets/compre/bg-asset1.png" alt />
+            <img class="bg2" src="../assets/compre/bg-asset2.png" alt />
             <div class="chart-asset" id="assetChart"></div>
           </div>
         </sideItem>
@@ -419,7 +421,7 @@ export default {
         { "value": 10, "name": "餐厅/食堂", color: "rgba(253, 161, 79, 1)" },
         { "value": 10, "name": "其他位置", color: "rgba(68,165,255,1)" }
       ];
-      let maxRadius = 80,
+      let maxRadius = 90,
         barWidth = 5,
         barGap = 5;
       let sumValue = this.stuDisList.reduce((sum, item) => sum + item.value, 0);
@@ -594,8 +596,8 @@ export default {
             legendHoverLink: false,
             radius: ['71%', '71%'],
             center: ['50%', '50%'],
-             tooltip:{
-                show:false
+            tooltip: {
+              show: false
             },
             label: {
               normal: {
@@ -606,8 +608,8 @@ export default {
                 rich: {
                   per: {
                     padding: [4, 0],
-                    color:'rgba(255, 255, 255, 0.8)',
-                    fontSize:'12px'
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    fontSize: '12px'
                   },
                   hr: {//设置hr是为了让中间线能够自适应长度
                     borderColor: 'rgba(106, 176, 255, 1)',
@@ -630,7 +632,7 @@ export default {
             },
             labelLine: {
               show: true,
-              length: 30,
+              length: 40,
               length2: 10,
               lineStyle: {
                 color: 'rgba(106, 176, 255, 1)'
@@ -651,14 +653,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-i {
-  font-style: normal;
-  line-height: 1;
-}
-span {
-  display: inline-block;
-  line-height: 1;
-}
 .network-status {
   padding: 0 14px;
   .network-status-start {
@@ -895,30 +889,37 @@ span {
 }
 
 .studentdistribution {
+  margin-top: 10px;
+  padding: 0 10px;
+  width: 100%;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  #studentdistribution {
-    height: 200px;
-    width: 200px;
-    // position: absolute;
-    // left: 0px;
+  .box {
+    position: relative;
+    #studentdistribution {
+      height: 160px;
+      width: 160px;
+    }
+    .comprehensiveoutpie {
+      position: absolute;
+      width: 160px;
+      left: 0;
+      top: 0;
+    }
+    .innercircle {
+      width: 24px;
+      height: 26px;
+      position: absolute;
+      left: calc(50% - 12px);
+      top: calc(50% - 13px);
+    }
   }
-  .comprehensiveoutpie {
-    position: absolute;
-    width: 186px;
-    left: 6px;
-    top: 7px;
-  }
-  .innercircle {
-    position: absolute;
-    left: 23%;
-    top: 43%;
-  }
+
   .detailBox {
     flex: 1;
-    height: 200px;
+    height: 160px;
     margin: 0 10px;
     display: flex;
     flex-direction: column;
@@ -1000,28 +1001,28 @@ span {
   }
 }
 .assets-Status {
-  padding: 0 16px;
-  width: 340px;
+  margin-top: 10px;
+  width: 100%;
   position: relative;
   .chart-asset {
-    width: 340px;
+    width: 380px;
     height: 180px;
   }
-  .bg1{
+  .bg1 {
     width: 140px;
     height: 140px;
     position: absolute;
     left: calc(50% - 70px);
     top: calc(50% - 70px);
-    animation: rotateAnim1 5s infinite linear; 
+    animation: rotateAnim1 5s infinite linear;
   }
-  .bg2{
-    width: 180px;
-    height: 180px;
+  .bg2 {
+    width: 190px;
+    height: 190px;
     position: absolute;
-    left: calc(50% - 90px);
-    top: calc(50% - 90px);
-    animation: rotateAnim2 5s infinite linear; 
+    left: calc(50% - 95px);
+    top: calc(50% - 95px);
+    animation: rotateAnim2 5s infinite linear;
   }
 }
 /* 旋转动画 */

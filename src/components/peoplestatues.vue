@@ -65,12 +65,17 @@
 
 					</div>
 				</sideItem>
-				<sideItem title="学校资产总额统计" delay="300">
+				<sideItem title="学生结构" delay="300">
 					<div slot='body' class="peoplestrue" style="height: 20%;">
 						<div class="peoplestruebgc">
-							<div class="peoplestruebgcwz">
+							<!-- <div class="peoplestruebgcwz">
 								<p style="font-size: 26px;color: #00F5FF;">44466</p>
 								<p style="font-size: 12px; color: white;">学生总人数</p>
+							</div> -->
+							<div class="chartBox">
+							  <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
+							  <img src="../assets/pieimg/fire/fireleftgear.png" class="bg-ratio" />
+							  <div class="chart-ratio" id="ratioChart"></div>
 							</div>
 						</div>
 						<div class="peoplestruebox">
@@ -290,10 +295,118 @@
 						this.randernormal()
 						this.randernormalsec()
 						this.randernormalthir()
+						this.renderstudentpie()
 					},1500)
 					this.radar()
 
 				})
+			},
+			renderstudentpie(){
+				
+				  this.ratioList = [
+				    {name:"照明",val:1100,color:'rgba(169,133,238,0.8)'},
+				    {name:"空调",val:444,color:'rgba(196,144,191,0.8)'},
+				    {name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
+				    {name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
+				  ]
+				  let dom = document.getElementById('ratioChart');
+				  let chart = echarts.init(dom);
+				  let total = this.ratioList.reduce((sum,item)=>sum+item.val,0);
+				  let list = []
+				
+				  for (let i in this.ratioList) {
+				    list.push({
+				      value: this.ratioList[i].val,
+				      name: this.ratioList[i].name,
+				      itemStyle: {
+				        normal: {
+				          borderWidth: 5,
+				          shadowBlur: 20,
+				          borderColor: this.ratioList[i].color,
+				          shadowColor: this.ratioList[i].color,
+				        }
+				      }
+				    }, {
+				      value: total / 30,
+				      name: '',
+				      itemStyle: {
+				        normal: {
+				          label: {
+				            show: false
+				          },
+				          labelLine: {
+				            show: false
+				          },
+				          color: 'rgba(0, 0, 0, 0)',
+				          borderColor: 'rgba(0, 0, 0, 0)',
+				          borderWidth: 0
+				        }
+				      }
+				    })
+				  }
+				  
+				  let option = {
+				    tooltip: {
+				      show: false
+				    },
+				    series: [
+				      {
+				        name: '',
+				        type: 'pie',
+				        clockWise: false,
+				        startAngle: '90',
+				        center: ['50%', '50%'],
+				        radius: ['80%', '81%'],
+				        hoverAnimation: false,
+				        itemStyle: {
+				          normal: {
+				            label: {
+				              show: false
+				            },
+				            labelLine: {
+				              show: false
+				            }
+				          }
+				        },
+				        data: list,
+				        animationType: 'scale',
+				        animationEasing: 'elasticOut',
+				        animationDelay: function (idx) {
+				          return idx * 550;
+				        }
+				      },
+				      {
+				        name: '',
+				        type: 'pie',
+				        center: ['50%', '50%'],
+				        radius: ['70%', '70%'], //设置饼状图的宽高
+				        itemStyle: {
+				          color: 'transparant'
+				        },
+				        startAngle: '90',
+				        data: [{
+				          value: total,
+				          name: '',
+				          label: {
+				            normal: {
+				              show: true,
+				              formatter: '{c|value}' + '\n' + '{c|学生总人数}',
+				              rich: {
+				                c: {
+				                  color: 'rgba(255, 255, 255, .8)',
+				                  fontSize: 14,
+				                  lineHeight: 20
+				                }
+				              },
+				              position: 'center'
+				            }
+				          }
+				        }]
+				      }
+				    ]
+				  }
+				  chart.setOption(option, true);
+				
 			},
 			formatToPrice(value) {
 				return `<h3>$ ${Number(value).toFixed(2)}</h1>`;
@@ -1774,13 +1887,11 @@
 	.peoplestruebgc {
 		width: 152px;
 		height: 144px;
-		background: url(../assets/img/peoplestrueimg.png) no-repeat;
+/* 		background: url(../assets/img/peoplestrueimg.png) no-repeat;
 		background-size: 100% 100%;
 		display: flex;
-		/*实现垂直居中*/
 		align-items: center;
-		/*实现水平居中*/
-		justify-content: center;
+		justify-content: center; */
 	}
 
 	.peoplestruebox {
@@ -1949,5 +2060,40 @@
 		background-image: url('../assets/personnelsituation/seelocation.png');
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
+	}
+	.chart-ratio {
+	  width: 120px;
+	  height: 120px;
+		position: absolute;
+		left: 0;
+		top:40px;
+		left:20px;
+	}
+	.bg-ratio-animImg {
+	  width: 130px;
+	  height: 130px;
+	  position: absolute;
+	  left: calc(50% - 176px);
+	  top: calc(50% - 56px);
+	  animation: myMove 5s; //外圈旋转动画
+	  -webkit-animation: myMove 5s infinite linear;
+	}
+	/* 外圈旋转动画 */
+	@-webkit-keyframes myMove {
+	  /**关键帧名称**/
+	  0% {
+	    -webkit-transform: rotate(0deg);
+	  }
+	
+	  100% {
+	    -webkit-transform: rotate(360deg);
+	  }
+	}
+	.bg-ratio {
+	  width: 84px;
+	  height: 84px;
+	  position: absolute;
+	  left: calc(50% - 151px);
+	  top: calc(50% - 30px);
 	}
 </style>
