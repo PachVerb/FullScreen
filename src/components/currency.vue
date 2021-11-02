@@ -36,7 +36,7 @@
 		methods: {
 			formatToPrice(value) {
 				let color =  this.boxcolor
-				return `<h3  style="color:${color};font-size: 26px;font-family: Helvetica-Bold;position: relative;top: 10px;"  >${Number(value).toFixed(0)}</h3>`;
+				return `<h3  style="color:${color};font-size: 26px;font-family: Helvetica-Bold;position: relative;top: 14px;"  >${Number(value).toFixed(0)}</h3>`;
 			},
 			numberToCurrency(data, cut) {
 				return numberFilter(data, cut)
@@ -70,7 +70,7 @@
 		font-size: 19px;
 		font-family: Helvetica-Bold;
 		position: relative;
-		top: 14px;
+		top: 15px;
 	}
 
 	.unit {
