@@ -4,7 +4,7 @@
       :style="{width: checkSideItem.children ? (checkSideItem.children.length + 1)*106 + 'px' : 0,
         top: SysTop,
         left: SysLeft}" 
-      v-show="checkSideItem.name === currentSys && checkSideItem.children">
+      v-show="checkSideItem.name === currentSys && checkSideItem.children && thisIndex == currentSysThisIndex">
       <span :class="['sys-sidechild-normal', checkSideItem.name === currentSysModule ? 'sys-sidechild-select' : '']" 
         v-for="checkSideItem in checkSideItem.children" 
         :key="checkSideItem.name"
@@ -116,7 +116,8 @@ export default {
       ani: null,
       checkSideItem: {},
       SysTop: '',
-      SysLeft: ''
+      SysLeft: '',
+      currentSysThisIndex: ''
     }
   },
   computed:{
@@ -178,6 +179,7 @@ export default {
       })
     },
     checkCurrentSys(side,index){
+      this.currentSysThisIndex = this.thisIndex
       this.SET_OLD_CURRENTSYS(this.currentSys)
       this.checkSideItem = JSON.parse(JSON.stringify(side))
       this.SET_CURRENTSYS(side.name)
