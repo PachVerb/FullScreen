@@ -2,8 +2,8 @@
 	<div style="height: 100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" class="left" style="height: 100%;">
-				<sideItem title="今日归寝情况" delay="500">
-					<div slot='body' style="height: 30%;">
+				<sideItem title="今日归寝情况" delay="500" height="30%">
+					<div slot='body' style="height: 100%;">
 						<div class="homestatues">
 							<div class="homestatuesleft">
 								<img src="../assets/pieimg/dormitory/arc.png" class="arcposition ">
@@ -44,8 +44,8 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各学院资产总数统计" delay="1000">
-					<div style="height: 30%;" slot='body'>
+				<sideItem title="各学院资产总数统计" delay="1000" height="30%" style="margin-top: 30px;">
+					<div style="height: 100%;width: 100%;margin-top: 10%;" slot='body'>
 						<div class="dormitoryUtilization">
 							<div class="useleft">
 								<img src="../assets/img/pyramid.png">
@@ -98,39 +98,40 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各宿舍楼归寝情况" delay="1500">
-					<div slot='body' style="height: 40%;">
+				<sideItem title="各宿舍楼归寝情况" delay="1500" height="30%">
+					<div slot='body' style="height: 100%;">
 						<div id="returntoBed" ref="returntoBed">
 						</div>
 					</div>
 				</sideItem>
 
 			</div>
-			<!-- 右边 -->
-			<div slot="right" class="right" style="height: 100%;">
-				<sideItem title="未归寝名单" transitionType="right" height="100%" style="width: 380px;">
-					<div>
-					<div class="nohomelist" v-for="(item,index) in nohomelist" slot='body'>
-						<div style="display: flex;position: relative;">
-							<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
-							<!-- <span class="fgline">-</span> -->
-							<div class="nohomelistbox">
-								<img :src="item.img" alt=""
-									style="width: 48px;height: 48px;position: absolute;left: 10px;top: 4px;">
-								<div class="nohomelistboxwz">
-									<p class="bottomtop" :title="item.roomname">{{item.roomname}}</p>
-									<p class="bottomtop" :title="item.name">{{item.name}}</p>
-									<p class="bottomtop"
-										style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'
-										:title="item.promess">{{item.promess}}</p>
-									<p class="bottomp" :title="item.number">{{item.number}}</p>
-									<p class="bottomp" :title="item.studentnumber">{{item.studentnumber}}</p>
-									<p class="bottomp" :title="item.class">{{item.class}}</p>
+			<!-- 右边class="right" -->
+			<div slot="right" style="height: 100%;" class="right">
+				<sideItem title="未归寝名单" transitionType="right" height="100%" >
+						<div  style="height: 100%;width: 100%;" slot='body'>
+							<div class="nohomelist" v-for="(item,index) in nohomelist" >
+							<div style="display: flex;position: relative;">
+								<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
+								<!-- <span class="fgline">-</span> -->
+								<div class="nohomelistbox">
+									<img :src="item.img" alt=""
+										style="width: 48px;height: 48px;position: absolute;left: 10px;top: 4px;">
+									<div class="nohomelistboxwz">
+										<p class="bottomtop" :title="item.roomname">{{item.roomname}}</p>
+										<p class="bottomtop" :title="item.name">{{item.name}}</p>
+										<p class="bottomtop"
+											style='overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'
+											:title="item.promess">{{item.promess}}</p>
+										<p class="bottomp" :title="item.number">{{item.number}}</p>
+										<p class="bottomp" :title="item.studentnumber">{{item.studentnumber}}</p>
+										<p class="bottomp" :title="item.class">{{item.class}}</p>
+									</div>
 								</div>
 							</div>
+							</div>
+							
 						</div>
-					</div>
-					</div>
 				</sideItem>
 			</div>
 		</sideTran>
@@ -194,7 +195,7 @@
 						},
 						subtextStyle: {
 							fontSize: 12,
-							 lineHeight: 48
+							lineHeight: 48
 						}
 					}, ],
 					polar: {

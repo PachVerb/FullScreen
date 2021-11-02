@@ -559,6 +559,9 @@
 				left: 300px;
 				line-height: 30px;
 			}
+			.el-icon-circle-close{
+				display: none;
+			}
 			.el-range-input{
 				background-color: transparent;
 				color: #00F5FF;

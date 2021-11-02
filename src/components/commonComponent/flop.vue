@@ -121,7 +121,7 @@
 		width: 10px;
 		height: 30px;
 		margin-right: 5px;
-		line-height: 10px;
+		/* line-height: 10px; */
 		font-size: 38px;
 		position: relative;
 

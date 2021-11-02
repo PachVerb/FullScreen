@@ -1,9 +1,9 @@
 <template>
-	<div>
+	<div style="height: 100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
-			<div slot="left">
-				<nowpeopleslide title="用户使用统计">
-					<div slot='body' style="height: 20%;">
+			<div slot="left" style="height: 100%;">
+				<sideItem title="用户使用统计" delay="500" height="20%">
+					<div slot='body' style="width: 100%;margin-top: 20px;">
 						<div class="flopbox">
 							<p class="flopboxtitle" style="width: 85px;">在线用户</p>
 							<flop :num="num" :unitil="unitil"></flop>
@@ -13,14 +13,14 @@
 							<flop :num="numtow" :unitil="unitil"></flop>
 						</div>
 					</div>
-				</nowpeopleslide>
-				<sideItem title="网络设备统计">
-					<div slot='body' class="networkdevicetotal">
+				</sideItem>
+				<sideItem title="网络设备统计" transitionType="right" height="25%">
+					<div slot='body' class="networkdevicetotal" style="height: 100%;width: 100%;">
 						<div id="networkdevicetotal"></div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警统计">
-					<div slot='body' class="equipmentalarmtotal">
+				<sideItem title="设备告警统计" delay="500" height="26%">
+					<div slot='body' class="equipmentalarmtotal" style="height: 100%;width: 100%;">
 						<div class="table-head">
 							<span :style="{width: head.width}" v-for="head in tableHead"
 								:key="head.name">{{ head.name }}</span>
@@ -31,15 +31,17 @@
 									{{ item.name }}
 								</div>
 								<div class="table-item" :style="{width: tableHead[1].width}" :title=item.reason>
-									{{ item.reason }}</div>
+									{{ item.reason }}
+								</div>
 								<div class="table-item" :style="{width: tableHead[2].width}" :title=item.date>
-									{{ item.date }}</div>
+									{{ item.date }}
+								</div>
 							</div>
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警详情">
-					<div slot='body' class="deviceDetail">
+				<sideItem title="设备告警详情" delay="500" height="25%">
+					<div slot='body' class="deviceDetail" style="height: 100%;width: 100%;">
 						<div class="checkBox">
 							<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
 							<div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
@@ -49,20 +51,42 @@
 					</div>
 				</sideItem>
 			</div>
-			<div slot="right">
-				<sideItem title="网站安全统计">
-					<div slot='body' class="webSecuritytotal">
-						<div class="calendar"></div>
-						<div id="webSecuritytotalpie"></div>
+			<div slot="right" style="height: 100%;">
+				<sideItem title="网站安全统计" height="50%">
+					<div slot='body' class="webSecuritytotal" style="width: 100%;height: 100%;">
+						<div>
+							<div class="calendar">
+								<p style="color: rgba(255, 255, 255, .6);">时间范围:</p>
+								<date-picker v-model="value1" type="daterange" range-separator="至"
+									start-placeholder="开始日期" end-placeholder="结束日期">
+								</date-picker>
+								<img src="@/assets/img/internetstatues/back.png" alt="">
+								<img src="@/assets/img/internetstatues/stop.png" alt="">
+							</div>
+							<div class="rightpie">
+								<div id="webSecuritytotalpie"></div>
+								<div>
+									<div v-for="item in rightpiedata"
+										style="margin-top: 10px;text-align: left;margin-left: 80px;">
+										<p
+											style="display: inline-block;color: rgba(255, 255, 255, .6);font-size: 14px;margin-right: 6px;text-align: left;">
+											{{item.name}}:
+										</p><span
+											style="font-size: 14px;color: rgba(0, 245, 255, 1);">{{item.vale}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<!-- <div class="echartspie" ref='topPie'></div> -->
 					</div>
 				</sideItem>
-				<sideItem title="服务器安全分析">
-					<div slot='body' class="serverSecuritytotal">
+				<sideItem title="服务器安全分析" height="25%">
+					<div slot='body' class="serverSecuritytotal" style="width: 100%;height: 100%;">
 					</div>
 				</sideItem>
-				<sideItem title="网站安全分析">
-					<div slot='body' class="websiteSecurityanalysis">
+				<sideItem title="网站安全分析" height="25%">
+					<div slot='body' class="websiteSecurityanalysis" style="width: 100%;height: 100%;">
 					</div>
 				</sideItem>
 			</div>
@@ -77,7 +101,8 @@
 	import flop from '@/components/commonComponent/flop.vue'
 	import {
 		Table,
-		TableColumn
+		TableColumn,
+		DatePicker
 	} from 'element-ui'
 	import {
 		mapGetters
@@ -89,17 +114,35 @@
 			sideItem,
 			nowpeopleslide,
 			flop,
+			DatePicker,
 			elTable: Table,
 			elTableColumn: TableColumn
 		},
 		data() {
 			return {
+				value1: "", //时间选择器的值
 				trendKey: 2,
 				trendWaterKey: 2,
 				thisCrrentSys: '',
 				num: 12345,
 				numtow: 67898,
 				unitil: "人",
+				rightpiedata: [{
+					name: "境外告警数",
+					vale: 0
+				}, {
+					name: "境内告警数",
+					vale: 126
+				}, {
+					name: "影响资产数",
+					vale: 5
+				}, {
+					name: "攻击来源数",
+					vale: 18
+				}, {
+					name: "告警类型数",
+					vale: 2
+				}],
 				tableHead: [{
 					name: '严重等级',
 					width: '80px'
@@ -136,12 +179,17 @@
 					date: '2021-11-09 15:22:47',
 					reason: "#2015柜内存使用率超标"
 				}, ],
+				timer: null
 			}
 		},
 		computed: {
 			...mapGetters(['currentSys'])
 		},
-		watch: {},
+		watch: {
+			timer(val) {
+				console.log(val, "vvvvvvsdds")
+			}
+		},
 		mounted() {
 
 		},
@@ -152,63 +200,159 @@
 					setTimeout(() => {
 						this.randerBar()
 						this.getTrendAnalyData(2);
-						// this.renderrightpie()
+						this.renderrightpie()
 					}, 1500)
 				})
 			},
- 
 
 			renderrightpie() {
 				let webSecuritytotalpieChartDom, webSecuritytotalpieChartChart
 				webSecuritytotalpieChartDom = document.getElementById('webSecuritytotalpie');
 				webSecuritytotalpieChartChart = echarts.init(webSecuritytotalpieChartDom);
-				const colorList = ['#47A2FF ', '#53C8D1', '#59CB74', '#FBD444', '#7F6AAD', '#585247']
-
-				let option = {
-
-					tooltip: {
-						trigger: 'item',
+				var data = [100, 200, 300, 400, 500];
+				var sum = 0;
+				var avgValue = 0;
+				var seriesData = [];
+				var index = 0;
+				var curIndex = 0;
+				var timer = null;
+				data.forEach(function(item) {
+					sum += item;
+				});
+				avgValue = sum / 100; //间隙数据
+				data.forEach(function(item, index) {
+					//实际展示数据
+					seriesData.push({
+						name: '测试数据' + (index + 1),
+						value: item,
+						unit: '人',
+					});
+					seriesData.push(
+						//虚拟数据做间隙使用
+						// 实际当前数据是渲染成饼图的一部分，设置了颜色透明，视觉效果是间隙
+						{
+							name: '',
+							value: avgValue, //间隔数据取总数的百分之一
+							itemStyle: {
+								normal: {
+									label: {
+										show: false,
+									},
+									labelLine: {
+										show: false,
+									},
+									color: 'rgba(0, 0, 0, 0)',
+									borderColor: 'rgba(0, 0, 0, 0)',
+									borderWidth: 0,
+								},
+							},
+						}
+					);
+				});
+				var colorList = ['#5CEDFF', '#259AF0', '#23C376', '#EE8C2C', '#CD2323'];
+				var option = {
+					grid: {
+						width: '100%',
+						height: '100%',
+						left: 0,
+						top: 0,
+						show: false,
 					},
-					color: colorList,
+					legend: [{
+						show: false,
+					}, ],
+
 					series: [{
-						name: '姓名',
-						type: 'pie',
-						radius: [70, 90],
-						center: ['40%', '50%'],
-						label: {
-							show: false
+							type: 'pie',
+							z: 3,
+							center: ['50%', '50%'],
+							radius: ['80%', '88%'],
+							clockwise: true,
+							avoidLabelOverlap: true,
+							emphasis: {
+								scale: true,
+								scaleSize: 1,
+								 borderColor: "#fff",
+								borderWidth: 1
+							},
+							itemStyle: {
+								normal: {
+									color: function(params) {
+										return colorList[params.dataIndex / 2];
+									},
+								},
+							},
+							labelLine: {
+								show: false,
+							},
+							label: {
+								show: false,
+							},
+							data: seriesData,
 						},
-						labelLine: {
-							show: false
-						},
-						itemStyle: {
-							borderWidth: 3,
-							borderColor: '#fff'
-						},
-						data: [{
-								name: '南京a',
-								value: 100
-							},
-							{
-								name: '南京b',
-								value: 100
-							},
-							{
-								name: '南京c',
-								value: 100
-							},
-							{
-								name: '南京d',
-								value: 100
-							},
-							{
-								name: '南京e',
-								value: 100
-							},
-						],
-					}]
+	
+					],
 				};
-				webSecuritytotalpieChartChart.setOption(option)
+				webSecuritytotalpieChartChart.setOption(option);
+
+				// //设置默认选中高亮部分
+				// myChart.dispatchAction({
+				//   type: 'highlight',
+				//   seriesIndex: 0,
+				//   dataIndex: curIndex * 2, //存在间隙 index*2
+				// });
+				// //设置高亮
+				// function setEmphasis(index) {
+				//   if (curIndex != index) {
+				//     myChart.dispatchAction({
+				//       type: 'downplay',
+				//       seriesIndex: 0,
+				//       dataIndex: curIndex,
+				//     });
+				//   }
+				//   myChart.dispatchAction({
+				//     type: 'highlight',
+				//     seriesIndex: 0,
+				//     dataIndex: index,
+				//   });
+
+				//   //修改option参数
+				//   curIndex = index;
+				//   option.title[0].text = seriesData[index].value + seriesData[index].unit;
+				//   option.title[1].text = seriesData[index].name;
+				//   myChart.setOption(option);
+				// }
+				// //自动轮播
+				// function startAnima() {
+				//   timer = setInterval(function () {
+				//     if (index >= seriesData.length - 2) {
+				//       index = 0;
+				//     } else {
+				//       index += 2;
+				//     }
+				//     setEmphasis(index);
+				//   }, 2000);
+				// }
+				// //取消轮播
+				// function clearAnima() {
+				//   clearInterval(timer);
+				// }
+				// //开始轮播
+				// startAnima();
+
+				// //鼠标移入事件
+				// myChart.on('mouseover', function (e) {
+				//     clearAnima();
+				//     setEmphasis(e.dataIndex);
+				// });
+				// myChart.on('mouseout', function (e) {
+				//     startAnima();
+				// });
+
+				// window.addEventListener('resize', () => {
+				//   myChart.resize();
+				// });
+				// }
 			},
 			randerBar() {
 				let networkdevicetotalChartDom, networkdevicetotalChartChart
@@ -507,12 +651,12 @@
 	}
 
 	#networkdevicetotal {
-		height: 140px;
+		height: 100%;
 		width: 100%;
 	}
 
 	.equipmentalarmtotal {
-		height: 140px;
+		height: 100%;
 		margin-top: 20px;
 	}
 
@@ -593,7 +737,7 @@
 		.checkBox {
 			position: absolute;
 			right: 16px;
-			top: -20px;
+			top: -10px;
 			display: flex;
 			align-items: center;
 
@@ -622,17 +766,13 @@
 	}
 
 	#webSecuritytotalpie {
-		width: 100%;
-		height: 100%;
+		width: 50%;
+		height: 150px;
 	}
 
 	.webSecuritytotal {
 		height: 380px;
 
-		.calendar {
-			height: 40px;
-			background-color: greenyellow;
-		}
 
 	}
 
@@ -644,6 +784,58 @@
 		height: 150px;
 	}
 
+	.calendar {
+		padding-top: 10px;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+
+		/deep/.el-date-editor {
+			height: 30px;
+			font-size: 12px;
+			// left: 20px!important;
+			width: 210px !important;
+			background-image: url('../../assets/img/date-bg.png');
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			background-color: transparent;
+			border: none;
+
+			.el-range__icon {
+				position: absolute;
+				left: 180px;
+				line-height: 30px;
+				color: #00F5FF;
+			}
+
+			.el-range-input {
+				background-color: transparent;
+				color: #00F5FF;
+				font-size: 12px;
+			}
+
+			.el-icon-circle-close {
+				display: none;
+			}
+
+
+			.el-range-separator {
+				color: rgba(0, 245, 255, .6);
+				font-size: 12px;
+				line-height: 26px;
+			}
+		}
+
+		img {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	.rightpie {
+		display: flex;
+		margin-top: 16px;
+	}
 </style>
 <!-- <style type="text/css">
 	.el-table, .el-table__expanded-cell {background-color: transparent !important;}
