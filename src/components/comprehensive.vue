@@ -2,7 +2,7 @@
   <div style="height: 100%;">
     <sideTran thisCrrentSys="comprehensive">
       <div slot="left" style="height: 100%;">
-        <sideItem title="网络状态" :delay="100" height="44.2%">
+        <sideItem title="网络状态" :delay="100" height="46.2%">
           <div class="network-status" slot="body">
             <div class="network-status-start">
               <div class="btn-item" v-for="(item,index) in netList" :key="index">
@@ -86,7 +86,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="一卡通状态" :delay="200" height="23%">
+        <sideItem title="一卡通状态" :delay="200" height="23.9%">
           <div class="card-status" slot="body">
             <div class="row" v-for="(item,i) in cardList" :key="i">
               <span class="title">{{item.title}}</span>
@@ -107,14 +107,14 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="近十日各消费类别趋势" :delay="300" height="28.7%">
+        <sideItem title="近十日各消费类别趋势" :delay="300" height="29.8%">
           <div class="conmuse-status" slot="body">
             <div class="chart-conm" id="conmuseChart"></div>
           </div>
         </sideItem>
       </div>
       <div slot="right" style="height: 100%;">
-        <sideItem title="车辆态势" transitionType="right" :delay="100" height="23.5%">
+        <sideItem title="车辆态势" transitionType="right" :delay="100" height="24.5%">
           <div class="car-status" slot="body">
             <img class="box-car" src="../assets/compre/bg-car.png" alt />
             <div class="detail">
@@ -534,8 +534,18 @@ export default {
       ]
       let option = {
         tooltip: {
-          show: true,
-          trigger: "item"
+          // show: true,
+          // trigger: "item",
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+          // formatter:(e)=>{
+          //   console.log(e)
+          // }
         },
         legend: {
           show: false,
@@ -546,8 +556,11 @@ export default {
           "startAngle": 120,//坐标轴方向
           "splitNumber": 5,
           "shape": "circle",
-          name: {
-            show: false
+          name: {//用于提示框显示
+            show: true,
+             textStyle: {
+              color: "transparent"
+            }
           },
           "splitArea": {
             "areaStyle": {
@@ -589,7 +602,7 @@ export default {
                 "width": 2
               }
             },
-            "data": [parma.map(item => item.val)]
+            "data": [parma.map(item => item.val)],
           }, {
             type: 'pie',
             hoverAnimation: false,
