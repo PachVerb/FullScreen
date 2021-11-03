@@ -40,16 +40,18 @@
 									:key="head.name">{{ head.name }}</span>
 							</div>
 							<div class="ab-list patrol">
-								<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
-									<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
-										{{ item.name }}
-									</div>
-									<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
-									<div class="table-item" :style="{width: tableHead[2].width}">{{ item.methods }}</div>
-									<div class="table-item" :style="{width: tableHead[3].width}">{{ item.date }}</div>
-									<div :style="{width: tableHead[4].width}" class="table-item">
-										<span v-if="checkTrajector == item.id" class="close-trajectory" @click="handleCloseTrajector(item.id)">关闭轨迹</span>
-										<span v-else class="check-trajectory" @click="handleCheckTrajector(item.id)">查看轨迹</span>
+								<div class="ab-item-wrap" v-for="(item) in abDetailList" :key="item.id">
+									<div class="ab-item">
+										<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
+											{{ item.name }}
+										</div>
+										<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
+										<div class="table-item" :style="{width: tableHead[2].width}">{{ item.methods }}</div>
+										<div class="table-item" :style="{width: tableHead[3].width}">{{ item.date }}</div>
+										<div :style="{width: tableHead[4].width}" class="table-item">
+											<span v-if="checkTrajector == item.id" class="close-trajectory" @click="handleCloseTrajector(item.id)">关闭轨迹</span>
+											<span v-else class="check-trajectory" @click="handleCheckTrajector(item.id)">查看轨迹</span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -187,6 +189,18 @@
 					methods: '违停'
 				},{
 					id: '7',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				},{
+					id: '8',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				},{
+					id: '9',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
 					address: '教学楼A区3层走廊',
@@ -468,14 +482,14 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 6px 16px 0;
-		padding: 0 0 6px;
+		// margin: 6px 16px 0;
+		padding: 6px 16px 6px;
 		border-bottom: 1px solid rgba(63, 151, 207, .5);
 	}
 
 	.ab-item-name,
 	.ab-item-date {
-		margin-top: 5px;
+		// margin-top: 5px;
 		padding-left: 6px;
 		text-align: left;
 		// border-left: 1px solid #00F5FF;
@@ -719,7 +733,10 @@
 		height: calc(100% - 50px);
 		.ab-list{
 			height: calc(100% - 45px);
-			overflow: auto;
+			overflow-y: scroll;
 		}
+	}
+	.ab-item-wrap:hover{
+		background: rgba(106, 176, 255, 0.2);
 	}
 </style>

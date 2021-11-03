@@ -199,7 +199,7 @@
             </dir>
           </div>
         </sideItem>
-        <sideItem title="国有资产" transitionType="right" :delay="400" height="27.5%">
+        <sideItem title="国有资产" transitionType="right" :delay="400" height="28.6%">
           <div slot="body" class="assets-Status">
             <img class="bg1" src="../assets/compre/bg-asset1.png" alt />
             <img class="bg2" src="../assets/compre/bg-asset2.png" alt />

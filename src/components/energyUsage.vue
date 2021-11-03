@@ -981,7 +981,7 @@ export default {
     padding: 10px 16px 0;
     .checkBox {
       position: absolute;
-      right: 16px;
+      right: 30px;
       top: -20px;
       display: flex;
       align-items: center;
