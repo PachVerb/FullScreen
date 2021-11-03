@@ -64,6 +64,9 @@
 								<img src="@/assets/img/internetstatues/stop.png" alt="">
 							</div>
 							<div class="rightpie">
+								<img src="../../assets/pieimg/internetstatues/rightpieiner.png" class="rightpieimginner">
+								<img src="../../assets/pieimg/internetstatues/innercircle.png" class="rightpieimginnercircle">
+								<img src="../../assets/pieimg/internetstatues/outpie.png" class="rightpieimgout">
 								<div id="webSecuritytotalpie"></div>
 								<div>
 									<div v-for="item in rightpiedata"
@@ -76,6 +79,7 @@
 									</div>
 								</div>
 							</div>
+							<div id="rightbar"></div>
 						</div>
 
 						<!-- <div class="echartspie" ref='topPie'></div> -->
@@ -201,21 +205,172 @@
 						this.randerBar()
 						this.getTrendAnalyData(2);
 						this.renderrightpie()
+						this.renderrightbar()
 					}, 1500)
 				})
 			},
+			renderrightbar(){
+				let rightbarpieChartDom, rightbarpieChartChart
+				rightbarpieChartDom = document.getElementById('rightbar');
+				rightbarpieChartChart = echarts.init(rightbarpieChartDom);
+				var xData = ["2019-03-01", "2019-03-02", "2019-03-03", "2019-03-04", "2019-03-05", "2019-03-06", "2019-03-07", "2019-03-08", "2019-03-09", "2019-03-10", "2019-03-11", "2019-03-12", "2019-03-13", "2019-03-14", "2019-03-15", "2019-03-16", "2019-03-17", "2019-03-18", "2019-03-19", "2019-03-20"];
+				var yData1 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
+				var yData2 = [13, 7, 10, 38, 17, 28, 22, 12, 28, 19, 14, 19, 19, 31, 22, 11, 14, 19, 22, 16];
+				let option = {
+				    // tooltip: {
+				    //     trigger: 'axis',
+				    //     axisPointer: {
+				    //         type: 'cross'
+				    //     }
+				    // },
+						tooltip: {
+						  trigger: 'axis',
+						  backgroundColor: 'rgba(44,62,80,0.8)',
+						  borderColor: 'rgba(153, 209, 246, 0.6)',
+						  textStyle: {
+						    align: 'left',
+						    fontSize: 12,
+						    color: 'rgba(255,255,255,0.8)',
+						  },
+						},
+				    legend: {
+				        x: 'right',
+				        // y: '40px',
+								
+				        textStyle: {
+				            color: '#f2f2f2',
+				            fontSize: 13,
+				        },
+						
+				        //icon: 'circle',
+				        data: ['总告警数', '投递告警数']
+				    },
+				//     dataZoom: [{
+				//             type: 'slider',
+				//             show: true,
+				//             height: 20,
+				//             left: '10%',
+				//             right: '10%',
+				//             bottom: '2%',
+				//             start: 50,
+				//             end: 100,
+				//             textStyle: {
+				//                 color: '#d4ffff',
+				//                 fontSize: 11,
+				//             },
+				//         }, {
+				//             type: 'inside'
+				//         }
+				
+				//     ],
+				    grid: {
+				        right: '5%',
+				        bottom: '10%',
+				        left: '20px',
+				        top: '30px',
+				        containLabel: true
+				    },
+				    xAxis: [{
+				        type: 'category',
+				        data: xData,
+				        // name: '时间',
+				        nameTextStyle: {
+				            color: '#d4ffff'
+				        },
+				        axisLine: {
+				            lineStyle: {
+				                color: 'rgba(106, 176, 255, .6)'
+				            }
+				        },
+								splitLine: {
+									show:true,
+								    lineStyle: {
+								        color: "rgba(106, 176, 255, .6)",
+												type: 'dashed'
+								    }
+												
+								},
+				        axisTick: {
+				            show: false,
+				        },
 
+				        axisLabel: {
+				            show: true,
+				            textStyle: {
+				                color: "#FFF",
+				                fontSize: 12,
+				            },
+				            //interval:0,
+				            //rotate:30
+				        },
+				    }],
+				    yAxis: [{
+				        type: 'value',
+				        // name: '次数',
+				        nameTextStyle: {
+				            color: '#d4ffff'
+				        },
+				        position: 'left',
+				        axisLine: {
+				            lineStyle: {
+				                color: 'rgba(106, 176, 255, .6)',
+				            }
+				        },
+				        splitLine: {
+				            lineStyle: {
+				                color: "rgba(106, 176, 255, .6)",
+												type: 'dashed'
+				            }
+				
+				        },
+				        axisLabel: {
+				            color: '#d4ffff',
+				            fontSize: 12,
+				        }
+				    }, ],
+				    series: [{
+				            name: '总告警数',
+				            type: 'line',
+				            yAxisIndex: 0,
+				            symbolSize: 4,
+										symbol:"circle",
+				            itemStyle: {
+				                normal: {
+				                    color: 'rgba(106, 176, 255, 1)',
+				                }
+				            },
+				            data: yData1
+				        },
+				        {
+				            name: '投递告警数',
+				            type: 'line',
+										symbol:"circle",
+				            yAxisIndex: 0,
+				            symbolSize: 4,
+				            itemStyle: {
+				                normal: {
+				                    color: 'RGBA(144, 122, 214, 1)',
+				                }
+				            },
+				            data: yData2
+				        }
+				
+				    ]
+				};
+				rightbarpieChartChart.setOption(option)
+			},
 			renderrightpie() {
 				let webSecuritytotalpieChartDom, webSecuritytotalpieChartChart
 				webSecuritytotalpieChartDom = document.getElementById('webSecuritytotalpie');
 				webSecuritytotalpieChartChart = echarts.init(webSecuritytotalpieChartDom);
-				var data = [100, 200, 300, 400, 500];
+				var data = [100, 100, 100, 100, 100];
 				var sum = 0;
 				var avgValue = 0;
 				var seriesData = [];
 				var index = 0;
 				var curIndex = 0;
-				var timer = null;
+				var _that = this
+				// var timer = null;
 				data.forEach(function(item) {
 					sum += item;
 				});
@@ -223,7 +378,7 @@
 				data.forEach(function(item, index) {
 					//实际展示数据
 					seriesData.push({
-						name: '测试数据' + (index + 1),
+						name: 'a' + (index + 1),
 						value: item,
 						unit: '人',
 					});
@@ -264,16 +419,14 @@
 
 					series: [{
 							type: 'pie',
-							z: 3,
+							// z: 3,
 							center: ['50%', '50%'],
-							radius: ['80%', '88%'],
+							radius: ['70%', '78%'],
 							clockwise: true,
 							avoidLabelOverlap: true,
 							emphasis: {
 								scale: true,
-								scaleSize: 1,
-								 borderColor: "#fff",
-								borderWidth: 1
+								scaleSize: 2,
 							},
 							itemStyle: {
 								normal: {
@@ -284,75 +437,84 @@
 							},
 							labelLine: {
 								show: false,
+								length2: 6,
+								length: 6,
 							},
 							label: {
-								show: false,
+								show: true,
+								textStyle: {
+									color: "rgba(255,255,255,0.5)"
+								},
+								offset: [0, 0]
 							},
 							data: seriesData,
 						},
-	
+
 					],
 				};
 				webSecuritytotalpieChartChart.setOption(option);
 
-				// //设置默认选中高亮部分
-				// myChart.dispatchAction({
-				//   type: 'highlight',
-				//   seriesIndex: 0,
-				//   dataIndex: curIndex * 2, //存在间隙 index*2
-				// });
-				// //设置高亮
-				// function setEmphasis(index) {
-				//   if (curIndex != index) {
-				//     myChart.dispatchAction({
-				//       type: 'downplay',
-				//       seriesIndex: 0,
-				//       dataIndex: curIndex,
-				//     });
-				//   }
-				//   myChart.dispatchAction({
-				//     type: 'highlight',
-				//     seriesIndex: 0,
-				//     dataIndex: index,
-				//   });
+				//设置默认选中高亮部分
+				webSecuritytotalpieChartChart.dispatchAction({
+					type: 'highlight',
+					seriesIndex: 0,
+					dataIndex: curIndex * 2, //存在间隙 index*2
+				});
+				//设置高亮
+				function setEmphasis(index) {
+					if (curIndex != index) {
+						webSecuritytotalpieChartChart.dispatchAction({
+							type: 'downplay',
+							seriesIndex: 0,
+							dataIndex: curIndex,
+						});
+					}
 
-				//   //修改option参数
-				//   curIndex = index;
-				//   option.title[0].text = seriesData[index].value + seriesData[index].unit;
-				//   option.title[1].text = seriesData[index].name;
-				//   myChart.setOption(option);
-				// }
-				// //自动轮播
-				// function startAnima() {
-				//   timer = setInterval(function () {
-				//     if (index >= seriesData.length - 2) {
-				//       index = 0;
-				//     } else {
-				//       index += 2;
-				//     }
-				//     setEmphasis(index);
-				//   }, 2000);
-				// }
-				// //取消轮播
-				// function clearAnima() {
-				//   clearInterval(timer);
-				// }
-				// //开始轮播
-				// startAnima();
+					webSecuritytotalpieChartChart.dispatchAction({
+						type: 'highlight',
+						seriesIndex: 0,
+						dataIndex: index,
+					});
+
+					//修改option参数
+					// //修改option参数
+					curIndex = index;
+					option.title[0].text = seriesData[index].value + seriesData[index].unit;
+					option.title[1].text = seriesData[index].name;
+					webSecuritytotalpieChartChart.setOption(option);
+				}
+				//自动轮播
+				function startAnima() {
+					_that.timer = setInterval(function() {
+						if (index >= seriesData.length - 1) {
+							// index = 0;
+							clearInterval(_that.timer);
+						} else {
+							index += 2;
+						}
+						setEmphasis(index);
+						console.log(_that.timer, "_that.timer")
+					}, 1000);
+				}
+				//取消轮播
+				function clearAnima() {
+					clearInterval(_that.timer);
+				}
+				//开始轮播
+				startAnima();
 
 				// //鼠标移入事件
-				// myChart.on('mouseover', function (e) {
+				// webSecuritytotalpieChartChart.on('mouseover', function (e) {
 				//     clearAnima();
 				//     setEmphasis(e.dataIndex);
 				// });
-				// myChart.on('mouseout', function (e) {
+				// webSecuritytotalpieChartChart.on('mouseout', function (e) {
 				//     startAnima();
 				// });
 
-				// window.addEventListener('resize', () => {
-				//   myChart.resize();
-				// });
-				// }
+				window.addEventListener('resize', () => {
+					webSecuritytotalpieChartChart.resize();
+				});
 			},
 			randerBar() {
 				let networkdevicetotalChartDom, networkdevicetotalChartChart
@@ -360,11 +522,21 @@
 				networkdevicetotalChartChart = echarts.init(networkdevicetotalChartDom);
 				// 指定图表的配置项和数据
 				var option = {
+					// tooltip: {
+					// 	trigger: 'axis',
+					// 	axisPointer: {
+					// 		type: 'shadow'
+					// 	}
+					// },
 					tooltip: {
-						trigger: 'axis',
-						axisPointer: {
-							type: 'shadow'
-						}
+					  trigger: 'axis',
+					  backgroundColor: 'rgba(44,62,80,0.8)',
+					  borderColor: 'rgba(153, 209, 246, 0.6)',
+					  textStyle: {
+					    align: 'left',
+					    fontSize: 12,
+					    color: 'rgba(255,255,255,0.8)',
+					  },
 					},
 					legend: {
 						show: true,
@@ -551,13 +723,16 @@
 					lineY.push(data)
 				}
 				let option = {
+
 					tooltip: {
-						trigger: 'axis',
-						textStyle: {
-							align: 'left',
-							fontSize: 12,
-							color: 'rgba(255,255,255,0.8)',
-						},
+					  trigger: 'axis',
+					  backgroundColor: 'rgba(44,62,80,0.8)',
+					  borderColor: 'rgba(153, 209, 246, 0.6)',
+					  textStyle: {
+					    align: 'left',
+					    fontSize: 12,
+					    color: 'rgba(255,255,255,0.8)',
+					  },
 					},
 					legend: {
 						show: false,
@@ -657,7 +832,7 @@
 
 	.equipmentalarmtotal {
 		height: 100%;
-		margin-top: 20px;
+		// margin-top: 20px;
 	}
 
 	.table-head {
@@ -761,13 +936,13 @@
 		.chart-trendChart {
 			width: 340px;
 			height: 180px;
-			margin-top: 20px;
+			// margin-top: 20px;
 		}
 	}
 
 	#webSecuritytotalpie {
 		width: 50%;
-		height: 150px;
+		height: 140px;
 	}
 
 	.webSecuritytotal {
@@ -835,6 +1010,32 @@
 	.rightpie {
 		display: flex;
 		margin-top: 16px;
+		position: relative;
+	}
+	.rightpieimginner{
+		width:60px;
+		height:60px;
+		position: absolute;
+		left: 66px;
+		top:40px;
+	}
+	.rightpieimginnercircle{
+		width: 90px;
+		height: 90px;
+		position: absolute;
+		left: 50px;
+		top: 25px;
+	}
+	.rightpieimgout{
+		width: 120px;
+		height: 120px;
+		position: absolute;
+		left: 35px;
+		top:10px
+	}
+	#rightbar{
+		width: 100%;
+		height: 160px;
 	}
 </style>
 <!-- <style type="text/css">

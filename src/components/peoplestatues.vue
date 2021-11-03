@@ -109,8 +109,8 @@
 				</sideItem>
 			</div>
 			<div slot="right">
-				<sideItem title="打卡异常统计" style="height: 20%;" delay="100">
-					<div slot='body' style="height: 20%;" class="abnormal">
+				<sideItem title="打卡异常统计"  delay="100">
+					<div slot='body' style="height: 20%;width: 100%;" class="abnormal">
 						<div class="abnormalbox">
 							<div id="abnormalecharts"></div>
 							<p style="position: absolute;bottom: 10px;left: 42px;color: white;">状态正常</p>
@@ -132,8 +132,8 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="长期异常监测" style="height: 60%;" delay="300">
-					<div slot='body' style="height: 340px;overflow-y: scroll;">
+				<sideItem title="长期异常监测" style="height: 60%;" delay="300" height="40%">
+					<div slot='body' style="height:100%;width: 100%; ">
 						<div class="ab-list patrol">
 							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
 								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
@@ -250,7 +250,23 @@
 					id: '10',
 					name: '张海1',
 					date: '无位置感知信息',
-				}, ],
+				},{
+					id: '10',
+					name: '张海1',
+					date: '无位置感知信息',
+				},{
+					id: '10',
+					name: '张海1',
+					date: '无位置感知信息',
+				},{
+					id: '10',
+					name: '张海1',
+					date: '无位置感知信息',
+				},{
+					id: '10',
+					name: '张海1',
+					date: '无位置感知信息',
+				},],
 				tableHead: [{
 					name: '姓名',
 					width: '60px'
@@ -1883,8 +1899,9 @@
 
 	.peoplestrue {
 		width: 100%;
-		height: .75rem;
+		/* height: .75rem; */
 		display: flex;
+		margin-top: 20px;
 		padding-left: 20px;
 		padding-right: 20px;
 	}
@@ -1921,6 +1938,7 @@
 	#studentnow {
 		width: 380px;
 		height: 180px;
+		top:-10px
 	}
 
 	.abnormal {
@@ -1985,6 +2003,8 @@
 
 	.ab-list {
 		font-size: 12px;
+		height: 520px;
+		overflow-y: scroll;
 	}
 
 	.ab-item {
@@ -2071,15 +2091,15 @@
 	  height: 120px;
 		position: absolute;
 		left: 0;
-		top:50px;
+		// top:50px;
 		left:20px;
 	}
 	.bg-ratio-animImg {
 	  width: 130px;
 	  height: 130px;
 	  position: absolute;
-	  left: calc(50% - 176px);
-	  top: calc(50% - 58px);
+	  left:13px;
+	  top: -2px;
 	  animation: myMove 5s; //外圈旋转动画
 	  -webkit-animation: myMove 5s infinite linear;
 	}
@@ -2098,7 +2118,11 @@
 	  width: 84px;
 	  height: 84px;
 	  position: absolute;
-	  left: calc(50% - 152px);
-	  top: calc(50% - 38px);
+	  left: 38px;
+	  top: 18px;
+	}
+	.chartBox{
+		position: relative;
+		left: -20px;
 	}
 </style>

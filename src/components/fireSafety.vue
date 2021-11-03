@@ -427,7 +427,7 @@
 						{
 							name: '分割线',
 							type: 'gauge',
-							radius: '79%', //配合splitLine里的length一起调
+							radius: '100%', //配合splitLine里的length一起调
 							clockwise: true,
 							startAngle: '90',
 							center: ['50%', '50%'],
@@ -454,7 +454,7 @@
 							},
 							splitLine: {
 								show: true,
-								length: 11, //配合radius一起调
+								length: 13, //配合radius一起调
 								padding: [0, 0, 0],
 								lineStyle: {
 									// color: 'rgba(21, 82, 105, 0.6)',
