@@ -2,7 +2,7 @@
 	<div style="height: 100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" style="height: 100%;">
-				<sideItem title="用户使用统计" delay="500" height="20%">
+				<sideItem title="用户使用统计" transitionType="left" delay="500" height="20%">
 					<div slot='body' style="width: 100%;margin-top: 20px;">
 						<div class="flopbox">
 							<p class="flopboxtitle" style="width: 85px;">在线用户</p>
@@ -14,12 +14,12 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="网络设备统计" transitionType="right" height="25%">
+				<sideItem title="网络设备统计" transitionType="left" delay="1000" height="25%">
 					<div slot='body' class="networkdevicetotal" style="height: 100%;width: 100%;">
 						<div id="networkdevicetotal"></div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警统计" delay="500" height="26%">
+				<sideItem title="设备告警统计" transitionType="left" delay="1500" height="26%">
 					<div slot='body' class="equipmentalarmtotal" style="height: 100%;width: 100%;">
 						<div class="table-head">
 							<span :style="{width: head.width}" v-for="head in tableHead"
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警详情" delay="500" height="25%">
+				<sideItem title="设备告警详情" transitionType="left" delay="2000" height="25%">
 					<div slot='body' class="deviceDetail" style="height: 100%;width: 100%;">
 						<div class="checkBox">
 							<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
@@ -52,7 +52,7 @@
 				</sideItem>
 			</div>
 			<div slot="right" style="height: 100%;">
-				<sideItem title="网站安全统计" height="50%">
+				<sideItem title="网站安全统计" height="50%" transitionType="right" delay="500" >
 					<div slot='body' class="webSecuritytotal" style="width: 100%;height: 100%;">
 						<div>
 							<div class="calendar">
@@ -85,11 +85,11 @@
 						<!-- <div class="echartspie" ref='topPie'></div> -->
 					</div>
 				</sideItem>
-				<sideItem title="服务器安全分析" height="25%">
+				<sideItem title="服务器安全分析" height="25%" transitionType="right" delay="1000">
 					<div slot='body' class="serverSecuritytotal" style="width: 100%;height: 100%;">
 					</div>
 				</sideItem>
-				<sideItem title="网站安全分析" height="25%">
+				<sideItem title="网站安全分析" height="25%" transitionType="right" delay="1500">
 					<div slot='body' class="websiteSecurityanalysis" style="width: 100%;height: 100%;">
 					</div>
 				</sideItem>

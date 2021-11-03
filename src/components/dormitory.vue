@@ -195,7 +195,8 @@
 						},
 						subtextStyle: {
 							fontSize: 12,
-							lineHeight: 48
+							lineHeight: 8,
+							color:"rgba(255, 255, 255, .6)"
 						}
 					}, ],
 					polar: {
