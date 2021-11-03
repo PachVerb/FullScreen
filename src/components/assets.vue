@@ -15,19 +15,19 @@
 					</div>
         </nowpeopleslide>
         <sideItem title="各学院资产总数统计" :delay="1000" height="40%">
-          <div slot='body'>
+          <div slot='body' class="chart-wrap">
             <div id="totalAssets"></div>
           </div>
         </sideItem>
         <sideItem title="学校资产总额统计" :delay="1500" height="40%">
-          <div slot='body'>
+          <div slot='body' class="chart-wrap">
             <div id="allTotalAssets"></div>
           </div>
         </sideItem>
       </div>
       <div slot="right" style="height: 100%;">
         <sideItem title="网站安全统计" :transitionType="'right'" :delay="500" height="45%">
-          <div slot='body' class="websafe">
+          <div slot='body' class="websafe chart-wrap">
             <div id="webSecurity"></div>
           </div>
         </sideItem>
@@ -84,6 +84,16 @@ export default {
     return {
       ratioList:[],
       totalAssetsOption: {
+        tooltip: {
+          // trigger: 'axis',
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
         grid: { 
           top: '10px',
           left: '100px',  
@@ -166,8 +176,18 @@ export default {
         ]
       },
       allTotalAssetsOption: {
+        tooltip: {
+          trigger: 'axis',
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
         grid: { 
-          top: '10px',
+          top: '20px',
           left: '40px',  
           right: '30px', 
           bottom: '30px', 
@@ -245,7 +265,14 @@ export default {
       },
       serverSecurityOption: {
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
         },
         // legend: {
         //   top: '5%',
@@ -327,7 +354,13 @@ export default {
         setTimeout(() => {
           serverSecurityChartDom = document.getElementById('serverSecurity');
           serverSecurityChart = echarts.init(serverSecurityChartDom);
-          serverSecurityChart.setOption(this.serverSecurityOption)
+          serverSecurityChart.setOption(this.serverSecurityOption)   
+          window.addEventListener("resize", function() {  
+            allTotalAssetsChart.resize()
+            totalAssetsChart.resize()  
+            webSecurityChart.resize()            
+            serverSecurityChart.resize();           
+          })
         },2000)
         // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
       })
@@ -390,6 +423,13 @@ export default {
       return {
           tooltip: {
               trigger: "axis",
+              backgroundColor: 'rgba(44,62,80,0.8)',
+              borderColor: 'rgba(153, 209, 246, 0.6)',
+              textStyle: {
+                align: 'left',
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.8)',
+              },
               formatter: function (params) {
               var str = params[0].axisValue + "：";
               params.filter(function (item) {
@@ -545,16 +585,16 @@ export default {
 
 <style lang="less" scoped>
 #totalAssets{
-  width: 350px;
-  height: 230px;
+  width: 100%;
+  height: 100%;
 }
 #allTotalAssets{
-  width: 350px;
-  height: 230px;
+  width: 100%;
+  height: 100%;
 }
 #webSecurity{
-  width: 350px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
 }
 #serverSecurity{
   width: 180px;
@@ -653,5 +693,9 @@ export default {
         }
       }
   }
+}
+.chart-wrap{
+  width: 100%;
+  height: 100%;
 }
 </style>

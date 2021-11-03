@@ -34,7 +34,7 @@
 						<date-picker v-model="value1" type="daterange" range-separator="至" start-placeholder="开始日期"
 							end-placeholder="结束日期">
 						</date-picker>
-						<div>
+						<div class="violation-detail-table">
 							<div class="table-head">
 								<span :style="{width: head.width}" v-for="head in tableHead"
 									:key="head.name">{{ head.name }}</span>
@@ -179,7 +179,19 @@
 					date: '2021/11/09 15:22',
 					address: '教学楼A区3层走廊',
 					methods: '违停'
-				}, ],
+				}, {
+					id: '6',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				},{
+					id: '7',
+					name: 'JD1544',
+					date: '2021/11/09 15:22',
+					address: '教学楼A区3层走廊',
+					methods: '违停'
+				},],
 				tableHead: [{
 					name: '车牌号',
 					key: 'name',
@@ -294,6 +306,13 @@
 						containLabel: true,
 					},
 					tooltip: {
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						borderColor: 'rgba(153, 209, 246, 0.6)',
+						textStyle: {
+							align: 'left',
+							fontSize: 12,
+							color: 'rgba(255,255,255,0.8)',
+						},
 						formatter: (params) => {
 							if (params.name != '') {
 								return params.name + ' : ' + params.value + '\n' + '(' + params.percent + '%)';
@@ -514,6 +533,7 @@
 		opacity: 0.58;
 		border-radius: 4px;
 		cursor: pointer;
+		line-height: 18px;
 	}
 	.check-trajectory{
 		display: inline-block;
@@ -523,6 +543,7 @@
 		opacity: 0.58;
 		border-radius: 4px;
 		cursor: pointer;
+		line-height: 18px;
 	}
 	.parking{
 		display: flex;
@@ -546,6 +567,7 @@
 	}
 	.violation-detail{
 		padding-top: 10px;
+		height: 100%;
 		/deep/.el-date-editor{
 			height: 30px;
 			font-size: 12px;
@@ -578,8 +600,11 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+		align-content: space-between;
 		margin-bottom: 30px;
 		padding: 0 10px;
+		width: 100%;
+		height: 88%;
 		font-size: 12px;
 	}
 	.eq-statistics-item{
@@ -617,7 +642,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+		align-content: space-around;
 		padding: 0 18px;
+		height: 100%;
 		font-size: 12px;
 	}
 	.parking-space{
@@ -687,5 +714,12 @@
 		top: 30px;
 		z-index: 1;
 		width: 130px;
+	}
+	.violation-detail-table{
+		height: calc(100% - 50px);
+		.ab-list{
+			height: calc(100% - 45px);
+			overflow: auto;
+		}
 	}
 </style>
