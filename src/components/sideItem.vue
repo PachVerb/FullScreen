@@ -86,6 +86,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex: 1;
+  overflow: hidden;
 }
 .side-item-loading{
   min-height: 150px;

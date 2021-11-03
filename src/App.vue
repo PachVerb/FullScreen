@@ -31,6 +31,22 @@ body {
     background: rgba(44,62,80,.9);
     border-color: rgba(153, 209, 246, 0.6);
   }
+  .el-date-range-picker__content.is-left{
+    border-color: rgba(153, 209, 246, 0.6);
+  }
+  .el-date-range-picker__header{
+    color: #fff;
+  }
+  .el-date-table th{
+    color: #fff;
+    border-color: rgba(153, 209, 246, 0.6);
+  }
+  .el-date-table .available{
+    color: rgba(255,255,255,0.8);
+  }
+  .el-date-table .next-month{
+    color: rgba(255,255,255,0.1);
+  }
 }
 i {
   font-style: normal;

@@ -3,7 +3,7 @@
     <sideTran thisCrrentSys="assets">
       <div slot="left" style="height: 100%;">
         <nowpeopleslide title="学校资产统计" :delay="500" height="20%">
-          <div slot='body' style="width: 100%;">
+          <div slot='body' style="padding-top: 1vh;width: 100%; height: 11vh;">
 						<div class="flopbox">
 							<p class="flopboxtitle">资产总数</p>
 							<flop :num="num" :unitil="'套'"></flop>

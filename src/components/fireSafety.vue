@@ -48,7 +48,7 @@
 					</div>
 				</sideItem>
 				<sideItem title="设备异常详情" delay="1500" height="45%">
-					<div slot='body' style="width: 100%;">
+					<div slot='body' class="ab-detail-list-wrap">
 						<div class="ab-nav">
 							<span :class="[abCheckNav == nav.id ? 'ab-check-nav' : '']" v-for="nav in abNavList"
 								:key="nav.id" @click="handleAbCheckNav(nav.id)">{{ nav.name }}</span>
@@ -103,7 +103,7 @@
 					</div>
 				</sideItem>
 				<sideItem title="巡更人员异常概况" transitionType="right" delay="1500" height="37%">
-					<div slot='body'>
+					<div slot='body' class="patrol-list-wrap">
 						<div class="table-head">
 							<span :style="{width: head.width}" v-for="head in tableHead"
 								:key="head.name">{{ head.name }}</span>
@@ -221,7 +221,17 @@
 					name: 'JD1544消防栓',
 					date: '2021-11-09 15:22:47',
 					address: '教学楼A区3层走廊'
-				}, ],
+				},{
+					id: '6',
+					name: 'JD1544消防栓',
+					date: '2021-11-09 15:22:47',
+					address: '教学楼A区3层走廊'
+				},{
+					id: '7',
+					name: 'JD1544消防栓',
+					date: '2021-11-09 15:22:47',
+					address: '教学楼A区3层走廊'
+				},],
 				tableData: [{
 					date: '2016-05-02',
 					name: '王小虎',
@@ -708,7 +718,9 @@
 	}
 
 	.ab-list {
+		height: calc(100% - 54px);
 		font-size: 12px;
+		overflow-y: scroll;
 	}
 
 	.ab-item {
@@ -1032,5 +1044,21 @@
 		display: flex;
 		padding-right: 15px;
 		height: 200px;
+		width: 100%;
+	}
+	.patrol-list-wrap{
+		width: 100%;
+		height: 100%;
+		.ab-list{
+			margin-bottom: 8px;
+			height: calc(100% - 85px);
+		}
+	}
+	.ab-detail-list-wrap{
+		width: 100%;
+		height: 100%;
+		.ab-list{
+			height: calc(100% - 60px);
+		}
 	}
 </style>

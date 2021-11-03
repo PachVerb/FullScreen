@@ -2,7 +2,7 @@
 	<div style="height:100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" style="height:100%;">
-				<sideItem title="学校概况" height="27%">
+				<sideItem title="学校概况" height="27%" :delay="500">
 					<div slot='body' class="schoolProfile-wrap">
 						<div id="schoolProfile"></div>
 						<div class="schoolProfile-right">
@@ -27,21 +27,21 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="应用占用资源分析" height="27%">
+				<sideItem title="应用占用资源分析" height="27%" :delay="1000">
 					<div slot='body' class="resource-analysis">
 						<div id="cpu" class="resource-analysis-item"></div>
 						<div id="memory" class="resource-analysis-item"></div>
 						<div id="store" class="resource-analysis-item"></div>
 					</div>
 				</sideItem>
-				<sideItem title="各宿舍楼归寝概况" height="56%">
+				<sideItem title="各宿舍楼归寝概况" height="56%" :delay="1500">
 					<div slot='body' class="visitsChart-wrap">
 						<div id="visitsChart"></div>
 					</div>
 				</sideItem>
 			</div>
 			<div slot="right" style="height:100%;">
-				<sideItem title="智能警告分析" height="28%">
+				<sideItem title="智能警告分析" transitionType="right" height="28%" :delay="500">
 					<div slot='body' class="intelligentwarningbox">
 						<img src="../../assets/pieimg/Networkoperation/intergear.png" alt="" class="intergear">
 						<img src="../../assets/pieimg/Networkoperation/interoutpie.png" alt="" class="interoutpie">
@@ -49,12 +49,12 @@
 						<div id="intelwarning"></div>
 					</div>
 				</sideItem>
-				<sideItem title="故障智能分析">
+				<sideItem title="故障智能分析" transitionType="right" :delay="1000">
 					<div slot='body' class="userladnd">
 						<div id="serverSecurity"></div>
 					</div>
 				</sideItem>
-				<sideItem title="应用数据发展分析">
+				<sideItem title="应用数据发展分析" transitionType="right" :delay="1500">
 					<div slot='body' class="intelwarningunitbox">
 						<!-- <div class="usebox">
 							<div id="intelwarning"></div>
