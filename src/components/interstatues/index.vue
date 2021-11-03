@@ -862,6 +862,8 @@
 
 	.ab-list {
 		font-size: 12px;
+		height: 100%;
+		overflow-y: scroll;
 	}
 
 	.ab-item {
@@ -892,7 +894,7 @@
 	.patrol {
 		font-size: 12px;
 		height: 120px;
-		overflow-y: scroll;
+		// overflow-y: scroll;
 
 		.ab-item-name {
 			margin-top: 0;
