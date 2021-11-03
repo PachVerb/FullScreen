@@ -176,7 +176,7 @@ export default {
         this.getDormStatus();
         this.getRoomType();
         this.getCourseStati();
-        this.getDormStatus();
+        this.getAttendStati();
       })
     },
     //学生到课统计
@@ -421,7 +421,7 @@ export default {
       ]
     },
     //各宿舍楼归寝情况
-    getDormStatus() {
+    getAttendStati() {
       this.attendList = [
         { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
         { name: '周雨生', num: 9, class: '土木工程12班',type:2 },
