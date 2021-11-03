@@ -107,13 +107,34 @@
         <sideItem title="当前行课统计" transitionType="right" delay="200" height="37.46%">
           <div slot="body" class="courseStati">
             <div class="item" v-for="(item,i) in courseList" :key="i">
-              <img :src="item.icon" alt="">
-              <span class="value">{{item.val}}<i>({{item.unit}})</i></span>
+              <img :src="item.icon" alt />
+              <span class="value">
+                {{item.val}}
+                <i>({{item.unit}})</i>
+              </span>
               <span class="text">{{item.name}}</span>
             </div>
           </div>
         </sideItem>
-        <sideItem title="出勤异常统计" transitionType="right" delay="300" height="37.3%"></sideItem>
+        <sideItem title="出勤异常统计" transitionType="right" delay="300" height="37.3%">
+          <div slot="body" class="attendStati">
+            <div class="head">
+              <span style="flex:1;"></span>
+              <span>姓名</span>
+              <span>异常次数</span>
+              <span>班级</span>
+            </div>
+            <div class="row" v-for="(item,i) in attendList" :key="i">
+              <span style="flex:1;">
+                <img v-if="item.type==1" src="../../assets/study/warn1.png" alt=""/>
+                <img v-else src="../../assets/study/warn2.png" alt=""/>
+              </span>
+              <span>{{item.name}}</span>
+              <span>{{item.num}}</span>
+              <span>{{item.class}}</span>
+            </div>
+          </div>
+        </sideItem>
       </div>
     </sideTran>
   </div>
@@ -139,7 +160,8 @@ export default {
       dormKey: true,//使用中,空闲中
       dormList: [],
       roomList: [],
-      courseList:[],
+      courseList: [],
+      attendList:[],
     }
   },
   computed: {
@@ -154,6 +176,7 @@ export default {
         this.getDormStatus();
         this.getRoomType();
         this.getCourseStati();
+        this.getDormStatus();
       })
     },
     //学生到课统计
@@ -389,14 +412,27 @@ export default {
       chart.setOption(option, true);
     },
     //当前行课统计
-    getCourseStati(){
-      this.courseList=[
-        { name: '当前应上课程数', val: 112,unit:'节',icon:require('../../assets/study/img-class1.png') },
-        { name: '当前应上学生数', val: 299,unit:'人',icon:require('../../assets/study/img-class2.png') },
-        { name: '实际课程数', val: 28,unit:'节',icon:require('../../assets/study/img-class3.png') },
-        { name: '实际上课学生数', val: 245,unit:'人',icon:require('../../assets/study/img-class4.png') },
+    getCourseStati() {
+      this.courseList = [
+        { name: '当前应上课程数', val: 112, unit: '节', icon: require('../../assets/study/img-class1.png') },
+        { name: '当前应上学生数', val: 299, unit: '人', icon: require('../../assets/study/img-class2.png') },
+        { name: '实际课程数', val: 28, unit: '节', icon: require('../../assets/study/img-class3.png') },
+        { name: '实际上课学生数', val: 245, unit: '人', icon: require('../../assets/study/img-class4.png') },
       ]
-    }
+    },
+    //各宿舍楼归寝情况
+    getDormStatus() {
+      this.attendList = [
+        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
+        { name: '周雨生', num: 9, class: '土木工程12班',type:2 },
+        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
+        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
+        { name: '周雨生', num: 9, class: '土木工程12班',type:2 },
+        { name: '周雨生', num: 9, class: '土木工程12班',type:2 },
+        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
+        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
+      ]
+    },
   }
 }
 </script>
@@ -754,41 +790,102 @@ export default {
     }
   }
 }
-.courseStati{
+.courseStati {
   padding: 0 16px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  .item{
+  .item {
     margin: 8px 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    img{
+    img {
       width: 100px;
       height: 85px;
     }
-    .value{
+    .value {
       margin-top: 5px;
       font-size: 16px;
       font-weight: bold;
       color: rgba(0, 245, 255, 0.8);
-      i{
+      i {
         margin-left: 2px;
         font-size: 12px;
         font-weight: 500;
         color: rgba(255, 255, 255, 0.4);
       }
     }
-    .text{
+    .text {
       margin-top: 5px;
       font-size: 12px;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.8);
     }
   }
+}
+.attendStati{
+  padding: 0 12px;
+  width: 100%;
+  height: 260px;
+  overflow-y: auto;
+  .head {
+      position: relative;
+      padding: 10px 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 500;
+      color: #ffffff;
+      span {
+        flex: 2;
+      }
+      &::before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to left, #112d46, #1b4465, #112d46);
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+      }
+    }
+    .row {
+      position: relative;
+      padding: 10px 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 2px;
+      span {
+        flex: 2;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        img{
+          width: 16px;
+          height: 16px;
+        }
+      }
+      &::before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to left, #112d46, #1b4465, #112d46);
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+      }
+      &:hover {
+        background: rgba(106, 176, 255, 0.2);
+      }
+    }
 }
 
 @-webkit-keyframes myMove {
