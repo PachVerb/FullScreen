@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 *{
   margin: 0;
   padding: 0;
@@ -27,6 +27,10 @@ body {
   position: relative;
   width: 100%;
   height:100%;
+  .el-picker-panel{
+    background: rgba(44,62,80,.9);
+    border-color: rgba(153, 209, 246, 0.6);
+  }
 }
 i {
   font-style: normal;
@@ -50,6 +54,7 @@ span {
 .v-modal{
   z-index: 9 !important;
 }
+
 </style>
 <style>
 /* 滚动条(滚动条会占用内容宽度) */

@@ -35,8 +35,8 @@
 					</div>
 				</sideItem>
 				<sideItem title="各宿舍楼归寝概况" height="56%">
-					<div slot='body'>
-						<div id="allTotalAssets"></div>
+					<div slot='body' class="visitsChart-wrap">
+						<div id="visitsChart"></div>
 					</div>
 				</sideItem>
 			</div>
@@ -89,6 +89,16 @@
 			return {
 				thisCrrentSys: "",
 				option: {
+						tooltip: {
+							trigger: 'item',
+							backgroundColor: 'rgba(44,62,80,0.8)',
+							borderColor: 'rgba(153, 209, 246, 0.6)',
+							textStyle: {
+								align: 'left',
+								fontSize: 12,
+								color: 'rgba(255,255,255,0.8)',
+							},
+						},
 						series: [
 								{
 										type: 'liquidFill',
@@ -120,11 +130,27 @@
 										backgroundStyle: {
 												borderWidth: 1,
 												color: 'rgba(241, 200, 50, 0)',
+												shadowBlur: 15,
+												shadowColor: new echarts.graphic.LinearGradient(
+														//4个参数用于配置渐变色的起止位置, 依次对应右/下/左/上四个方位
+														0, 0, 0, 1,
+														//数组, 用于配置颜色的渐变过程. 每一项为一个对象, 包含offset和color两个参数. offset的范围是0 ~ 1, 用于表示起始位置
+														[ //外部轮廓的阴影颜色 
+																{
+																		offset: 0,
+																		color: "#cffc03"
+																},
+																{
+																		offset: 1,
+																		color: '#ecfc03'
+																}
+														]
+												),
 										},
 										itemStyle: {
 												opacity: 0.95,
-												shadowBlur: 50,
-												shadowColor: 'rgba(0, 0, 0, 0.4)'
+												shadowBlur: 5,
+												shadowColor: 'rgba(255, 255, 255, 0.4)'
 										},
 										label: {
 												normal: {
@@ -177,9 +203,14 @@
 							{name:"缓慢",val:25,color:'rgba(196,144,191,0.8)'},
 							{name:"错误",val:12,color:'rgba(19,181,177,0.8)'},
 						]
-						let dashboard = echarts.init(document.getElementById('cpu'))
-						dashboard.setOption(this.renderDashboardOption())
-					}, 1500);
+						let cpuDashboard = echarts.init(document.getElementById('cpu'))
+						cpuDashboard.setOption(this.renderDashboardOption('cpu使用率', 28))
+						let memoryDashboard = echarts.init(document.getElementById('memory'))
+						memoryDashboard.setOption(this.renderDashboardOption('内存使用率',28))
+						let storeDashboard = echarts.init(document.getElementById('store'))
+						storeDashboard.setOption(this.renderDashboardOption('储存使用率', 28))
+						this.renderVisitsChart()
+					}, 2000);
 				})
 			},
 
@@ -231,11 +262,18 @@
 							}
 						}
 					],
-					  tooltip: {
-					    show:true,
-					    trigger: 'item',
-					    formatter: '{b} : {c} ({d}%)'
-					  },
+					tooltip: {
+						show:true,
+						trigger: 'item',
+						formatter: '{b} : {c} ({d}%)',
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						borderColor: 'rgba(153, 209, 246, 0.6)',
+						textStyle: {
+							align: 'left',
+							fontSize: 12,
+							color: 'rgba(255,255,255,0.8)',
+						},
+					},
 					series: [{
 							// name: '访问来源',
 							color: ['#598BF1', '#E2B46D', '#F2896B', '#2B63D5', '#2039C3', '#2ECACE',
@@ -339,11 +377,22 @@
 				})
 				schoolProfileEchart.setOption(this.option)
 			},
-			renderDashboardOption(){
+			renderDashboardOption(title,value){
 				return {
+					title: {
+						text: title,
+						textAlign: 'center',
+						bottom: 15,
+						left: '48%',
+						textStyle: {
+							fontSize: 12,
+							color: 'rgba(255, 255, 255, .8)'
+						}
+					},
 					series: [
 						{
 							type: 'gauge',
+							zlevel: 2,
 							axisLine: {
 								lineStyle: {
 									width: 5,
@@ -376,13 +425,14 @@
 							},
 							axisLabel: {
 								color: 'auto',
-								distance: 10,
-								fontSize: 6
+								distance: 13,
+								fontSize: 6,
+								color: 'rgba(255, 255, 255, 1)',
 							},
 							detail: {
 								valueAnimation: true,
 								formatter: '{value}%',
-								color: 'auto',
+								color: 'rgba(255, 255, 255, 1)',
 								fontSize: 12
 							},
 							pointer: {
@@ -390,12 +440,14 @@
 							},
 							data: [
 								{
-									value: 70
+									value: value
 								}
 							]
 						},
 						{
 							type: 'gauge',
+							radius: '60%',
+							zlevel: 1,
 							axisLine: {
 								show: false
 							},
@@ -419,16 +471,113 @@
 							},
 							progress: {
 								show: true,
-								width: 6
+								width: 15,
+								itemStyle: {
+									color: 'rgba(15,210,157,1)',
+								}
 							},
 							data: [
 								{
-									value: 70
+									value: value
 								}
 							]
 						}
 					]
 				}
+			},
+			renderVisitsChart(){
+				const colors = ['#598BF1','#C490BF',];
+				let option = {
+					color: colors,
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross'
+						},
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						borderColor: 'rgba(153, 209, 246, 0.6)',
+						textStyle: {
+							align: 'left',
+							fontSize: 12,
+							color: 'rgba(255,255,255,0.8)',
+						},
+					},
+					grid: {
+						left: '16%',
+						right: '16%'
+					},
+					xAxis: [
+						{
+							type: 'category',
+							axisTick: {
+								show: false
+							},
+							// prettier-ignore
+							data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							name: '浏览器访问量（次）',
+							min: 0,
+							position: 'left',
+							axisLine: {
+								show: true,
+								lineStyle: {
+									color: colors[0]
+								}
+							},
+							splitLine: {
+								lineStyle: {
+									type: 'dashed',
+									color: colors[0]
+								}
+							}
+						},
+						{
+							type: 'value',
+							name: '系统请求次数(次)',
+							min: 0,
+							position: 'right',
+							axisLine: {
+								show: true,
+								lineStyle: {
+									color: colors[1]
+								}
+							},
+							splitLine: {
+								lineStyle: {
+									type: 'dashed',
+									color: colors[1]
+								}
+							}
+						}
+					],
+					series: [
+						{
+							name: '浏览器访问量',
+							type: 'bar',
+							data: [
+								2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3
+							]
+						},
+						{
+							name: '系统请求次数',
+							type: 'bar',
+							data: [
+								2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3
+							],
+							yAxisIndex: 1,
+						},
+						
+					]
+				};
+				let visitsChart = echarts.init(document.getElementById('visitsChart'))
+				visitsChart.setOption(option)
+				window.addEventListener("resize", function() {                
+					visitsChart.resize();           
+				})
 			}
 		}
 	}
@@ -612,13 +761,22 @@
 }
 .resource-analysis{
 	display: flex;
-	justify-content: space-between;
-	width: 98%;
+	justify-content: space-around;
+	width: 96%;
 	.resource-analysis-item{
-		width: 116px;
-		height: 156px;
+		width: 106px;
+		height: 136px;
 		background: url(../../assets/pieimg/fire/firebg.png) no-repeat;
-		background-size: contain;
+		background-size: 93%;
+    background-position: center 7px;
 	}
+}
+.visitsChart-wrap{
+	width: 100%;
+	height: 100%;
+}
+#visitsChart{
+	width: 100%;
+	height: 91%;
 }
 </style>
