@@ -2,8 +2,8 @@
 	<div style="height: 100%;">
 		<sideTran thisCrrentSys="peoplestatues">
 			<div slot="left" style="height: 100%;">
-				<sideItem title="人员实时状态" delay="100" height="25%">
-					<div slot='body' class="nowbox" >
+				<sideItem title="人员实时状态" transitionType="left" delay="500" height="25%">
+					<div slot='body' class="nowbox">
 						<currency class="nowboxitem" :boxnum="oneobj.num" :boxtitle="oneobj.title"
 							:boxcolor="oneobj.color" :boxuntil="oneobj.until"></currency>
 						<currency class="nowboxitem" :boxnum="secobj.num" :boxtitle="secobj.title"
@@ -14,7 +14,7 @@
 							:boxcolor="fourobj.color" :boxuntil="fourobj.until"></currency>
 					</div>
 				</sideItem>
-				<sideItem title="今日访客统计" delay="200"  height="25%">
+				<sideItem title="今日访客统计" transitionType="left" delay="1000" height="25%">
 
 					<div slot='body' class="visitorstoday">
 
@@ -25,11 +25,11 @@
 							<div class="useright">
 								<div class="userightbox">
 									<div class="colorbox">
-										<div style="position: relative;top: 2px;font-size: 14px; width: 130px;">
+										<div style="position: relative;top: 6px;font-size: 14px; width: 130px;">
 											<span class="shu"></span>
 											<span class="userboxwz">来访人员总数</span>
 										</div>
-										<div style="position: relative;top: 2px;font-size: 14px;width: 30%;">
+										<div style="position: relative;top: 6px;font-size: 14px;width: 30%;">
 											<span style="color: #00F5FF;">50</span><span style="color: gray;">人</span>
 										</div>
 
@@ -38,11 +38,11 @@
 								<div class="userightbox" style="margin-top: 10px;">
 									<div class="colorbox">
 										<div
-											style="position: relative;top: 2px;left: -14px;  font-size: 14px;width: 130px;">
+											style="position: relative;top: 6px;left: -14px;  font-size: 14px;width: 130px;">
 											<span class="shu"></span>
 											<span class="userboxwz">在访人员</span>
 										</div>
-										<div style="position: relative;top: 2px;font-size: 14px;width: 30%;">
+										<div style="position: relative;top: 6px;font-size: 14px;width: 30%;">
 											<span style="color: #00F5FF;">50</span><span style="color: gray;">人</span>
 										</div>
 
@@ -51,11 +51,11 @@
 								<div class="userightbox" style="margin-top: 10px;">
 									<div class="colorbox">
 										<div
-											style="position: relative;top: 4px;left: -14px; font-size: 14px;width: 130px;">
+											style="position: relative;top: 6px;left: -14px; font-size: 14px;width: 130px;">
 											<span class="shu"></span>
 											<span class="userboxwz">宿舍访客</span>
 										</div>
-										<div style="position: relative;top: 2px;font-size: 14px;width: 30%;">
+										<div style="position: relative;top: 6px;font-size: 14px;width: 30%;">
 											<span style="color: #00F5FF;">50</span><span style="color: gray;">人</span>
 										</div>
 									</div>
@@ -65,17 +65,17 @@
 
 					</div>
 				</sideItem>
-				<sideItem title="学生结构" delay="300"  height="25%">
-					<div slot='body' class="peoplestrue" >
+				<sideItem title="学生结构" transitionType="left" delay="1500" height="25%">
+					<div slot='body' class="peoplestrue">
 						<div class="peoplestruebgc">
 							<!-- <div class="peoplestruebgcwz">
 								<p style="font-size: 26px;color: #00F5FF;">44466</p>
 								<p style="font-size: 12px; color: white;">学生总人数</p>
 							</div> -->
 							<div class="chartBox">
-							  <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
-							  <img src="../assets/pieimg/fire/fireleftgear.png" class="bg-ratio" />
-							  <div class="chart-ratio" id="ratioChart"></div>
+								<img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
+								<img src="../assets/pieimg/fire/fireleftgear.png" class="bg-ratio" />
+								<div class="chart-ratio" id="ratioChart"></div>
 							</div>
 						</div>
 						<div class="peoplestruebox">
@@ -102,37 +102,43 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="学生实时分布" delay="400"  height="25%">
-					<div slot='body' >
-						<div id="studentnow" ></div>
+				<sideItem title="学生实时分布" transitionType="left" delay="2000" height="25%">
+					<div slot='body'>
+						<div id="studentnow"></div>
 					</div>
 				</sideItem>
 			</div>
 			<div slot="right">
-				<sideItem title="打卡异常统计"  delay="100">
+				<sideItem title="打卡异常统计" transitionType="right" delay="500">
 					<div slot='body' style="height: 20%;width: 100%;" class="abnormal">
-						<div class="abnormalbox">
+						<div class="abnormalbox eq-num-box-chart">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
 							<div id="abnormalecharts"></div>
-							<p style="position: absolute;bottom: 10px;left: 42px;color: white;">状态正常</p>
+							<p style="position: relative;bottom: 25px;color: white;">状态正常</p>
 						</div>
-						<div class="abnormalbox">
+						<div class="abnormalbox eq-num-box-chart">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
 							<div id="abnormalechartssec"></div>
-							<p style="position: relative;bottom: 25px;color: white;">状态正常</p>
+							<p style="position: relative;bottom: 25px;color: white;">状态异常</p>
 						</div>
-						<div class="abnormalbox">
+						<div class="abnormalbox eq-num-box-chart">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
+							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
 							<div id="abnormalechartsthir"></div>
-							<p style="position: relative;bottom: 25px;color: white;">状态正常</p>
+							<p style="position: relative;bottom: 25px;color: white;">打卡缺失</p>
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="常去位置分析" style="height: 20%;" delay="200">
+				<sideItem title="常去位置分析" style="height: 20%;" transitionType="right" delay="1000">
 					<div slot='body' style="height: 20%;">
 						<div id="radar">
 
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="长期异常监测" style="height: 60%;" delay="300" height="40%">
+				<sideItem title="长期异常监测" style="height: 60%;"transitionType="right" delay="1500" height="40%">
 					<div slot='body' style="height:100%;width: 100%; ">
 						<div class="ab-list patrol">
 							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
@@ -183,6 +189,9 @@
 		},
 		data() {
 			return {
+				colorone: ["#6AB0FF", '#6AB0FF'],
+				colortwo: ["#F6886A", "#F6886A"],
+				colorthir: ["#E5BC80", "#E5BC80"],
 				num: 888,
 				value: 1000,
 				duration: 1000,
@@ -247,26 +256,26 @@
 					name: '张海',
 					date: '无位置感知信息',
 				}, {
-					id: '10',
+					id: '11',
 					name: '张海1',
 					date: '无位置感知信息',
-				},{
-					id: '10',
+				}, {
+					id: '12',
 					name: '张海1',
 					date: '无位置感知信息',
-				},{
-					id: '10',
+				}, {
+					id: '13',
 					name: '张海1',
 					date: '无位置感知信息',
-				},{
-					id: '10',
+				}, {
+					id: '14',
 					name: '张海1',
 					date: '无位置感知信息',
-				},{
-					id: '10',
+				}, {
+					id: '15',
 					name: '张海1',
 					date: '无位置感知信息',
-				},],
+				}, ],
 				tableHead: [{
 					name: '姓名',
 					width: '60px'
@@ -286,18 +295,7 @@
 			...mapGetters(['currentSys'])
 		},
 		watch: {
-			// currentSys(val) {
-			// 	console.log(val)
-			// 	if (val == 'peoplestatues') {
-			// 		this.$nextTick(() => {
-			// 			this.randerBar()
-			// 			this.randernormal()
-			// 			this.randernormalsec()
-			// 			this.randernormalthir()
-			// 			this.radar()
-			// 		})
-			// 	}
-			// }
+
 		},
 		mounted() {
 			// console.log(this.num, 'assets11', this.oneobj)
@@ -306,128 +304,142 @@
 		methods: {
 			init() {
 				this.$nextTick(() => {
-					setTimeout(()=>{
+					setTimeout(() => {
 						this.randerBar()
 						this.randernormal()
 						this.randernormalsec()
 						this.randernormalthir()
 						this.renderstudentpie()
-					},1500)
+					}, 1500)
 					this.radar()
 
 				})
 			},
-			renderstudentpie(){
-				
-				  this.ratioList = [
-				    {name:"照明",val:1100,color:'rgba(169,133,238,0.8)'},
-				    {name:"空调",val:444,color:'rgba(196,144,191,0.8)'},
-				    {name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
-				    {name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
-				  ]
-				  let dom = document.getElementById('ratioChart');
-				  let chart = echarts.init(dom);
-				  let total = this.ratioList.reduce((sum,item)=>sum+item.val,0);
-				  let list = []
-				
-				  for (let i in this.ratioList) {
-				    list.push({
-				      value: this.ratioList[i].val,
-				      name: this.ratioList[i].name,
-				      itemStyle: {
-				        normal: {
-				          borderWidth: 5,
-				          shadowBlur: 20,
-				          borderColor: this.ratioList[i].color,
-				          shadowColor: this.ratioList[i].color,
-				        }
-				      }
-				    }, {
-				      value: total / 30,
-				      name: '',
-				      itemStyle: {
-				        normal: {
-				          label: {
-				            show: false
-				          },
-				          labelLine: {
-				            show: false
-				          },
-				          color: 'rgba(0, 0, 0, 0)',
-				          borderColor: 'rgba(0, 0, 0, 0)',
-				          borderWidth: 0
-				        }
-				      }
-				    })
-				  }
-				  
-				  let option = {
-				    tooltip: {
-				      show: false
-				    },
-				    series: [
-				      {
-				        name: '',
-				        type: 'pie',
-				        clockWise: false,
-				        startAngle: '90',
-				        center: ['50%', '50%'],
-				        radius: ['80%', '81%'],
-				        hoverAnimation: false,
-				        itemStyle: {
-				          normal: {
-				            label: {
-				              show: false
-				            },
-				            labelLine: {
-				              show: false
-				            }
-				          }
-				        },
-				        data: list,
-				        animationType: 'scale',
-				        animationEasing: 'elasticOut',
-				        animationDelay: function (idx) {
-				          return idx * 550;
-				        }
-				      },
-				      {
-				        name: '',
-				        type: 'pie',
-				        center: ['50%', '50%'],
-				        radius: ['70%', '70%'], //设置饼状图的宽高
-				        itemStyle: {
-				          color: 'transparant'
-				        },
-				        startAngle: '90',
-				        data: [{
-				          value: total,
-				          name: '',
-				          label: {
-				            normal: {
-				              show: true,
-				              formatter: '{b|'+total+'}' + '\n' + '{c|学生总人数}',
-				              rich: {
-												b: {
-												  color: 'rgba(0, 245, 255, 1)',
-												  fontSize: 13,
-												  lineHeight: 18
-												},
-				                c: {
-				                  color: 'rgba(255, 255, 255, .8)',
-				                  fontSize: 10,
-				                  lineHeight: 20
-				                }
-				              },
-				              position: 'center'
-				            }
-				          }
-				        }]
-				      }
-				    ]
-				  }
-				  chart.setOption(option, true);
-				
+			renderstudentpie() {
+
+				this.ratioList = [{
+						name: "照明",
+						val: 1100,
+						color: 'rgba(169,133,238,0.8)'
+					},
+					{
+						name: "空调",
+						val: 444,
+						color: 'rgba(196,144,191,0.8)'
+					},
+					{
+						name: "机房",
+						val: 501,
+						color: 'rgba(19,181,177,0.8)'
+					},
+					{
+						name: "应急通道",
+						val: 300,
+						color: 'rgba(229,188,128,0.8)'
+					}
+				]
+				let dom = document.getElementById('ratioChart');
+				let chart = echarts.init(dom);
+				let total = this.ratioList.reduce((sum, item) => sum + item.val, 0);
+				let list = []
+
+				for (let i in this.ratioList) {
+					list.push({
+						value: this.ratioList[i].val,
+						name: this.ratioList[i].name,
+						itemStyle: {
+							normal: {
+								borderWidth: 5,
+								shadowBlur: 20,
+								borderColor: this.ratioList[i].color,
+								shadowColor: this.ratioList[i].color,
+							}
+						}
+					}, {
+						value: total / 30,
+						name: '',
+						itemStyle: {
+							normal: {
+								label: {
+									show: false
+								},
+								labelLine: {
+									show: false
+								},
+								color: 'rgba(0, 0, 0, 0)',
+								borderColor: 'rgba(0, 0, 0, 0)',
+								borderWidth: 0
+							}
+						}
+					})
+				}
+
+				let option = {
+					tooltip: {
+						show: false
+					},
+					series: [{
+							name: '',
+							type: 'pie',
+							clockWise: false,
+							startAngle: '90',
+							center: ['50%', '50%'],
+							radius: ['80%', '81%'],
+							hoverAnimation: false,
+							itemStyle: {
+								normal: {
+									label: {
+										show: false
+									},
+									labelLine: {
+										show: false
+									}
+								}
+							},
+							data: list,
+							animationType: 'scale',
+							animationEasing: 'elasticOut',
+							animationDelay: function(idx) {
+								return idx * 550;
+							}
+						},
+						{
+							name: '',
+							type: 'pie',
+							center: ['50%', '50%'],
+							radius: ['70%', '70%'], //设置饼状图的宽高
+							itemStyle: {
+								color: 'transparant'
+							},
+							startAngle: '90',
+							data: [{
+								value: total,
+								name: '',
+								label: {
+									normal: {
+										show: true,
+										formatter: '{b|' + total + '}' + '\n' + '{c|学生总人数}',
+										rich: {
+											b: {
+												color: 'rgba(0, 245, 255, 1)',
+												fontSize: 13,
+												lineHeight: 18
+											},
+											c: {
+												color: 'rgba(255, 255, 255, .8)',
+												fontSize: 10,
+												lineHeight: 20
+											}
+										},
+										position: 'center'
+									}
+								}
+							}]
+						}
+					]
+				}
+				chart.setOption(option, true);
+
 			},
 			formatToPrice(value) {
 				return `<h3>$ ${Number(value).toFixed(2)}</h1>`;
@@ -763,965 +775,516 @@
 					height: this.autoHeight
 				});
 			},
+
 			randernormal() {
 				let normalChartDom, normalChartChart, option
 				normalChartDom = document.getElementById('abnormalecharts');
 				normalChartChart = echarts.init(normalChartDom);
 				let angle = 0; //角度，用来做简单的动画效果的
-				let value = 55.33;
-				option = {
-					// backgroundColor: "#061740",
-					title: {
-						text: '{a|' + value + '}{c|%}',
-						x: 'center',
-						y: 'center',
-						textStyle: {
-							rich: {
-								a: {
-									fontSize: 12,
-									color: '#29EEF3'
-								},
-
-								c: {
-									fontSize: 12,
-									color: '#ffffff',
-									// padding: [5,0]
-								}
-							}
-						}
-					},
-					// grid: {
-					// 	containLabel: true,
-					// 	left: 30,
-					// 	top: -20,
-					// 	// right: 100,
-					// 	bottom: 0
-					// },
-					legend: {
-						type: "plain",
-						orient: "vertical",
-						right: 0,
-						top: "10%",
-						align: "auto",
-						data: [{
-							name: '涨价后没吃过',
-							icon: "circle"
-						}, {
-							name: '天天吃',
-							icon: "circle"
-						}, {
-							name: '三五天吃一次',
-							icon: "circle"
-						}, {
-							name: '半个月吃一次',
-							icon: "circle"
-						}],
-						textStyle: {
-							color: "white",
-							fontSize: 12,
-							padding: [10, 1, 10, 0]
+				let value = 15;
+				let config = {
+					color: ["rgba(19, 181, 177, 1)", 'rgba(19, 181, 177, 1)'],
+					data: [{
+							name: '',
+							value: 77,
 						},
-						selectedMode: false
-					},
-					series: [{
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.7,
-										startAngle: (0 + angle) * Math.PI / 180,
-										endAngle: (90 + angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.7,
-										startAngle: (180 + angle) * Math.PI / 180,
-										endAngle: (270 + angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85,
-										startAngle: (270 + -angle) * Math.PI / 180,
-										endAngle: (40 + -angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85,
-										startAngle: (90 + -angle) * Math.PI / 180,
-										endAngle: (220 + -angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								let x0 = api.getWidth() / 2;
-								let y0 = api.getHeight() / 2;
-								let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85;
-								let point = getCirlPoint(x0, y0, r, (90 + -angle))
-								return {
-									type: 'circle',
-									shape: {
-										cx: point.x,
-										cy: point.y,
-										r: 4
-									},
-									style: {
-										stroke: "#0CD3DB", //粉
-										fill: "#0CD3DB"
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5", //绿点
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								let x0 = api.getWidth() / 2;
-								let y0 = api.getHeight() / 2;
-								let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85;
-								let point = getCirlPoint(x0, y0, r, (270 + -angle))
-								return {
-									type: 'circle',
-									shape: {
-										cx: point.x,
-										cy: point.y,
-										r: 4
-									},
-									style: {
-										stroke: "#0CD3DB", //绿
-										fill: "#0CD3DB"
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: '吃猪肉频率',
-							type: 'pie',
-							radius: ['58%', '45%'],
-							silent: true,
-							clockwise: true,
-							startAngle: 90,
-							z: 0,
-							zlevel: 0,
-							label: {
-								normal: {
-									position: "center",
+						{
+							name: '',
+							value: 23,
+						},
+					],
+					// title: {
+					// 	subtext: '公园基础设施提升',
+					// },
+				};
+				let num = config.data[0].value;
+				let unit = '%';
+				let title = '进度';
+				option = {
 
-								}
-							},
-							data: [{
-									value: value,
-									name: "",
-									itemStyle: {
-										normal: {
-											color: { // 完成的圆环的颜色
-												colorStops: [{
-													offset: 0,
-													color: '#4FADFD' // 0% 处的颜色
-												}, {
-													offset: 1,
-													color: '#28E8FA' // 100% 处的颜色
-												}]
-											},
-										}
-									}
+					color: [{
+							type: 'linear',
+							x: 0,
+							y: 0,
+							x2: 1,
+							y2: 1,
+							colorStops: [{
+									offset: 0,
+									color: config.color[0],
 								},
 								{
-									value: 100 - value,
-									name: "",
-									label: {
-										normal: {
-											show: false
-										}
-									},
-									itemStyle: {
-										normal: {
-											color: "rgb(38,73,110)"
-										}
-									}
-								}
-							]
+									offset: 1,
+									color: config.color[1],
+								},
+							],
+							global: false,
 						},
-
-						{ //分割线
-							name: "",
-							type: "gauge",
-							radius: "58%",
+						// '#252f54'//未填满的颜色
+						'rgba(32,187,252,0.15)'
+					],
+					title: Object.assign({
+							text: '{a|' + num + '}{b|%}',
+							x: 'center',
+							y: 'center',
+							textStyle: {
+								rich: {
+									a: {
+										fontSize: 22,
+										color: '#00F5FF',
+										fontWeight: '800',
+										// lineHeight: 22,
+										// marginRight: '100px 138px 0 0',
+									},
+									b: {
+										fontSize: 14,
+										color: "rgba(255,255,255,0.6)"
+									}
+								},
+							},
+							subtext: '',
+							top: '44%',
+							left: '46%',
+							textAlign: 'center',
+							itemGap: 280,
+							subtextStyle: {
+								color: '#fff',
+								fontSize: 36,
+								align: 'center',
+							},
+						},
+						config.title
+					),
+					series: [
+						//环形
+						{
+							name: '',
+							type: 'pie',
+							radius: ['60%', '80%'],
 							center: ['50%', '50%'],
-							startAngle: 0,
-							endAngle: 359.9,
-							splitNumber: 8,
-							hoverAnimation: true,
-							axisTick: {
-								show: false
+							hoverAnimation: false, //4.x版本使用取消悬浮放大
+							emphasis: {
+								//5.x版本使用取消悬浮放大
+								scale: false,
+								label: {
+									show: false /* 5.x版本是label.emphasis */ ,
+								},
 							},
-							splitLine: {
-								length: 7,
-								lineStyle: {
-									width: 2,
-									color: "rgb(23,49,77,0.5)"
-								}
+							// label: { 4.x版本是label.emphasis
+							//     // normal: {
+							//         show: false,
+							//     // },
+							//     emphasis: {
+							//         show: false,
+							//     },
+							// },
+							zlevel: 1,
+							labelLine: {
+								// normal: {/* 5.x版本中去掉了normal */
+								show: false,
+								// },
 							},
-							axisLabel: {
-								show: false
-							},
-							pointer: {
-								show: false
+							data: config.data,
+						},
+						//环形分割线
+						{
+							name: '分割线',
+							type: 'gauge',
+							radius: '100%', //配合splitLine里的length一起调
+							clockwise: true,
+							startAngle: '90',
+							center: ['50%', '50%'],
+							endAngle: '-269.9999',
+							splitNumber: 14,
+							zlevel: 2,
+							detail: {
+								offsetCenter: [10, 20],
+								formatter: ' ',
 							},
 							axisLine: {
 								lineStyle: {
-									opacity: 0
-								}
+									width: 1,
+									opacity: 0,
+								},
 							},
-							detail: {
-								show: false
+							axisTick: {
+								show: false,
 							},
-							data: [{
-								value: 0,
-								name: ""
-							}]
+							markArea: {
+								itemStyle: {
+									color: '#0f0',
+								},
+							},
+							splitLine: {
+								show: true,
+								length: 11, //配合radius一起调
+								padding: [0, 0, 0],
+								lineStyle: {
+									// color: 'rgba(21, 82, 105, 0.6)',
+									color: '#051F54',
+									width: 3,
+								},
+							},
+							axisLabel: {
+								show: false,
+							},
 						},
-
-					]
+					],
 				};
-
-				//获取圆上面某点的坐标(x0,y0表示坐标，r半径，angle角度)
-				function getCirlPoint(x0, y0, r, angle) {
-					let x1 = x0 + r * Math.cos(angle * Math.PI / 180)
-					let y1 = y0 + r * Math.sin(angle * Math.PI / 180)
-					return {
-						x: x1,
-						y: y1
-					}
-				}
-
-				function draw() {
-					angle = angle + 3
-					normalChartChart.setOption(option, true)
-					//window.requestAnimationFrame(draw);
-				}
-
-				setInterval(function() {
-					//用setInterval做动画感觉有问题
-					draw()
-				}, 100);
-
+				normalChartChart.setOption(option, true)
 			},
+
 			randernormalsec() {
 				let normalChartDomsec, normalChartChartsec, option
 				normalChartDomsec = document.getElementById('abnormalechartssec');
 				normalChartChartsec = echarts.init(normalChartDomsec);
-				console.log("889898", normalChartChartsec)
+
+				// console.log(val, "45655")
 				let angle = 0; //角度，用来做简单的动画效果的
-				let value = 55.33;
-				option = {
-					// backgroundColor: "#061740",
-					title: {
-						text: '{a|' + value + '}{c|%}',
-						x: 'center',
-						y: 'center',
-						textStyle: {
-							rich: {
-								a: {
-									fontSize: 12,
-									color: '#29EEF3'
-								},
-
-								c: {
-									fontSize: 12,
-									color: '#ffffff',
-									// padding: [5,0]
-								}
-							}
-						}
-					},
-					// grid: {
-					// 	containLabel: true,
-					// 	left: 30,
-					// 	top: -20,
-					// 	// right: 100,
-					// 	bottom: 0
-					// },
-					legend: {
-						type: "plain",
-						orient: "vertical",
-						right: 0,
-						top: "10%",
-						align: "auto",
-						data: [{
-							name: '涨价后没吃过',
-							icon: "circle"
-						}, {
-							name: '天天吃',
-							icon: "circle"
-						}, {
-							name: '三五天吃一次',
-							icon: "circle"
-						}, {
-							name: '半个月吃一次',
-							icon: "circle"
-						}],
-						textStyle: {
-							color: "white",
-							fontSize: 12,
-							padding: [10, 1, 10, 0]
+				let value = 15;
+				let config = {
+					color: ["rgba(246, 136, 106, 1)", 'rgba(246, 136, 106, 1)'],
+					data: [{
+							name: '',
+							value: 77,
 						},
-						selectedMode: false
-					},
-					series: [{
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.7,
-										startAngle: (0 + angle) * Math.PI / 180,
-										endAngle: (90 + angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.7,
-										startAngle: (180 + angle) * Math.PI / 180,
-										endAngle: (270 + angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85,
-										startAngle: (270 + -angle) * Math.PI / 180,
-										endAngle: (40 + -angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85,
-										startAngle: (90 + -angle) * Math.PI / 180,
-										endAngle: (220 + -angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								let x0 = api.getWidth() / 2;
-								let y0 = api.getHeight() / 2;
-								let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85;
-								let point = getCirlPoint(x0, y0, r, (90 + -angle))
-								return {
-									type: 'circle',
-									shape: {
-										cx: point.x,
-										cy: point.y,
-										r: 4
-									},
-									style: {
-										stroke: "#0CD3DB", //粉
-										fill: "#0CD3DB"
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5", //绿点
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								let x0 = api.getWidth() / 2;
-								let y0 = api.getHeight() / 2;
-								let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85;
-								let point = getCirlPoint(x0, y0, r, (270 + -angle))
-								return {
-									type: 'circle',
-									shape: {
-										cx: point.x,
-										cy: point.y,
-										r: 4
-									},
-									style: {
-										stroke: "#0CD3DB", //绿
-										fill: "#0CD3DB"
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: '吃猪肉频率',
-							type: 'pie',
-							radius: ['58%', '45%'],
-							silent: true,
-							clockwise: true,
-							startAngle: 90,
-							z: 0,
-							zlevel: 0,
-							label: {
-								normal: {
-									position: "center",
+						{
+							name: '',
+							value: 23,
+						},
+					],
+					// title: {
+					// 	subtext: '公园基础设施提升',
+					// },
+				};
+				let num = config.data[0].value;
+				let unit = '%';
+				let title = '进度';
+				option = {
 
-								}
-							},
-							data: [{
-									value: value,
-									name: "",
-									itemStyle: {
-										normal: {
-											color: { // 完成的圆环的颜色
-												colorStops: [{
-													offset: 0,
-													color: '#F6886A' // 0% 处的颜色
-												}, {
-													offset: 1,
-													color: '#F6886A' // 100% 处的颜色
-												}]
-											},
-										}
-									}
+					color: [{
+							type: 'linear',
+							x: 0,
+							y: 0,
+							x2: 1,
+							y2: 1,
+							colorStops: [{
+									offset: 0,
+									color: config.color[0],
 								},
 								{
-									value: 100 - value,
-									name: "",
-									label: {
-										normal: {
-											show: false
-										}
-									},
-									itemStyle: {
-										normal: {
-											color: "rgb(38,73,110)"
-										}
-									}
-								}
-							]
+									offset: 1,
+									color: config.color[1],
+								},
+							],
+							global: false,
 						},
-
-						{ //分割线
-							name: "",
-							type: "gauge",
-							radius: "58%",
+						// '#252f54'//未填满的颜色
+						'rgba(32,187,252,0.15)'
+					],
+					title: Object.assign({
+							text: '{a|' + num + '}{b|%}',
+							x: 'center',
+							y: 'center',
+							textStyle: {
+								rich: {
+									a: {
+										fontSize: 22,
+										color: '#00F5FF',
+										fontWeight: '800',
+										// lineHeight: 22,
+										// marginRight: '100px 138px 0 0',
+									},
+									b: {
+										fontSize: 14,
+										color: "rgba(255,255,255,0.6)"
+									}
+								},
+							},
+							subtext: '',
+							top: '44%',
+							left: '46%',
+							textAlign: 'center',
+							itemGap: 280,
+							subtextStyle: {
+								color: '#fff',
+								fontSize: 36,
+								align: 'center',
+							},
+						},
+						config.title
+					),
+					series: [
+						//环形
+						{
+							name: '',
+							type: 'pie',
+							radius: ['60%', '80%'],
 							center: ['50%', '50%'],
-							startAngle: 0,
-							endAngle: 359.9,
-							splitNumber: 8,
-							hoverAnimation: true,
-							axisTick: {
-								show: false
+							hoverAnimation: false, //4.x版本使用取消悬浮放大
+							emphasis: {
+								//5.x版本使用取消悬浮放大
+								scale: false,
+								label: {
+									show: false /* 5.x版本是label.emphasis */ ,
+								},
 							},
-							splitLine: {
-								length: 7,
-								lineStyle: {
-									width: 2,
-									color: "rgb(23,49,77,0.5)"
-								}
+							// label: { 4.x版本是label.emphasis
+							//     // normal: {
+							//         show: false,
+							//     // },
+							//     emphasis: {
+							//         show: false,
+							//     },
+							// },
+							zlevel: 1,
+							labelLine: {
+								// normal: {/* 5.x版本中去掉了normal */
+								show: false,
+								// },
 							},
-							axisLabel: {
-								show: false
-							},
-							pointer: {
-								show: false
+							data: config.data,
+						},
+						//环形分割线
+						{
+							name: '分割线',
+							type: 'gauge',
+							radius: '100%', //配合splitLine里的length一起调
+							clockwise: true,
+							startAngle: '90',
+							center: ['50%', '50%'],
+							endAngle: '-269.9999',
+							splitNumber: 14,
+							zlevel: 2,
+							detail: {
+								offsetCenter: [10, 20],
+								formatter: ' ',
 							},
 							axisLine: {
 								lineStyle: {
-									opacity: 0
-								}
+									width: 1,
+									opacity: 0,
+								},
 							},
-							detail: {
-								show: false
+							axisTick: {
+								show: false,
 							},
-							data: [{
-								value: 0,
-								name: ""
-							}]
+							markArea: {
+								itemStyle: {
+									color: '#0f0',
+								},
+							},
+							splitLine: {
+								show: true,
+								length: 13, //配合radius一起调
+								padding: [0, 0, 0],
+								lineStyle: {
+									// color: 'rgba(21, 82, 105, 0.6)',
+									color: '#051F54',
+									width: 3,
+								},
+							},
+							axisLabel: {
+								show: false,
+							},
 						},
-
-					]
+					],
 				};
-
-				//获取圆上面某点的坐标(x0,y0表示坐标，r半径，angle角度)
-				function getCirlPoint(x0, y0, r, angle) {
-					let x1 = x0 + r * Math.cos(angle * Math.PI / 180)
-					let y1 = y0 + r * Math.sin(angle * Math.PI / 180)
-					return {
-						x: x1,
-						y: y1
-					}
-				}
-
-				function draw() {
-					angle = angle + 3
-					normalChartChartsec.setOption(option, true)
-					//window.requestAnimationFrame(draw);
-				}
-
-				setInterval(function() {
-					//用setInterval做动画感觉有问题
-					draw()
-				}, 100);
-
+				normalChartChartsec.setOption(option, true)
 			},
+
 			randernormalthir() {
-				let normalChartDom, normalChartChart, option
-				normalChartDom = document.getElementById('abnormalechartsthir');
-				normalChartChart = echarts.init(normalChartDom);
+				let abnormalechartsthirChartDom, abnormalechartsthirChartChart, option
+				abnormalechartsthirChartDom = document.getElementById('abnormalechartsthir');
+				abnormalechartsthirChartChart = echarts.init(abnormalechartsthirChartDom);
+				// console.log(val, "45655")
 				let angle = 0; //角度，用来做简单的动画效果的
-				let value = 55.33;
-				option = {
-					// backgroundColor: "#061740",
-					title: {
-						text: '{a|' + value + '}{c|%}',
-						x: 'center',
-						y: 'center',
-						textStyle: {
-							rich: {
-								a: {
-									fontSize: 12,
-									color: '#29EEF3'
-								},
-
-								c: {
-									fontSize: 12,
-									color: '#ffffff',
-									// padding: [5,0]
-								}
-							}
-						}
-					},
-					// grid: {
-					// 	containLabel: true,
-					// 	left: 30,
-					// 	top: -20,
-					// 	// right: 100,
-					// 	bottom: 0
-					// },
-					legend: {
-						type: "plain",
-						orient: "vertical",
-						right: 0,
-						top: "10%",
-						align: "auto",
-						data: [{
-							name: '涨价后没吃过',
-							icon: "circle"
-						}, {
-							name: '天天吃',
-							icon: "circle"
-						}, {
-							name: '三五天吃一次',
-							icon: "circle"
-						}, {
-							name: '半个月吃一次',
-							icon: "circle"
-						}],
-						textStyle: {
-							color: "white",
-							fontSize: 12,
-							padding: [10, 1, 10, 0]
+				let value = 15;
+				let config = {
+					color: ["rgba(229, 188, 128, 1)", 'rgba(229, 188, 128, 1)'],
+					data: [{
+							name: '',
+							value: 77,
 						},
-						selectedMode: false
-					},
-					series: [{
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.7,
-										startAngle: (0 + angle) * Math.PI / 180,
-										endAngle: (90 + angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.7,
-										startAngle: (180 + angle) * Math.PI / 180,
-										endAngle: (270 + angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85,
-										startAngle: (270 + -angle) * Math.PI / 180,
-										endAngle: (40 + -angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								return {
-									type: 'arc',
-									shape: {
-										cx: api.getWidth() / 2,
-										cy: api.getHeight() / 2,
-										r: Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85,
-										startAngle: (90 + -angle) * Math.PI / 180,
-										endAngle: (220 + -angle) * Math.PI / 180
-									},
-									style: {
-										stroke: "#0CD3DB",
-										fill: "transparent",
-										lineWidth: 1.5
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5",
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								let x0 = api.getWidth() / 2;
-								let y0 = api.getHeight() / 2;
-								let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85;
-								let point = getCirlPoint(x0, y0, r, (90 + -angle))
-								return {
-									type: 'circle',
-									shape: {
-										cx: point.x,
-										cy: point.y,
-										r: 4
-									},
-									style: {
-										stroke: "#0CD3DB", //粉
-										fill: "#0CD3DB"
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: "ring5", //绿点
-							type: 'custom',
-							coordinateSystem: "none",
-							renderItem: function(params, api) {
-								let x0 = api.getWidth() / 2;
-								let y0 = api.getHeight() / 2;
-								let r = Math.min(api.getWidth(), api.getHeight()) / 2 * 0.85;
-								let point = getCirlPoint(x0, y0, r, (270 + -angle))
-								return {
-									type: 'circle',
-									shape: {
-										cx: point.x,
-										cy: point.y,
-										r: 4
-									},
-									style: {
-										stroke: "#0CD3DB", //绿
-										fill: "#0CD3DB"
-									},
-									silent: true
-								};
-							},
-							data: [0]
-						}, {
-							name: '吃猪肉频率',
-							type: 'pie',
-							radius: ['58%', '45%'],
-							silent: true,
-							clockwise: true,
-							startAngle: 90,
-							z: 0,
-							zlevel: 0,
-							label: {
-								normal: {
-									position: "center",
+						{
+							name: '',
+							value: 23,
+						},
+					],
+					// title: {
+					// 	subtext: '公园基础设施提升',
+					// },
+				};
+				let num = config.data[0].value;
+				let unit = '%';
+				let title = '进度';
+				option = {
 
-								}
-							},
-							data: [{
-									value: value,
-									name: "",
-									itemStyle: {
-										normal: {
-											color: { // 完成的圆环的颜色
-												colorStops: [{
-													offset: 0,
-													color: '#E5BC80' // 0% 处的颜色
-												}, {
-													offset: 1,
-													color: '#E5BC80' // 100% 处的颜色
-												}]
-											},
-										}
-									}
+					color: [{
+							type: 'linear',
+							x: 0,
+							y: 0,
+							x2: 1,
+							y2: 1,
+							colorStops: [{
+									offset: 0,
+									color: config.color[0],
 								},
 								{
-									value: 100 - value,
-									name: "",
-									label: {
-										normal: {
-											show: false
-										}
-									},
-									itemStyle: {
-										normal: {
-											color: "rgb(38,73,110)"
-										}
-									}
-								}
-							]
+									offset: 1,
+									color: config.color[1],
+								},
+							],
+							global: false,
 						},
-
-						{ //分割线
-							name: "",
-							type: "gauge",
-							radius: "58%",
+						// '#252f54'//未填满的颜色
+						'rgba(32,187,252,0.15)'
+					],
+					title: Object.assign({
+							text: '{a|' + num + '}{b|%}',
+							x: 'center',
+							y: 'center',
+							textStyle: {
+								rich: {
+									a: {
+										fontSize: 22,
+										color: '#00F5FF',
+										fontWeight: '800',
+										// lineHeight: 22,
+										// marginRight: '100px 138px 0 0',
+									},
+									b: {
+										fontSize: 14,
+										color: "rgba(255,255,255,0.6)"
+									}
+								},
+							},
+							subtext: '',
+							top: '44%',
+							left: '46%',
+							textAlign: 'center',
+							itemGap: 280,
+							subtextStyle: {
+								color: '#fff',
+								fontSize: 36,
+								align: 'center',
+							},
+						},
+						config.title
+					),
+					series: [
+						//环形
+						{
+							name: '',
+							type: 'pie',
+							radius: ['60%', '80%'],
 							center: ['50%', '50%'],
-							startAngle: 0,
-							endAngle: 359.9,
-							splitNumber: 8,
-							hoverAnimation: true,
-							axisTick: {
-								show: false
+							hoverAnimation: false, //4.x版本使用取消悬浮放大
+							emphasis: {
+								//5.x版本使用取消悬浮放大
+								scale: false,
+								label: {
+									show: false /* 5.x版本是label.emphasis */ ,
+								},
 							},
-							splitLine: {
-								length: 7,
-								lineStyle: {
-									width: 2,
-									color: "rgb(23,49,77,0.5)"
-								}
+							// label: { 4.x版本是label.emphasis
+							//     // normal: {
+							//         show: false,
+							//     // },
+							//     emphasis: {
+							//         show: false,
+							//     },
+							// },
+							zlevel: 1,
+							labelLine: {
+								// normal: {/* 5.x版本中去掉了normal */
+								show: false,
+								// },
 							},
-							axisLabel: {
-								show: false
-							},
-							pointer: {
-								show: false
+							data: config.data,
+						},
+						//环形分割线
+						{
+							name: '分割线',
+							type: 'gauge',
+							radius: '100%', //配合splitLine里的length一起调
+							clockwise: true,
+							startAngle: '90',
+							center: ['50%', '50%'],
+							endAngle: '-269.9999',
+							splitNumber: 14,
+							zlevel: 2,
+							detail: {
+								offsetCenter: [10, 20],
+								formatter: ' ',
 							},
 							axisLine: {
 								lineStyle: {
-									opacity: 0
-								}
+									width: 1,
+									opacity: 0,
+								},
 							},
-							detail: {
-								show: false
+							axisTick: {
+								show: false,
 							},
-							data: [{
-								value: 0,
-								name: ""
-							}]
+							markArea: {
+								itemStyle: {
+									color: '#0f0',
+								},
+							},
+							splitLine: {
+								show: true,
+								length: 13, //配合radius一起调
+								padding: [0, 0, 0],
+								lineStyle: {
+									// color: 'rgba(21, 82, 105, 0.6)',
+									color: '#051F54',
+									width: 3,
+								},
+							},
+							axisLabel: {
+								show: false,
+							},
 						},
-
-					]
+					],
 				};
-
-				//获取圆上面某点的坐标(x0,y0表示坐标，r半径，angle角度)
-				function getCirlPoint(x0, y0, r, angle) {
-					let x1 = x0 + r * Math.cos(angle * Math.PI / 180)
-					let y1 = y0 + r * Math.sin(angle * Math.PI / 180)
-					return {
-						x: x1,
-						y: y1
-					}
-				}
-
-				function draw() {
-					angle = angle + 3
-					normalChartChart.setOption(option, true)
-					//window.requestAnimationFrame(draw);
-				}
-
-				setInterval(function() {
-					//用setInterval做动画感觉有问题
-					draw()
-				}, 100);
-
+				abnormalechartsthirChartChart.setOption(option, true)
 			},
 			radar() {
-				let data=[
-					{name:'教学楼',val:80},
-					{name:'教学楼',val:45},
-					{name:'教学楼',val:25},
-					{name:'教学楼',val:20},
-					{name:'教学楼',val:15},
-					{name:'宿舍楼',val:42},
+				let data = [{
+						name: '教学楼',
+						val: 80
+					},
+					{
+						name: '教学楼',
+						val: 45
+					},
+					{
+						name: '教学楼',
+						val: 25
+					},
+					{
+						name: '教学楼',
+						val: 20
+					},
+					{
+						name: '教学楼',
+						val: 15
+					},
+					{
+						name: '宿舍楼',
+						val: 42
+					},
 				]
 				let radarChartDom, radarChartChart, option
 				radarChartDom = document.getElementById('radar');
 				radarChartChart = echarts.init(radarChartDom);
 				option = {
 					animationEasing: 'cubicInout',
-        	animationDuration:1000,
+					animationDuration: 1000,
 					tooltip: {
-						backgroundColor:'rgba(44,62,80,0.8)',
-						textStyle:{
-							color:'rgba(255,255,255,0.8)',
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						textStyle: {
+							color: 'rgba(255,255,255,0.8)',
 						},
 						formatter: function() {
 							var html = '';
@@ -1739,10 +1302,10 @@
 							textStyle: {
 								color: "rgba(255, 255, 255, 0.8)",
 								fontSize: 14,
-								rich:{
-									per:{
-										color:'#00F5FF',
-										fontSize:15
+								rich: {
+									per: {
+										color: '#00F5FF',
+										fontSize: 15
 									},
 									hr: {
 										borderColor: 'rgba(153, 209, 246, 0.2)',
@@ -1753,16 +1316,19 @@
 									}
 								}
 							},
-							formatter: function(name,parma) {
+							formatter: function(name, parma) {
 								return `${name} {per|${parma.val/parma.max}}\n{hr|}`;
 							}
 						},
-						indicator: data.map(item=>{
-							return {...item,max:100};
+						indicator: data.map(item => {
+							return {
+								...item,
+								max: 100
+							};
 						}),
 						axisLine: {
 							lineStyle: {
-								type:'dotted',
+								type: 'dotted',
 								width: 2,
 								color: "rgba(153, 209, 246, 0.2)"
 							}
@@ -1776,13 +1342,13 @@
 									'rgba(106, 176, 255, 0.3)',
 									'rgba(106, 176, 255, 0.2)',
 									'rgba(106, 176, 255, 0.1)',
-									] // 图表背景的颜色
+								] // 图表背景的颜色
 							}
 						},
 						splitLine: {
 							show: true,
 							lineStyle: {
-								type:'dotted',
+								type: 'dotted',
 								width: 2,
 								color: "rgba(153, 209, 246, 0.2)" // 设置网格的颜色
 							}
@@ -1794,12 +1360,12 @@
 						type: "radar",
 						// symbol: "circle",
 						areaStyle: {
-								color: "rgba(0, 245, 255, 0.4)"
-							},
+							color: "rgba(0, 245, 255, 0.4)"
+						},
 						itemStyle: {
 							color: "rgba(0, 245, 255, 1)",
 							// borderColor: "rgba(0, 245, 255, 1)",
-							borderWidth:0,
+							borderWidth: 0,
 							shadowBlur: 2,
 							shadowColor: 'rgba(146, 225, 255, 1)',
 						},
@@ -1807,16 +1373,16 @@
 							color: "rgba(146, 225, 255, 1)",
 							// width: 1
 						},
-						data:[{
-								value: [0,0,0,0,0,0],
-							}]
+						data: [{
+							value: [0, 0, 0, 0, 0, 0],
+						}]
 					}]
 				}
 				radarChartChart.setOption(option, true)
 				setTimeout(() => {
-        	radarChartChart.clear();//清除动画
-					option.series[0].data[0].value=data.map(item=>item.val);
-					radarChartChart.setOption(option,true);
+					radarChartChart.clear(); //清除动画
+					option.series[0].data[0].value = data.map(item => item.val);
+					radarChartChart.setOption(option, true);
 				}, 600)
 			}
 		}
@@ -1909,7 +1475,7 @@
 	.peoplestruebgc {
 		width: 152px;
 		height: 144px;
-/* 		background: url(../assets/img/peoplestrueimg.png) no-repeat;
+		/* 		background: url(../assets/img/peoplestrueimg.png) no-repeat;
 		background-size: 100% 100%;
 		display: flex;
 		align-items: center;
@@ -1938,7 +1504,7 @@
 	#studentnow {
 		width: 380px;
 		height: 180px;
-		top:-10px
+		top: -10px
 	}
 
 	.abnormal {
@@ -1950,9 +1516,9 @@
 
 	.abnormalbox {
 		background: url(../assets/personnelsituation/rightbox.png) no-repeat;
-		width: 100px;
+		width: 104px;
 		height: 140px;
-		background-size: 100px 140px;
+		background-size: 104px 140px;
 	}
 
 	#abnormalecharts {
@@ -2086,43 +1652,69 @@
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
 	}
+
 	.chart-ratio {
-	  width: 120px;
-	  height: 120px;
+		width: 120px;
+		height: 120px;
 		position: absolute;
 		left: 0;
 		// top:50px;
-		left:20px;
+		left: 20px;
 	}
+
 	.bg-ratio-animImg {
-	  width: 130px;
-	  height: 130px;
-	  position: absolute;
-	  left:13px;
-	  top: -2px;
-	  animation: myMove 5s; //外圈旋转动画
-	  -webkit-animation: myMove 5s infinite linear;
+		width: 130px;
+		height: 130px;
+		position: absolute;
+		left: 13px;
+		top: -2px;
+		animation: myMove 5s; //外圈旋转动画
+		-webkit-animation: myMove 5s infinite linear;
 	}
+
 	/* 外圈旋转动画 */
 	@-webkit-keyframes myMove {
-	  /**关键帧名称**/
-	  0% {
-	    -webkit-transform: rotate(0deg);
-	  }
-	
-	  100% {
-	    -webkit-transform: rotate(360deg);
-	  }
+
+		/**关键帧名称**/
+		0% {
+			-webkit-transform: rotate(0deg);
+		}
+
+		100% {
+			-webkit-transform: rotate(360deg);
+		}
 	}
+
 	.bg-ratio {
-	  width: 84px;
-	  height: 84px;
-	  position: absolute;
-	  left: 38px;
-	  top: 18px;
+		width: 84px;
+		height: 84px;
+		position: absolute;
+		left: 38px;
+		top: 18px;
 	}
-	.chartBox{
+
+	.chartBox {
 		position: relative;
 		left: -20px;
+	}
+	
+	.eq-num-box-chart {
+		position: relative;
+	}
+	.gear {
+		width: 56px;
+		height: 56px;
+		position: absolute;
+		top: 32px;
+		left: 22px;
+	}
+
+	.gearout {
+		width: 96px;
+		height: 98px;
+		position: absolute;
+		left: 3px;
+		top: 10px;
+		;
 	}
 </style>

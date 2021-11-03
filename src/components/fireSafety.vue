@@ -335,9 +335,9 @@
 							value: 23,
 						},
 					],
-					title: {
-						subtext: '公园基础设施提升',
-					},
+					// title: {
+					// 	subtext: '公园基础设施提升',
+					// },
 				};
 				let num = config.data[0].value;
 				let unit = '%';
