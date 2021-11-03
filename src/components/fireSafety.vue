@@ -54,13 +54,15 @@
 								:key="nav.id" @click="handleAbCheckNav(nav.id)">{{ nav.name }}</span>
 						</div>
 						<div class="ab-list">
-							<div class="ab-item" v-for="item in abDetailList" :key="item.id">
-								<div>
-									<div class="ab-item-name">{{ item.name }}</div>
-									<div class="ab-item-date">{{ item.date }}</div>
+							<div class="ab-item-wrap" v-for="item in abDetailList" :key="item.id">
+								<div class="ab-item">
+									<div>
+										<div class="ab-item-name">{{ item.name }}</div>
+										<div class="ab-item-date">{{ item.date }}</div>
+									</div>
+									<div>{{ item.address }}</div>
+									<div class="ab-close-btn"></div>
 								</div>
-								<div>{{ item.address }}</div>
-								<div class="ab-close-btn"></div>
 							</div>
 						</div>
 					</div>
@@ -109,13 +111,15 @@
 								:key="head.name">{{ head.name }}</span>
 						</div>
 						<div class="ab-list patrol">
-							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
-								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
-									{{ item.name }}
+							<div class="ab-item-wrap" v-for="(item) in abDetailList" :key="item.id">
+								<div class="ab-item">
+									<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
+										{{ item.name }}
+									</div>
+									<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
+									<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
+									<div :style="{width: tableHead[3].width}" class="last-address table-item"></div>
 								</div>
-								<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
-								<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
-								<div :style="{width: tableHead[3].width}" class="last-address table-item"></div>
 							</div>
 						</div>
 						<pageination></pageination>
@@ -727,11 +731,13 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin: 6px 16px 0;
-		padding: 0 0 6px;
+		// margin: 6px 16px 0;
+		padding: 6px 16px 6px;
 		border-bottom: 1px solid rgba(63, 151, 207, .5);
 	}
-
+	.ab-item-wrap:hover{
+		background: rgba(106, 176, 255, 0.2);
+	}
 	.ab-item-name,
 	.ab-item-date {
 		margin-top: 5px;
