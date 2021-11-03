@@ -822,17 +822,18 @@
 	}
 
 	.networkdevicetotal {
-		height: 140px;
+		// height: 140px;
 	}
 
 	#networkdevicetotal {
-		height: 100%;
+		height: 160px;
 		width: 100%;
 	}
 
 	.equipmentalarmtotal {
-		height: 100%;
-		// margin-top: 20px;
+		// height: 100%;
+		
+		margin-top: 20px;
 	}
 
 	.table-head {
@@ -862,7 +863,7 @@
 
 	.ab-list {
 		font-size: 12px;
-		height: 100%;
+		height: calc(100% - 60px);
 		overflow-y: scroll;
 	}
 
@@ -893,7 +894,7 @@
 
 	.patrol {
 		font-size: 12px;
-		height: 120px;
+		// height: 120px;
 		// overflow-y: scroll;
 
 		.ab-item-name {
@@ -948,9 +949,7 @@
 	}
 
 	.webSecuritytotal {
-		height: 380px;
-
-
+		// height: 380px;
 	}
 
 	.serverSecuritytotal {

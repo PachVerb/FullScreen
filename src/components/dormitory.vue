@@ -577,7 +577,7 @@
 		display: flex;
 		align-items: center;
 		padding: 3px;
-		padding-left: .106667rem;
+		/* padding-left: .106667rem; */
 		color: #00F5FF;
 		font-size: .08rem;
 		border-bottom: 1px solid #00F5FF;
@@ -705,7 +705,7 @@
 
 	.left {
 		height: 100%;
-		padding-left: 20px;
+		/* padding-left: 20px; */
 	}
 
 	.homestatues {
