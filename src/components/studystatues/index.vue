@@ -659,7 +659,8 @@ export default {
   .listBox {
     margin-top: 10px;
     width: 100%;
-    height: 300px;
+    flex: 1;
+    // height: 300px;
     overflow-y: auto;
     .head {
       position: relative;
@@ -828,8 +829,9 @@ export default {
 }
 .attendStati{
   padding: 0 12px;
+  box-sizing: border-box;
   width: 100%;
-  height: 260px;
+  height: 100%;
   overflow-y: auto;
   .head {
       position: relative;
