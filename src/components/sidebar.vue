@@ -174,7 +174,7 @@ export default {
       sideDomList = [...sideDomList]
       sideDomList.forEach((dom,index) => {
         let a = this.returnClassType(index,this.thisIndex)
-        dom.style.left = 10 + (index - this.thisIndex*this.size)*105 + 'px'
+        dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
         dom.style.top = (42-(a-1)*17) + 'px'
       })
     },
@@ -229,7 +229,7 @@ export default {
   transform: rotateZ(60deg);
 }
 .up img{
-  transform: rotateZ(-35deg);
+  transform: rotateZ(-60deg);
 }
 .side-item img{
   width: 68px;
