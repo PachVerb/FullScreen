@@ -59,9 +59,9 @@
               </span>
             </div>
             <div class="navBox">
-              <span :class="dormKey?`text checked`:'text'" @click="dormKey=true">使用中</span>
+              <span :class="dormKey?`text checked`:'text'" @click="getDormStatus(true)">使用中</span>
               <span style="margin:0 20px;">|</span>
-              <span :class="dormKey?`text`:'text checked'" @click="dormKey=false">空闲中</span>
+              <span :class="dormKey?`text`:'text checked'" @click="getDormStatus(false)">空闲中</span>
             </div>
             <div class="listBox">
               <div class="head">
@@ -320,8 +320,9 @@ export default {
       ]
     },
     //各宿舍楼归寝情况
-    getDormStatus() {
-      this.dormList = [
+    getDormStatus(flag=true) {
+      this.dormKey = flag;
+      this.dormList = flag?[
         { room: '法医实验室', loca: '文科实验楼1', person: '张锦' },
         { room: '化学实验室', loca: '文科实验楼2', person: '李达' },
         { room: '统计大数据实验室', loca: '文科实验楼3', person: '王晓悦' },
@@ -330,12 +331,22 @@ export default {
         { room: '网络统计实验室', loca: '文科实验楼6', person: '杨澜' },
         { room: '网络统计实验室', loca: '文科实验楼7', person: '杨澜' },
         { room: '网络统计实验室', loca: '文科实验楼8', person: '杨澜' },
+      ]:[
+        { room: '地理实验室', loca: '理科实验楼1', person: '张锦' },
+        { room: '生化实验室', loca: '理科实验楼2', person: '李达' },
+        { room: '政治思想实验室', loca: '理科实验楼3', person: '王晓悦' },
+        { room: '现代军事技能实验室', loca: '理科实验楼4', person: '程慕' },
+        { room: '计算机1实验室', loca: '理科实验楼5', person: '杨澜' },
+        { room: '计算机2实验室', loca: '理科实验楼6', person: '李治' },
+        { room: '计算机3实验室', loca: '理科实验楼7', person: '张三' },
+        { room: '计算机4实验室', loca: '理科实验楼8', person: '杨澜' },
       ]
       this.dormScrollStart();
     },
     //开始自动滚动
     dormScrollStart() {
       this.dormList.length && this.$nextTick(() => {
+        this.dormScrollStop();
         let scrollBox = document.querySelector('.dormState .scroll');
         let content = document.querySelector('.dormState .scroll .content');
         let items = document.querySelectorAll('.dormState .scroll .content .row');
@@ -500,6 +511,7 @@ export default {
     //开始自动滚动
     attendScrollStart() {
       this.attendList.length && this.$nextTick(() => {
+        this.attendScrollStop();
         let scrollBox = document.querySelector('.attendStati .scroll');
         let content = document.querySelector('.attendStati .scroll .content');
         let items = document.querySelectorAll('.attendStati .scroll .content .row');
