@@ -353,12 +353,11 @@ export default {
         let itemH = items[0].clientHeight;
         let flag = true;
         let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+        //检查滚动距离是否过短
+        if(content.clientHeight - scrollBox.clientHeight<itemH)return;
         this.dormTimer = setInterval(() => {
           //检查滚动距离是否过短
-          if(content.clientHeight - scrollBox.clientHeight<itemH){
-            this.dormScrollStop();
-            return;
-          }
+          if(content.clientHeight - scrollBox.clientHeight<itemH)return;
           //来回移动
           // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
           //   scrollBox.scrollTop += 1;
@@ -502,14 +501,14 @@ export default {
     //出勤异常统计
     getAttendStati() {
       this.attendList = [
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 2 },
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 2 },
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 2 },
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
-        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
+        { name: '周雨生1', num: 19, class: '土木工程12班', type: 1 },
+        { name: '周雨生2', num: 29, class: '土木工程12班', type: 2 },
+        { name: '周雨生3', num: 39, class: '土木工程12班', type: 1 },
+        { name: '周雨生4', num: 49, class: '土木工程12班', type: 1 },
+        { name: '周雨生5', num: 59, class: '土木工程12班', type: 2 },
+        { name: '周雨生6', num: 69, class: '土木工程12班', type: 2 },
+        { name: '周雨生7', num: 79, class: '土木工程12班', type: 1 },
+        { name: '周雨生8', num: 89, class: '土木工程12班', type: 1 },
       ]
       this.attendScrollStart();
     },
@@ -523,12 +522,11 @@ export default {
         let itemH = items[0].clientHeight;
         let flag = true;
         let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+        //检查滚动距离是否过短
+        if(content.clientHeight - scrollBox.clientHeight<itemH)return;
         this.attendTimer = setInterval(() => {
           //检查滚动距离是否过短
-          if(content.clientHeight - scrollBox.clientHeight<itemH){
-            this.dormScrollStop();
-            return;
-          }
+          if(content.clientHeight - scrollBox.clientHeight<itemH)return;
           //来回移动
           // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
           //   scrollBox.scrollTop += 1;
