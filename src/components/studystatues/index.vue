@@ -354,6 +354,11 @@ export default {
         let flag = true;
         let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
         this.dormTimer = setInterval(() => {
+          //检查滚动距离是否过短
+          if(content.clientHeight - scrollBox.clientHeight<itemH){
+            this.dormScrollStop();
+            return;
+          }
           //来回移动
           // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
           //   scrollBox.scrollTop += 1;
@@ -519,6 +524,11 @@ export default {
         let flag = true;
         let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
         this.attendTimer = setInterval(() => {
+          //检查滚动距离是否过短
+          if(content.clientHeight - scrollBox.clientHeight<itemH){
+            this.dormScrollStop();
+            return;
+          }
           //来回移动
           // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
           //   scrollBox.scrollTop += 1;
