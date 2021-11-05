@@ -4,7 +4,7 @@
       :style="{width: checkSideItem.children ? (checkSideItem.children.length + 1)*106 + 'px' : 0,
         top: SysTop,
         left: SysLeft}" 
-      v-show="checkSideItem.name === currentSys && checkSideItem.children && thisIndex == currentSysThisIndex">
+      v-show="checkSideItem.children && thisIndex == currentSysThisIndex">
       <span :class="['sys-sidechild-normal', checkSideItem.name === currentSysModule ? 'sys-sidechild-select' : '']" 
         v-for="checkSideItem in checkSideItem.children" 
         :key="checkSideItem.name"
@@ -14,7 +14,11 @@
     <div class="up" @click="checkSideList('up')"><img v-if="thisIndex !== 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
     <div class="swiper">
       <div class="side-list">
-        <div :class="['side-item','side-bar-item-aa', sideItem.children ? 'side-item-has-child' : '']" v-for="(sideItem,index) in allSideList" :key="index" @click="checkCurrentSys(sideItem,index)">
+        <div :class="['side-item','side-bar-item-aa', sideItem.children ? 'side-item-has-child' : '']" 
+          v-for="(sideItem,index) in allSideList" :key="index" 
+          @mouseenter="hoverCurrentSys(sideItem,index,'hover')" 
+          @mouseleave="leaveCurrentSys(sideItem,index)" 
+          @click="checkCurrentSys(sideItem,index, 'click')">
           <div :class="['side-normal',sideItem.name === currentSys ? 'side-select' : '']">
             <img class="side-normal-img" :src="sideItem.normal" alt="">
             <img class="side-select-img" :src="sideItem.select" alt="">
@@ -77,6 +81,13 @@ export default {
         cname: '人员态势',
         normal: require('../assets/sidebar/normal/peoplestatues.png'),
         select: require('../assets/sidebar/select/peoplestatues.png'),
+        children: [{
+          name: 'networkEquipment1',
+          cname: '人员聚集态势'
+        },{
+          name: 'networkHeat1',
+          cname: '人员迁徙态势'
+        }]
       },{
         name: 'vehicle',
         cname: '车辆态势',
@@ -115,9 +126,12 @@ export default {
       mid: 0,
       ani: null,
       checkSideItem: {},
+      oldCheckSideItem: {},
+      oldIndex: '',
       SysTop: '',
       SysLeft: '',
-      currentSysThisIndex: ''
+      currentSysThisIndex: '',
+      oldCurrentsSys: ''
     }
   },
   computed:{
@@ -178,9 +192,27 @@ export default {
         dom.style.top = (42-(a-1)*17) + 'px'
       })
     },
-    checkCurrentSys(side,index){
+    hoverCurrentSys(side,index){
+      this.checkSideItem = {}
+      if(side && side.children){
+        this.checkSideItem = JSON.parse(JSON.stringify(side))
+        this.currentSysThisIndex = this.thisIndex
+        let a = this.returnClassType(index,this.thisIndex)
+        this.SysTop = (42-(a-1)*17) - 70 + 'px'
+        let marginLeft = side.children ? (side.children.length)*105/2 : 0
+        this.SysLeft = 38 + (index - this.thisIndex*this.size)*105 - marginLeft + 'px'
+      }
+    },
+    leaveCurrentSys(side,index){
+      if(this.oldCheckSideItem){
+        this.checkSideItem = this.oldCheckSideItem
+      }
+    },
+    checkCurrentSys(side,index,type){
       this.currentSysThisIndex = this.thisIndex
       this.SET_OLD_CURRENTSYS(this.currentSys)
+      this.oldIndex = index
+      this.oldCheckSideItem = JSON.parse(JSON.stringify(side))
       this.checkSideItem = JSON.parse(JSON.stringify(side))
       this.SET_CURRENTSYS(side.name)
       let a = this.returnClassType(index,this.thisIndex)
@@ -198,7 +230,7 @@ export default {
 <style lang="less" scoped>
 .sidebar{
   position: fixed;
-  z-index: 10;
+  z-index: 11;
   bottom: 3%;
   right: 50%;
   // margin-left: 50%;
