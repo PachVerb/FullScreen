@@ -79,7 +79,7 @@ export default {
   &::before {
     content: "";
     width: 100%;
-    height: 2px;
+    padding: 0.8px 0;
     background: linear-gradient(to left, #0D4255, #068898, #0D4255);
     position: absolute;
     left: 0;
