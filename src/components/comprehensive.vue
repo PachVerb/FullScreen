@@ -313,6 +313,7 @@ export default {
       }
       let option = {
         tooltip: {
+          confine: true,//提示框限制在图表内
           trigger: 'axis',
           backgroundColor: 'rgba(44,62,80,0.8)',
           borderColor: 'rgba(153, 209, 246, 0.6)',
@@ -337,7 +338,7 @@ export default {
         grid: {
           top: '25px',
           left: '0px',
-          right: '14px',
+          right: '16px',
           bottom: '0px',
           containLabel: true
         },
@@ -345,6 +346,7 @@ export default {
           show: true,
           type: 'category',
           data: parma.lineX,
+          boundaryGap:false,//x轴从0开始
           splitLine: {
             show: true,
             lineStyle: {
@@ -501,6 +503,7 @@ export default {
       let option = {
         tooltip: {
           show: true,
+          confine: true,//提示框限制在图表内
           trigger: "item",
           backgroundColor: 'rgba(44,62,80,0.8)',
           textStyle: {
@@ -534,8 +537,9 @@ export default {
       ]
       let option = {
         tooltip: {
-          // show: true,
-          // trigger: "item",
+          show: false,
+          trigger: "item",
+          confine: true,//提示框限制在图表内
           backgroundColor: 'rgba(44,62,80,0.8)',
           borderColor: 'rgba(153, 209, 246, 0.6)',
           textStyle: {
@@ -543,13 +547,11 @@ export default {
             fontSize: 12,
             color: 'rgba(255,255,255,0.8)',
           },
-          // formatter:(e)=>{
-          //   console.log(e)
-          // }
         },
         legend: {
           show: false,
         },
+        animationDuration: 3000,
         radar: {
           "center": ["50%", "50%"],
           "radius": "70%",//雷达图相对于盒子的大小
@@ -587,7 +589,7 @@ export default {
         },
         series: [
           {
-            "name": "风格偏好",
+            "name": "国有资产",
             "type": "radar",
             "symbol": "circle",
             "symbolSize": 0,
@@ -1014,7 +1016,7 @@ export default {
   }
 }
 .assets-Status {
-  margin-top: 10px;
+  // margin-top: 10px;
   width: 100%;
   position: relative;
   .chart-asset {
@@ -1027,7 +1029,7 @@ export default {
     position: absolute;
     left: calc(50% - 70px);
     top: calc(50% - 70px);
-    animation: rotateAnim1 5s infinite linear;
+    animation: rotateAnim1 10s infinite linear;
   }
   .bg2 {
     width: 190px;
@@ -1035,7 +1037,7 @@ export default {
     position: absolute;
     left: calc(50% - 95px);
     top: calc(50% - 95px);
-    animation: rotateAnim2 5s infinite linear;
+    animation: rotateAnim2 10s infinite linear;
   }
 }
 /* 旋转动画 */

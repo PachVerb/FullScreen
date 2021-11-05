@@ -70,13 +70,17 @@
                 <span>使用人</span>
                 <span>查看</span>
               </div>
-              <div class="row" v-for="(item,i) in dormList" :key="i">
-                <span>{{item.room}}</span>
-                <span>{{item.loca}}</span>
-                <span>{{item.person}}</span>
-                <span>
-                  <span class="btn-check">查看</span>
-                </span>
+              <div class="scroll">
+                <div class="content" @mouseenter="dormScrollStop" @mouseleave="dormScrollStart">
+                  <div class="row" v-for="(item,i) in dormList" :key="i">
+                    <span>{{item.room}}</span>
+                    <span>{{item.loca}}</span>
+                    <span>{{item.person}}</span>
+                    <span>
+                      <span class="btn-check">查看</span>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -124,14 +128,18 @@
               <span>异常次数</span>
               <span>班级</span>
             </div>
-            <div class="row" v-for="(item,i) in attendList" :key="i">
-              <span style="flex:1;">
-                <img v-if="item.type==1" src="../../assets/study/warn1.png" alt=""/>
-                <img v-else src="../../assets/study/warn2.png" alt=""/>
-              </span>
-              <span>{{item.name}}</span>
-              <span>{{item.num}}</span>
-              <span>{{item.class}}</span>
+            <div class="scroll">
+              <div class="content" @mouseenter="attendScrollStop" @mouseleave="attendScrollStart">
+                <div class="row" v-for="(item,i) in attendList" :key="i">
+                  <span style="flex:1;">
+                    <img v-if="item.type==1" src="../../assets/study/warn1.png" alt />
+                    <img v-else src="../../assets/study/warn2.png" alt />
+                  </span>
+                  <span>{{item.name}}</span>
+                  <span>{{item.num}}</span>
+                  <span>{{item.class}}</span>
+                </div>
+              </div>
             </div>
           </div>
         </sideItem>
@@ -161,22 +169,45 @@ export default {
       dormList: [],
       roomList: [],
       courseList: [],
-      attendList:[],
+      attendList: [],
+      dormTimer: null,
+      attendTimer: null,
     }
   },
   computed: {
-    ...mapGetters(['currentSys'])
+    ...mapGetters(['currentSys']),
+    scrollOpt() {
+      return {
+        step: 1, // 数值越大速度滚动越快
+        limitMoveNum: this.dormList.length, // 开始无缝滚动的数据量
+        hoverStop: true, // 是否开启鼠标悬停stop
+        direction: 1, // 0向下 1向上 2向左 3向右
+        openWatch: true, // 开启数据实时监控刷新dom
+        singleHeight: 52, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
+        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
+        waitTime: 1000 // 单步运动停止的时间(默认值1000ms)
+      }
+    }
   },
-  watch: {},
+  watch: {
+    currentSys(val) {
+      if (val != 'studystatues') {
+        this.dormScrollStop();
+        this.attendScrollStop();
+      }
+    }
+  },
   methods: {
     init() {
       this.$nextTick(() => {
-        this.getStuClass();
-        this.getStudyStatus();
-        this.getDormStatus();
-        this.getRoomType();
-        this.getCourseStati();
-        this.getAttendStati();
+        setTimeout(() => {
+          this.getStuClass();
+          this.getStudyStatus();
+          this.getDormStatus();
+          this.getRoomType();
+          this.getCourseStati();
+          this.getAttendStati();
+        }, 500)
       })
     },
     //学生到课统计
@@ -291,15 +322,47 @@ export default {
     //各宿舍楼归寝情况
     getDormStatus() {
       this.dormList = [
-        { room: '法医实验室', loca: '文科实验楼', person: '张锦' },
-        { room: '化学实验室', loca: '文科实验楼', person: '李达' },
-        { room: '统计大数据实验室', loca: '文科实验楼', person: '王晓悦' },
-        { room: '现代旅游服务技能实验室', loca: '文科实验楼', person: '程慕' },
-        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼', person: '杨澜' },
+        { room: '法医实验室', loca: '文科实验楼1', person: '张锦' },
+        { room: '化学实验室', loca: '文科实验楼2', person: '李达' },
+        { room: '统计大数据实验室', loca: '文科实验楼3', person: '王晓悦' },
+        { room: '现代旅游服务技能实验室', loca: '文科实验楼4', person: '程慕' },
+        { room: '网络统计实验室', loca: '文科实验楼5', person: '杨澜' },
+        { room: '网络统计实验室', loca: '文科实验楼6', person: '杨澜' },
+        { room: '网络统计实验室', loca: '文科实验楼7', person: '杨澜' },
+        { room: '网络统计实验室', loca: '文科实验楼8', person: '杨澜' },
       ]
+      this.dormScrollStart();
+    },
+    //开始自动滚动
+    dormScrollStart() {
+      this.dormList.length && this.$nextTick(() => {
+        let scrollBox = document.querySelector('.dormState .scroll');
+        let content = document.querySelector('.dormState .scroll .content');
+        let items = document.querySelectorAll('.dormState .scroll .content .row');
+        let itemH = items[0].clientHeight;
+        let flag = true;
+        let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+        this.dormTimer = setInterval(() => {
+          //来回移动
+          // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+          //   scrollBox.scrollTop += 1;
+          // }else if(!flag&&scrollBox.scrollTop>0){
+          //   scrollBox.scrollTop -= 1;
+          // }else{
+          //   flag = !flag
+          // }
+          //单向重复移动
+          if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+            scrollBox.scrollTop += 1;
+          } else {
+            scrollBox.scrollTop = nexTop;
+          }
+        }, 50);
+      })
+    },
+    //停止自动滚动
+    dormScrollStop() {
+      clearInterval(this.dormTimer);
     },
     //教室分类统计
     getRoomType() {
@@ -420,18 +483,50 @@ export default {
         { name: '实际上课学生数', val: 245, unit: '人', icon: require('../../assets/study/img-class4.png') },
       ]
     },
-    //各宿舍楼归寝情况
+    //出勤异常统计
     getAttendStati() {
       this.attendList = [
-        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
-        { name: '周雨生', num: 9, class: '土木工程12班',type:2 },
-        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
-        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
-        { name: '周雨生', num: 9, class: '土木工程12班',type:2 },
-        { name: '周雨生', num: 9, class: '土木工程12班',type:2 },
-        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
-        { name: '周雨生', num: 9, class: '土木工程12班',type:1 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 2 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 2 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 2 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
+        { name: '周雨生', num: 9, class: '土木工程12班', type: 1 },
       ]
+      this.attendScrollStart();
+    },
+    //开始自动滚动
+    attendScrollStart() {
+      this.attendList.length && this.$nextTick(() => {
+        let scrollBox = document.querySelector('.attendStati .scroll');
+        let content = document.querySelector('.attendStati .scroll .content');
+        let items = document.querySelectorAll('.attendStati .scroll .content .row');
+        let itemH = items[0].clientHeight;
+        let flag = true;
+        let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+        this.attendTimer = setInterval(() => {
+          //来回移动
+          // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+          //   scrollBox.scrollTop += 1;
+          // }else if(!flag&&scrollBox.scrollTop>0){
+          //   scrollBox.scrollTop -= 1;
+          // }else{
+          //   flag = !flag
+          // }
+          //单向重复移动
+          if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+            scrollBox.scrollTop += 1;
+          } else {
+            scrollBox.scrollTop = nexTop;
+          }
+        }, 50);
+      })
+    },
+    //停止自动滚动
+    attendScrollStop() {
+      clearInterval(this.attendTimer);
     },
   }
 }
@@ -661,7 +756,9 @@ export default {
     width: 100%;
     flex: 1;
     // height: 300px;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     .head {
       position: relative;
       padding: 10px 0;
@@ -683,6 +780,11 @@ export default {
         left: 0;
         bottom: -1px;
       }
+    }
+    .scroll {
+      flex: 1;
+      width: 100%;
+      overflow-y: auto;
     }
     .row {
       position: relative;
@@ -827,67 +929,74 @@ export default {
     }
   }
 }
-.attendStati{
+.attendStati {
   padding: 0 12px;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   .head {
-      position: relative;
-      padding: 10px 0;
+    position: relative;
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    span {
+      flex: 2;
+    }
+    &::before {
+      content: "";
       width: 100%;
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-      font-weight: 500;
-      color: #ffffff;
-      span {
-        flex: 2;
-      }
-      &::before {
-        content: "";
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(to left, #112d46, #1b4465, #112d46);
-        position: absolute;
-        left: 0;
-        bottom: -1px;
+      height: 1px;
+      background: linear-gradient(to left, #112d46, #1b4465, #112d46);
+      position: absolute;
+      left: 0;
+      bottom: -1px;
+    }
+  }
+  .scroll {
+    flex: 1;
+    width: 100%;
+    overflow-y: auto;
+  }
+  .row {
+    position: relative;
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 2px;
+    span {
+      flex: 2;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      img {
+        width: 16px;
+        height: 16px;
       }
     }
-    .row {
-      position: relative;
-      padding: 10px 0;
+    &::before {
+      content: "";
       width: 100%;
-      display: flex;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.8);
-      border-radius: 2px;
-      span {
-        flex: 2;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        img{
-          width: 16px;
-          height: 16px;
-        }
-      }
-      &::before {
-        content: "";
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(to left, #112d46, #1b4465, #112d46);
-        position: absolute;
-        left: 0;
-        bottom: -1px;
-      }
-      &:hover {
-        background: rgba(106, 176, 255, 0.2);
-      }
+      height: 1px;
+      background: linear-gradient(to left, #112d46, #1b4465, #112d46);
+      position: absolute;
+      left: 0;
+      bottom: -1px;
     }
+    &:hover {
+      background: rgba(106, 176, 255, 0.2);
+    }
+  }
 }
 
 @-webkit-keyframes myMove {
