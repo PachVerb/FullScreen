@@ -55,7 +55,7 @@
             </div>
             <div class="bar">
               <span class="pro">
-                <span class="val" :style="`width:${24.9}%;`"></span>
+                <span class="val" :style="`width:${dormProVal}%;`"></span>
               </span>
             </div>
             <div class="navBox">
@@ -166,6 +166,7 @@ export default {
       classList: [],
       staList: [],
       dormKey: true,//使用中,空闲中
+      dormProVal:0,
       dormList: [],
       roomList: [],
       courseList: [],
@@ -341,6 +342,14 @@ export default {
         { room: '计算机3实验室', loca: '理科实验楼7', person: '张三' },
         { room: '计算机4实验室', loca: '理科实验楼8', person: '杨澜' },
       ]
+      this.dormProVal = 0;
+      let t = setInterval(() => {
+        if(this.dormProVal< 30.6){
+          this.dormProVal += 0.1;
+        }else{
+          clearInterval(t)
+        }
+      }, 8);
       this.dormScrollStart();
     },
     //开始自动滚动
