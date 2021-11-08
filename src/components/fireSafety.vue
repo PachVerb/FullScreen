@@ -826,7 +826,7 @@
 
 	.monitor-list {
 		width: 100%;
-		height: 236px;
+		height: 220px;
 		box-sizing: border-box;
 		padding: 0 10px;
 		overflow: hidden;

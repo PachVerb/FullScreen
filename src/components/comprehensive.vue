@@ -116,7 +116,22 @@
       <div slot="right" style="height: 100%;">
         <sideItem title="车辆态势" transitionType="right" :delay="100" height="24.5%">
           <div class="car-status" slot="body">
-            <img class="box-car" src="../assets/compre/bg-car.png" alt />
+            <div class="box">
+              <img class="box-car" src="../assets/compre/bg-car.png" alt />
+              <img class="car1" src="../assets/compre/car1.png" alt />
+              <img class="car2" src="../assets/compre/car2.png" alt />
+              <img class="car3" src="../assets/compre/car3.png" alt />
+              <svg class="svg-box">
+                <!-- <defs>
+                  <filter id="f1" x="0" y="0" width="200%" height="200%">
+                  <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20" />
+                  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
+                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+                </filter>
+                </defs> -->
+                <polyline  class="ani-line" points="160,4 203,29 203,77 160,101 118,77 118,29 160,4" />
+              </svg>
+            </div>
             <div class="detail">
               <div class="item">
                 <span class="value">
@@ -166,7 +181,13 @@
         <sideItem title="AI摄像机态势" transitionType="right" :delay="300" height="21.4%">
           <div slot="body" class="camera-status">
             <dir class="item">
-              <img src="../assets/compre/bg-ai1.png" alt />
+              <img class="bg1" src="../assets/compre/bg-ai1.png" alt />
+              <svg class="svg-box">
+                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line3" points="58,2 72,25 80,25" />
+                <polyline class="ani-line4" points="58,58 72,35 160,35" />
+              </svg>
               <span class="value">
                 122323
                 <i>次</i>
@@ -174,7 +195,13 @@
               <span class="name">总识别数量</span>
             </dir>
             <dir class="item">
-              <img src="../assets/compre/bg-ai2.png" alt />
+              <img class="bg1" src="../assets/compre/bg-ai2.png" alt />
+              <svg class="svg-box">
+                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line3" points="58,2 72,25 80,25" />
+                <polyline class="ani-line4" points="58,58 72,35 160,35" />
+              </svg>
               <span class="value">
                 1026
                 <i>次</i>
@@ -182,7 +209,13 @@
               <span class="name">本月识别数量</span>
             </dir>
             <dir class="item">
-              <img src="../assets/compre/bg-ai3.png" alt />
+              <img class="bg1" src="../assets/compre/bg-ai3.png" alt />
+              <svg class="svg-box">
+                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line3" points="58,2 72,25 80,25" />
+                <polyline class="ani-line4" points="58,58 72,35 160,35" />
+              </svg>
               <span class="value">
                 3467
                 <i>次</i>
@@ -190,7 +223,13 @@
               <span class="name">本周识别数量</span>
             </dir>
             <dir class="item">
-              <img src="../assets/compre/bg-ai4.png" alt />
+              <img class="bg1" src="../assets/compre/bg-ai4.png" alt />
+              <svg class="svg-box">
+                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line3" points="58,2 72,25 80,25" />
+                <polyline class="ani-line4" points="58,58 72,35 160,35" />
+              </svg>
               <span class="value">
                 1265
                 <i>次</i>
@@ -346,7 +385,7 @@ export default {
           show: true,
           type: 'category',
           data: parma.lineX,
-          boundaryGap:false,//x轴从0开始
+          boundaryGap: false,//x轴从0开始
           splitLine: {
             show: true,
             lineStyle: {
@@ -560,7 +599,7 @@ export default {
           "shape": "circle",
           name: {//用于提示框显示
             show: true,
-             textStyle: {
+            textStyle: {
               color: "transparent"
             }
           },
@@ -867,10 +906,78 @@ export default {
 }
 .car-status {
   padding: 0 30px;
-  .box-car {
+  .box {
     margin-top: 10px;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+    .box-car {
+      width: 100%;
+    }
+    .car1,.car2,.car3 {
+      position: absolute;
+      width: 21px;
+      height: 36px;
+      top: calc(100%);
+      z-index: 1;
+    }
+    .car1{
+      left: 22px;
+      animation: carMove 5s infinite linear;
+    }
+    .car2{
+      left: calc(50% - 10.5px);
+      animation: carMove 4s infinite linear;
+    }
+    .car3{
+      top: -36px;
+      right: 22px;
+      transform: rotate(180deg);
+      animation: carMove_rev 5s infinite linear;
+    }
+    @keyframes carMove {
+      0% {
+        top: calc(100%);
+      }
+      100% {
+        top: -36px;
+      }
+    }
+    @keyframes carMove_rev {
+      0% {
+        top: -36px;
+      }
+      100% {
+        top: calc(100%);
+      }
+    }
+    .svg-box{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      .ani-line {
+        fill: none;
+        stroke-width: 2;
+        stroke: #6AB0FF;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        stroke-dasharray: 73, 27;
+        stroke-dashoffset: 0;
+        animation: lineMove 4s linear infinite;
+      }
+      @keyframes lineMove {
+        0% {
+          stroke-dashoffset: 0;
+        }
+        100% {
+          stroke-dashoffset: 100;
+        }
+      }
+    }
   }
+
   .detail {
     margin-top: 5px;
     width: 100%;
@@ -988,12 +1095,104 @@ export default {
     position: relative;
     width: 160px;
     height: 60px;
-    img {
+    .bg1 {
       width: 100%;
       height: 100%;
       position: absolute;
       left: 0;
       top: 0;
+    }
+    .svg-box {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      .ani-line1 {
+        fill: none;
+        stroke-width: 2;
+        stroke: #6ab0ff;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        stroke-dasharray: 20, 186;
+        stroke-dashoffset: 40;
+        animation: lineMove1 4s linear infinite;
+      }
+      .ani-line2 {
+        fill: none;
+        stroke-width: 2;
+        stroke: #6ab0ff;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        stroke-dasharray: 20, 186;
+        stroke-dashoffset: 48;
+        animation: lineMove2 4s linear infinite;
+      }
+      .ani-line3,
+      .ani-line4 {
+        fill: none;
+        stroke-width: 2;
+        stroke: #325e8c;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        stroke-dasharray: 20, 116;
+        stroke-dashoffset: 20;
+        animation: lineMove3 4s linear infinite;
+      }
+      @keyframes lineMove1 {
+        0% {
+          stroke-dashoffset: 40;
+          stroke: #6ab0ff;
+        }
+        50% {
+          stroke-dashoffset: -18;
+          stroke: #6ab0ff;
+        }
+        51% {
+          stroke-dashoffset: -18;
+          stroke: #325e8c;
+        }
+        100% {
+          stroke-dashoffset: -18;
+          stroke: #325e8c;
+        }
+      }
+      @keyframes lineMove2 {
+        0% {
+          stroke-dashoffset: 48;
+          stroke: #6ab0ff;
+        }
+        50% {
+          stroke-dashoffset: 112;
+          stroke: #6ab0ff;
+        }
+        51% {
+          stroke-dashoffset: 112;
+          stroke: #325e8c;
+        }
+        100% {
+          stroke-dashoffset: 112;
+          stroke: #325e8c;
+        }
+      }
+      @keyframes lineMove3 {
+        0% {
+          stroke: #325e8c;
+          stroke-dashoffset: 20;
+        }
+        45% {
+          stroke: #325e8c;
+          stroke-dashoffset: 20;
+        }
+        46% {
+          stroke: #6ab0ff;
+          stroke-dashoffset: 20;
+        }
+        100% {
+          stroke: #6ab0ff;
+          stroke-dashoffset: -116;
+        }
+      }
     }
     .value {
       color: #00f5ff;
