@@ -111,7 +111,11 @@
         <sideItem title="当前行课统计" transitionType="right" delay="200" height="37.46%">
           <div slot="body" class="courseStati">
             <div class="item" v-for="(item,i) in courseList" :key="i">
-              <img :src="item.icon" alt />
+              <div class="imgbox">
+                <img class="icon" :src="item.icon" alt />
+                <img class="light" src="../../assets/study/bg-l.png" alt="">
+                <img src="../../assets/study/bg-b.png" alt="">
+              </div>
               <span class="value">
                 {{item.val}}
                 <i>({{item.unit}})</i>
@@ -934,10 +938,53 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    img {
+    .imgbox{
       width: 100px;
       height: 85px;
+      position: relative;
+      img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .icon{
+        animation: ani-icon 3s infinite linear;
+      }
+      .light{
+        animation: ani-light 3s infinite linear;
+      }
+      @keyframes ani-light {
+        0% {
+          opacity: 0.3;
+          transform: scale(0);
+          top: 30%;
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+          top: 0;
+        }
+        100% {
+          opacity: 0.3;
+          transform: scale(0);
+          top: 30%;
+        }
+      }
+      @keyframes ani-icon {
+        0% {
+          top: -5px;
+        }
+        50% {
+          top: 5px;
+        }
+        100% {
+          top: -5px;
+        }
+      }
     }
+    
     .value {
       margin-top: 5px;
       font-size: 16px;
@@ -1028,7 +1075,7 @@ export default {
   }
 }
 
-@-webkit-keyframes myMove {
+@keyframes myMove {
   /**关键帧名称**/
   0% {
     -webkit-transform: rotate(0deg);

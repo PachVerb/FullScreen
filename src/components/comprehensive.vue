@@ -43,6 +43,21 @@
               </div>
               <div class="middle">
                 <img class="net-img" src="../assets/compre/net.png" alt />
+                <svg class="svg-box">
+                  <defs>
+                    <filter id="f1" x="-100%" y="-100%" width="400%" height="400%">
+                      <feGaussianBlur result="blurOut" in="offOut" stdDeviation="4" />
+                      <feBlend in="SourceGraphic" in2="blurOut" mode="multiply" />
+                    </filter>
+                  </defs>
+                  <polyline class="line ani1" points="76,43 20,43 4,29" filter="url(#f1)" />
+                  <polyline class="line ani2" points="77,43 77,54 64,65 20,65" filter="url(#f1)" />
+                  <polyline class="line ani3" points="81,45 81,72 56,102 4,102" filter="url(#f1)" />
+                  <polyline class="line ani4" points="86,45 86,102 85,102" filter="url(#f1)" />
+                  <polyline class="line ani3" points="91,45 91,72 116,103 166,103" filter="url(#f1)" />
+                  <polyline class="line ani2" points="95,43 95,54 108,65 150,65" filter="url(#f1)" />
+                  <polyline class="line ani1" points="96,43 152,43 168,29" filter="url(#f1)" />
+                </svg>
                 <div class="btn-net">
                   <span class="name">cucc联动</span>
                   <span class="value">
@@ -122,14 +137,13 @@
               <img class="car2" src="../assets/compre/car2.png" alt />
               <img class="car3" src="../assets/compre/car3.png" alt />
               <svg class="svg-box">
-                <!-- <defs>
-                  <filter id="f1" x="0" y="0" width="200%" height="200%">
-                  <feOffset result="offOut" in="SourceGraphic" dx="20" dy="20" />
-                  <feGaussianBlur result="blurOut" in="offOut" stdDeviation="10" />
-                  <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-                </filter>
-                </defs> -->
-                <polyline  class="ani-line" points="160,4 203,29 203,77 160,101 118,77 118,29 160,4" />
+                <defs>
+                  <filter id="f1" x="-100%" y="-100%" width="400%" height="400%">
+                    <feGaussianBlur result="blurOut" in="offOut" stdDeviation="4" />
+                    <feBlend in="SourceGraphic" in2="blurOut" mode="multiply" />
+                  </filter>
+                </defs>
+                <polyline class="ani-line" points="160,4 203,29 203,77 160,101 118,77 118,29 160,4" filter="url(#f1)" />
               </svg>
             </div>
             <div class="detail">
@@ -805,8 +819,72 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
       .net-img {
         width: 172px;
+      }
+      .svg-box {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        .line {
+          fill: none;
+          stroke-width: 2;
+          stroke: #6ab0ff;
+          stroke-linejoin: round;
+          stroke-linecap: round;
+          stroke-dashoffset: 0;
+        }
+        .ani1{
+          stroke-dasharray: 2, 76;
+          animation: aniLineMove1 4s linear infinite;
+        }
+        .ani2{
+          stroke-dasharray: 2, 70;
+          animation: aniLineMove2 4s linear infinite;
+        }
+        .ani3{
+          stroke-dasharray: 2, 116;
+          animation: aniLineMove3 4s linear infinite;
+        }
+        .ani4{
+          stroke-dasharray: 2, 56;
+          animation: aniLineMove4 4s linear infinite;
+        }
+        @keyframes aniLineMove1 {
+          0% {
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dashoffset: -78;
+          }
+        }
+        @keyframes aniLineMove2 {
+          0% {
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dashoffset: -72;
+          }
+        }
+        @keyframes aniLineMove3 {
+          0% {
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dashoffset: -118;
+          }
+        }
+        @keyframes aniLineMove4 {
+          0% {
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dashoffset: -58;
+          }
+        }
       }
     }
     .right {
@@ -914,22 +992,24 @@ export default {
     .box-car {
       width: 100%;
     }
-    .car1,.car2,.car3 {
+    .car1,
+    .car2,
+    .car3 {
       position: absolute;
       width: 21px;
       height: 36px;
       top: calc(100%);
       z-index: 1;
     }
-    .car1{
+    .car1 {
       left: 22px;
       animation: carMove 5s infinite linear;
     }
-    .car2{
+    .car2 {
       left: calc(50% - 10.5px);
       animation: carMove 4s infinite linear;
     }
-    .car3{
+    .car3 {
       top: -36px;
       right: 22px;
       transform: rotate(180deg);
@@ -951,7 +1031,7 @@ export default {
         top: calc(100%);
       }
     }
-    .svg-box{
+    .svg-box {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -960,7 +1040,7 @@ export default {
       .ani-line {
         fill: none;
         stroke-width: 2;
-        stroke: #6AB0FF;
+        stroke: #6ab0ff;
         stroke-linejoin: round;
         stroke-linecap: round;
         stroke-dasharray: 73, 27;

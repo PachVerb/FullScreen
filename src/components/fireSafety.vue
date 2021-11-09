@@ -272,28 +272,28 @@
 				}, ],
 				monitorList: [{
 					id: '1',
-					src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '2',
-						src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '3',
-						src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '4',
-						src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				},{
 					id: '5',
-					src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '6',
-					src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '7',
-					src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '8',
-					src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, ],
 				monitorIndex: 1,
 				allPatrolOption: {},
