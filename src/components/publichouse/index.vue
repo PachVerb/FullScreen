@@ -7,7 +7,7 @@
             <currency v-for="(item,i) in staList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" :boxuntil="item.unit"></currency>
           </div>
         </sideItem>
-        <sideItem title="校区公房统计" delay="200">
+        <sideItem title="校区公房统计" delay="200" height="24.48%">
           <div class="houseStati" slot="body">
             <div class="row title">
 							<span>所属校区</span>
@@ -489,7 +489,7 @@ export default {
 			color: rgba(255, 255, 255, 0.6);
 			span{
 				flex: 1;
-				line-height: 30px;
+				line-height: 28px;
 			}
 		}
 		.title{
