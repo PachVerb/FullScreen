@@ -132,12 +132,12 @@
         </sideItem>
       </div>
       <div slot="right" style="height: 100%;">
-        <sideItem title="用水设备统计" transitionType="right" delay="200" height="21%">
+        <sideItem title="用水设备统计" transitionType="right" delay="100" height="21%">
           <div class="deviceStati water" slot="body">
             <currency v-for="(item,i) in waterStatiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
-        <sideItem title="用水概况" transitionType="right" delay="400" height="27.4%">
+        <sideItem title="用水概况" transitionType="right" delay="200" height="27.4%">
           <div class="survey water" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
@@ -230,7 +230,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用水占比" transitionType="right" delay="600" height="26.39%">
+        <sideItem title="设备用水占比" transitionType="right" delay="300" height="26.39%">
            <div class="ratio water" slot="body">
             <div class="chartBox">
               <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
@@ -250,7 +250,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用水趋势分析" transitionType="right" delay="800" height="25.19%">
+        <sideItem title="用水趋势分析" transitionType="right" delay="400" height="25.19%">
           <div class="trendAnalysis water" slot="body">
             <div class="checkBox">
               <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
