@@ -133,9 +133,7 @@
 				</sideItem>
 				<sideItem title="常去位置分析" style="height: 20%;" transitionType="right" delay="1000">
 					<div slot='body' style="height: 20%;">
-						<div id="radar">
-
-						</div>
+						<div id="radar"></div>
 					</div>
 				</sideItem>
 				<sideItem title="长期异常监测" style="height: 60%;"transitionType="right" delay="1500" height="40%">
@@ -1280,8 +1278,9 @@
 				radarChartChart = echarts.init(radarChartDom);
 				option = {
 					animationEasing: 'cubicInout',
-					animationDuration: 1000,
+					animationDuration: 3000,
 					tooltip: {
+						confine: true,//提示框限制在图表内
 						backgroundColor: 'rgba(44,62,80,0.8)',
 						textStyle: {
 							color: 'rgba(255,255,255,0.8)',
@@ -1356,7 +1355,6 @@
 					},
 
 					series: [{
-						name: "报警类型分析",
 						type: "radar",
 						// symbol: "circle",
 						areaStyle: {

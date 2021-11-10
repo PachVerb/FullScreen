@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .side-item{
   position: relative;
   left: 0;
@@ -67,6 +67,7 @@ export default {
   flex-direction: column;
 }
 .side-item-title{
+  position: relative;
   width: fit-content;
   display: flex;
   align-items: center;
@@ -75,7 +76,15 @@ export default {
   margin-left: .106667rem;
   color: #00F5FF;
   font-size: .08rem;
-  border-bottom: 1px solid #00F5FF;
+  &::before {
+    content: "";
+    width: 100%;
+    padding: 0.8px 0;
+    background: linear-gradient(to left, #0D4255, #068898, #0D4255);
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+  }
 }
 .side-item-title img{
   margin-right: .04rem;

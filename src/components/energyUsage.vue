@@ -132,38 +132,38 @@
         </sideItem>
       </div>
       <div slot="right" style="height: 100%;">
-        <sideItem title="用水设备统计" transitionType="right" delay="200" height="21%">
+        <sideItem title="用水设备统计" transitionType="right" delay="100" height="21%">
           <div class="deviceStati water" slot="body">
-            <currency v-for="(item,i) in statiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
+            <currency v-for="(item,i) in waterStatiList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" boxuntil="个"></currency>
           </div>
         </sideItem>
-        <sideItem title="用水概况" transitionType="right" delay="400" height="27.4%">
+        <sideItem title="用水概况" transitionType="right" delay="200" height="27.4%">
           <div class="survey water" slot="body">
             <div class="l">
               <img class="bg" src="../assets/img/frameA.png" alt />
               <div class="title">用水概况 | 今年</div>
               <div class="row">
                 <div class="total">
-                  <animated-number class="num" :value="9686" :formatValue="val=>val.toFixed()" :duration="4000" />
+                  <animated-number class="num" :value="6786" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                    <animated-number :value="67" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
               <div class="row">
                 <div class="item" style="margin-right:10px;">
                   <span class="text">日均：</span>
-                  <animated-number class="num" :value="86" :formatValue="val=>val.toFixed()" :duration="4000" />
+                  <animated-number class="num" :value="55" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="item">
                   <span class="text">月均：</span>
-                  <animated-number class="num" :value="256" :formatValue="val=>val.toFixed()" :duration="4000" />
+                  <animated-number class="num" :value="362" :formatValue="val=>val.toFixed()" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
               </div>
@@ -175,7 +175,7 @@
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-down.png" alt />
                       <i class="perc">
-                        <animated-number :value="16.5" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
+                        <animated-number :value="31.5" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
                       </i>
                     </div>
                     <span class="text">日均同比</span>
@@ -188,7 +188,7 @@
                     <div class="percent">
                       <img class="arrow" src="../assets/img/arrow-up.png" alt />
                       <i class="perc red">
-                        <animated-number :value="25" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
+                        <animated-number :value="23" :formatValue="val=>val.toFixed(1)" :duration="4000" />%
                       </i>
                     </div>
                     <span class="text">月均同比</span>
@@ -201,14 +201,14 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用水概况 | 今月</div>
                 <div class="total">
-                  <animated-number class="num" :value="168.62" :formatValue="val=>val.toFixed(2)" :duration="4000" />
+                  <animated-number class="num" :value="335.62" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                    <animated-number :value="47" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
@@ -216,21 +216,21 @@
                 <img class="bg" src="../assets/img/frameB.png" alt />
                 <div class="title">用水概况 | 今日</div>
                 <div class="total">
-                  <animated-number class="num" :value="12.56" :formatValue="val=>val.toFixed(2)" :duration="4000" />
+                  <animated-number class="num" :value="21.56" :formatValue="val=>val.toFixed(2)" :duration="4000" />
                   <i class="unit">㎡</i>
                 </div>
                 <div class="percent">
                   <span class="text">比去年</span>
                   <img class="arrow" src="../assets/img/arrow-down.png" alt />
                   <i class="perc">
-                    <animated-number :value="42" :formatValue="val=>val.toFixed()" :duration="4000" />%
+                    <animated-number :value="56" :formatValue="val=>val.toFixed()" :duration="4000" />%
                   </i>
                 </div>
               </div>
             </div>
           </div>
         </sideItem>
-        <sideItem title="设备用水占比" transitionType="right" delay="600" height="26.39%">
+        <sideItem title="设备用水占比" transitionType="right" delay="300" height="26.39%">
            <div class="ratio water" slot="body">
             <div class="chartBox">
               <img src="../assets/pieimg/fire/firearc.png" class="bg-ratio-animImg" />
@@ -250,7 +250,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用水趋势分析" transitionType="right" delay="800" height="25.19%">
+        <sideItem title="用水趋势分析" transitionType="right" delay="400" height="25.19%">
           <div class="trendAnalysis water" slot="body">
             <div class="checkBox">
               <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
@@ -282,6 +282,7 @@ export default {
   data() {
     return {
       statiList: [],//设备统计
+      waterStatiList:[],
       trendKey: 2,
       trendWaterKey: 2,
       ratioList:[],
@@ -304,6 +305,7 @@ export default {
     init() {
       this.$nextTick(() => {
         this.getDeviceStatiList();
+        this.getWaterDeviceStatiList();
         this.getSurveyData();
         this.getSurveyWaterData();
         this.getTrendAnalyData(2);
@@ -314,7 +316,7 @@ export default {
         // }, 1400)
       })
     },
-    //获取设备统计列表
+    //获取用电设备统计列表
     getDeviceStatiList() {
       this.statiList = [
         { type: '设备总数', count: 2349, color: '#00F5FF' },
@@ -323,18 +325,27 @@ export default {
         { type: '超出使用总量', count: 298, color: '#A488EF' },
       ]
     },
+    //获取用水设备统计列表
+    getWaterDeviceStatiList() {
+      this.waterStatiList = [
+        { type: '设备总数', count: 3341, color: '#00F5FF' },
+        { type: '异常设备数', count: 45, color: '#F2896B' },
+        { type: '超出使用设备数', count: 66, color: '#DBBB8A' },
+        { type: '超出使用总量', count: 234, color: '#A488EF' },
+      ]
+    },
 
     //获取用水概况数据
     getSurveyWaterData() {
       //初始化用水概况图表
-      this.loadSurveyCharts('dayPerc_water', {});
-      this.loadSurveyCharts('monthPerc_water', {});
+      this.loadSurveyCharts('dayPerc_water', {value:35});
+      this.loadSurveyCharts('monthPerc_water', {value:65});
     },
     //获取用电概况数据
     getSurveyData() {
       //初始化用电概况图表
-      this.loadSurveyCharts('dayPerc', {});
-      this.loadSurveyCharts('monthPerc', {});
+      this.loadSurveyCharts('dayPerc', {value:70});
+      this.loadSurveyCharts('monthPerc', {value:30});
     },
     //加载用电概况图表
     loadSurveyCharts(id, data) {
@@ -397,7 +408,7 @@ export default {
       chart.setOption(option, true);
       setTimeout(() => {
         chart.clear();//清除动画
-        option.series[0].data = [{ value: 75 }];
+        option.series[0].data = [data];
         chart.setOption(option, true);
       }, 600)
     },
@@ -410,8 +421,8 @@ export default {
           unit: '单位(KWh)',
           lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
           value: [
-            [251, 152, 103, 334, 95, 236, 217],
-            [160, 345, 80, 192, 330, 280, 192]
+            [251, 152, 103, 334, 295, 236, 217],
+            [160, 45, 80, 192, 30, 80, 192]
           ]
         }
       } else if (index == 1) {
@@ -419,8 +430,8 @@ export default {
           unit: '单位(KWh)',
           lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
           value: [
-            [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
-            [160, 545, 80, 192, 330, 580, 192, 80, 250, 253, 52]
+            [151, 352, 303, 534, 495, 236, 217, 328, 559, 151, 131],
+            [60, 245, 180, 192, 330, 180, 192, 80, 250, 53, 52]
           ]
         }
       } else if (index == 2) {
@@ -428,8 +439,8 @@ export default {
           unit: '单位(KWh)',
           lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
           value: [
-            [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
-            [360, 545, 80, 192, 330, 580, 192, 80, 250, 453, 352, 28]
+            [451, 352, 303, 534, 95, 236, 217, 328, 259, 151, 231, 392],
+            [360, 345, 80, 192, 30, 110, 192, 80, 250, 53, 152, 28]
           ]
         }
       }
@@ -474,6 +485,7 @@ export default {
       }
       let option = {
         tooltip: {
+          confine: true,//提示框限制在图表内
           trigger: 'axis',
           backgroundColor: 'rgba(44,62,80,0.8)',
           borderColor: 'rgba(153, 209, 246, 0.6)',
@@ -562,8 +574,8 @@ export default {
           unit: '单位(㎡)',
           lineX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
           value: [
-            [251, 152, 103, 334, 95, 236, 217],
-            [160, 345, 80, 192, 330, 280, 192]
+            [251, 352, 103, 334, 395, 336, 217],
+            [160, 245, 80, 192, 330, 280, 192]
           ]
         }
       } else if (index == 1) {
@@ -571,8 +583,8 @@ export default {
           unit: '单位(㎡)',
           lineX: ['1号', '4号', '7号', '10号', '13号', '16号', '18号', '21号', '24号', '27号', '30号'],
           value: [
-            [151, 352, 303, 534, 95, 236, 217, 328, 159, 151, 31],
-            [160, 545, 80, 192, 330, 580, 192, 80, 250, 253, 52]
+            [151, 552, 303, 534, 495, 236, 217, 328, 259, 451, 131],
+            [90, 445, 80, 192, 330, 180, 192, 80, 200, 253, 52]
           ]
         }
       } else if (index == 2) {
@@ -580,8 +592,8 @@ export default {
           unit: '单位(㎡)',
           lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
           value: [
-            [451, 352, 303, 534, 95, 236, 217, 328, 159, 151, 231, 392],
-            [360, 545, 80, 192, 330, 580, 192, 80, 250, 453, 352, 28]
+            [451, 552, 303, 534, 195, 536, 217, 328, 259, 451, 331, 392],
+            [360, 345, 80, 192, 67, 280, 192, 80, 150, 253, 252, 28]
           ]
         }
       }

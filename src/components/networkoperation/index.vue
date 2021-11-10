@@ -45,22 +45,36 @@
 					<div slot='body' class="intelligentwarningbox">
 						<img src="../../assets/pieimg/Networkoperation/intergear.png" alt="" class="intergear">
 						<img src="../../assets/pieimg/Networkoperation/interoutpie.png" alt="" class="interoutpie">
-						<div class="intelligentwarningbar"></div>
+						<div id="intelligentwarningbar" class="intelligentwarningbar">
+							
+						</div>
 						<div id="intelwarning"></div>
 					</div>
 				</sideItem>
-				<sideItem title="故障智能分析" transitionType="right" :delay="1000">
-					<div slot='body' class="userladnd">
-						<div id="serverSecurity"></div>
+				<sideItem title="故障智能分析" transitionType="right" :delay="1000" height="28%">
+					<div slot='body' class="fault-analysis-wrap intelligentwarningbox">
+						<img src="../../assets/pieimg/Networkoperation/intergear.png" alt="" class="intergear">
+						<img src="../../assets/pieimg/Networkoperation/interoutpie.png" alt="" class="interoutpie">
+						<div id="faultAnalysisLine" class="intelligentwarningbar">
+							
+						</div>
+						<div id="faultAnalysisPie"></div>
 					</div>
 				</sideItem>
-				<sideItem title="应用数据发展分析" transitionType="right" :delay="1500">
-					<div slot='body' class="intelwarningunitbox">
-						<!-- <div class="usebox">
-							<div id="intelwarning"></div>
-							<img src="../../assets/pieimg/publichouseout.png" class="useboxoutpie">
-							<img src="../../assets/pieimg/publichouseout.png" class="gear">
-						</div> -->
+				<sideItem title="应用数据发展分析" transitionType="right" :delay="1500" height="42%">
+					<div slot='body' class="application-analysis">
+						<div class="application-analysis-item" v-for="item in applicationAnalysisList" :key="item.id">
+							<div class="application-analysis-item-top">
+								<img src="../../assets/img/application-analysis1.png" alt="">
+								<span>{{item.title}}</span>
+							</div>
+							<div class="application-analysis-item-bottom">
+								<div class="application-analysis-item-bottom-item" v-for="child in item.children" :key="child.id">
+									<span class="application-analysis-item-bottom-item-title">{{ child.title }}：</span>
+									<span class="application-analysis-item-bottom-item-value">{{ child.value }}</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</sideItem>
 
@@ -88,6 +102,87 @@
 		data() {
 			return {
 				thisCrrentSys: "",
+				applicationAnalysisList: [{
+					id: 1,
+					title: '网络数',
+					children: [{
+						id: 1,
+						title: '平均响应时间',
+						value: '230ms'
+					},{
+						id: 2,
+						title: '最大响应时间',
+						value: '1905ms'
+					},{
+						id: 3,
+						title: '可用性',
+						value: '98%'
+					}]
+				},{
+					id: 2,
+					title: '应用代码层',
+					children: [{
+						id: 1,
+						title: '平均执行时间',
+						value: '214ms'
+					},{
+						id: 2,
+						title: '最高时间',
+						value: '1905ms'
+					},{
+						id: 3,
+						title: '错误次数',
+						value: '246'
+					}]
+				},{
+					id: 3,
+					title: '中间件层',
+					children: [{
+						id: 1,
+						title: '请求次数',
+						value: '356'
+					},{
+						id: 2,
+						title: 'CPU利用率',
+						value: '56%'
+					},{
+						id: 3,
+						title: '当前链接数',
+						value: '67'
+					}]
+				},{
+					id: 4,
+					title: '数据库层',
+					children: [{
+						id: 1,
+						title: '会话数',
+						value: '378'
+					},{
+						id: 2,
+						title: '缓存命中数',
+						value: '632'
+					},{
+						id: 3,
+						title: '最大链接数',
+						value: '400'
+					}]
+				},{
+					id: 5,
+					title: '服务器系统',
+					children: [{
+						id: 1,
+						title: 'CPU',
+						value: '35%'
+					},{
+						id: 2,
+						title: '内存',
+						value: '91%'
+					},{
+						id: 3,
+						title: '存储使用率',
+						value: '72%'
+					}]
+				}],
 				option: {
 						tooltip: {
 							trigger: 'item',
@@ -196,7 +291,8 @@
 					this.thisCrrentSys = 'networkoperation'
 					setTimeout(() => {
 						console.log(document.getElementById('schoolProfile'), "8+8888")
-						this.renderpie()
+						this.renderpie('intelwarning')
+						this.renderpie('faultAnalysisPie')
 						this.renderSchoolProfileEchart()
 						this.ratioList = [
 							{name:"正常",val:319,color:'rgba(169,133,238,0.8)'},
@@ -210,11 +306,145 @@
 						let storeDashboard = echarts.init(document.getElementById('store'))
 						storeDashboard.setOption(this.renderDashboardOption('储存使用率', 28))
 						this.renderVisitsChart()
+						this.setBarChart()
+						this.renderFaultAnalysisLine()
 					}, 2000);
 				})
 			},
-
-			renderpie() {
+			setBarChart(){
+				let colors = ['#598BF1', '#E2B46D', '#F2896B', '#2B63D5', '#2039C3', ]
+				let intelligentwarningbarChart = echarts.init(document.getElementById('intelligentwarningbar'))
+				intelligentwarningbarChart.setOption({
+					grid: {
+						left: 35,
+						right: 0,
+						bottom: 20,
+						top: 10
+					},
+					xAxis: {
+						type: 'category',
+						data: ['次要警告', '重要警告', '紧急警告'],
+						axisTick: {
+							show: false
+						},
+						axisLine: {
+							lineStyle: {
+								color: 'rgba(106, 176, 255, .5)'
+							}
+						}
+					},
+					yAxis: {
+						type: 'value',
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: 'rgba(106, 176, 255, .5)'
+							}
+						},
+						splitLine: {
+							lineStyle: {
+								type: 'dashed',
+								color: 'rgba(106, 176, 255, .3)'
+							}
+						}
+					},
+					series: [
+						{
+							data: [120, 200, 150],
+							barMaxWidth: 15,
+							type: 'bar',
+							itemStyle:{
+								normal:{
+　　　　　　　　　　　　//每个柱子的颜色即为colors数组里的每一项，如果柱子数目多于colors的长度，则柱子颜色循环使用该数组
+									color: function (params){
+										return colors[params.dataIndex];
+									}
+								},
+							},
+						}
+					]
+				})
+			},
+			renderFaultAnalysisLine(){
+				let option = {
+					color: ['#80FFA5'],
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross',
+							label: {
+								backgroundColor: '#6a7985'
+							}
+						}
+					},
+					grid: {
+						left: 35,
+						right: 0,
+						bottom: 20,
+						top: 10
+					},
+					xAxis: {
+							type: 'category',
+							boundaryGap: false,
+							data: ['1', '2', '3', '4', '5', '6', '7'],
+							axisTick: {
+								show: false
+							},
+							axisLine: {
+								lineStyle: {
+									color: 'rgba(106, 176, 255, .5)'
+								}
+							}
+					},
+					yAxis: {
+						type: 'value',
+						axisLine: {
+							show: true,
+							lineStyle: {
+								color: 'rgba(106, 176, 255, .5)'
+							}
+						},
+						splitLine: {
+							lineStyle: {
+								type: 'dashed',
+								color: 'rgba(106, 176, 255, .3)'
+							}
+						}
+					},
+					series: [
+						{
+							name: 'Line 1',
+							type: 'line',
+							stack: 'Total',
+							smooth: true,
+							lineStyle: {
+								width: 0
+							},
+							showSymbol: false,
+							areaStyle: {
+								opacity: 0.8,
+								color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+									{
+										offset: 0,
+										color: 'rgba(42, 227, 234, 1)'
+									},
+									{
+										offset: 1,
+										color: 'rgba(112, 49, 228, 1)'
+									}
+								])
+							},
+							emphasis: {
+								focus: 'series'
+							},
+							data: [140, 232, 101, 264, 90, 340, 250]
+						},
+					]
+				}
+				let faultAnalysisLine = echarts.init(document.getElementById('faultAnalysisLine'));
+				faultAnalysisLine.setOption(option)
+			},
+			renderpie(id) {
 				let colors = ['#598BF1', '#E2B46D', '#F2896B', '#2B63D5', '#2039C3', ]
 				let colortwo = ['#F2896B']
 				let datas = [{
@@ -232,7 +462,7 @@
 					name: '紧急警告'
 				}, ]
 				let intelwarningChartDom, intelwarningChartChart, option
-				intelwarningChartDom = document.getElementById('intelwarning');
+				intelwarningChartDom = document.getElementById(id);
 				intelwarningChartChart = echarts.init(intelwarningChartDom);
 
 				intelwarningChartChart.setOption({
@@ -605,7 +835,7 @@
 }
 
 .intelwarningunitbox {
-	width: 50%;
+	width: 40%;
 	height: 180px;
 }
 
@@ -614,7 +844,10 @@
 	height: 200px;
 	/* margin-left: 20px; */
 }
-
+#faultAnalysisPie{
+	width: 200px;
+	height: 200px;
+}
 .usebox {
 	display: flex;
 	position: relative;
@@ -675,7 +908,7 @@
 }
 
 .userladnd {
-	height: 300px;
+	height: 100%;
 }
 
 .intelligentwarningbox {
@@ -778,5 +1011,40 @@
 #visitsChart{
 	width: 100%;
 	height: 91%;
+}
+.application-analysis{
+	width: 100%;
+	height: 100%;
+}
+.application-analysis-item{
+	margin: 15px;
+}
+.application-analysis-item-top{
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+	font-size: 16px;
+	color: #fff;
+	img{
+		margin-right: 10px;
+		width: 30px;
+	}
+}
+.application-analysis-item-bottom{
+	display: flex;
+	justify-content: space-between;
+}
+.application-analysis-item-bottom-item{
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 5px;
+	min-width: 25%;
+	border-bottom: 1px dashed #fff;
+}
+.application-analysis-item-bottom-item-title{
+	color: rgba(255, 255, 255, 0.8);
+}
+.application-analysis-item-bottom-item-value{
+	color: rgba(rgba(0, 245, 255, 1));
 }
 </style>

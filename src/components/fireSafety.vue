@@ -91,17 +91,21 @@
 				</sideItem>
 				<sideItem title="监控画面" transitionType="right" delay="1000" height="38%">
 					<div slot='body'>
-						<div class="up-btn"><img v-if="monitorIndex !== 1" class="img-rotate"
-								src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
-						<div class="monitor-list">
-							<div class="monitor-item" v-for="item in monitorList" :key="item.id">
-								<img class="monitor-item-img" :src="item.img" alt="">
-							</div>
-							<div class="monitor-item" v-if="monitorList%2"></div>
+						<div class="up-btn">
+							<img v-if="monitorIndex!=1" @click="changeMonitoList(monitorIndex-1)" class="img-rotate" src="../assets/img/down.png" alt="">
+							<img v-else src="../assets/img/up.png" alt="">
 						</div>
-						<div class="down-btn"><img v-if="this.monitorIndex >= (Math.ceil(this.monitorList.length/4))"
-								src="../assets/img/down.png" alt=""><img v-else class="img-rotate"
-								src="../assets/img/up.png" alt=""></div>
+						<div class="monitor-list">
+							<div class="content">
+								<div class="monitor-item" v-for="item in monitorList" :key="item.id">
+									<video class="monitor-item-img" :src="item.src" autoplay loop></video>
+								</div>
+							</div>
+						</div>
+						<div class="down-btn">
+							<img v-if="this.monitorIndex!=(Math.ceil(this.monitorList.length/4))" @click="changeMonitoList(monitorIndex+1)" src="../assets/img/down.png" alt="">
+							<img v-else class="img-rotate" src="../assets/img/up.png" alt="">
+						</div>
 					</div>
 				</sideItem>
 				<sideItem title="巡更人员异常概况" transitionType="right" delay="1500" height="37%">
@@ -268,16 +272,28 @@
 				}, ],
 				monitorList: [{
 					id: '1',
-					img: require('../assets/img/fire-control.png')
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '2',
-					img: require('../assets/img/fire-control.png')
+						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '3',
-					img: require('../assets/img/fire-control.png')
+						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, {
 					id: '4',
-					img: require('../assets/img/fire-control.png')
+						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+				},{
+					id: '5',
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+				}, {
+					id: '6',
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+				}, {
+					id: '7',
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+				}, {
+					id: '8',
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, ],
 				monitorIndex: 1,
 				allPatrolOption: {},
@@ -644,6 +660,13 @@
 						}
 					]
 				});
+			},
+			//监控画面
+			changeMonitoList(index){
+				let content = document.querySelector('.monitor-list .content');
+				let item = document.querySelector('.monitor-list .monitor-item');
+				content.style.top = `${this.monitorIndex<index?'-':''}${(index-1)*2*item.clientHeight}px`;
+				this.monitorIndex = index;
 			}
 		}
 	}
@@ -802,15 +825,27 @@
 	}
 
 	.monitor-list {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		padding: 0 19px;
+		width: 100%;
+		height: 220px;
+		box-sizing: border-box;
+		padding: 0 10px;
+		overflow: hidden;
+		.content{
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			position: relative;
+			top:0;
+			transition: top 2s;
+		}
 	}
 
 	.monitor-item {
-		width: 162px;
-		height: 108px;
+		width: 50%;
+		height: 50%;
+		box-sizing: border-box;
+		padding: 5px 9px;
 	}
 
 	// .monitor-item:nth-child(2n){
@@ -833,6 +868,7 @@
 	.down-btn img {
 		width: 29.6px;
 		height: 23.4px;
+		cursor: pointer;
 	}
 
 	.img-rotate {
