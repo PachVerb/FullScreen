@@ -71,7 +71,7 @@
             <div class="usebox">
               <div id="usepublic"></div>
               <img src="../../assets/pieimg/publichouseout.png" class="useboxoutpie" />
-              <img src="../../assets/pieimg/publichouseout.png" class="gear" />
+              <img src="../../assets/pieimg/publichouseinner.png" class="gear" />
             </div>
             <!-- 						<div class="usebox">
 							<img src="../../assets/pieimg/piemidd.png" alt="" class="useboximg">
