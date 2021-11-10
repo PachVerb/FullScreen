@@ -33,8 +33,8 @@
           </div>
         </sideItem>
         <sideItem title="公房使用方向统计" delay="300" height="30%">
-          <div slot="body">
-            <div id="allTotalAssets"></div>
+          <div class="useStati" slot="body">
+            <div class="chart-useStati" id="useStatiChart"></div>
           </div>
         </sideItem>
         <sideItem title="学校公房总数统计" delay="400" height="22.76%">
@@ -93,6 +93,7 @@ import {
   mapGetters
 } from 'vuex'
 import * as echarts from 'echarts';
+import 'echarts-gl'
 export default {
   components: {
     sideTran,
@@ -124,6 +125,7 @@ export default {
           this.renderpie()
           this.getSchoolState();
           this.getHouseStati();
+          this.getUseStati();
           this.getTotalStati();
           this.getFreeStati();
           this.getLandState();
@@ -146,6 +148,226 @@ export default {
         { campus: '西校区', build: 7, room: 41, area: 2785.37, useArea: 1764.83 },
         { campus: '南校区', build: 16, room: 510, area: 39013.36, useArea: 23284.54 },
       ]
+    },
+    //公房使用方向统计
+    getUseStati() {
+      let dom = document.getElementById('useStatiChart');
+      let chart = echarts.init(dom);
+      // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
+      function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, height) {
+        // 计算
+        let midRatio = (startRatio + endRatio) / 2;
+
+        let startRadian = startRatio * Math.PI * 2;
+        let endRadian = endRatio * Math.PI * 2;
+        let midRadian = midRatio * Math.PI * 2;
+
+        // 如果只有一个扇形，则不实现选中效果。
+        if (startRatio === 0 && endRatio === 1) {
+          isSelected = false;
+        }
+
+        // 通过扇形内径/外径的值，换算出辅助参数 k（默认值 1/3）
+        k = typeof k !== 'undefined' ? k : 1 / 3;
+
+        // 计算选中效果分别在 x 轴、y 轴方向上的位移（未选中，则位移均为 0）
+        let offsetX = isSelected ? Math.cos(midRadian) * 0.1 : 0;
+        let offsetY = isSelected ? Math.sin(midRadian) * 0.1 : 0;
+
+        // 计算高亮效果的放大比例（未高亮，则比例为 1）
+        let hoverRate = isHovered ? 1.05 : 1;
+
+        // 返回曲面参数方程
+        return {
+          u: {
+            min: -Math.PI,
+            max: Math.PI * 3,
+            step: Math.PI / 32,
+          },
+
+          v: {
+            min: 0,
+            max: Math.PI * 2,
+            step: Math.PI / 20,
+          },
+
+          x: function (u, v) {
+            if (u < startRadian) {
+              return offsetX + Math.cos(startRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            if (u > endRadian) {
+              return offsetX + Math.cos(endRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            return offsetX + Math.cos(u) * (1 + Math.cos(v) * k) * hoverRate;
+          },
+
+          y: function (u, v) {
+            if (u < startRadian) {
+              return offsetY + Math.sin(startRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            if (u > endRadian) {
+              return offsetY + Math.sin(endRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            return offsetY + Math.sin(u) * (1 + Math.cos(v) * k) * hoverRate;
+          },
+
+          z: function (u, v) {
+            if (u < -Math.PI * 0.5) {
+              return Math.sin(u);
+            }
+            if (u > Math.PI * 2.5) {
+              return Math.sin(u);
+            }
+            return Math.sin(v) > 0 ? 1 * height : -1;
+          },
+        };
+      }
+
+      // 生成模拟 3D 饼图的配置项
+      function getPie3D(pieData, internalDiameterRatio) {
+        let series = [];
+        let sumValue = 0;
+        let startValue = 0;
+        let endValue = 0;
+        let legendData = [];
+        let k =
+          typeof internalDiameterRatio !== 'undefined'
+            ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio)
+            : 1 / 3;
+
+        // 为每一个饼图数据，生成一个 series-surface 配置
+        for (let i = 0; i < pieData.length; i++) {
+          sumValue += pieData[i].value;
+
+          let seriesItem = {
+            name: typeof pieData[i].name === 'undefined' ? `series${i}` : pieData[i].name,
+            type: 'surface',
+            parametric: true,
+            wireframe: {
+              show: false,
+            },
+            pieData: pieData[i],
+            pieStatus: {
+              selected: false,
+              hovered: false,
+              k: k,
+            },
+          };
+
+          if (typeof pieData[i].itemStyle != 'undefined') {
+            let itemStyle = {};
+
+            typeof pieData[i].itemStyle.color != 'undefined' ? (itemStyle.color = pieData[i].itemStyle.color) : null;
+            typeof pieData[i].itemStyle.opacity != 'undefined'
+              ? (itemStyle.opacity = pieData[i].itemStyle.opacity)
+              : null;
+
+            seriesItem.itemStyle = itemStyle;
+          }
+          series.push(seriesItem);
+        }
+
+        // 使用上一次遍历时，计算出的数据和 sumValue，调用 getParametricEquation 函数，
+        // 向每个 series-surface 传入不同的参数方程 series-surface.parametricEquation，也就是实现每一个扇形。
+        for (let i = 0; i < series.length; i++) {
+          endValue = startValue + series[i].pieData.value;
+          console.log(series[i]);
+          series[i].pieData.startRatio = startValue / sumValue;
+          series[i].pieData.endRatio = endValue / sumValue;
+          series[i].parametricEquation = getParametricEquation(
+            series[i].pieData.startRatio,
+            series[i].pieData.endRatio,
+            false,
+            false,
+            k,
+            series[i].pieData.value
+          );
+
+          startValue = endValue;
+
+          legendData.push(series[i].name);
+        }
+
+        // 准备待返回的配置项，把准备好的 legendData、series 传入。
+        let option = {
+          tooltip: {
+            formatter: (params) => {
+              if (params.seriesName !== 'mouseoutSeries') {
+                return `${params.seriesName
+                  }<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color
+                  };"></span>${option.series[params.seriesIndex].pieData.value}`;
+              }
+            },
+          },
+          legend: {
+            show:false,
+            data: legendData,
+            textStyle: {
+              color: '#fff',
+              fontSize: 12,
+            },
+          },
+          xAxis3D: {
+            min: -1,
+            max: 1,
+          },
+          yAxis3D: {
+            min: -1,
+            max: 1,
+          },
+          zAxis3D: {
+            min: -1,
+            max: 1,
+          },
+          grid3D: {
+            show: false,
+            boxHeight: 20,
+            //top: '30%',
+            bottom: '50%',
+            // environment: '#021041',
+            viewControl: {
+              distance: 300,
+              alpha: 25,
+              beta: 130,
+            },
+          },
+          series: series,
+        };
+        return option;
+      }
+
+      // 传入数据生成 option
+      let option = getPie3D(
+        [
+          {
+            name: '教学用房',
+            value: 3,
+            itemStyle: {
+              opacity: 0.5,
+              color: 'rgba(106, 176, 255,.8)',
+            },
+          },
+          {
+            name: '办公用房',
+            value: 1,
+            itemStyle: {
+              opacity: 0.5,
+              color: 'rgba(19, 181, 177,.8)',
+            },
+          },
+          {
+            name: '科研用房',
+            value: 1,
+            itemStyle: {
+              opacity: 0.5,
+              color: 'rgba(229, 188, 128,.8)',
+            },
+          },
+        ],
+        2
+      );
+      chart.clear();//清除动画
+      chart.setOption(option, true);
     },
     //学校公房总数统计
     getTotalStati() {
@@ -552,172 +774,6 @@ export default {
         },]
       });
     }
-    // rendpubpie() { //能耗态势设备能耗占比饼状图,右侧的那个数据不能有中echarts中的legend需要自己写,点击右边数据不和echarts做联动
-    // 	console.log("进入")
-    // 	let usepublicChartDom, usepublicChartChart, option
-    // 	usepublicChartDom = document.getElementById('usepublic');
-    // 	usepublicChartChart = echarts.init(usepublicChartDom, {
-    // 		width: 150,
-    // 		height: 150
-    // 	});
-    // 	let names = ["生活用水", "浇灌用水", "其他"];
-    // 	let data1 = [1114, 444, 501]
-    // 	let list = []
-    // 	let total = 0
-    // 	for (let i in data1) {
-    // 		total += data1[i]
-    // 	}
-
-    // 	let placeHolderStyle = {
-    // 		normal: {
-    // 			label: {
-    // 				show: false
-    // 			},
-    // 			labelLine: {
-    // 				show: false
-    // 			},
-    // 			color: 'rgba(0, 0, 0, 0)',
-    // 			borderColor: 'rgba(0, 0, 0, 0)',
-    // 			borderWidth: 0
-    // 		}
-    // 	};
-
-    // 	let rich = {
-    // 		white: {
-    // 			align: 'center',
-    // 			padding: [3, 0]
-    // 		}
-    // 	};
-
-    // 	for (let i in data1) {
-    // 		list.push({
-    // 			value: data1[i],
-    // 			name: names[i],
-    // 			itemStyle: {
-    // 				normal: {
-    // 					borderWidth: 5,
-    // 					shadowBlur: 20,
-    // 					borderColor: color[i],
-    // 					shadowColor: color[i],
-    // 					color: color[i]
-    // 				}
-    // 			}
-    // 		}, {
-    // 			value: total / 30,
-    // 			name: '',
-    // 			itemStyle: placeHolderStyle
-    // 		})
-    // 	}
-
-    // 	let func = (params) => {
-    // 		let percent = ((params.value / total) * 100).toFixed(1)
-    // 		let name = params.name.replace(/\n/g, '')
-    // 		if (params.name !== '') {
-    // 			return name + '\n{white|' + percent + '%}'
-    // 		} else {
-    // 			return ''
-    // 		}
-    // 	}
-
-
-
-    // 	usepublicChartChart.setOption({
-    // 		tooltip: {
-    // 			show: false
-    // 		},
-    // 		grid: {
-    // 			containLabel: true,
-    // 			left: 30,
-    // 			top: 0,
-    // 			bottom: 0
-    // 		},
-    // 		legend: {
-    // 			show: false,
-    // 			orient: 'vertical',
-    // 			data: names,
-    // 			icon: 'circle',
-    // 			right: '5px',
-    // 			top: '10px',
-    // 			textStyle: {
-    // 				color: '#fff',
-    // 				fontSize: 20
-    // 			}
-    // 		},
-    // 		series: [{
-    // 				name: '',
-    // 				type: 'pie',
-    // 				clockWise: false,
-    // 				startAngle: '90',
-    // 				center: ['50%', '50%'],
-    // 				radius: ['70%', '70%'], //设置饼状图的宽高
-    // 				hoverAnimation: false,
-    // 				itemStyle: {
-    // 					normal: {
-    // 						label: {
-    // 							show: false,
-    // 							position: 'outside',
-    // 							formatter: func,
-    // 							rich: rich
-    // 						},
-    // 						labelLine: {
-    // 							length: 40,
-    // 							length2: 100,
-    // 							show: false,
-    // 							color: '#00ffff'
-    // 						}
-    // 					}
-    // 				},
-    // 				data: list,
-    // 				animationType: 'scale',
-    // 				animationEasing: 'elasticOut',
-    // 				animationDelay: function(idx) {
-    // 					return idx * 350;
-    // 				}
-    // 			},
-    // 			{
-    // 				name: '',
-    // 				type: 'pie',
-    // 				center: ['50%', '50%'],
-    // 				radius: ['49%', '49%'],
-    // 				itemStyle: {
-    // 					color: 'transparant'
-    // 				},
-    // 				startAngle: '90',
-    // 				data: [{
-    // 					value: total,
-    // 					name: '',
-    // 					label: {
-    // 						normal: {
-    // 							show: true,
-    // 							formatter: '{c|设备}' + '\n\r' + '{active|用电占比}',
-
-    // 							// formatter: '用电纪录',
-    // 							rich: {
-    // 								c: {
-    // 									color: 'rgba(255, 255, 255, .5)',
-    // 									fontSize: 12,
-    // 									// fontWeight: 'bold',
-    // 									lineHeight: 22
-    // 								},
-    // 								b: {
-    // 									color: 'rgba(255, 255, 255, .5)',
-    // 									fontSize: 12,
-    // 									lineHeight: 22
-    // 								}
-    // 							},
-    // 							textStyle: {
-    // 								fontSize: 12,
-    // 								// fontWeight: 'bold'
-    // 							},
-    // 							position: 'center'
-    // 						}
-    // 					}
-    // 				}]
-    // 			}
-    // 		]
-    // 	});
-    // 	// usepublicChartChart.setOption(option)
-    // }
   }
 }
 </script>
@@ -760,6 +816,14 @@ export default {
     }
     .bg {
       background: rgba(106, 176, 255, 0.3);
+    }
+  }
+  .useStati {
+    padding: 0 16px;
+    width: 100%;
+    .chart-useStati {
+      width: 180px;
+      height: 200px;
     }
   }
 
