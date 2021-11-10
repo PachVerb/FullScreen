@@ -633,7 +633,7 @@
 								label: {
 									normal: {
 										show: true,
-										formatter: '{c|异常设备}' + '\n' + '{active|位置分析}',
+										formatter: '{c|异常设备}' + '\n' + '{c|位置分析}',
 
 										// formatter: '用电纪录',
 										rich: {
