@@ -69,19 +69,10 @@
         <sideItem title="公房使用单位统计" transitionType="right" delay="300" height="38.4%">
           <div slot="body" class="usepublicunitbox">
             <div class="usebox">
-              <div id="usepublic"></div>
               <img src="../../assets/pieimg/publichouseout.png" class="useboxoutpie" />
               <img src="../../assets/pieimg/publichouseinner.png" class="gear" />
+              <div id="usepublic"></div>
             </div>
-            <!-- 						<div class="usebox">
-							<img src="../../assets/pieimg/piemidd.png" alt="" class="useboximg">
-							<img src="../../assets/pieimg/outpie.png" class="useboxoutpie">
-							<img src="../../assets/pieimg/gear.png" class="gear">
-							<div id="usepublic"></div>
-							<div>
-
-							</div>
-            </div>-->
           </div>
         </sideItem>
       </div>
@@ -313,19 +304,19 @@ export default {
           containLabel: true
         },
         legend: {
-          data: parma.names.map((item,i)=>{
+          data: parma.names.map((item, i) => {
             return {
-              name:item,
-              textStyle:{
-                color:parma.color[i],
-                fontSize:12
+              name: item,
+              textStyle: {
+                color: parma.color[i],
+                fontSize: 12
               }
             }
           }),
           right: '0',
           itemWidth: 10,
           itemHeight: 5,
-          orient:'vertical',
+          orient: 'vertical',
         },
         xAxis: {
           type: 'category',
@@ -409,160 +400,158 @@ export default {
     },
     //公房使用单位统计
     renderpie() {
-				let usepublicChartDom, usepublicChartChart, option
-				usepublicChartDom = document.getElementById('usepublic');
-				usepublicChartChart = echarts.init(usepublicChartDom);
-				var seriesData = [{
-					name: "土木工程学院",
-					value: "40",
-					label:{
-						color:"#73DDFF"
-					}
-				}, {
-					name: "物理学院",
-					value: "40",
-					label:{
-						color:"#73ACFF"
-					}
-				}, {
-					name: "数学学院",
-					value: "53",
-					label:{
-						color:"#FDD56A"
-					}
-				}, {
-					name: "软件工程学院",
-					value: "40",
-					label:{
-						color:"#FDB36A"
-					}
-				}, {
-					name: "继续教育学院",
-					value: "60",
-					label:{
-						color:"#FD866A"
-					}
-				}, {
-					name: "文法学院",
-					value: "10",
-					label:{
-						color:"#9E87FF"
-					}
-				}, {
-					name: "计算机科学学院",
-					value: "20",
-					label:{
-						color:"#58D5FF"
-					},
-				}];
-				let title = "总计"
-				let formatNumber = function(num) {
-					let reg = /(?=(\B)(\d{3})+$)/g;
-					return num.toString().replace(reg, ',');
-				}
-				let total = seriesData.reduce((a, b) => {
-					return a + b.value * 1
-				}, 0);
-				var legendData = ["二元", "大白", "长大", "杜洛克", "三元", "大长", "PIC"]
-				var colorList = ['#73DDFF', '#73ACFF', '#FDD56A', '#FDB36A', '#FD866A', '#9E87FF', '#58D5FF'];
-				usepublicChartChart.setOption({
-					// title: {
-					//     text: `总计`,
-					//     x: 'center',
-					//     y: 'center',
-					//     textStyle: {
-					//         color: '#fff'
-					//     }
-					// },
-					title: [{
-						text: '{name|' + title + '}\n{val|' + formatNumber(total) + '}{unit|间}',
-						top: 'center',
-						left: 'center',
-						textStyle: {
-							rich: {
-								name: {
-									fontSize: 12,
-									fontWeight: 'normal',
-									color: 'rgba(255,255,255,0.8)',
-									padding: [10, 0]
-								},
-								val: {
-									fontSize: 16,
-									fontWeight: 'bold',
-									color: '#00F5FF',
-								},
-								unit: {
-									fontSize: 12,
-									color: 'rgba(255,255,255,0.5)',
-								}
-							}
-						}
-					}],
-					tooltip: {
-						trigger: 'item',
-						// borderColor: 'rgba(255,255,255,.3)',
-						backgroundColor: 'rgba(13,5,30,.6)',
-						borderWidth: 1,
-						padding: 5,
-						formatter: function(parms) {
-							var str = parms.marker + "" + parms.data.name + "</br>" +
-								// "数量：" + parms.data.value + "头</br>" +
-								"占比：" + parms.percent + "%";
-							return str;
-						}
-					},
-					legend: {
-						show: false,
-						// type: "scroll",
-						orient: 'vertical',
-						left: 'left',
-						align: 'auto',
-						top: 'middle',
-						textStyle: {
-							color: '#fft'
-						},
-						data: legendData
-					},
-					series: [{
-						type: 'pie',
-						z: 3,
-						center: ['50%', '50%'],
-						radius: ['50%', '65%'],
-						clockwise: true,
-						avoidLabelOverlap: true,
-						hoverOffset: 15,
-						itemStyle: {
-							normal: {
-								color: function(params) {
-									return colorList[params.dataIndex]
-								},
+      let usepublicChartDom, usepublicChartChart, option
+      usepublicChartDom = document.getElementById('usepublic');
+      usepublicChartChart = echarts.init(usepublicChartDom);
+      var seriesData = [{
+        name: "土木工程学院",
+        value: "40",
+        label: {
+          color: "#73DDFF"
+        }
+      }, {
+        name: "物理学院",
+        value: "40",
+        label: {
+          color: "#73ACFF"
+        }
+      }, {
+        name: "数学学院",
+        value: "53",
+        label: {
+          color: "#FDD56A"
+        }
+      }, {
+        name: "软件工程学院",
+        value: "40",
+        label: {
+          color: "#FDB36A"
+        }
+      }, {
+        name: "继续教育学院",
+        value: "60",
+        label: {
+          color: "#FD866A"
+        }
+      }, {
+        name: "文法学院",
+        value: "10",
+        label: {
+          color: "#9E87FF"
+        }
+      }, {
+        name: "计算机科学学院",
+        value: "20",
+        label: {
+          color: "#58D5FF"
+        },
+      }];
+      let title = "总计"
+      let formatNumber = function (num) {
+        let reg = /(?=(\B)(\d{3})+$)/g;
+        return num.toString().replace(reg, ',');
+      }
+      let total = seriesData.reduce((a, b) => {
+        return a + b.value * 1
+      }, 0);
+      var legendData = ["二元", "大白", "长大", "杜洛克", "三元", "大长", "PIC"]
+      var colorList = ['#73DDFF', '#73ACFF', '#FDD56A', '#FDB36A', '#FD866A', '#9E87FF', '#58D5FF'];
+      usepublicChartChart.setOption({
+        // title: {
+        //     text: `总计`,
+        //     x: 'center',
+        //     y: 'center',
+        //     textStyle: {
+        //         color: '#fff'
+        //     }
+        // },
+        title: [{
+          text: '{name|' + title + '}\n{val|' + formatNumber(total) + '}{unit|间}',
+          top: 'center',
+          left: 'center',
+          textStyle: {
+            rich: {
+              name: {
+                fontSize: 12,
+                fontWeight: 'normal',
+                color: 'rgba(255,255,255,0.8)',
+                padding: [10, 0]
+              },
+              val: {
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#00F5FF',
+              },
+              unit: {
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.5)',
+              }
+            }
+          }
+        }],
+        tooltip: {
+          // trigger: 'item',
+          // borderColor: 'rgba(255,255,255,.3)',
+          backgroundColor: 'rgba(13,5,30,.6)',
+          borderWidth: 1,
+          padding: 5,
+          formatter: function (parms) {
+            var str = parms.marker + "" + parms.data.name + "</br>" +
+              // "数量：" + parms.data.value + "头</br>" +
+              "占比：" + parms.percent + "%";
+            return str;
+          },
+          textStyle: {
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
+        legend: {
+          show: false,
+          // type: "scroll",
+          orient: 'vertical',
+          left: 'left',
+          align: 'auto',
+          top: 'middle',
+          textStyle: {
+            color: '#fft'
+          },
+          data: legendData
+        },
+        series: [{
+          type: 'pie',
+          z: 3,
+          center: ['50%', '50%'],
+          radius: ['50%', '65%'],
+          clockwise: true,
+          animationDuration: 2000,
+          avoidLabelOverlap: true,
+          hoverOffset: 15,
+          itemStyle: {
+            normal: {
+              color: function (params) {
+                return colorList[params.dataIndex]
+              },
 
-							}
-						},
-						label: {
-							show: true,
-							position: 'outside',
-							formatter: '{a|{b}}',
-							rich: {
-
-								a: {
-									padding: [-30, 10, -20, 10],
-								}
-							}
-						},
-						labelLine: {
-							normal: {
-								length: 15,
-								length2: 25,
-								lineStyle: {
-									width: 1
-								}
-							}
-						},
-						data: seriesData
-					}, ]
-				});
-			}
+            }
+          },
+          label: {
+            show: true,
+            position: 'outside',
+          },
+          labelLine: {
+            normal: {
+              length: 20,
+              length2: 15,
+              lineStyle: {
+                width: 1
+              }
+            }
+          },
+          data: seriesData
+        },]
+      });
+    }
     // rendpubpie() { //能耗态势设备能耗占比饼状图,右侧的那个数据不能有中echarts中的legend需要自己写,点击右边数据不和echarts做联动
     // 	console.log("进入")
     // 	let usepublicChartDom, usepublicChartChart, option
@@ -842,58 +831,31 @@ export default {
     }
   }
 
-  #allTotalAssets {
-    width: 100%;
-    height: 150px;
-  }
-
   .usepublicunitbox {
     width: 100%;
-    height: 210px;
+    height: 100%;
+    .usebox {
+      margin-top: 16px;
+      display: flex;
+      position: relative;
+      #usepublic {
+        width: 100%;
+        height: 220px;
+      }
+      .useboxoutpie {
+        position: absolute;
+        width: 170px;
+        top: calc(50% - 85px);
+        left: calc(50% - 85px);
+      }
+      .gear {
+        position: absolute;
+        width: 100px;
+        top: calc(50% - 50px);
+        left: calc(50% - 50px);
+      }
+    }
   }
-  #usepublic {
-    width: 100%;
-    height: 200px;
-    /* margin-left: 20px; */
-  }
-
-  .usebox {
-    display: flex;
-    position: relative;
-    left: 20px;
-  }
-
-  .icon {
-    color: #fff;
-    font-size: 24px;
-    margin-top: 8px;
-  }
-
-  .useboximg {
-    position: absolute;
-    width: 130px;
-    top: 10px;
-    left: 10px;
-  }
-
-  .useboxoutpie {
-    position: absolute;
-    width: 150px;
-    top: 25px;
-    left: 115px;
-    /* 		animation: myMove 5s; 外圈旋转动画
-		-webkit-animation: myMove 5s infinite linear; */
-  }
-
-  /* 	@keyframes myMove {
-	    from {transform: rotate(0deg);}
-	    to {transform: rotate(360deg);}
-	}
-	 
-	@-webkit-keyframes myMove {
-	    from {transform: rotate(0deg);}
-	    to {transform: rotate(360deg);}
-	} 旋转半圈以后反转*/
 
   /* 外圈旋转动画 */
   @-webkit-keyframes myMove {
@@ -905,15 +867,6 @@ export default {
     100% {
       -webkit-transform: rotate(360deg);
     }
-  }
-  .gear {
-    position: absolute;
-    width: 80px;
-    top: 60px;
-    left: 151px;
-  }
-  .userladnd {
-    height: 300px;
   }
 }
 </style>
