@@ -14,16 +14,6 @@
 										style="color:gray;">人</span>
 									<p style="color: white;position: relative;">住宿总人数</p>
 								</div>
-								<!-- 								<div class="homestatuesleftwz">
-									<p style="color: #00F5FF;display: inline-block;font-weight: bolder;">85.75</p><span
-										style="color:gray;">%</span>
-									<p style="color: white;">今日归寝率</p>
-								</div>
-								<div style="width: 150px;margin-top: 56px;">
-									<p style="display: inline-block;color: #00F5FF;font-weight: bolder;">21102</p><span
-										style="color:gray;">人</span>
-									<p style="color: white;position: relative;">住宿总人数</p>
-								</div> -->
 							</div>
 							<div class="homestatuesright">
 								<div class="leftstatuesbox" v-for="(item,index) in homestaueslist">
@@ -98,8 +88,8 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各宿舍楼归寝情况" delay="1500" height="30%">
-					<div slot='body' style="height: 100%;">
+				<sideItem title="各宿舍楼归寝情况" delay="1500" height="38%">
+					<div slot='body' style="height: 100%;width: 100%;">
 						<div id="returntoBed" ref="returntoBed">
 						</div>
 					</div>
@@ -109,7 +99,7 @@
 			<!-- 右边class="right" -->
 			<div slot="right" style="height: 100%;" class="right">
 				<sideItem title="未归寝名单" transitionType="right" height="100%" >
-						<div  style="height: 100%;width: 100%;" slot='body'>
+						<div  style="height: 100%;width: 100%;overflow-y: scroll;" slot='body'>
 							<div class="nohomelist" v-for="(item,index) in nohomelist" >
 							<div style="display: flex;position: relative;">
 								<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
@@ -162,9 +152,11 @@
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'dormitory'
 					setTimeout(() => {
-						this.randerBar()
 						this.renderpie()
-					}, 1500)
+					}, 1000)
+					setTimeout(() => {
+						this.randerBar()
+					}, 2500)
 				})
 			},
 
@@ -319,7 +311,7 @@
 					grid: {
 						containLabel: true,
 						left: 30,
-						top: 0,
+						top: 20,
 						right: 100,
 						bottom: 0
 					},
@@ -346,6 +338,7 @@
 							legendHoverLink: false,
 							symbolRepeat: true,
 							silent: true,
+							animationDuration: 2500,
 							itemStyle: {
 								color: {
 									type: 'linear',
@@ -417,11 +410,12 @@
 						}
 					]
 				})
+				window.addEventListener("resize", function() {
+					dormitoryChartChart.resize();
+				});
 			}
 		},
 		mounted() {
-			// this.randerBar()
-			// setTimeout(console.log(this.$echarts,"5555",this.$ref.returntoBed), 3000 )
 
 		},
 		data() {
@@ -565,8 +559,8 @@
 
 <style scoped>
 	#returntoBed {
-		width: 400px;
-		height: 230px;
+		width: 100%;
+		height:100%;
 		position: relative;
 		left: -20px;
 	}
@@ -701,6 +695,7 @@
 		background-color: rgba(68, 92, 121, 0.6);
 		background-size: 100% 100%; */
 		position: relative;
+		left: 20px;
 	}
 
 	.left {

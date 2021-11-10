@@ -523,8 +523,8 @@
 						// 有待完善 40即grid left的值
 						ctx.moveTo(40, xAxisPoint[1] + 30)
 						ctx.lineTo(80, xAxisPoint[1] - 20)
-						ctx.lineTo(shape.api.getWidth() - 80, xAxisPoint[1] - 20)
-						ctx.lineTo(shape.api.getWidth() - 40, xAxisPoint[1] + 30)
+						ctx.lineTo(shape.api.getWidth() - 70, xAxisPoint[1] - 20)
+						ctx.lineTo(shape.api.getWidth() - 30, xAxisPoint[1] + 30)
 						ctx.closePath()
 					}
 				})

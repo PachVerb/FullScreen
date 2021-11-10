@@ -200,7 +200,7 @@ export default {
   position: fixed;
   z-index: 10;
   bottom: 3%;
-  right: 50%;
+  right: 48%;
   // margin-left: 50%;
   transform: translateX(365px);
   display: flex;
