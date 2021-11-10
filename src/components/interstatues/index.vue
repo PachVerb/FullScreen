@@ -2,15 +2,15 @@
 	<div style="height: 100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" style="height: 100%;">
-				<sideItem title="用户使用统计" transitionType="left" delay="500" height="20%">
+				<sideItem title="用户使用统计" transitionType="left" delay="100" height="20%">
 					<div slot='body' style="width: 100%;margin-top: 20px;">
 						<div class="flopbox">
 							<p class="flopboxtitle" style="width: 85px;">在线用户</p>
-							<flop :num="num" :unitil="unitil"></flop>
+							<flop :num="num" :unitil="'人'"></flop>
 						</div>
 						<div class="flopbox">
 							<p class="flopboxtitle">今日用户数据值</p>
-							<flop :num="numtow" :unitil="unitil"></flop>
+							<flop :num="numtow" :unitil="'人'"></flop>
 						</div>
 					</div>
 				</sideItem>
@@ -40,21 +40,23 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警详情" transitionType="left" delay="2000" height="25%">
-					<div slot='body' class="deviceDetail" style="height: 100%;width: 100%;">
+				<sideItem title="设备告警详情" transitionType="left" delay="2000" height="28%">
+					<div slot='body'  style="width: 100%;height: 100%;">
+						<div class="deviceDetail">
 						<div class="checkBox">
 							<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
 							<div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
 							<div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
 						</div>
-						<div class="chart-trendChart" id="trendChart"></div>
+						</div>
+						<div  id="trendChart" ></div>
 					</div>
 				</sideItem>
 			</div>
 			<div slot="right" style="height: 100%;">
-				<sideItem title="网站安全统计" height="50%" transitionType="right" delay="500" >
-					<div slot='body' class="webSecuritytotal" style="width: 100%;height: 100%;">
-						<div>
+				<sideItem title="网站安全统计" height="50%" transitionType="right" delay="500">
+					<div slot='body' style="width: 100%;height: 100%;">
+						<div style="width: 100%;height: 100%;">
 							<div class="calendar">
 								<p style="color: rgba(255, 255, 255, .6);">时间范围:</p>
 								<date-picker v-model="value1" type="daterange" range-separator="至"
@@ -64,8 +66,10 @@
 								<img src="@/assets/img/internetstatues/stop.png" alt="">
 							</div>
 							<div class="rightpie">
-								<img src="../../assets/pieimg/internetstatues/rightpieiner.png" class="rightpieimginner">
-								<img src="../../assets/pieimg/internetstatues/innercircle.png" class="rightpieimginnercircle">
+								<img src="../../assets/pieimg/internetstatues/rightpieiner.png"
+									class="rightpieimginner">
+								<img src="../../assets/pieimg/internetstatues/innercircle.png"
+									class="rightpieimginnercircle">
 								<img src="../../assets/pieimg/internetstatues/outpie.png" class="rightpieimgout">
 								<div id="webSecuritytotalpie"></div>
 								<div>
@@ -79,7 +83,7 @@
 									</div>
 								</div>
 							</div>
-							<div id="rightbar"></div>
+							<div id="rightbar" style="margin-top: 20px;"></div>
 						</div>
 
 						<!-- <div class="echartspie" ref='topPie'></div> -->
@@ -87,10 +91,38 @@
 				</sideItem>
 				<sideItem title="服务器安全分析" height="25%" transitionType="right" delay="1000">
 					<div slot='body' class="serverSecuritytotal" style="width: 100%;height: 100%;">
+						<div class="head">
+						  <span>攻击时间</span>
+						  <span>源IP</span>
+						  <span>目的IP</span>
+						  <span>攻击类型</span>
+						</div>
+						<div class="listBox">
+						  <div class="row" v-for="(item,i) in dormList" :key="i">
+						    <span style="padding-left: 10px;">{{item.date}}</span>
+						    <span>{{item.ipaddress}}</span>
+						    <span>{{item.targetip}}</span>
+								<span>{{item.type}}</span>
+						  </div>
+						</div>
 					</div>
 				</sideItem>
 				<sideItem title="网站安全分析" height="25%" transitionType="right" delay="1500">
 					<div slot='body' class="websiteSecurityanalysis" style="width: 100%;height: 100%;">
+						<div class="head">
+						  <span>排行</span>
+						  <span>域名</span>
+						  <span>类型</span>
+						  <span>告警数</span>
+						</div>
+						<div class="listBox">
+						  <div class="row" v-for="(item,i) in webSafedate" :key="i">
+						    <span style="padding-left: 10px;">{{item.ranking}}</span>
+						    <span>{{item.domainName}}</span>
+						    <span>{{item.type}}</span>
+								<span>{{item.numberAlarms}}</span>
+						  </div>
+						</div>
 					</div>
 				</sideItem>
 			</div>
@@ -124,6 +156,8 @@
 		},
 		data() {
 			return {
+				dormList: [],
+				webSafedate:[],
 				value1: "", //时间选择器的值
 				trendKey: 2,
 				trendWaterKey: 2,
@@ -194,6 +228,10 @@
 				console.log(val, "vvvvvvsdds")
 			}
 		},
+		created() {
+			this.getDormStatus()
+			this.getWebsafedate()
+		},
 		mounted() {
 
 		},
@@ -203,161 +241,195 @@
 					this.thisCrrentSys = 'interstatues'
 					setTimeout(() => {
 						this.randerBar()
-						this.getTrendAnalyData(2);
 						this.renderrightpie()
 						this.renderrightbar()
 					}, 1500)
+					setTimeout(() => {
+						this.getTrendAnalyData(2);
+					}, 2500)
 				})
 			},
-			renderrightbar(){
+			getDormStatus() {
+			  this.dormList = [
+			    { date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
+					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
+					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
+					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
+					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
+					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
+					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
+					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web强命令" },
+			  ]
+			},
+			getWebsafedate() {
+			  this.webSafedate = [
+			    { ranking: '01', domainName: '192.168.6.14', type: '恶意访问接口',numberAlarms:"15" },
+					{ ranking: '02', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
+					{ ranking: '03', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
+					{ ranking: '04', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
+					{ ranking: '05', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
+					{ ranking: '06', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
+					{ ranking: '07', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
+					{ ranking: '08', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
+			  ]
+			},
+			
+			renderrightbar() {
 				let rightbarpieChartDom, rightbarpieChartChart
 				rightbarpieChartDom = document.getElementById('rightbar');
 				rightbarpieChartChart = echarts.init(rightbarpieChartDom);
-				var xData = ["2019-03-01", "2019-03-02", "2019-03-03", "2019-03-04", "2019-03-05", "2019-03-06", "2019-03-07", "2019-03-08", "2019-03-09", "2019-03-10", "2019-03-11", "2019-03-12", "2019-03-13", "2019-03-14", "2019-03-15", "2019-03-16", "2019-03-17", "2019-03-18", "2019-03-19", "2019-03-20"];
+				var xData = ["2019-03-01", "2019-03-02", "2019-03-03", "2019-03-04", "2019-03-05", "2019-03-06",
+					"2019-03-07", "2019-03-08", "2019-03-09", "2019-03-10", "2019-03-11", "2019-03-12", "2019-03-13",
+					"2019-03-14", "2019-03-15", "2019-03-16", "2019-03-17", "2019-03-18", "2019-03-19", "2019-03-20"
+				];
 				var yData1 = [12, 5, 12, 46, 22, 24, 15, 5, 54, 18, 24, 18, 31, 25, 27, 14, 15, 21, 20, 17];
 				var yData2 = [13, 7, 10, 38, 17, 28, 22, 12, 28, 19, 14, 19, 19, 31, 22, 11, 14, 19, 22, 16];
 				let option = {
-				    // tooltip: {
-				    //     trigger: 'axis',
-				    //     axisPointer: {
-				    //         type: 'cross'
-				    //     }
-				    // },
-						tooltip: {
-						  trigger: 'axis',
-						  backgroundColor: 'rgba(44,62,80,0.8)',
-						  borderColor: 'rgba(153, 209, 246, 0.6)',
-						  textStyle: {
-						    align: 'left',
-						    fontSize: 12,
-						    color: 'rgba(255,255,255,0.8)',
-						  },
+					// tooltip: {
+					//     trigger: 'axis',
+					//     axisPointer: {
+					//         type: 'cross'
+					//     }
+					// },
+					tooltip: {
+						trigger: 'axis',
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						borderColor: 'rgba(153, 209, 246, 0.6)',
+						textStyle: {
+							align: 'left',
+							fontSize: 12,
+							color: 'rgba(255,255,255,0.8)',
 						},
-				    legend: {
-				        x: 'right',
-				        // y: '40px',
-								
-				        textStyle: {
-				            color: '#f2f2f2',
-				            fontSize: 13,
-				        },
-						
-				        //icon: 'circle',
-				        data: ['总告警数', '投递告警数']
-				    },
-				//     dataZoom: [{
-				//             type: 'slider',
-				//             show: true,
-				//             height: 20,
-				//             left: '10%',
-				//             right: '10%',
-				//             bottom: '2%',
-				//             start: 50,
-				//             end: 100,
-				//             textStyle: {
-				//                 color: '#d4ffff',
-				//                 fontSize: 11,
-				//             },
-				//         }, {
-				//             type: 'inside'
-				//         }
-				
-				//     ],
-				    grid: {
-				        right: '5%',
-				        bottom: '10%',
-				        left: '20px',
-				        top: '30px',
-				        containLabel: true
-				    },
-				    xAxis: [{
-				        type: 'category',
-				        data: xData,
-				        // name: '时间',
-				        nameTextStyle: {
-				            color: '#d4ffff'
-				        },
-				        axisLine: {
-				            lineStyle: {
-				                color: 'rgba(106, 176, 255, .6)'
-				            }
-				        },
-								splitLine: {
-									show:true,
-								    lineStyle: {
-								        color: "rgba(106, 176, 255, .6)",
-												type: 'dashed'
-								    }
-												
-								},
-				        axisTick: {
-				            show: false,
-				        },
+					},
+					legend: {
+						x: 'right',
+						// y: '40px',
 
-				        axisLabel: {
-				            show: true,
-				            textStyle: {
-				                color: "#FFF",
-				                fontSize: 12,
-				            },
-				            //interval:0,
-				            //rotate:30
-				        },
-				    }],
-				    yAxis: [{
-				        type: 'value',
-				        // name: '次数',
-				        nameTextStyle: {
-				            color: '#d4ffff'
-				        },
-				        position: 'left',
-				        axisLine: {
-				            lineStyle: {
-				                color: 'rgba(106, 176, 255, .6)',
-				            }
-				        },
-				        splitLine: {
-				            lineStyle: {
-				                color: "rgba(106, 176, 255, .6)",
-												type: 'dashed'
-				            }
-				
-				        },
-				        axisLabel: {
-				            color: '#d4ffff',
-				            fontSize: 12,
-				        }
-				    }, ],
-				    series: [{
-				            name: '总告警数',
-				            type: 'line',
-				            yAxisIndex: 0,
-				            symbolSize: 4,
-										symbol:"circle",
-				            itemStyle: {
-				                normal: {
-				                    color: 'rgba(106, 176, 255, 1)',
-				                }
-				            },
-				            data: yData1
-				        },
-				        {
-				            name: '投递告警数',
-				            type: 'line',
-										symbol:"circle",
-				            yAxisIndex: 0,
-				            symbolSize: 4,
-				            itemStyle: {
-				                normal: {
-				                    color: 'RGBA(144, 122, 214, 1)',
-				                }
-				            },
-				            data: yData2
-				        }
-				
-				    ]
+						textStyle: {
+							color: '#f2f2f2',
+							fontSize: 13,
+						},
+
+						//icon: 'circle',
+						data: ['总告警数', '投递告警数']
+					},
+					//     dataZoom: [{
+					//             type: 'slider',
+					//             show: true,
+					//             height: 20,
+					//             left: '10%',
+					//             right: '10%',
+					//             bottom: '2%',
+					//             start: 50,
+					//             end: 100,
+					//             textStyle: {
+					//                 color: '#d4ffff',
+					//                 fontSize: 11,
+					//             },
+					//         }, {
+					//             type: 'inside'
+					//         }
+
+					//     ],
+					grid: {
+						right: '5%',
+						bottom: '10%',
+						left: '20px',
+						top: '30px',
+						containLabel: true
+					},
+					xAxis: [{
+						type: 'category',
+						data: xData,
+						// name: '时间',
+						nameTextStyle: {
+							color: '#d4ffff'
+						},
+						axisLine: {
+							lineStyle: {
+								color: 'rgba(106, 176, 255, .6)'
+							}
+						},
+						splitLine: {
+							show: true,
+							lineStyle: {
+								color: "rgba(106, 176, 255, .6)",
+								type: 'dashed'
+							}
+
+						},
+						axisTick: {
+							show: false,
+						},
+
+						axisLabel: {
+							show: true,
+							textStyle: {
+								color: "#FFF",
+								fontSize: 12,
+							},
+							//interval:0,
+							//rotate:30
+						},
+					}],
+					yAxis: [{
+						type: 'value',
+						// name: '次数',
+						nameTextStyle: {
+							color: '#d4ffff'
+						},
+						position: 'left',
+						axisLine: {
+							lineStyle: {
+								color: 'rgba(106, 176, 255, .6)',
+							}
+						},
+						splitLine: {
+							lineStyle: {
+								color: "rgba(106, 176, 255, .6)",
+								type: 'dashed'
+							}
+
+						},
+						axisLabel: {
+							color: '#d4ffff',
+							fontSize: 12,
+						}
+					}, ],
+					series: [{
+							name: '总告警数',
+							type: 'line',
+							yAxisIndex: 0,
+							symbolSize: 4,
+							symbol: "circle",
+							itemStyle: {
+								normal: {
+									color: 'rgba(106, 176, 255, 1)',
+								}
+							},
+							data: yData1
+						},
+						{
+							name: '投递告警数',
+							type: 'line',
+							symbol: "circle",
+							yAxisIndex: 0,
+							symbolSize: 4,
+							itemStyle: {
+								normal: {
+									color: 'RGBA(144, 122, 214, 1)',
+								}
+							},
+							data: yData2
+						}
+
+					]
 				};
 				rightbarpieChartChart.setOption(option)
+				window.addEventListener("resize", function() {
+					rightbarpieChartChart.resize();
+				});
+
 			},
 			renderrightpie() {
 				let webSecuritytotalpieChartDom, webSecuritytotalpieChartChart
@@ -529,14 +601,14 @@
 					// 	}
 					// },
 					tooltip: {
-					  trigger: 'axis',
-					  backgroundColor: 'rgba(44,62,80,0.8)',
-					  borderColor: 'rgba(153, 209, 246, 0.6)',
-					  textStyle: {
-					    align: 'left',
-					    fontSize: 12,
-					    color: 'rgba(255,255,255,0.8)',
-					  },
+						trigger: 'axis',
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						borderColor: 'rgba(153, 209, 246, 0.6)',
+						textStyle: {
+							align: 'left',
+							fontSize: 12,
+							color: 'rgba(255,255,255,0.8)',
+						},
 					},
 					legend: {
 						show: true,
@@ -654,6 +726,9 @@
 				};
 				// 使用刚指定的配置项和数据显示图表。
 				networkdevicetotalChartChart.setOption(option);
+				window.addEventListener("resize", function() {
+					networkdevicetotalChartChart.resize();
+				});
 			},
 			getTrendAnalyData(index) {
 				this.trendKey = index;
@@ -725,14 +800,14 @@
 				let option = {
 
 					tooltip: {
-					  trigger: 'axis',
-					  backgroundColor: 'rgba(44,62,80,0.8)',
-					  borderColor: 'rgba(153, 209, 246, 0.6)',
-					  textStyle: {
-					    align: 'left',
-					    fontSize: 12,
-					    color: 'rgba(255,255,255,0.8)',
-					  },
+						trigger: 'axis',
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						borderColor: 'rgba(153, 209, 246, 0.6)',
+						textStyle: {
+							align: 'left',
+							fontSize: 12,
+							color: 'rgba(255,255,255,0.8)',
+						},
 					},
 					legend: {
 						show: false,
@@ -745,7 +820,7 @@
 						right: '20px'
 					},
 					grid: {
-						top: '10px',
+						top: '20px',
 						left: '0px',
 						right: '14px',
 						bottom: '0px',
@@ -799,11 +874,13 @@
 					series: lineY
 				}
 				chart.clear(); //清除动画
-				chart.setOption(option, true);
-				// setTimeout(() => {
-				//   chart.clear();//清除动画
-				//   chart.setOption(option, true);
-				// }, 600)
+				chart.setOption(option);
+				setTimeout(() => {
+				  chart.setOption(option, true);
+				}, 600)
+				window.addEventListener("resize", function() {
+					chart.resize();
+				});
 			},
 		}
 	}
@@ -826,13 +903,13 @@
 	}
 
 	#networkdevicetotal {
-		height: 160px;
+		height: 100%;
 		width: 100%;
 	}
 
 	.equipmentalarmtotal {
 		// height: 100%;
-		
+
 		margin-top: 20px;
 	}
 
@@ -905,7 +982,7 @@
 	}
 
 	.deviceDetail {
-		height: 220px;
+		height: 10px;
 	}
 
 	.deviceDetail {
@@ -936,11 +1013,13 @@
 			}
 		}
 
-		.chart-trendChart {
-			width: 340px;
-			height: 180px;
-			// margin-top: 20px;
-		}
+
+	}
+
+	#trendChart {
+		// height: 0.85rem;
+		height: calc(100% - 30px) ;
+		width: 380px;
 	}
 
 	#webSecuritytotalpie {
@@ -948,9 +1027,7 @@
 		height: 140px;
 	}
 
-	.webSecuritytotal {
-		// height: 380px;
-	}
+
 
 	.serverSecuritytotal {
 		height: 150px;
@@ -1012,40 +1089,129 @@
 		display: flex;
 		margin-top: 16px;
 		position: relative;
+		height: calc(55% - 70px);
 	}
-	.rightpieimginner{
-		width:60px;
-		height:60px;
+
+	.rightpieimginner {
+		width: 60px;
+		height: 60px;
 		position: absolute;
 		left: 66px;
-		top:40px;
+		top: 40px;
 	}
-	.rightpieimginnercircle{
+
+	.rightpieimginnercircle {
 		width: 90px;
 		height: 90px;
 		position: absolute;
 		left: 50px;
 		top: 25px;
 	}
-	.rightpieimgout{
+
+	.rightpieimgout {
 		width: 120px;
 		height: 120px;
 		position: absolute;
 		left: 35px;
-		top:10px
+		top: 10px
 	}
-	#rightbar{
+
+	#rightbar {
 		width: 100%;
-		height: 160px;
+		height: calc(52% - 30px);
+	}
+	.head {
+	  position: relative;
+	  padding: 10px 0;
+	  width: 100%;
+	  display: flex;
+	  align-items: center;
+	  font-size: 14px;
+	  font-weight: 500;
+	  color: rgba(255,255,255,0.5);
+	  span {
+	    flex: 1;
+	  }
+	  &::before {
+	    content: "";
+	    width: 100%;
+	    height: 1px;
+	    background: linear-gradient(to left, #112d46, #1b4465, #112d46);
+	    position: absolute;
+	    left: 0;
+	    bottom: -1px;
+	  }
+	}
+	.listBox {
+	  margin-top: 10px;
+	  width: 100%;
+	  flex: 1;
+	  height:calc(100% - 50px) ;
+	  overflow-y: scroll;
+	  .head {
+	    position: relative;
+	    padding: 10px 0;
+	    width: 100%;
+	    display: flex;
+	    align-items: center;
+	    font-size: 14px;
+	    font-weight: 500;
+	    color: rgba(255,255,255,0.5);
+	    span {
+	      flex: 1;
+	    }
+	    &::before {
+	      content: "";
+	      width: 100%;
+	      height: 1px;
+	      background: linear-gradient(to left, #112d46, #1b4465, #112d46);
+	      position: absolute;
+	      left: 0;
+	      bottom: -1px;
+	    }
+	  }
+	  .row {
+	    position: relative;
+	    padding: 10px 0;
+	    width: 100%;
+	    display: flex;
+	    align-items: center;
+	    font-size: 12px;
+	    font-weight: 400;
+	    color: rgba(255, 255, 255, 0.8);
+	    border-radius: 2px;
+	    span {
+	      flex: 1;
+	      white-space: nowrap;
+	      text-overflow: ellipsis;
+	      overflow: hidden;
+				font-size: 12px;
+	    }
+	    &::before {
+	      content: "";
+	      width: 100%;
+	      height: 1px;
+	      background: linear-gradient(to left, #112d46, #1b4465, #112d46);
+	      position: absolute;
+	      left: 0;
+	      bottom: -1px;
+	    }
+	    &:hover {
+	      background: rgba(106, 176, 255, 0.2);
+	    }
+	    .btn-check {
+	      width: 58px;
+	      height: 30px;
+	      color: rgba(255, 255, 255, 0.6);
+	      background: url("../../assets/study/btn.png") no-repeat;
+	      background-size: 100% 100%;
+	      text-align: center;
+	      line-height: 30px;
+	      cursor: pointer;
+	      &:hover {
+	        color: rgba(255, 255, 255, 1);
+	      }
+	    }
+	  }
 	}
 </style>
-<!-- <style type="text/css">
-	.el-table, .el-table__expanded-cell {background-color: transparent !important;}
-	.el-table th, .el-table tr, .el-table td {background-color: transparent !important;}
-	/* 去掉中间数据的分割线 */
-	.el-table__row>td{border: none;}
-	/* 去掉上面的线 */
-	.el-table th.is-leaf{border: none;}
-	/* 去掉最下面的那一条线 */
-	.el-table::before {height: 0px;}
-</style> -->
