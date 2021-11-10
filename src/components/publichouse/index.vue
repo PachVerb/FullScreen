@@ -7,54 +7,66 @@
             <currency v-for="(item,i) in staList" :key="i" :boxnum="item.count" :boxtitle="item.type" :boxcolor="item.color" :boxuntil="item.unit"></currency>
           </div>
         </sideItem>
-        <sideItem title="校区公房统计" delay="200" height="24.48%">
+        <sideItem title="校区公房统计" delay="200" height="25.63%">
           <div class="houseStati" slot="body">
             <div class="row title">
-							<span>所属校区</span>
-							<span>楼栋数</span>
-							<span>房间数</span>
-							<span>建筑面积</span>
-							<span>使用面积</span>
-						</div>
-						<div class="row bg" v-for="(item,i) in houseStaList" :key="i">
-							<span>{{item.campus}}</span>
-							<span>{{item.build}}</span>
-							<span>{{item.room}}</span>
-							<span>{{item.area}}</span>
-							<span>{{item.useArea}}</span>
-						</div>
-						<div class="row bg total">
-							<span>合计</span>
-							<span>{{houseStaList.reduce((sum,item)=>sum+item.build,0)}}</span>
-							<span>{{houseStaList.reduce((sum,item)=>sum+item.room,0)}}</span>
-							<span>{{houseStaList.reduce((sum,item)=>sum+item.area,0)}}</span>
-							<span>{{houseStaList.reduce((sum,item)=>sum+item.useArea,0)}}</span>
-						</div>
+              <span>所属校区</span>
+              <span>楼栋数</span>
+              <span>房间数</span>
+              <span>建筑面积</span>
+              <span>使用面积</span>
+            </div>
+            <div class="row bg" v-for="(item,i) in houseStaList" :key="i">
+              <span>{{item.campus}}</span>
+              <span>{{item.build}}</span>
+              <span>{{item.room}}</span>
+              <span>{{item.area}}</span>
+              <span>{{item.useArea}}</span>
+            </div>
+            <div class="row bg total">
+              <span>合计</span>
+              <span>{{houseStaList.reduce((sum,item)=>sum+item.build,0)}}</span>
+              <span>{{houseStaList.reduce((sum,item)=>sum+item.room,0)}}</span>
+              <span>{{houseStaList.reduce((sum,item)=>sum+item.area,0)}}</span>
+              <span>{{houseStaList.reduce((sum,item)=>sum+item.useArea,0)}}</span>
+            </div>
           </div>
         </sideItem>
-        <sideItem title="公房使用方向统计" delay="300">
+        <sideItem title="公房使用方向统计" delay="300" height="30%">
           <div slot="body">
             <div id="allTotalAssets"></div>
           </div>
         </sideItem>
-        <sideItem title="学校公房总数统计" delay="400">
-          <div slot="body">
-            <div id="allTotalAssets"></div>
+        <sideItem title="学校公房总数统计" delay="400" height="22.76%">
+          <div class="totalStati" slot="body">
+            <div class="chart-total" id="totalChart"></div>
           </div>
         </sideItem>
       </div>
-      <div slot="right">
-        <sideItem title="空置房源统计" transitionType="right" delay="100">
-          <div slot="body">
-            <div id="webSecurity"></div>
+      <div slot="right" style="height: 100%;">
+        <sideItem title="空置房源统计" transitionType="right" delay="100" height="23.91%">
+          <div class="freeStati" slot="body">
+            <img class="chartImg" src="../../assets/img/pyramid.png" alt />
+            <div class="detailBox">
+              <div class="row" v-for="(item,i) in freeList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i>
+                  <span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <animated-number :value="item.val" :formatValue="val=>val.toFixed()" :duration="4000" />
+                  <i>%</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
-        <sideItem title="土地情况" transitionType="right" delay="200">
-          <div slot="body" class="userladnd">
-            <div id="serverSecurity"></div>
+        <sideItem title="土地情况" transitionType="right" delay="200" height="37.67%">
+          <div slot="body" class="landState">
+            <div class="chart-land" id="landChart"></div>
           </div>
         </sideItem>
-        <sideItem title="公房使用单位统计" transitionType="right" delay="300">
+        <sideItem title="公房使用单位统计" transitionType="right" delay="300" height="38.4%">
           <div slot="body" class="usepublicunitbox">
             <div class="usebox">
               <div id="usepublic"></div>
@@ -85,6 +97,7 @@ import sideTran from '../sideTran'
 import nowpeopleslide from '../nowpeopleslide.vue'
 import sideItem from '../sideItem.vue'
 import currency from '../currency.vue'//通用box组件
+import AnimatedNumber from "animated-number-vue";
 import {
   mapGetters
 } from 'vuex'
@@ -93,7 +106,8 @@ export default {
   components: {
     sideTran,
     sideItem,
-    currency
+    currency,
+    AnimatedNumber
   },
   data() {
     return {
@@ -102,7 +116,8 @@ export default {
       fontcolor: [],
       fontcolorobj: [],
       staList: [],
-			houseStaList:[],
+      houseStaList: [],
+      freeList: [],
     }
   },
   computed: {
@@ -117,7 +132,10 @@ export default {
         setTimeout(() => {
           this.renderpie()
           this.getSchoolState();
-					this.getHouseStati();
+          this.getHouseStati();
+          this.getTotalStati();
+          this.getFreeStati();
+          this.getLandState();
         }, 500);
       })
     },
@@ -130,14 +148,249 @@ export default {
         { type: '总房间面积', count: 28227, color: '#A488EF', unit: '㎡' },
       ]
     },
-		//校区公房统计
+    //校区公房统计
     getHouseStati() {
       this.houseStaList = [
-        { campus: '东校区', build: 13, room: 195, area: 13012.68,useArea:8043.58 },
-        { campus: '西校区', build: 7, room: 41, area: 2785.37,useArea:1764.83 },
-        { campus: '南校区', build: 16, room: 510, area: 39013.36,useArea:23284.54 },
+        { campus: '东校区', build: 13, room: 195, area: 13012.68, useArea: 8043.58 },
+        { campus: '西校区', build: 7, room: 41, area: 2785.37, useArea: 1764.83 },
+        { campus: '南校区', build: 16, room: 510, area: 39013.36, useArea: 23284.54 },
       ]
     },
+    //学校公房总数统计
+    getTotalStati() {
+      let dom = document.getElementById('totalChart');
+      let chart = echarts.init(dom);
+      let parma = {
+        names: ['总量', '超出'],
+        lineX: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+        value: [
+          [351, 452, 183, 284, 135, 236, 287, 188, 359, 151, 231, 132],
+          [260, 345, 80, 192, 30, 110, 192, 80, 250, 53, 152, 28]
+        ]
+      };
+      let color = ['rgb(106, 176, 255)', 'rgb(242, 137, 107)']
+      let lineY = []
+      for (let i = 0; i < parma.names.length; i++) {
+        let data = {
+          name: parma.names[i],
+          type: 'line',
+          animationDuration: 2000,
+          color: color[i],
+          smooth: false,
+          symbol: 'circle',
+          symbolSize: 5,
+          data: parma.value[i]
+        }
+        lineY.push(data)
+      }
+      let option = {
+        tooltip: {
+          confine: true,//提示框限制在图表内
+          trigger: 'axis',
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
+        legend: {
+          top: '0px',
+          data: parma.names,
+          textStyle: {
+            fontSize: 12,
+            color: 'F1F1F3'
+          },
+          right: '20px'
+        },
+        grid: {
+          top: '30px',
+          left: '0px',
+          right: '5px',
+          bottom: '0px',
+          containLabel: true
+        },
+        xAxis: {
+          show: true,
+          type: 'category',
+          boundaryGap: false,
+          data: parma.lineX,
+          axisLabel: {
+            textStyle: {
+              color: 'rgba(246, 250, 255, 0.8)'
+            },
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.5)',
+              width: 2
+            }
+          }
+        },
+        yAxis: {
+          show: true,
+          splitArea: {
+            show: true,
+            areaStyle: {
+              color: "transparent"
+            }
+          },
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}',
+            textStyle: {
+              color: 'rgba(246, 250, 255, 0.8)',
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.5)',
+              type: 'dotted',
+              width: 2
+            }
+          },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.5)',
+              width: 2
+            }
+          }
+        },
+        series: lineY
+      }
+      chart.clear();//清除动画
+      chart.setOption(option, true);
+      // setTimeout(() => {
+      //   chart.clear();//清除动画
+      //   chart.setOption(option, true);
+      // }, 600)
+    },
+    //空置房源统计
+    getFreeStati() {
+      this.freeList = [
+        { name: "北校区", val: 11, color: '#7892FF' },
+        { name: "北校区", val: 22, color: '#5172FF' },
+        { name: "东校区", val: 67, color: '#0C72F0' },
+      ]
+    },
+    //土地情况
+    getLandState() {
+      let dom = document.getElementById('landChart');
+      let chart = echarts.init(dom);
+      let parma = {
+        names: ['总使用权面积', '划拨使用权面积', '出让使用权面积'],
+        unit: '(亿元)',
+        lineX: ['北校区', '北校区', '东校区'],
+        value: [
+          [218, 218, 218], [85, 85, 85], [44, 44, 44],
+        ],
+        color: ['#6AB0FF', '#E5BC80', '#C490BF']
+      };
+      let option = {
+        animationDuration: 2000,
+        tooltip: {
+          confine: true,//提示框限制在图表内
+          trigger: 'axis',
+          axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+          },
+          backgroundColor: 'rgba(44,62,80,0.8)',
+          borderColor: 'rgba(153, 209, 246, 0.6)',
+          textStyle: {
+            align: 'left',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
+        grid: {
+          left: '2%',
+          right: '4%',
+          bottom: '0',
+          top: '24%',
+          containLabel: true
+        },
+        legend: {
+          data: parma.names.map((item,i)=>{
+            return {
+              name:item,
+              textStyle:{
+                color:parma.color[i],
+                fontSize:12
+              }
+            }
+          }),
+          right: '0',
+          itemWidth: 10,
+          itemHeight: 5,
+          orient:'vertical',
+        },
+        xAxis: {
+          type: 'category',
+          data: parma.lineX,
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.5)'
+            }
+          },
+          axisLabel: {
+            textStyle: {
+              color: "rgba(246, 250, 255, 0.8)"
+            }
+          },
+        },
+
+        yAxis: {
+          name: parma.unit,
+          type: 'value',
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.5)'
+            }
+          },
+          axisLabel: {
+            textStyle: {
+              color: "rgba(246, 250, 255, 0.8)"
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(106, 176, 255, 0.5)',
+              type: 'dotted',
+            }
+          },
+        },
+        series: parma.value.map((item, i) => {
+          return {
+            name: parma.names[i],
+            type: 'bar',
+            barWidth: '12px',
+            barGap: '100%',//数据之间的距离
+            label: {
+              normal: {
+                show: true,
+                position: 'top',
+                fontSize: 12,
+                color: '#fff',
+              },
+            },
+            itemStyle: {
+              normal: {
+                color: parma.color[i]
+              },
+            },
+            data: item
+          }
+        })
+      };
+      chart.clear();//清除动画
+      chart.setOption(option, true);
+    },
+
     initcolor() {
       let tempobj = {}
       this.fontcolor = color.slice(0, this.name.length);
@@ -154,6 +407,7 @@ export default {
       }
       console.log(array, "bbbbbbb", this.fontcolor)
     },
+    //公房使用单位统计
     renderpie() {
       let usepublicChartDom, usepublicChartChart, option
       usepublicChartDom = document.getElementById('usepublic');
@@ -270,13 +524,14 @@ export default {
             rich: {
               hr: {
                 backgroundColor: 't',
-                borderRadius: 3,
-                width: 3,
-                height: 3,
-                padding: [3, 3, 0, -12]
+                borderRadius: 2,
+                width: 2,
+                height: 4,
+                padding: [2, 2, 0, -8]
               },
               a: {
-                padding: [-30, 10, -20, 10]
+                padding: [-30, 10, -20, 10],
+                color: '#fff'
               }
             }
           },
@@ -466,59 +721,118 @@ export default {
 
 <style lang="less" scoped>
 .publichouse {
-	color: #f6faff;
-	.schoolState{
-		padding: 0 16px;
+  color: #f6faff;
+  .schoolState {
+    padding: 0 16px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-	}
-  .houseStati{
-		padding: 0 16px;
+  }
+  .houseStati {
+    padding: 0 16px;
     width: 100%;
-		.row{
-			margin-top: 5px;
-			width: 100%;
-			display: flex;
-			align-items: center;
-			border-radius: 4px;
-			font-size: 12px;
-			font-weight: 400;
-			color: rgba(255, 255, 255, 0.6);
-			span{
-				flex: 1;
-				line-height: 28px;
-			}
-		}
-		.title{
-			font-size: 14px;
-			font-weight: 500;
-			color: rgba(255, 255, 255, 0.8);
-		}
-		.total{
-			color: #00F5FF;
-		}
-		.bg{
-			background: rgba(106, 176, 255, 0.3);
-		}
-	}
+    .row {
+      margin-top: 5px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.6);
+      span {
+        flex: 1;
+        line-height: 30px;
+      }
+    }
+    .title {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .total {
+      color: #00f5ff;
+    }
+    .bg {
+      background: rgba(106, 176, 255, 0.3);
+    }
+  }
+
+  .totalStati {
+    padding: 0 16px;
+    width: 100%;
+    .chart-total {
+      width: 340px;
+      height: 150px;
+    }
+  }
+  .freeStati {
+    padding: 10px 20px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .chartImg {
+      width: 145px;
+      height: 150px;
+    }
+    .detailBox {
+      flex: 1;
+      height: 150px;
+      margin-left: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 5px;
+        border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+        .title {
+          i {
+            border: 2px solid;
+            border-radius: 4px;
+            display: inline-block;
+            height: 5px;
+            margin-right: 4px;
+          }
+          span {
+            font-size: 14px;
+          }
+        }
+        .value {
+          span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #00f5ff;
+            margin-right: 2px;
+          }
+          i {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+  }
+  .landState {
+    padding: 0 16px;
+    width: 100%;
+    .chart-land {
+      width: 340px;
+      height: 280px;
+    }
+  }
 
   #allTotalAssets {
     width: 100%;
     height: 150px;
   }
 
-  #webSecurity {
-    width: 100%;
-    height: 150px;
-  }
-
-  #serverSecurity {
-    width: 100%;
-    height: 150px;
-  }
   .usepublicunitbox {
     width: 100%;
     height: 210px;
