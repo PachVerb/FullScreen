@@ -113,8 +113,8 @@
             <div class="item" v-for="(item,i) in courseList" :key="i">
               <div class="imgbox">
                 <img class="icon" :src="item.icon" alt />
-                <img class="light" src="../../assets/study/bg-l.png" alt="">
-                <img src="../../assets/study/bg-b.png" alt="">
+                <img class="light" src="../../assets/study/bg-l.png" alt />
+                <img src="../../assets/study/bg-b.png" alt />
               </div>
               <span class="value">
                 {{item.val}}
@@ -170,7 +170,7 @@ export default {
       classList: [],
       staList: [],
       dormKey: true,//使用中,空闲中
-      dormProVal:0,
+      dormProVal: 0,
       dormList: [],
       roomList: [],
       courseList: [],
@@ -325,9 +325,9 @@ export default {
       ]
     },
     //各宿舍楼归寝情况
-    getDormStatus(flag=true) {
+    getDormStatus(flag = true) {
       this.dormKey = flag;
-      this.dormList = flag?[
+      this.dormList = flag ? [
         { room: '法医实验室', loca: '文科实验楼1', person: '张锦' },
         { room: '化学实验室', loca: '文科实验楼2', person: '李达' },
         { room: '统计大数据实验室', loca: '文科实验楼3', person: '王晓悦' },
@@ -336,7 +336,7 @@ export default {
         { room: '网络统计实验室', loca: '文科实验楼6', person: '杨澜' },
         { room: '网络统计实验室', loca: '文科实验楼7', person: '杨澜' },
         { room: '网络统计实验室', loca: '文科实验楼8', person: '杨澜' },
-      ]:[
+      ] : [
         { room: '地理实验室', loca: '理科实验楼1', person: '张锦' },
         { room: '生化实验室', loca: '理科实验楼2', person: '李达' },
         { room: '政治思想实验室', loca: '理科实验楼3', person: '王晓悦' },
@@ -348,9 +348,9 @@ export default {
       ]
       this.dormProVal = 0;
       let t = setInterval(() => {
-        if(this.dormProVal< 30.6){
+        if (this.dormProVal < 30.6) {
           this.dormProVal += 0.1;
-        }else{
+        } else {
           clearInterval(t)
         }
       }, 8);
@@ -367,10 +367,11 @@ export default {
         let flag = true;
         let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
         //检查滚动距离是否过短
-        if(content.clientHeight - scrollBox.clientHeight<itemH)return;
+        if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+        scrollBox.className = 'scroll noScroll';//隐藏滚动条
         this.dormTimer = setInterval(() => {
           //检查滚动距离是否过短
-          if(content.clientHeight - scrollBox.clientHeight<itemH)return;
+          if (content.clientHeight - scrollBox.clientHeight < itemH) return;
           //来回移动
           // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
           //   scrollBox.scrollTop += 1;
@@ -391,6 +392,7 @@ export default {
     //停止自动滚动
     dormScrollStop() {
       clearInterval(this.dormTimer);
+      document.querySelector('.dormState .scroll').className = 'scroll';//显示滚动条
     },
     //教室分类统计
     getRoomType() {
@@ -536,10 +538,11 @@ export default {
         let flag = true;
         let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
         //检查滚动距离是否过短
-        if(content.clientHeight - scrollBox.clientHeight<itemH)return;
+        if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+        scrollBox.className = 'scroll noScroll';//隐藏滚动条
         this.attendTimer = setInterval(() => {
           //检查滚动距离是否过短
-          if(content.clientHeight - scrollBox.clientHeight<itemH)return;
+          if (content.clientHeight - scrollBox.clientHeight < itemH) return;
           //来回移动
           // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
           //   scrollBox.scrollTop += 1;
@@ -560,6 +563,7 @@ export default {
     //停止自动滚动
     attendScrollStop() {
       clearInterval(this.attendTimer);
+      document.querySelector('.attendStati .scroll').className = 'scroll';//显示滚动条
     },
   }
 }
@@ -938,7 +942,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    .imgbox{
+    .imgbox {
       width: 100px;
       height: 85px;
       position: relative;
@@ -949,10 +953,10 @@ export default {
         left: 0;
         top: 0;
       }
-      .icon{
+      .icon {
         animation: ani-icon 3s infinite linear;
       }
-      .light{
+      .light {
         animation: ani-light 3s infinite linear;
       }
       @keyframes ani-light {
@@ -984,7 +988,7 @@ export default {
         }
       }
     }
-    
+
     .value {
       margin-top: 5px;
       font-size: 16px;
@@ -1075,6 +1079,14 @@ export default {
   }
 }
 
+.noScroll {
+  &::-webkit-scrollbar {
+    visibility: hidden;
+  }
+  &::-webkit-scrollbar-thumb {
+    visibility: hidden;
+  }
+}
 @keyframes myMove {
   /**关键帧名称**/
   0% {
