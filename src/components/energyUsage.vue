@@ -668,6 +668,7 @@ export default {
               }
             },
             data: list,
+            animationDuration: 2000,
           },
           {
             name: '',
@@ -768,6 +769,7 @@ export default {
               }
             },
             data: list,
+            animationDuration: 3000,
           },
           {
             name: '',

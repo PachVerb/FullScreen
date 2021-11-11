@@ -611,12 +611,7 @@
 									}
 								}
 							},
-							data: list,
-							animationType: 'scale',
-							animationEasing: 'elasticOut',
-							animationDelay: function(idx) {
-								return idx * 550;
-							}
+							data: list
 						},
 						{
 							name: '',
