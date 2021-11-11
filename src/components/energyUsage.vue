@@ -304,16 +304,16 @@ export default {
     //初始化
     init() {
       this.$nextTick(() => {
-        this.getDeviceStatiList();
-        this.getWaterDeviceStatiList();
-        this.getSurveyData();
-        this.getSurveyWaterData();
-        this.getTrendAnalyData(2);
-        this.getTrendAnalyWaterData(2);
-        this.getRatioData();
-        this.getRatioWaterData();
-        // setTimeout(() => {
-        // }, 1400)
+        setTimeout(() => {
+          this.getDeviceStatiList();
+          this.getWaterDeviceStatiList();
+          this.getSurveyData();
+          this.getSurveyWaterData();
+          this.getTrendAnalyData(2);
+          this.getTrendAnalyWaterData(2);
+          this.getRatioData();
+          this.getRatioWaterData();
+        }, 600)
       })
     },
     //获取用电设备统计列表
@@ -668,11 +668,6 @@ export default {
               }
             },
             data: list,
-            animationType: 'scale',
-            animationEasing: 'elasticOut',
-            animationDelay: function (idx) {
-              return idx * 550;
-            }
           },
           {
             name: '',

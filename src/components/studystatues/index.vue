@@ -392,7 +392,7 @@ export default {
     //停止自动滚动
     dormScrollStop() {
       clearInterval(this.dormTimer);
-      document.querySelector('.dormState .scroll').className = 'scroll';//显示滚动条
+      document.querySelector('.dormState .scroll')&&(document.querySelector('.dormState .scroll').className = 'scroll');//显示滚动条
     },
     //教室分类统计
     getRoomType() {
@@ -563,7 +563,7 @@ export default {
     //停止自动滚动
     attendScrollStop() {
       clearInterval(this.attendTimer);
-      document.querySelector('.attendStati .scroll').className = 'scroll';//显示滚动条
+      document.querySelector('.attendStati .scroll')&&(document.querySelector('.attendStati .scroll').className = 'scroll');//显示滚动条
     },
   }
 }
