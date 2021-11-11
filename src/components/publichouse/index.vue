@@ -945,7 +945,7 @@ export default {
     }
     .detailBox {
       flex: 1;
-      height: 180px;
+      height: 200px;
       margin-left: 10px;
       display: flex;
       flex-direction: column;
