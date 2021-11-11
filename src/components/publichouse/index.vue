@@ -778,9 +778,27 @@ export default {
         }
       }, {
         name: "计算机科学学院",
-        value: "20",
+        value: "40",
         label: {
           color: "#58D5FF"
+        },
+      }, {
+        name: "马克思主义学院",
+        value: "40",
+        label: {
+          color: "#18DDA7"
+        },
+      }, {
+        name: "外国语学院",
+        value: "40",
+        label: {
+          color: "#40CA53"
+        },
+      }, {
+        name: "化学化工学院",
+        value: "40",
+        label: {
+          color: "#E782AF"
         },
       }];
       let title = "总计"
@@ -792,7 +810,7 @@ export default {
         return a + b.value * 1
       }, 0);
       var legendData = ["二元", "大白", "长大", "杜洛克", "三元", "大长", "PIC"]
-      var colorList = ['#73DDFF', '#73ACFF', '#FDD56A', '#FDB36A', '#FD866A', '#9E87FF', '#58D5FF'];
+      var colorList = seriesData.map(item=>item.label.color);
       usepublicChartChart.setOption({
         // title: {
         //     text: `总计`,
