@@ -809,7 +809,7 @@ export default {
       let total = seriesData.reduce((a, b) => {
         return a + b.value * 1
       }, 0);
-      var legendData = ["二元", "大白", "长大", "杜洛克", "三元", "大长", "PIC"]
+      var legendData = seriesData.map(item=>item.name);
       var colorList = seriesData.map(item=>item.label.color);
       usepublicChartChart.setOption({
         // title: {
