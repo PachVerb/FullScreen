@@ -58,7 +58,11 @@
       <div slot="right" style="height: 100%;">
         <sideItem title="空置房源统计" transitionType="right" delay="100" height="23.91%">
           <div class="freeStati" slot="body">
-            <img class="chartImg" src="../../assets/img/pyramid.png" alt />
+            <div class="imgBox">
+              <img class="img1" src="../../assets/img/free-img1.png" alt="">
+              <img class="img2" src="../../assets/img/free-img2.png" alt="">
+              <img class="img3" src="../../assets/img/free-img3.png" alt="">
+            </div>
             <div class="detailBox">
               <div class="row" v-for="(item,i) in freeList" :key="i">
                 <div class="title">
@@ -1017,9 +1021,17 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .chartImg {
+    .imgBox{
       width: 145px;
       height: 150px;
+      position: relative;
+      img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
     .detailBox {
       flex: 1;
