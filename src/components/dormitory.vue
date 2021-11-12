@@ -2,7 +2,7 @@
 	<div style="height: 100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" class="left" style="height: 100%;">
-				<sideItem title="今日归寝情况" delay="500" height="30%">
+				<sideItem title="今日归寝情况" delay="100" height="30%">
 					<div slot='body' style="height: 100%;">
 						<div class="homestatues">
 							<div class="homestatuesleft">
@@ -34,7 +34,7 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各学院资产总数统计" delay="1000" height="30%" style="margin-top: 30px;">
+				<sideItem title="各学院资产总数统计" delay="200" height="30%" style="margin-top: 30px;">
 					<div style="height: 100%;width: 100%;margin-top: 10%;" slot='body'>
 						<div class="dormitoryUtilization">
 							<div class="useleft">
@@ -91,7 +91,7 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各宿舍楼归寝情况" delay="1500" height="38%">
+				<sideItem title="各宿舍楼归寝情况" delay="300" height="38%">
 					<div slot='body' style="height: 100%;width: 100%;">
 						<div id="returntoBed" ref="returntoBed">
 						</div>
@@ -101,7 +101,7 @@
 			</div>
 			<!-- 右边class="right" -->
 			<div slot="right" style="height: 100%;" class="right">
-				<sideItem title="未归寝名单" transitionType="right" height="100%" >
+				<sideItem title="未归寝名单" transitionType="right" delay="100" height="100%" >
 						<div  style="height: 100%;width: 100%;overflow-y: scroll;" slot='body'>
 							<div class="nohomelist" v-for="(item,index) in nohomelist" >
 							<div style="display: flex;position: relative;">
@@ -156,10 +156,8 @@
 					this.thisCrrentSys = 'dormitory'
 					setTimeout(() => {
 						this.renderpie()
-					}, 1000)
-					setTimeout(() => {
 						this.randerBar()
-					}, 2500)
+					}, 600)
 				})
 			},
 

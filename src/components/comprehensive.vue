@@ -1222,6 +1222,9 @@ export default {
       @keyframes lineMove1 {
         0% {
           stroke-dashoffset: 40;
+          stroke: #325e8c;
+        }
+        15% {
           stroke: #6ab0ff;
         }
         50% {
@@ -1240,6 +1243,9 @@ export default {
       @keyframes lineMove2 {
         0% {
           stroke-dashoffset: 48;
+          stroke: #325e8c;
+        }
+        15% {
           stroke: #6ab0ff;
         }
         50% {
