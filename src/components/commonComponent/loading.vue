@@ -20,8 +20,12 @@ export default {
   bottom: 0;
   right: 0;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
   width: 100%;
-  height: 50%;
+  height: calc(100% - 40px);
   img{
     width: 50%;
   }

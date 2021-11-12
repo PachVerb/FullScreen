@@ -6,7 +6,7 @@
         <div :class="['side-item','side-bar-item-aa', sideItem.children ? 'side-item-has-child' : '']" 
           v-for="(sideItem,index) in allSideList" :key="index" 
           @click="checkCurrentSys(sideItem,index, 'click')">
-          <div class="sys-tips" :style="{top: sideItem.children ? sideItem.children.length * (-55) + 'px' : 0}" v-if="sideItem.children">
+          <div class="sys-tips" :style="{top: sideItem.children ? -10 + sideItem.children.length * (-55) + 'px' : 0}" v-if="sideItem.children">
             <div class="sys-tips-body">
               <span :class="['sys-sidechild-normal', checkSideItem.name === currentSysModule ? 'sys-sidechild-select' : '']" 
                 v-for="checkSideItem in sideItem.children" 
@@ -320,7 +320,7 @@ export default {
   display: none;
   left: 50%;
   margin-left: -60px;
-  padding-bottom: 30px;
+  padding-bottom: 35px;
   // top: -70px;
   // margin-left: -30%;
   // padding-right: 10px;
@@ -331,18 +331,18 @@ export default {
   font-size: 12px;
   color: #fff;
   line-height: 47.7px;
-  animation: tilt-in-right-1 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: scale-in-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   transition: all 1s;
 }
-@keyframes tilt-in-right-1 {
+@keyframes scale-in-bottom {
   0% {
-    width: 10px;
-    height: 10px;
-    transform: rotateX(-30deg) translateX(300px) skewX(30deg) rotateY(-30deg) translateY(-300px) skewY(30deg);
-    opacity: 0;
+    transform: scale(0);
+    transform-origin: 50% 100%;
+    opacity: 1;
   }
   100% {
-    transform: rotateX(0deg) translateX(0) skewX(0deg) rotateY(0deg) translateY(0) skewY(0deg);
+    transform: scale(1);
+    transform-origin: 50% 100%;
     opacity: 1;
   }
 }
