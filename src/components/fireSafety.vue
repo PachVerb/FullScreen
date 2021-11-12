@@ -28,6 +28,7 @@
 					</div>
 				</sideItem>
 				<sideItem title="异常设备位置分析" delay="1000" height="30%">
+					<div slot="headRight">6666</div>
 					<div slot='body' class="abnormaldevice-box">
 						<div class="abnormaldevice">
 							<img src="../assets/pieimg/fire/firearc.png" class="abnormaldeviceimg fireleftarc">
