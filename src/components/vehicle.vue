@@ -40,17 +40,19 @@
 									:key="head.name">{{ head.name }}</span>
 							</div>
 							<div class="ab-list patrol">
-								<div class="ab-item-wrap" v-for="(item) in abDetailList" :key="item.id">
-									<div class="ab-item">
-										<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
-											{{ item.name }}
-										</div>
-										<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
-										<div class="table-item" :style="{width: tableHead[2].width}">{{ item.methods }}</div>
-										<div class="table-item" :style="{width: tableHead[3].width}">{{ item.date }}</div>
-										<div :style="{width: tableHead[4].width}" class="table-item">
-											<span v-if="checkTrajector == item.id" class="close-trajectory" @click="handleCloseTrajector(item.id)">关闭轨迹</span>
-											<span v-else class="check-trajectory" @click="handleCheckTrajector(item.id)">查看轨迹</span>
+								<div class="content" @mouseenter="abScrollStop" @mouseleave="abScrollStart">
+									<div class="ab-item-wrap" v-for="(item) in abDetailList" :key="item.id">
+										<div class="ab-item">
+											<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
+												{{ item.name }}
+											</div>
+											<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
+											<div class="table-item" :style="{width: tableHead[2].width}">{{ item.methods }}</div>
+											<div class="table-item" :style="{width: tableHead[3].width}">{{ item.date }}</div>
+											<div :style="{width: tableHead[4].width}" class="table-item">
+												<span v-if="checkTrajector == item.id" class="close-trajectory" @click="handleCloseTrajector(item.id)">关闭轨迹</span>
+												<span v-else class="check-trajectory" @click="handleCheckTrajector(item.id)">查看轨迹</span>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -151,17 +153,18 @@
 			return {
 				value1: '',
 				statiList: [],//违章车辆统计
+				abTimer:null,
 				abDetailList: [{
 					id: '1',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区1层走廊',
 					methods: '违停'
 				}, {
 					id: '2',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区2层走廊',
 					methods: '违停'
 				}, {
 					id: '3',
@@ -173,37 +176,37 @@
 					id: '4',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区4层走廊',
 					methods: '违停'
 				}, {
 					id: '5',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区5层走廊',
 					methods: '违停'
 				}, {
 					id: '6',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区6层走廊',
 					methods: '违停'
 				},{
 					id: '7',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区7层走廊',
 					methods: '违停'
 				},{
 					id: '8',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区8层走廊',
 					methods: '违停'
 				},{
 					id: '9',
 					name: 'JD1544',
 					date: '2021/11/09 15:22',
-					address: '教学楼A区3层走廊',
+					address: '教学楼A区9层走廊',
 					methods: '违停'
 				},],
 				tableHead: [{
@@ -243,12 +246,20 @@
 				},]
 			}
 		},
+		watch: {
+			currentSys(val) {
+				if (val != 'vehicle') {
+					this.abScrollStop();
+				}
+			}
+		},
 		methods: {
 			init() {
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'vehicle'
 					this.getDeviceStatiList()
 					setTimeout(() => {
+						this.getAbDetail()
 						this.randerBar()
 					}, 1500)
 				})
@@ -258,6 +269,46 @@
 			},
 			handleCloseTrajector(id){
 				this.checkTrajector = ''
+			},
+			//违规车辆详情
+			getAbDetail(){
+				this.abScrollStart();
+			},
+			//开始自动滚动
+			abScrollStart() {
+				this.abDetailList.length && this.$nextTick(() => {
+					this.abScrollStop();
+					let scrollBox = document.querySelector('.violation-detail-table .ab-list');
+					let content = document.querySelector('.violation-detail-table .ab-list .content');
+					let items = document.querySelectorAll('.violation-detail-table .ab-list .content .ab-item-wrap');
+					let itemH = items[0].clientHeight;
+					let flag = true;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					this.abTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//来回移动
+						// if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+						//   scrollBox.scrollTop += 1;
+						// }else if(!flag&&scrollBox.scrollTop>0){
+						//   scrollBox.scrollTop -= 1;
+						// }else{
+						//   flag = !flag
+						// }
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			abScrollStop() {
+				clearInterval(this.abTimer);
 			},
 			//获取设备统计列表
 			getDeviceStatiList() {
@@ -582,6 +633,9 @@
 	.violation-detail{
 		padding-top: 10px;
 		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 		/deep/.el-date-editor{
 			height: 30px;
 			font-size: 12px;
@@ -730,9 +784,12 @@
 		width: 130px;
 	}
 	.violation-detail-table{
-		height: calc(100% - 50px);
+		height: calc(100% - 30px);
+		display: flex;
+		flex-direction: column;
 		.ab-list{
-			height: calc(100% - 45px);
+			// height: calc(100% - 45px);
+			flex: 1;
 			overflow-y: scroll;
 		}
 	}
