@@ -15,7 +15,7 @@
             ></currency>
 					</div>
 				</sideItem>
-				<sideItem title="违规事件统计" :delay="1000" height="34%" :loading="true">
+				<sideItem title="违规事件统计" :delay="1000" height="34%" :loading="loading">
 					<div slot='body' class="violations">
 						<img class="outpieimg" src="../assets/pieimg/vehicle/vehiclebox.png" >
 						<img class="topleft topbsize" src="../assets/pieimg/vehicle/topleft.png" alt="">
@@ -101,21 +101,45 @@
 							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
 							<img class="eq-statistics-item-img" src="../assets/img/eq-type1.png" alt="">
 							<div class="eq-statistics-item-name">道闸设备</div>
+							<svg class="svg-box">
+                <polyline class="ani-line1" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line2" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line3" points="70,12 80,32 90,32" />
+                <polyline class="ani-line4" points="70,60 80,40 160,40" />
+              </svg>
 						</div>
 						<div class="eq-statistics-item">
 							<div><span class="eq-statistics-item-num eq-statistics-item-num-ab">6</span><span class="eq-statistics-item-unit">(个)</span></div>
 							<img class="eq-statistics-item-img" src="../assets/img/eq-type2.png" alt="">
 							<div class="eq-statistics-item-name">故障道闸设备</div>
+							<svg class="svg-box">
+                <polyline class="ani-line1" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line2" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line3" points="70,12 80,32 90,32" />
+                <polyline class="ani-line4" points="70,60 80,40 160,40" />
+              </svg>
 						</div>
 						<div class="eq-statistics-item">
 							<div><span class="eq-statistics-item-num">6</span><span class="eq-statistics-item-unit">(个)</span></div>
 							<img class="eq-statistics-item-img" src="../assets/img/eq-type4.png" alt="">
 							<div class="eq-statistics-item-name">测速设备</div>
+							<svg class="svg-box">
+                <polyline class="ani-line1" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line2" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line3" points="70,12 80,32 90,32" />
+                <polyline class="ani-line4" points="70,60 80,40 160,40" />
+              </svg>
 						</div>
 						<div class="eq-statistics-item">
 							<div><span class="eq-statistics-item-num eq-statistics-item-num-ab">6</span><span class="eq-statistics-item-unit">(个)</span></div>
 							<img class="eq-statistics-item-img" src="../assets/img/eq-type3.png" alt="">
 							<div class="eq-statistics-item-name">故障测速设备</div>
+							<svg class="svg-box">
+                <polyline class="ani-line1" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line2" points="20,1 60,1 80,35 60,70 20,70 0,35 20,1" />
+                <polyline class="ani-line3" points="70,12 80,32 90,32" />
+                <polyline class="ani-line4" points="70,60 80,40 160,40" />
+              </svg>
 						</div>
 					</div>
 				</sideItem>
@@ -240,11 +264,15 @@
 				},{
 					cname: '空闲车位',
 					id: 4
-				},]
+				},],
+				loading: true
 			}
 		},
 		methods: {
 			init() {
+				setTimeout(() => {
+					this.loading = false
+				},2500)
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'vehicle'
 					this.getDeviceStatiList()
@@ -616,7 +644,7 @@
 		justify-content: space-between;
 		align-content: space-between;
 		margin-bottom: 30px;
-		padding: 0 10px;
+		padding: 0 15px;
 		width: 100%;
 		height: 88%;
 		font-size: 12px;
@@ -627,15 +655,15 @@
 		flex-direction: column;
 		justify-content: space-around;
 		margin-top: 20px;
-		padding-left: 100px;
-		width: 57.6px;
+		padding-left: 70px;
+		width: 86px;
 		height: 70.4px;
 	}
 	.eq-statistics-item-img{
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 100%;
+		// width: 90%;
 		height: 100%;
 	}
 	.eq-statistics-item-name{
@@ -738,5 +766,105 @@
 	}
 	.ab-item-wrap:hover{
 		background: rgba(106, 176, 255, 0.2);
+	}
+	.svg-box {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		.ani-line1 {
+			fill: none;
+			stroke-width: 2;
+			stroke: #6ab0ff;
+			stroke-linejoin: round;
+			stroke-linecap: round;
+			stroke-dasharray: 20, 186;
+			stroke-dashoffset: 40;
+			animation: lineMove1 4s linear infinite;
+		}
+		.ani-line2 {
+			fill: none;
+			stroke-width: 2;
+			stroke: #6ab0ff;
+			stroke-linejoin: round;
+			stroke-linecap: round;
+			stroke-dasharray: 20, 186;
+			stroke-dashoffset: 48;
+			animation: lineMove2 4s linear infinite;
+		}
+		.ani-line3,
+		.ani-line4 {
+			fill: none;
+			stroke-width: 2;
+			stroke: #325e8c;
+			stroke-linejoin: round;
+			stroke-linecap: round;
+			stroke-dasharray: 20, 116;
+			stroke-dashoffset: 20;
+			animation: lineMove3 4s linear infinite;
+		}
+		@keyframes lineMove1 {
+			0% {
+				stroke-dashoffset: 40;
+				stroke: #6ab0ff;
+			}
+			50% {
+				stroke-dashoffset: -18;
+				stroke: #6ab0ff;
+			}
+			51% {
+				stroke-dashoffset: -18;
+				stroke: #325e8c;
+			}
+			100% {
+				stroke-dashoffset: -18;
+				stroke: #325e8c;
+			}
+		}
+		@keyframes lineMove2 {
+			0% {
+				stroke-dashoffset: 48;
+				stroke: #6ab0ff;
+			}
+			50% {
+				stroke-dashoffset: 112;
+				stroke: #6ab0ff;
+			}
+			51% {
+				stroke-dashoffset: 112;
+				stroke: #325e8c;
+			}
+			100% {
+				stroke-dashoffset: 112;
+				stroke: #325e8c;
+			}
+		}
+		@keyframes lineMove3 {
+			0% {
+				stroke: #325e8c;
+				stroke-dashoffset: 20;
+			}
+			45% {
+				opacity: .8;
+				stroke: #325e8c;
+				stroke-dashoffset: 20;
+			}
+			46% {
+				opacity: .7;
+				stroke: #6ab0ff;
+				stroke-dashoffset: 20;
+			}
+			80% {
+				opacity: .5;
+				stroke: #6ab0ff;
+				stroke-dashoffset: -36;
+			}
+			100% {
+				opacity: 0;
+				stroke: #6ab0ff;
+				stroke-dashoffset: -76;
+			}
+		}
 	}
 </style>

@@ -81,16 +81,19 @@
 							</div>
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
+							<p style="position: relative;bottom: 38px;color: white;">今日巡更人员总数</p>
 						</div>
 						<div class="allpiebox">
 							<div id="abPatrolChart" class="eq-num-box-chart"></div>
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
+							<p style="position: relative;bottom: 38px;color: white;">今日异常巡更人员</p>
 						</div>
 						<div class="allpiebox">
 							<div id="abPatrolEqChart" class="eq-num-box-chart"></div>
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
+							<p style="position: relative;bottom: 38px;color: white;">今日巡查异常次数</p>
 						</div>
 					</div>
 				</sideItem>
@@ -374,9 +377,9 @@
 							value: 23,
 						},
 					],
-					// title: {
-					// 	subtext: '公园基础设施提升',
-					// },
+					title: {
+						subtext: '公园基础设施提升',
+					},
 				};
 				let num = config.data[0].value;
 				let unit = '%';
@@ -418,11 +421,12 @@
 									},
 								},
 							},
-							subtext: '',
+							subtext: '56456',
 							top: '44%',
 							left: '46%',
 							textAlign: 'center',
 							itemGap: 280,
+							zlevel: 100,
 							subtextStyle: {
 								color: '#fff',
 								fontSize: 36,
@@ -892,7 +896,9 @@
 		margin-top: 10px;
 		display: flex;
 		justify-content: space-around;
+		align-items: center;
 		width: 100%;
+		height: 100%;
 	}
 
 	.allpiebox {
@@ -908,6 +914,7 @@
 	}
 
 	.allpiebox {
+		height: 150px;
 		background: url(../assets/pieimg/fire/firebg.png) no-repeat;
 		background-size: contain;
 	}
@@ -1096,7 +1103,7 @@
 		width: 100%;
 		height: 100%;
 		.ab-list{
-			margin-bottom: 8px;
+			margin-bottom: 16px;
 			height: calc(100% - 85px);
 		}
 	}

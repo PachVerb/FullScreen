@@ -2,10 +2,10 @@
   <div style="height: 100%;">
     <sideTran thisCrrentSys="assets">
       <div slot="left" style="height: 100%;">
-        <nowpeopleslide title="学校资产统计" :delay="500" height="20%">
-          <div slot='body' style="padding-top: 1vh;width: 100%; height: 11vh;">
+        <sideItem title="学校资产统计" transitionType="left" delay="500" height="20%">
+					<div slot='body' style="width: 100%;margin-top: 20px;">
 						<div class="flopbox">
-							<p class="flopboxtitle">资产总数</p>
+							<p class="flopboxtitle">资产总值</p>
 							<flop :num="num" :unitil="'套'"></flop>
 						</div>
 						<div class="flopbox">
@@ -13,7 +13,7 @@
 							<flop :num="numtow" :unitil="'万元'"></flop>
 						</div>
 					</div>
-        </nowpeopleslide>
+				</sideItem>
         <sideItem title="各学院资产总数统计" :delay="1000" height="40%">
           <div slot='body' class="chart-wrap">
             <div id="totalAssets"></div>
@@ -280,10 +280,9 @@ export default {
         // },
         series: [
           {
-            name: 'Access From',
             type: 'pie',
             animationDuration: 2500,
-            radius: ['90%', '100%'],
+            radius: ['85%', '95%'],
             avoidLabelOverlap: false,
             label: {
               show: false,
@@ -300,11 +299,10 @@ export default {
               show: false
             },
             data: [
-              { value: 1048, name: 'Search Engine' },
-              { value: 735, name: 'Direct' },
-              { value: 580, name: 'Email' },
-              { value: 484, name: 'Union Ads' },
-              { value: 300, name: 'Video Ads' }
+              { value: 1048, name: '教学' },
+              { value: 735, name: '行政' },
+              { value: 580, name: '环境' },
+              { value: 484, name: '其他' },
             ]
           }
         ]
@@ -345,10 +343,10 @@ export default {
           webSecurityChart = echarts.init(webSecurityChartDom);
           webSecurityChart.setOption(this.getEcharts3DBar(['z','x'], [20,98], '01'))
           this.ratioList = [
-            {name:"照明",val:1100,color:'rgba(169,133,238,0.8)'},
-            {name:"空调",val:444,color:'rgba(196,144,191,0.8)'},
-            {name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
-            {name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
+            {name:"教学",val:1100,color:'rgba(169,133,238,0.8)'},
+            {name:"行政",val:444,color:'rgba(196,144,191,0.8)'},
+            {name:"环境",val:501,color:'rgba(19,181,177,0.8)'},
+            {name:"其他",val:300,color:'rgba(229,188,128,0.8)'}
           ]
         },1500)
         setTimeout(() => {

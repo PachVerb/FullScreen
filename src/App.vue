@@ -42,10 +42,13 @@ body {
     border-color: rgba(153, 209, 246, 0.6);
   }
   .el-date-table .available{
-    color: rgba(255,255,255,0.8);
+    color: rgba(255,255,255,1);
   }
   .el-date-table .next-month{
     color: rgba(255,255,255,0.1);
+  }
+  .el-date-table td.in-range div, .el-date-table td.in-range div:hover, .el-date-table.is-week-mode .el-date-table__row.current div, .el-date-table.is-week-mode .el-date-table__row:hover div{
+    background-color: transparent;
   }
 }
 i {

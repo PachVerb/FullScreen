@@ -51,7 +51,7 @@
     mounted(){
       setTimeout(() => {
         this.toOrderNum(this.num) // 这里输入数字即可调用
-      }, 500);
+      }, 1500);
     },
     methods: {
         // 设置文字滚动
