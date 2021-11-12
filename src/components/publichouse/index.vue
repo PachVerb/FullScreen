@@ -35,6 +35,18 @@
         <sideItem title="公房使用方向统计" delay="300" height="30%">
           <div class="useStati" slot="body">
             <div class="chart-useStati" id="useStatiChart"></div>
+            <div class="detailBox">
+              <div class="row" v-for="(item,i) in useStatiList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i>
+                  <span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <animated-number :value="item.val" :formatValue="val=>val.toFixed(2)" :duration="4000" />
+                  <i>㎡</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
         <sideItem title="学校公房总数统计" delay="400" height="22.76%">
@@ -46,7 +58,11 @@
       <div slot="right" style="height: 100%;">
         <sideItem title="空置房源统计" transitionType="right" delay="100" height="23.91%">
           <div class="freeStati" slot="body">
-            <img class="chartImg" src="../../assets/img/pyramid.png" alt />
+            <div class="imgBox">
+              <img class="img1" src="../../assets/img/free-img1.png" alt="">
+              <img class="img2" src="../../assets/img/free-img2.png" alt="">
+              <img class="img3" src="../../assets/img/free-img3.png" alt="">
+            </div>
             <div class="detailBox">
               <div class="row" v-for="(item,i) in freeList" :key="i">
                 <div class="title">
@@ -61,12 +77,12 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="土地情况" transitionType="right" delay="200" height="37.67%">
+        <sideItem title="土地情况" transitionType="right" delay="200" height="40%">
           <div slot="body" class="landState">
             <div class="chart-land" id="landChart"></div>
           </div>
         </sideItem>
-        <sideItem title="公房使用单位统计" transitionType="right" delay="300" height="38.4%">
+        <sideItem title="公房使用单位统计" transitionType="right" delay="300" height="36%">
           <div slot="body" class="usepublicunitbox">
             <div class="usebox">
               <img src="../../assets/pieimg/publichouseout.png" class="useboxoutpie" />
@@ -110,6 +126,7 @@ export default {
       staList: [],
       houseStaList: [],
       freeList: [],
+      useStatiList:[],
     }
   },
   computed: {
@@ -153,8 +170,15 @@ export default {
     getUseStati() {
       let dom = document.getElementById('useStatiChart');
       let chart = echarts.init(dom);
+      this.useStatiList = [
+        { name: "教学用房", val: 3211.56, color: 'rgba(106, 176, 255,.8)' },
+        { name: "办公用房", val: 17325.68, color: 'rgba(19, 181, 177,.8)' },
+        { name: "科研用房", val: 5124.65, color: 'rgba(229, 188, 128,.8)' },
+      ]
+      let sum = this.useStatiList.reduce((t,item)=>t+item.val,0);//数据总数
       // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
       function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, height) {
+        height=height/sum*5;//换算高度
         // 计算
         let midRatio = (startRatio + endRatio) / 2;
 
@@ -266,7 +290,6 @@ export default {
           }
           series.push(seriesItem);
         }
-
         // 使用上一次遍历时，计算出的数据和 sumValue，调用 getParametricEquation 函数，
         // 向每个 series-surface 传入不同的参数方程 series-surface.parametricEquation，也就是实现每一个扇形。
         for (let i = 0; i < series.length; i++) {
@@ -293,14 +316,20 @@ export default {
           tooltip: {
             formatter: (params) => {
               if (params.seriesName !== 'mouseoutSeries') {
-                return `${params.seriesName
-                  }<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color
-                  };"></span>${option.series[params.seriesIndex].pieData.value}`;
+                return `<span style="display:inline-block;margin-right:5px;border-radius:8px;width:8px;height:8px;background-color:${params.color};"></span>${params.seriesName}<br/>${option.series[params.seriesIndex].pieData.value}㎡`;
               }
+            },
+            backgroundColor: 'rgba(44,62,80,0.8)',
+            borderColor: 'rgba(153, 209, 246, 0.6)',
+            padding:[4,4,4,4],
+            textStyle: {
+              align: 'left',
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.8)',
             },
           },
           legend: {
-            show:false,
+            show: false,
             data: legendData,
             textStyle: {
               color: '#fff',
@@ -326,8 +355,8 @@ export default {
             bottom: '50%',
             // environment: '#021041',
             viewControl: {
-              distance: 300,
-              alpha: 25,
+              distance: 240,
+              alpha: 40,
               beta: 130,
             },
           },
@@ -338,36 +367,126 @@ export default {
 
       // 传入数据生成 option
       let option = getPie3D(
-        [
-          {
-            name: '教学用房',
-            value: 3,
+        this.useStatiList.map(item=>{
+          return {
+            name: item.name,
+            value: item.val,
             itemStyle: {
               opacity: 0.5,
-              color: 'rgba(106, 176, 255,.8)',
-            },
-          },
-          {
-            name: '办公用房',
-            value: 1,
-            itemStyle: {
-              opacity: 0.5,
-              color: 'rgba(19, 181, 177,.8)',
-            },
-          },
-          {
-            name: '科研用房',
-            value: 1,
-            itemStyle: {
-              opacity: 0.5,
-              color: 'rgba(229, 188, 128,.8)',
-            },
-          },
-        ],
-        2
+              color: item.color,
+            }
+          }
+        }),this.useStatiList.length
       );
+      // 监听鼠标事件，实现饼图选中效果（单选），近似实现高亮（放大）效果。
+      function bindListen(myChart) {
+        let selectedIndex = '';
+        let hoveredIndex = '';
+        // 监听点击事件，实现选中效果（单选）
+        myChart.on('click', function (params) {
+          // 从 option.series 中读取重新渲染扇形所需的参数，将是否选中取反。
+          let isSelected = !option.series[params.seriesIndex].pieStatus.selected;
+          let isHovered = option.series[params.seriesIndex].pieStatus.hovered;
+          let k = option.series[params.seriesIndex].pieStatus.k;
+          let startRatio = option.series[params.seriesIndex].pieData.startRatio;
+          let endRatio = option.series[params.seriesIndex].pieData.endRatio;
+          // 如果之前选中过其他扇形，将其取消选中（对 option 更新）
+          if (selectedIndex !== '' && selectedIndex !== params.seriesIndex) {
+            option.series[selectedIndex].parametricEquation = getParametricEquation(option.series[
+              selectedIndex].pieData
+              .startRatio, option.series[selectedIndex].pieData.endRatio, false, false, k, option.series[
+                selectedIndex].pieData
+              .value);
+            option.series[selectedIndex].pieStatus.selected = false;
+          }
+          // 对当前点击的扇形，执行选中/取消选中操作（对 option 更新）
+          option.series[params.seriesIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+            isSelected,
+            isHovered, k, option.series[params.seriesIndex].pieData.value);
+          option.series[params.seriesIndex].pieStatus.selected = isSelected;
+          // 如果本次是选中操作，记录上次选中的扇形对应的系列号 seriesIndex
+          isSelected ? selectedIndex = params.seriesIndex : null;
+          // 使用更新后的 option，渲染图表
+          myChart.setOption(option);
+        });
+        // 监听 mouseover，近似实现高亮（放大）效果
+        myChart.on('mouseover', function (params) {
+          // 准备重新渲染扇形所需的参数
+          let isSelected;
+          let isHovered;
+          let startRatio;
+          let endRatio;
+          let k;
+          // 如果触发 mouseover 的扇形当前已高亮，则不做操作
+          if (hoveredIndex === params.seriesIndex) {
+            return;
+            // 否则进行高亮及必要的取消高亮操作
+          } else {
+            // 如果当前有高亮的扇形，取消其高亮状态（对 option 更新）
+            if (hoveredIndex !== '') {
+              // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 false。
+              isSelected = option.series[hoveredIndex].pieStatus.selected;
+              isHovered = false;
+              startRatio = option.series[hoveredIndex].pieData.startRatio;
+              endRatio = option.series[hoveredIndex].pieData.endRatio;
+              k = option.series[hoveredIndex].pieStatus.k;
+              // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
+              option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+                isSelected,
+                isHovered, k, option.series[hoveredIndex].pieData.value);
+              option.series[hoveredIndex].pieStatus.hovered = isHovered;
+              // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
+              hoveredIndex = '';
+            }
+            // 如果触发 mouseover 的扇形不是透明圆环，将其高亮（对 option 更新）
+            if (params.seriesName !== 'mouseoutSeries' && params.seriesName !== 'pie2d') {
+              // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 true。
+              isSelected = option.series[params.seriesIndex].pieStatus.selected;
+              isHovered = true;
+              startRatio = option.series[params.seriesIndex].pieData.startRatio;
+              endRatio = option.series[params.seriesIndex].pieData.endRatio;
+              k = option.series[params.seriesIndex].pieStatus.k;
+              // 对当前点击的扇形，执行高亮操作（对 option 更新）
+              option.series[params.seriesIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+                isSelected, isHovered, k, option.series[params.seriesIndex].pieData.value + 1);
+              option.series[params.seriesIndex].pieStatus.hovered = isHovered;
+              // 记录上次高亮的扇形对应的系列号 seriesIndex
+              hoveredIndex = params.seriesIndex;
+            }
+            // 使用更新后的 option，渲染图表
+            myChart.setOption(option);
+          }
+        });
+        // 修正取消高亮失败的 bug
+        myChart.on('globalout', function () {
+          // 准备重新渲染扇形所需的参数
+          let isSelected;
+          let isHovered;
+          let startRatio;
+          let endRatio;
+          let k;
+          if (hoveredIndex !== '') {
+            // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 true。
+            isSelected = option.series[hoveredIndex].pieStatus.selected;
+            isHovered = false;
+            k = option.series[hoveredIndex].pieStatus.k;
+            startRatio = option.series[hoveredIndex].pieData.startRatio;
+            endRatio = option.series[hoveredIndex].pieData.endRatio;
+            // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
+            option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+              isSelected,
+              isHovered, k, option.series[hoveredIndex].pieData.value);
+            option.series[hoveredIndex].pieStatus.hovered = isHovered;
+            // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
+            hoveredIndex = '';
+          }
+          // 使用更新后的 option，渲染图表
+          myChart.setOption(option);
+        });
+      }
       chart.clear();//清除动画
       chart.setOption(option, true);
+      bindListen(chart)
     },
     //学校公房总数统计
     getTotalStati() {
@@ -663,9 +782,27 @@ export default {
         }
       }, {
         name: "计算机科学学院",
-        value: "20",
+        value: "40",
         label: {
           color: "#58D5FF"
+        },
+      }, {
+        name: "马克思主义学院",
+        value: "40",
+        label: {
+          color: "#18DDA7"
+        },
+      }, {
+        name: "外国语学院",
+        value: "40",
+        label: {
+          color: "#40CA53"
+        },
+      }, {
+        name: "化学化工学院",
+        value: "40",
+        label: {
+          color: "#E782AF"
         },
       }];
       let title = "总计"
@@ -676,8 +813,8 @@ export default {
       let total = seriesData.reduce((a, b) => {
         return a + b.value * 1
       }, 0);
-      var legendData = ["二元", "大白", "长大", "杜洛克", "三元", "大长", "PIC"]
-      var colorList = ['#73DDFF', '#73ACFF', '#FDD56A', '#FDB36A', '#FD866A', '#9E87FF', '#58D5FF'];
+      var legendData = seriesData.map(item=>item.name);
+      var colorList = seriesData.map(item=>item.label.color);
       usepublicChartChart.setOption({
         // title: {
         //     text: `总计`,
@@ -821,9 +958,52 @@ export default {
   .useStati {
     padding: 0 16px;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     .chart-useStati {
       width: 180px;
       height: 200px;
+    }
+    .detailBox {
+      flex: 1;
+      height: 200px;
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 5px;
+        border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+        .title {
+          i {
+            border: 2px solid;
+            border-radius: 4px;
+            display: inline-block;
+            height: 5px;
+            margin-right: 4px;
+          }
+          span {
+            font-size: 14px;
+          }
+        }
+        .value {
+          span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #00f5ff;
+            margin-right: 2px;
+          }
+          i {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
     }
   }
 
@@ -841,9 +1021,17 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .chartImg {
+    .imgBox{
       width: 145px;
       height: 150px;
+      position: relative;
+      img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
     }
     .detailBox {
       flex: 1;
@@ -891,7 +1079,7 @@ export default {
     width: 100%;
     .chart-land {
       width: 340px;
-      height: 280px;
+      height: 300px;
     }
   }
 
