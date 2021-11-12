@@ -75,6 +75,7 @@ export default {
   display: flex;
   .side-item-right{
     flex: 1;
+    height: 100%;
   }
 }
 .side-item-title{

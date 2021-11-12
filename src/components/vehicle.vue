@@ -543,8 +543,8 @@
 		display: inline-block;
 		width: 58px;
 		height: 18px;
-		background: #F2896B;
-		opacity: 0.58;
+		background: rgb(240,125,92);
+		// opacity: 0.58;
 		border-radius: 4px;
 		cursor: pointer;
 		line-height: 18px;
@@ -553,8 +553,8 @@
 		display: inline-block;
 		width: 58px;
 		height: 18px;
-		background: #1E9A5C;
-		opacity: 0.58;
+		background: rgb(13,162,101);
+		// opacity: 0.58;
 		border-radius: 4px;
 		cursor: pointer;
 		line-height: 18px;
