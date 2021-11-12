@@ -38,7 +38,10 @@
 					<div style="height: 100%;width: 100%;margin-top: 10%;" slot='body'>
 						<div class="dormitoryUtilization">
 							<div class="useleft">
-								<img src="../assets/img/pyramid.png">
+								<img class="img1" src="../assets/img/free-img1.png" alt="">
+								<img class="img2" src="../assets/img/free-img2.png" alt="">
+								<img class="img3" src="../assets/img/free-img3.png" alt="">
+								<!-- <img src="../assets/img/pyramid.png"> -->
 							</div>
 							<div class="useright">
 								<div class="userightbox">
@@ -557,7 +560,7 @@
 	}
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 	#returntoBed {
 		width: 100%;
 		height:100%;
@@ -755,13 +758,86 @@
 
 	.dormitoryUtilization {
 		margin-top: 10px;
+		padding: 0 14px;
 		display: flex;
+		.useleft{
+			width: 145px;
+      height: 150px;
+      position: relative;
+      img{
+        position: absolute;
+        cursor: pointer;
+        &:hover{
+          filter: drop-shadow(0 0 2px #ddd);
+        }
+      }
+      .img1{
+        width: 57px;
+        top: 0;
+        left: calc(50% - 28.5px);
+        z-index: 3;
+        animation: aniImg1 3s linear 1;
+      }
+      .img2{
+        width: 96px;
+        top: 38px;
+        left: calc(50% - 48px);
+        z-index: 2;
+        animation: aniImg2 2s linear 1;
+      }
+      .img3{
+        width: 145px;
+        bottom: 0;
+        left: calc(50% - 72.5px);
+        z-index: 1;
+        animation: aniImg3 1s linear 1;
+      }
+      @keyframes aniImg1{
+        0%{
+          top: 148px;
+          opacity: 0;
+        }
+        33%{
+          top: 93px;
+          opacity: 0;
+        }
+        66%{
+          top: 47px;
+          opacity: 0;
+        }
+        100%{
+          top: 0;
+          opacity: 1;
+        }
+      }
+      @keyframes aniImg2{
+        0%{
+          top: 148px;
+          opacity: 0;
+        }
+        50%{
+          top: 82px;
+          opacity: 0;
+        }
+        100%{
+          top: 38px;
+          opacity: 1;
+        }
+      }
+      @keyframes aniImg3{
+        0%{
+          opacity: 0;
+        }
+        100%{
+          opacity: 1;
+        }
+      }
+		}
 	}
 
 	.useright {
-		/* height: 100%; */
-		width: 100%;
-		margin-left: 30px;
+		flex: 1;
+		margin-left: 10px;
 	}
 
 	.useright p {
@@ -777,7 +853,7 @@
 	.userightbox {
 		/* width: 100%; */
 		height: .18rem;
-		background-size: 90% .18rem !important;
+		background-size: 100% .18rem !important;
 		background: url(../assets/img/nohomebox.png) no-repeat;
 		border: 1px solid transparent;
 	}
@@ -795,7 +871,7 @@
 		display: flex;
 		justify-content: space-between;
 		height: .15rem;
-		width: 87%;
+		width: 96%;
 		background-color: rgba(68, 92, 121, 0.6);
 		margin-left: 5px;
 		margin-top: 3px;

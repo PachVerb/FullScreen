@@ -97,9 +97,6 @@
 </template>
 
 <script>
-// let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6', '#ad46f3',
-// 	'#f845f1'
-// ];
 import sideTran from '../sideTran'
 import nowpeopleslide from '../nowpeopleslide.vue'
 import sideItem from '../sideItem.vue'
@@ -119,10 +116,6 @@ export default {
   },
   data() {
     return {
-      name: ["生活用水", "浇灌用水", "其他"],
-      value: [1114, 444, 501],
-      fontcolor: [],
-      fontcolorobj: [],
       staList: [],
       houseStaList: [],
       freeList: [],
@@ -137,7 +130,6 @@ export default {
   methods: {
     init() {
       this.$nextTick(() => {
-        // this.initcolor()
         setTimeout(() => {
           this.renderpie()
           this.getSchoolState();
@@ -314,6 +306,7 @@ export default {
         // 准备待返回的配置项，把准备好的 legendData、series 传入。
         let option = {
           tooltip: {
+            show:false,
             formatter: (params) => {
               if (params.seriesName !== 'mouseoutSeries') {
                 return `<span style="display:inline-block;margin-right:5px;border-radius:8px;width:8px;height:8px;background-color:${params.color};"></span>${params.seriesName}<br/>${option.series[params.seriesIndex].pieData.value}㎡`;
@@ -722,23 +715,6 @@ export default {
       chart.clear();//清除动画
       chart.setOption(option, true);
     },
-
-    initcolor() {
-      let tempobj = {}
-      this.fontcolor = color.slice(0, this.name.length);
-      // this.fontcolor.forEach(el => {
-      // 	tempobj.color = el
-      // 	this.fontcolorobj.push(tempobj)
-      // })
-      let len = this.fontcolor.length
-      let array = [];
-      for (let i = 0; i < len; i++) {
-        array.push({
-          "color": this.fontcolor[i]
-        });
-      }
-      console.log(array, "bbbbbbb", this.fontcolor)
-    },
     //公房使用单位统计
     renderpie() {
       let usepublicChartDom, usepublicChartChart, option
@@ -1026,52 +1002,71 @@ export default {
       height: 150px;
       position: relative;
       img{
-        width: 100%;
-        height: 100%;
         position: absolute;
+        cursor: pointer;
+        &:hover{
+          filter: drop-shadow(0 0 2px #ddd);
+        }
+      }
+      .img1{
+        width: 57px;
         top: 0;
-        left: 0;
+        left: calc(50% - 28.5px);
+        z-index: 3;
+        animation: aniImg1 3s linear 1;
       }
       .img2{
-        animation: aniImg2 3s infinite linear;
-        animation-direction: alternate;
+        width: 96px;
+        top: 38px;
+        left: calc(50% - 48px);
+        z-index: 2;
+        animation: aniImg2 2s linear 1;
       }
       .img3{
-        animation: aniImg3 3s infinite linear;
-        animation-direction: alternate;
+        width: 145px;
+        bottom: 0;
+        left: calc(50% - 72.5px);
+        z-index: 1;
+        animation: aniImg3 1s linear 1;
       }
-      @keyframes aniImg3{
+      @keyframes aniImg1{
         0%{
-          top: 0;
+          top: 148px;
+          opacity: 0;
         }
-        10%{
-          top: 0;
+        33%{
+          top: 93px;
+          opacity: 0;
         }
-        45%{
-          top: 9px;
-        }
-        55%{
-          top: 9px;
-        }
-        90%{
-          top: 18px;
+        66%{
+          top: 47px;
+          opacity: 0;
         }
         100%{
-          top: 18px;
+          top: 0;
+          opacity: 1;
         }
       }
       @keyframes aniImg2{
         0%{
-          top: 0;
+          top: 148px;
+          opacity: 0;
         }
-        55%{
-          top: 0px;
-        }
-        90%{
-          top: 9px;
+        50%{
+          top: 82px;
+          opacity: 0;
         }
         100%{
-          top: 9px;
+          top: 38px;
+          opacity: 1;
+        }
+      }
+      @keyframes aniImg3{
+        0%{
+          opacity: 0;
+        }
+        100%{
+          opacity: 1;
         }
       }
     }
