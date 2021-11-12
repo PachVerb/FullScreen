@@ -1033,20 +1033,45 @@ export default {
         left: 0;
       }
       .img2{
-        animation: aniImg2 4s infinite linear;
+        animation: aniImg2 3s infinite linear;
+        animation-direction: alternate;
       }
       .img3{
-        animation: aniImg2 4s infinite linear;
+        animation: aniImg3 3s infinite linear;
+        animation-direction: alternate;
+      }
+      @keyframes aniImg3{
+        0%{
+          top: 0;
+        }
+        10%{
+          top: 0;
+        }
+        45%{
+          top: 9px;
+        }
+        55%{
+          top: 9px;
+        }
+        90%{
+          top: 18px;
+        }
+        100%{
+          top: 18px;
+        }
       }
       @keyframes aniImg2{
         0%{
           top: 0;
         }
-        50%{
-          top: 10px;
+        55%{
+          top: 0px;
+        }
+        90%{
+          top: 9px;
         }
         100%{
-          top: 0;
+          top: 9px;
         }
       }
     }
