@@ -15,7 +15,7 @@
             ></currency>
 					</div>
 				</sideItem>
-				<sideItem title="违规事件统计" :delay="1000" height="34%">
+				<sideItem title="违规事件统计" :delay="1000" height="34%" :loading="true">
 					<div slot='body' class="violations">
 						<img class="outpieimg" src="../assets/pieimg/vehicle/vehiclebox.png" >
 						<img class="topleft topbsize" src="../assets/pieimg/vehicle/topleft.png" alt="">

@@ -12,7 +12,7 @@
       <div :class="[loading ?'side-item-loading' : '']" v-show="loading">
         <loading/>
       </div>
-      <div class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
+      <div v-show="!loading" class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
     </div>
   </transition>
 </template>
