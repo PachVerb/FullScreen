@@ -33,8 +33,20 @@
           </div>
         </sideItem>
         <sideItem title="公房使用方向统计" delay="300" height="30%">
-          <div slot="body">
-            <div id="allTotalAssets"></div>
+          <div class="useStati" slot="body">
+            <div class="chart-useStati" id="useStatiChart"></div>
+            <div class="detailBox">
+              <div class="row" v-for="(item,i) in useStatiList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i>
+                  <span :style="`color:${item.color};`">{{item.name}}</span>
+                </div>
+                <div class="value">
+                  <animated-number :value="item.val" :formatValue="val=>val.toFixed(2)" :duration="4000" />
+                  <i>㎡</i>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
         <sideItem title="学校公房总数统计" delay="400" height="22.76%">
@@ -46,7 +58,11 @@
       <div slot="right" style="height: 100%;">
         <sideItem title="空置房源统计" transitionType="right" delay="100" height="23.91%">
           <div class="freeStati" slot="body">
-            <img class="chartImg" src="../../assets/img/pyramid.png" alt />
+            <div class="imgBox">
+              <img class="img1" src="../../assets/img/free-img1.png" alt="">
+              <img class="img2" src="../../assets/img/free-img2.png" alt="">
+              <img class="img3" src="../../assets/img/free-img3.png" alt="">
+            </div>
             <div class="detailBox">
               <div class="row" v-for="(item,i) in freeList" :key="i">
                 <div class="title">
@@ -61,27 +77,18 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="土地情况" transitionType="right" delay="200" height="37.67%">
-          <div slot="body" class="landState" style="height: 100%;width: 100%;">
+        <sideItem title="土地情况" transitionType="right" delay="200" height="40%">
+          <div slot="body" class="landState">
             <div class="chart-land" id="landChart"></div>
           </div>
         </sideItem>
-        <sideItem title="公房使用单位统计" transitionType="right" delay="300" height="38.4%">
+        <sideItem title="公房使用单位统计" transitionType="right" delay="300" height="36%">
           <div slot="body" class="usepublicunitbox">
             <div class="usebox">
-              <div id="usepublic"></div>
               <img src="../../assets/pieimg/publichouseout.png" class="useboxoutpie" />
               <img src="../../assets/pieimg/publichouseinner.png" class="gear" />
+              <div id="usepublic"></div>
             </div>
-            <!-- 						<div class="usebox">
-							<img src="../../assets/pieimg/piemidd.png" alt="" class="useboximg">
-							<img src="../../assets/pieimg/outpie.png" class="useboxoutpie">
-							<img src="../../assets/pieimg/gear.png" class="gear">
-							<div id="usepublic"></div>
-							<div>
-
-							</div>
-            </div>-->
           </div>
         </sideItem>
       </div>
@@ -90,19 +97,16 @@
 </template>
 
 <script>
-// let color = ['#A985EE', '#C490BF', '#13B5B1', '#45dbf7', '#f69846', '#44aff0', '#4777f5', '#5045f6', '#ad46f3',
-// 	'#f845f1'
-// ];
 import sideTran from '../sideTran'
 import nowpeopleslide from '../nowpeopleslide.vue'
 import sideItem from '../sideItem.vue'
 import currency from '../currency.vue'//通用box组件
 import AnimatedNumber from "animated-number-vue";
-import 'echarts-gl'
 import {
   mapGetters
 } from 'vuex'
 import * as echarts from 'echarts';
+import 'echarts-gl'
 export default {
   components: {
     sideTran,
@@ -112,13 +116,10 @@ export default {
   },
   data() {
     return {
-      name: ["生活用水", "浇灌用水", "其他"],
-      value: [1114, 444, 501],
-      fontcolor: [],
-      fontcolorobj: [],
       staList: [],
       houseStaList: [],
       freeList: [],
+      useStatiList:[],
     }
   },
   computed: {
@@ -129,19 +130,17 @@ export default {
   methods: {
     init() {
       this.$nextTick(() => {
-        // this.initcolor()
         setTimeout(() => {
           this.renderpie()
           this.getSchoolState();
           this.getHouseStati();
+          this.getUseStati();
           this.getTotalStati();
           this.getFreeStati();
           this.getLandState();
         }, 500);
       })
     },
-		
-		
     //学校概况
     getSchoolState() {
       this.staList = [
@@ -158,6 +157,329 @@ export default {
         { campus: '西校区', build: 7, room: 41, area: 2785.37, useArea: 1764.83 },
         { campus: '南校区', build: 16, room: 510, area: 39013.36, useArea: 23284.54 },
       ]
+    },
+    //公房使用方向统计
+    getUseStati() {
+      let dom = document.getElementById('useStatiChart');
+      let chart = echarts.init(dom);
+      this.useStatiList = [
+        { name: "教学用房", val: 3211.56, color: 'rgba(106, 176, 255,.8)' },
+        { name: "办公用房", val: 17325.68, color: 'rgba(19, 181, 177,.8)' },
+        { name: "科研用房", val: 5124.65, color: 'rgba(229, 188, 128,.8)' },
+      ]
+      let sum = this.useStatiList.reduce((t,item)=>t+item.val,0);//数据总数
+      // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
+      function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, height) {
+        height=height/sum*5;//换算高度
+        // 计算
+        let midRatio = (startRatio + endRatio) / 2;
+
+        let startRadian = startRatio * Math.PI * 2;
+        let endRadian = endRatio * Math.PI * 2;
+        let midRadian = midRatio * Math.PI * 2;
+
+        // 如果只有一个扇形，则不实现选中效果。
+        if (startRatio === 0 && endRatio === 1) {
+          isSelected = false;
+        }
+
+        // 通过扇形内径/外径的值，换算出辅助参数 k（默认值 1/3）
+        k = typeof k !== 'undefined' ? k : 1 / 3;
+
+        // 计算选中效果分别在 x 轴、y 轴方向上的位移（未选中，则位移均为 0）
+        let offsetX = isSelected ? Math.cos(midRadian) * 0.1 : 0;
+        let offsetY = isSelected ? Math.sin(midRadian) * 0.1 : 0;
+
+        // 计算高亮效果的放大比例（未高亮，则比例为 1）
+        let hoverRate = isHovered ? 1.05 : 1;
+
+        // 返回曲面参数方程
+        return {
+          u: {
+            min: -Math.PI,
+            max: Math.PI * 3,
+            step: Math.PI / 32,
+          },
+
+          v: {
+            min: 0,
+            max: Math.PI * 2,
+            step: Math.PI / 20,
+          },
+
+          x: function (u, v) {
+            if (u < startRadian) {
+              return offsetX + Math.cos(startRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            if (u > endRadian) {
+              return offsetX + Math.cos(endRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            return offsetX + Math.cos(u) * (1 + Math.cos(v) * k) * hoverRate;
+          },
+
+          y: function (u, v) {
+            if (u < startRadian) {
+              return offsetY + Math.sin(startRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            if (u > endRadian) {
+              return offsetY + Math.sin(endRadian) * (1 + Math.cos(v) * k) * hoverRate;
+            }
+            return offsetY + Math.sin(u) * (1 + Math.cos(v) * k) * hoverRate;
+          },
+
+          z: function (u, v) {
+            if (u < -Math.PI * 0.5) {
+              return Math.sin(u);
+            }
+            if (u > Math.PI * 2.5) {
+              return Math.sin(u);
+            }
+            return Math.sin(v) > 0 ? 1 * height : -1;
+          },
+        };
+      }
+
+      // 生成模拟 3D 饼图的配置项
+      function getPie3D(pieData, internalDiameterRatio) {
+        let series = [];
+        let sumValue = 0;
+        let startValue = 0;
+        let endValue = 0;
+        let legendData = [];
+        let k =
+          typeof internalDiameterRatio !== 'undefined'
+            ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio)
+            : 1 / 3;
+
+        // 为每一个饼图数据，生成一个 series-surface 配置
+        for (let i = 0; i < pieData.length; i++) {
+          sumValue += pieData[i].value;
+
+          let seriesItem = {
+            name: typeof pieData[i].name === 'undefined' ? `series${i}` : pieData[i].name,
+            type: 'surface',
+            parametric: true,
+            wireframe: {
+              show: false,
+            },
+            pieData: pieData[i],
+            pieStatus: {
+              selected: false,
+              hovered: false,
+              k: k,
+            },
+          };
+
+          if (typeof pieData[i].itemStyle != 'undefined') {
+            let itemStyle = {};
+
+            typeof pieData[i].itemStyle.color != 'undefined' ? (itemStyle.color = pieData[i].itemStyle.color) : null;
+            typeof pieData[i].itemStyle.opacity != 'undefined'
+              ? (itemStyle.opacity = pieData[i].itemStyle.opacity)
+              : null;
+
+            seriesItem.itemStyle = itemStyle;
+          }
+          series.push(seriesItem);
+        }
+        // 使用上一次遍历时，计算出的数据和 sumValue，调用 getParametricEquation 函数，
+        // 向每个 series-surface 传入不同的参数方程 series-surface.parametricEquation，也就是实现每一个扇形。
+        for (let i = 0; i < series.length; i++) {
+          endValue = startValue + series[i].pieData.value;
+          console.log(series[i]);
+          series[i].pieData.startRatio = startValue / sumValue;
+          series[i].pieData.endRatio = endValue / sumValue;
+          series[i].parametricEquation = getParametricEquation(
+            series[i].pieData.startRatio,
+            series[i].pieData.endRatio,
+            false,
+            false,
+            k,
+            series[i].pieData.value
+          );
+
+          startValue = endValue;
+
+          legendData.push(series[i].name);
+        }
+
+        // 准备待返回的配置项，把准备好的 legendData、series 传入。
+        let option = {
+          tooltip: {
+            show:false,
+            formatter: (params) => {
+              if (params.seriesName !== 'mouseoutSeries') {
+                return `<span style="display:inline-block;margin-right:5px;border-radius:8px;width:8px;height:8px;background-color:${params.color};"></span>${params.seriesName}<br/>${option.series[params.seriesIndex].pieData.value}㎡`;
+              }
+            },
+            backgroundColor: 'rgba(44,62,80,0.8)',
+            borderColor: 'rgba(153, 209, 246, 0.6)',
+            padding:[4,4,4,4],
+            textStyle: {
+              align: 'left',
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.8)',
+            },
+          },
+          legend: {
+            show: false,
+            data: legendData,
+            textStyle: {
+              color: '#fff',
+              fontSize: 12,
+            },
+          },
+          xAxis3D: {
+            min: -1,
+            max: 1,
+          },
+          yAxis3D: {
+            min: -1,
+            max: 1,
+          },
+          zAxis3D: {
+            min: -1,
+            max: 1,
+          },
+          grid3D: {
+            show: false,
+            boxHeight: 20,
+            //top: '30%',
+            bottom: '50%',
+            // environment: '#021041',
+            viewControl: {
+              distance: 240,
+              alpha: 40,
+              beta: 130,
+            },
+          },
+          series: series,
+        };
+        return option;
+      }
+
+      // 传入数据生成 option
+      let option = getPie3D(
+        this.useStatiList.map(item=>{
+          return {
+            name: item.name,
+            value: item.val,
+            itemStyle: {
+              opacity: 0.5,
+              color: item.color,
+            }
+          }
+        }),this.useStatiList.length
+      );
+      // 监听鼠标事件，实现饼图选中效果（单选），近似实现高亮（放大）效果。
+      function bindListen(myChart) {
+        let selectedIndex = '';
+        let hoveredIndex = '';
+        // 监听点击事件，实现选中效果（单选）
+        myChart.on('click', function (params) {
+          // 从 option.series 中读取重新渲染扇形所需的参数，将是否选中取反。
+          let isSelected = !option.series[params.seriesIndex].pieStatus.selected;
+          let isHovered = option.series[params.seriesIndex].pieStatus.hovered;
+          let k = option.series[params.seriesIndex].pieStatus.k;
+          let startRatio = option.series[params.seriesIndex].pieData.startRatio;
+          let endRatio = option.series[params.seriesIndex].pieData.endRatio;
+          // 如果之前选中过其他扇形，将其取消选中（对 option 更新）
+          if (selectedIndex !== '' && selectedIndex !== params.seriesIndex) {
+            option.series[selectedIndex].parametricEquation = getParametricEquation(option.series[
+              selectedIndex].pieData
+              .startRatio, option.series[selectedIndex].pieData.endRatio, false, false, k, option.series[
+                selectedIndex].pieData
+              .value);
+            option.series[selectedIndex].pieStatus.selected = false;
+          }
+          // 对当前点击的扇形，执行选中/取消选中操作（对 option 更新）
+          option.series[params.seriesIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+            isSelected,
+            isHovered, k, option.series[params.seriesIndex].pieData.value);
+          option.series[params.seriesIndex].pieStatus.selected = isSelected;
+          // 如果本次是选中操作，记录上次选中的扇形对应的系列号 seriesIndex
+          isSelected ? selectedIndex = params.seriesIndex : null;
+          // 使用更新后的 option，渲染图表
+          myChart.setOption(option);
+        });
+        // 监听 mouseover，近似实现高亮（放大）效果
+        myChart.on('mouseover', function (params) {
+          // 准备重新渲染扇形所需的参数
+          let isSelected;
+          let isHovered;
+          let startRatio;
+          let endRatio;
+          let k;
+          // 如果触发 mouseover 的扇形当前已高亮，则不做操作
+          if (hoveredIndex === params.seriesIndex) {
+            return;
+            // 否则进行高亮及必要的取消高亮操作
+          } else {
+            // 如果当前有高亮的扇形，取消其高亮状态（对 option 更新）
+            if (hoveredIndex !== '') {
+              // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 false。
+              isSelected = option.series[hoveredIndex].pieStatus.selected;
+              isHovered = false;
+              startRatio = option.series[hoveredIndex].pieData.startRatio;
+              endRatio = option.series[hoveredIndex].pieData.endRatio;
+              k = option.series[hoveredIndex].pieStatus.k;
+              // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
+              option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+                isSelected,
+                isHovered, k, option.series[hoveredIndex].pieData.value);
+              option.series[hoveredIndex].pieStatus.hovered = isHovered;
+              // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
+              hoveredIndex = '';
+            }
+            // 如果触发 mouseover 的扇形不是透明圆环，将其高亮（对 option 更新）
+            if (params.seriesName !== 'mouseoutSeries' && params.seriesName !== 'pie2d') {
+              // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 true。
+              isSelected = option.series[params.seriesIndex].pieStatus.selected;
+              isHovered = true;
+              startRatio = option.series[params.seriesIndex].pieData.startRatio;
+              endRatio = option.series[params.seriesIndex].pieData.endRatio;
+              k = option.series[params.seriesIndex].pieStatus.k;
+              // 对当前点击的扇形，执行高亮操作（对 option 更新）
+              option.series[params.seriesIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+                isSelected, isHovered, k, option.series[params.seriesIndex].pieData.value + 1);
+              option.series[params.seriesIndex].pieStatus.hovered = isHovered;
+              // 记录上次高亮的扇形对应的系列号 seriesIndex
+              hoveredIndex = params.seriesIndex;
+            }
+            // 使用更新后的 option，渲染图表
+            myChart.setOption(option);
+          }
+        });
+        // 修正取消高亮失败的 bug
+        myChart.on('globalout', function () {
+          // 准备重新渲染扇形所需的参数
+          let isSelected;
+          let isHovered;
+          let startRatio;
+          let endRatio;
+          let k;
+          if (hoveredIndex !== '') {
+            // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 true。
+            isSelected = option.series[hoveredIndex].pieStatus.selected;
+            isHovered = false;
+            k = option.series[hoveredIndex].pieStatus.k;
+            startRatio = option.series[hoveredIndex].pieData.startRatio;
+            endRatio = option.series[hoveredIndex].pieData.endRatio;
+            // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
+            option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio,
+              isSelected,
+              isHovered, k, option.series[hoveredIndex].pieData.value);
+            option.series[hoveredIndex].pieStatus.hovered = isHovered;
+            // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
+            hoveredIndex = '';
+          }
+          // 使用更新后的 option，渲染图表
+          myChart.setOption(option);
+        });
+      }
+      chart.clear();//清除动画
+      chart.setOption(option, true);
+      bindListen(chart)
     },
     //学校公房总数统计
     getTotalStati() {
@@ -316,19 +638,19 @@ export default {
           containLabel: true
         },
         legend: {
-          data: parma.names.map((item,i)=>{
+          data: parma.names.map((item, i) => {
             return {
-              name:item,
-              textStyle:{
-                color:parma.color[i],
-                fontSize:12
+              name: item,
+              textStyle: {
+                color: parma.color[i],
+                fontSize: 12
               }
             }
           }),
           right: '0',
           itemWidth: 10,
           itemHeight: 5,
-          orient:'vertical',
+          orient: 'vertical',
         },
         xAxis: {
           type: 'category',
@@ -392,184 +714,179 @@ export default {
       };
       chart.clear();//清除动画
       chart.setOption(option, true);
-			window.addEventListener("resize", function() {
-			  chart.resize()
-			})
-    },
-
-    initcolor() {
-      let tempobj = {}
-      this.fontcolor = color.slice(0, this.name.length);
-      // this.fontcolor.forEach(el => {
-      // 	tempobj.color = el
-      // 	this.fontcolorobj.push(tempobj)
-      // })
-      let len = this.fontcolor.length
-      let array = [];
-      for (let i = 0; i < len; i++) {
-        array.push({
-          "color": this.fontcolor[i]
-        });
-      }
-      console.log(array, "bbbbbbb", this.fontcolor)
     },
     //公房使用单位统计
     renderpie() {
-				let usepublicChartDom, usepublicChartChart, option
-				usepublicChartDom = document.getElementById('usepublic');
-				usepublicChartChart = echarts.init(usepublicChartDom);
-				var seriesData = [{
-					name: "土木工程学院",
-					value: "40",
-					label:{
-						color:"#73DDFF"
-					}
-				}, {
-					name: "物理学院",
-					value: "40",
-					label:{
-						color:"#73ACFF"
-					}
-				}, {
-					name: "数学学院",
-					value: "53",
-					label:{
-						color:"#FDD56A"
-					}
-				}, {
-					name: "软件工程学院",
-					value: "40",
-					label:{
-						color:"#FDB36A"
-					}
-				}, {
-					name: "继续教育学院",
-					value: "60",
-					label:{
-						color:"#FD866A"
-					}
-				}, {
-					name: "文法学院",
-					value: "10",
-					label:{
-						color:"#9E87FF"
-					}
-				}, {
-					name: "计算机科学学院",
-					value: "20",
-					label:{
-						color:"#58D5FF"
-					},
-				}];
-				let title = "总计"
-				let formatNumber = function(num) {
-					let reg = /(?=(\B)(\d{3})+$)/g;
-					return num.toString().replace(reg, ',');
-				}
-				let total = seriesData.reduce((a, b) => {
-					return a + b.value * 1
-				}, 0);
-				var legendData = ["二元", "大白", "长大", "杜洛克", "三元", "大长", "PIC"]
-				var colorList = ['#73DDFF', '#73ACFF', '#FDD56A', '#FDB36A', '#FD866A', '#9E87FF', '#58D5FF'];
-				usepublicChartChart.setOption({
-					// title: {
-					//     text: `总计`,
-					//     x: 'center',
-					//     y: 'center',
-					//     textStyle: {
-					//         color: '#fff'
-					//     }
-					// },
-					title: [{
-						text: '{name|' + title + '}\n{val|' + formatNumber(total) + '}{unit|间}',
-						top: 'center',
-						left: 'center',
-						textStyle: {
-							rich: {
-								name: {
-									fontSize: 12,
-									fontWeight: 'normal',
-									color: 'rgba(255,255,255,0.8)',
-									padding: [10, 0]
-								},
-								val: {
-									fontSize: 16,
-									fontWeight: 'bold',
-									color: '#00F5FF',
-								},
-								unit: {
-									fontSize: 12,
-									color: 'rgba(255,255,255,0.5)',
-								}
-							}
-						}
-					}],
-					tooltip: {
-						trigger: 'item',
-						// borderColor: 'rgba(255,255,255,.3)',
-						backgroundColor: 'rgba(13,5,30,.6)',
-						borderWidth: 1,
-						padding: 5,
-						formatter: function(parms) {
-							var str = parms.marker + "" + parms.data.name + "</br>" +
-								// "数量：" + parms.data.value + "头</br>" +
-								"占比：" + parms.percent + "%";
-							return str;
-						}
-					},
-					legend: {
-						show: false,
-						// type: "scroll",
-						orient: 'vertical',
-						left: 'left',
-						align: 'auto',
-						top: 'middle',
-						textStyle: {
-							color: '#fft'
-						},
-						data: legendData
-					},
-					series: [{
-						type: 'pie',
-						z: 3,
-						center: ['50%', '50%'],
-						radius: ['50%', '65%'],
-						clockwise: true,
-						avoidLabelOverlap: true,
-						hoverOffset: 15,
-						itemStyle: {
-							normal: {
-								color: function(params) {
-									return colorList[params.dataIndex]
-								},
+      let usepublicChartDom, usepublicChartChart, option
+      usepublicChartDom = document.getElementById('usepublic');
+      usepublicChartChart = echarts.init(usepublicChartDom);
+      var seriesData = [{
+        name: "土木工程学院",
+        value: "40",
+        label: {
+          color: "#73DDFF"
+        }
+      }, {
+        name: "物理学院",
+        value: "40",
+        label: {
+          color: "#73ACFF"
+        }
+      }, {
+        name: "数学学院",
+        value: "53",
+        label: {
+          color: "#FDD56A"
+        }
+      }, {
+        name: "软件工程学院",
+        value: "40",
+        label: {
+          color: "#FDB36A"
+        }
+      }, {
+        name: "继续教育学院",
+        value: "60",
+        label: {
+          color: "#FD866A"
+        }
+      }, {
+        name: "文法学院",
+        value: "10",
+        label: {
+          color: "#9E87FF"
+        }
+      }, {
+        name: "计算机科学学院",
+        value: "40",
+        label: {
+          color: "#58D5FF"
+        },
+      }, {
+        name: "马克思主义学院",
+        value: "40",
+        label: {
+          color: "#18DDA7"
+        },
+      }, {
+        name: "外国语学院",
+        value: "40",
+        label: {
+          color: "#40CA53"
+        },
+      }, {
+        name: "化学化工学院",
+        value: "40",
+        label: {
+          color: "#E782AF"
+        },
+      }];
+      let title = "总计"
+      let formatNumber = function (num) {
+        let reg = /(?=(\B)(\d{3})+$)/g;
+        return num.toString().replace(reg, ',');
+      }
+      let total = seriesData.reduce((a, b) => {
+        return a + b.value * 1
+      }, 0);
+      var legendData = seriesData.map(item=>item.name);
+      var colorList = seriesData.map(item=>item.label.color);
+      usepublicChartChart.setOption({
+        // title: {
+        //     text: `总计`,
+        //     x: 'center',
+        //     y: 'center',
+        //     textStyle: {
+        //         color: '#fff'
+        //     }
+        // },
+        title: [{
+          text: '{name|' + title + '}\n{val|' + formatNumber(total) + '}{unit|间}',
+          top: 'center',
+          left: 'center',
+          textStyle: {
+            rich: {
+              name: {
+                fontSize: 12,
+                fontWeight: 'normal',
+                color: 'rgba(255,255,255,0.8)',
+                padding: [10, 0]
+              },
+              val: {
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#00F5FF',
+              },
+              unit: {
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.5)',
+              }
+            }
+          }
+        }],
+        tooltip: {
+          // trigger: 'item',
+          // borderColor: 'rgba(255,255,255,.3)',
+          backgroundColor: 'rgba(13,5,30,.6)',
+          borderWidth: 1,
+          padding: 5,
+          formatter: function (parms) {
+            var str = parms.marker + "" + parms.data.name + "</br>" +
+              // "数量：" + parms.data.value + "头</br>" +
+              "占比：" + parms.percent + "%";
+            return str;
+          },
+          textStyle: {
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.8)',
+          },
+        },
+        legend: {
+          show: false,
+          // type: "scroll",
+          orient: 'vertical',
+          left: 'left',
+          align: 'auto',
+          top: 'middle',
+          textStyle: {
+            color: '#fft'
+          },
+          data: legendData
+        },
+        series: [{
+          type: 'pie',
+          z: 3,
+          center: ['50%', '50%'],
+          radius: ['50%', '65%'],
+          clockwise: true,
+          animationDuration: 2000,
+          avoidLabelOverlap: true,
+          hoverOffset: 15,
+          itemStyle: {
+            normal: {
+              color: function (params) {
+                return colorList[params.dataIndex]
+              },
 
-							}
-						},
-						label: {
-							show: true,
-							position: 'outside',
-							formatter: '{a|{b}}',
-							rich: {
-
-								a: {
-									padding: [-30, 10, -20, 10],
-								}
-							}
-						},
-						labelLine: {
-							normal: {
-								length: 15,
-								length2: 25,
-								lineStyle: {
-									width: 1
-								}
-							}
-						},
-						data: seriesData
-					}, ]
-				});
-			}
-    
+            }
+          },
+          label: {
+            show: true,
+            position: 'outside',
+          },
+          labelLine: {
+            normal: {
+              length: 20,
+              length2: 15,
+              lineStyle: {
+                width: 1
+              }
+            }
+          },
+          data: seriesData
+        },]
+      });
+    }
   }
 }
 </script>
@@ -614,6 +931,57 @@ export default {
       background: rgba(106, 176, 255, 0.3);
     }
   }
+  .useStati {
+    padding: 0 16px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .chart-useStati {
+      width: 180px;
+      height: 200px;
+    }
+    .detailBox {
+      flex: 1;
+      height: 200px;
+      margin-left: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 5px;
+        border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+        .title {
+          i {
+            border: 2px solid;
+            border-radius: 4px;
+            display: inline-block;
+            height: 5px;
+            margin-right: 4px;
+          }
+          span {
+            font-size: 14px;
+          }
+        }
+        .value {
+          span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #00f5ff;
+            margin-right: 2px;
+          }
+          i {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+          }
+        }
+      }
+    }
+  }
 
   .totalStati {
     padding: 0 16px;
@@ -629,9 +997,78 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .chartImg {
+    .imgBox{
       width: 145px;
       height: 150px;
+      position: relative;
+      img{
+        position: absolute;
+        cursor: pointer;
+        &:hover{
+          filter: drop-shadow(0 0 2px #ddd);
+        }
+      }
+      .img1{
+        width: 57px;
+        top: 0;
+        left: calc(50% - 28.5px);
+        z-index: 3;
+        animation: aniImg1 3s linear 1;
+      }
+      .img2{
+        width: 96px;
+        top: 38px;
+        left: calc(50% - 48px);
+        z-index: 2;
+        animation: aniImg2 2s linear 1;
+      }
+      .img3{
+        width: 145px;
+        bottom: 0;
+        left: calc(50% - 72.5px);
+        z-index: 1;
+        animation: aniImg3 1s linear 1;
+      }
+      @keyframes aniImg1{
+        0%{
+          top: 148px;
+          opacity: 0;
+        }
+        33%{
+          top: 93px;
+          opacity: 0;
+        }
+        66%{
+          top: 47px;
+          opacity: 0;
+        }
+        100%{
+          top: 0;
+          opacity: 1;
+        }
+      }
+      @keyframes aniImg2{
+        0%{
+          top: 148px;
+          opacity: 0;
+        }
+        50%{
+          top: 82px;
+          opacity: 0;
+        }
+        100%{
+          top: 38px;
+          opacity: 1;
+        }
+      }
+      @keyframes aniImg3{
+        0%{
+          opacity: 0;
+        }
+        100%{
+          opacity: 1;
+        }
+      }
     }
     .detailBox {
       flex: 1;
@@ -674,70 +1111,40 @@ export default {
       }
     }
   }
-  // .landState {
-  //   padding: 0 16px;
-  //   width: 100%;
-  //   .chart-land {
-  //     width: 100%;
-  //     height: 80%;
-  //   }
-  // }
-    .chart-land {
-      width: 100%;
-      height: 100%;
-    }
-  #allTotalAssets {
+  .landState {
+    padding: 0 16px;
     width: 100%;
-    height: 150px;
+    .chart-land {
+      width: 340px;
+      height: 300px;
+    }
   }
 
   .usepublicunitbox {
     width: 100%;
-    height: 210px;
+    height: 100%;
+    .usebox {
+      margin-top: 16px;
+      display: flex;
+      position: relative;
+      #usepublic {
+        width: 100%;
+        height: 220px;
+      }
+      .useboxoutpie {
+        position: absolute;
+        width: 170px;
+        top: calc(50% - 85px);
+        left: calc(50% - 85px);
+      }
+      .gear {
+        position: absolute;
+        width: 100px;
+        top: calc(50% - 50px);
+        left: calc(50% - 50px);
+      }
+    }
   }
-  #usepublic {
-    width: 100%;
-    height: 200px;
-    /* margin-left: 20px; */
-  }
-
-  .usebox {
-    display: flex;
-    position: relative;
-    left: 20px;
-  }
-
-  .icon {
-    color: #fff;
-    font-size: 24px;
-    margin-top: 8px;
-  }
-
-  .useboximg {
-    position: absolute;
-    width: 130px;
-    top: 10px;
-    left: 10px;
-  }
-
-  .useboxoutpie {
-    position: absolute;
-    width: 150px;
-    top: 25px;
-    left: 115px;
-    /* 		animation: myMove 5s; 外圈旋转动画
-		-webkit-animation: myMove 5s infinite linear; */
-  }
-
-  /* 	@keyframes myMove {
-	    from {transform: rotate(0deg);}
-	    to {transform: rotate(360deg);}
-	}
-	 
-	@-webkit-keyframes myMove {
-	    from {transform: rotate(0deg);}
-	    to {transform: rotate(360deg);}
-	} 旋转半圈以后反转*/
 
   /* 外圈旋转动画 */
   @-webkit-keyframes myMove {
@@ -749,15 +1156,6 @@ export default {
     100% {
       -webkit-transform: rotate(360deg);
     }
-  }
-  .gear {
-    position: absolute;
-    width: 80px;
-    top: 60px;
-    left: 151px;
-  }
-  .userladnd {
-    height: 300px;
   }
 }
 </style>

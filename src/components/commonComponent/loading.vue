@@ -1,6 +1,6 @@
 <template>
   <div class="loading">
-    <img style="width: 120px;" src="../../assets/gif/loading.gif" alt="">
+    <img src="../../assets/gif/loading.gif" alt="">
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .loading{
   position: absolute;
   top: 0;
@@ -20,7 +20,14 @@ export default {
   bottom: 0;
   right: 0;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
   width: 100%;
-  height: 50%;
+  height: calc(100% - 40px);
+  img{
+    width: 50%;
+  }
 }
 </style>

@@ -1,24 +1,21 @@
 <template>
   <div class="sidebar">
-    <div class="sys-tips" 
-      :style="{width: checkSideItem.children ? (checkSideItem.children.length + 1)*106 + 'px' : 0,
-        top: SysTop,
-        left: SysLeft}" 
-      v-show="checkSideItem.children && thisIndex == currentSysThisIndex">
-      <span :class="['sys-sidechild-normal', checkSideItem.name === currentSysModule ? 'sys-sidechild-select' : '']" 
-        v-for="checkSideItem in checkSideItem.children" 
-        :key="checkSideItem.name"
-        @click="checkCurrentSysModule(checkSideItem)"
-      >{{ checkSideItem.cname }}</span>
-    </div>
     <div class="up" @click="checkSideList('up')"><img v-if="thisIndex !== 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
     <div class="swiper">
       <div class="side-list">
         <div :class="['side-item','side-bar-item-aa', sideItem.children ? 'side-item-has-child' : '']" 
           v-for="(sideItem,index) in allSideList" :key="index" 
-          @mouseenter="hoverCurrentSys(sideItem,index,'hover')" 
-          @mouseleave="leaveCurrentSys(sideItem,index)" 
           @click="checkCurrentSys(sideItem,index, 'click')">
+          <div class="sys-tips" :style="{top: sideItem.children ? -10 + sideItem.children.length * (-55) + 'px' : 0}" v-if="sideItem.children">
+            <div class="sys-tips-body">
+              <span :class="['sys-sidechild-normal', checkSideItem.name === currentSysModule ? 'sys-sidechild-select' : '']" 
+                v-for="checkSideItem in sideItem.children" 
+                :key="checkSideItem.name"
+                @click.stop="checkCurrentSysModule(checkSideItem,sideItem)"
+              >{{ checkSideItem.cname }}</span>
+            </div>
+            <div class="sys-tips-foot"></div>
+          </div>
           <div :class="['side-normal',sideItem.name === currentSys ? 'side-select' : '']">
             <img class="side-normal-img" :src="sideItem.normal" alt="">
             <img class="side-select-img" :src="sideItem.select" alt="">
@@ -131,7 +128,8 @@ export default {
       SysTop: '',
       SysLeft: '',
       currentSysThisIndex: '',
-      oldCurrentsSys: ''
+      oldCurrentsSys: '',
+      midIndex: 0
     }
   },
   computed:{
@@ -163,6 +161,9 @@ export default {
     returnClassType(val,thisIndex){
       let type = 0
       let mid = 4//Math.ceil(this.sideList[this.thisIndex].length/2)
+      if(this.sideList[this.thisIndex].length < this.size){
+        mid = mid - (this.size - this.sideList[this.thisIndex].length) 
+      }
       type = Math.abs(mid-(val+1))
       type = Math.abs(type - this.thisIndex*this.size)
       console.log(type)
@@ -184,12 +185,24 @@ export default {
       // this.ani = setInterval(() => {
 
       // },100)
+      let mid = 4//Math.ceil(this.sideList[this.thisIndex].length/2)
+      if(this.sideList[this.thisIndex].length < this.size){
+        mid = mid - (this.size - this.sideList[this.thisIndex].length) 
+      }
       let sideDomList = document.getElementsByClassName('side-bar-item-aa')
       sideDomList = [...sideDomList]
+      let midIndex = 0
       sideDomList.forEach((dom,index) => {
         let a = this.returnClassType(index,this.thisIndex)
-        dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
-        dom.style.top = (42-(a-1)*17) + 'px'
+        if(a == 0) midIndex = index
+      })
+      this.midIndex = midIndex
+      sideDomList.forEach((dom,index) => {
+        let a = this.returnClassType(index,this.thisIndex)
+        // dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
+        dom.style.left = 17 + (315 - (midIndex - index)*105) + 'px'
+        // dom.style.top = (42-(a-1)*17) + 'px'
+        dom.style.top = 180 * Math.cos((15 * a * Math.PI) / 180) - 125 + 'px'
       })
     },
     hoverCurrentSys(side,index){
@@ -197,30 +210,40 @@ export default {
       if(side && side.children){
         this.checkSideItem = JSON.parse(JSON.stringify(side))
         this.currentSysThisIndex = this.thisIndex
+        let sideDomList = document.getElementsByClassName('side-bar-item-aa')
+        sideDomList = [...sideDomList]
+        let midIndex = 0
+        sideDomList.forEach((dom,i) => {
+          let a = this.returnClassType(i,this.thisIndex)
+          if(a == 0) midIndex = i
+        })
         let a = this.returnClassType(index,this.thisIndex)
         this.SysTop = (42-(a-1)*17) - 70 + 'px'
         let marginLeft = side.children ? (side.children.length)*105/2 : 0
-        this.SysLeft = 38 + (index - this.thisIndex*this.size)*105 - marginLeft + 'px'
+        this.SysLeft = 30 + (315 - (midIndex - index)*105) - marginLeft + 'px'
       }
     },
     leaveCurrentSys(side,index){
       if(this.oldCheckSideItem){
-        this.checkSideItem = this.oldCheckSideItem
+        // this.checkSideItem = this.oldCheckSideItem
       }
     },
     checkCurrentSys(side,index,type){
+      this.SET_CURRENTSYS_MODULE('')
       this.currentSysThisIndex = this.thisIndex
       this.SET_OLD_CURRENTSYS(this.currentSys)
       this.oldIndex = index
       this.oldCheckSideItem = JSON.parse(JSON.stringify(side))
       this.checkSideItem = JSON.parse(JSON.stringify(side))
       this.SET_CURRENTSYS(side.name)
-      let a = this.returnClassType(index,this.thisIndex)
-      this.SysTop = (42-(a-1)*17) - 70 + 'px'
-      let marginLeft = side.children ? (side.children.length)*105/2 : 0
-      this.SysLeft = 38 + (index - this.thisIndex*this.size)*105 - marginLeft + 'px'
+      if(side.children) this.SET_CURRENTSYS_MODULE(side.children[0].name)
+      // let a = this.returnClassType(index,this.thisIndex)
+      // this.SysTop = (42-(a-1)*17) - 70 + 'px'
+      // let marginLeft = side.children ? (side.children.length)*105/2 : 0
+      // this.SysLeft = 38 + (index - this.thisIndex*this.size)*105 - marginLeft + 'px'
     },
-    checkCurrentSysModule(sideChild){
+    checkCurrentSysModule(sideChild, parentSys){
+      this.SET_CURRENTSYS(parentSys.name)
       this.SET_CURRENTSYS_MODULE(sideChild.name)
     }
   }
@@ -272,8 +295,8 @@ export default {
   // flex-direction: column;
   // justify-content: space-around;
   position: relative;
-  overflow: hidden;
-  width: 730px;
+  overflow-x: clip;
+  width: 754px;
   height: 175px;
   transition: all 1s;
 }
@@ -285,38 +308,47 @@ export default {
   height: 81px;
   transition: all 1s;
 }
+.side-item:hover{
+  .sys-tips{
+    display: block;
+  }
+}
 .sys-tips{
   position: absolute;
   z-index: 10;
-  // transform: translateY(50%);
+  // transform: translateY(-50%);
+  display: none;
+  left: 50%;
+  margin-left: -60px;
+  padding-bottom: 35px;
   // top: -70px;
   // margin-left: -30%;
   // padding-right: 10px;
-  height: 55px;
-  background-image: url('../assets/sidebar/sidebar-btn-box.png');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  // height: 55px;
+  // background-image: url('../assets/sidebar/sidebar-btn-box.png');
+  // background-size: 100% 100%;
+  // background-repeat: no-repeat;
   font-size: 12px;
   color: #fff;
   line-height: 47.7px;
-  animation: tilt-in-right-1 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: scale-in-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   transition: all 1s;
 }
-@keyframes tilt-in-right-1 {
+@keyframes scale-in-bottom {
   0% {
-    width: 10px;
-    height: 10px;
-    transform: rotateX(-30deg) translateX(300px) skewX(30deg) rotateY(-30deg) translateY(-300px) skewY(30deg);
-    opacity: 0;
+    transform: scale(0);
+    transform-origin: 50% 100%;
+    opacity: 1;
   }
   100% {
-    transform: rotateX(0deg) translateX(0) skewX(0deg) rotateY(0deg) translateY(0) skewY(0deg);
+    transform: scale(1);
+    transform-origin: 50% 100%;
     opacity: 1;
   }
 }
 .sys-sidechild-normal{
   display: inline-block;
-  width: 140px;
+  width: 120px;
   height: 40px;
   text-align: center;
   line-height: 40px;
@@ -347,7 +379,7 @@ export default {
 .swiper{
   display: flex;
   justify-content: center;
-  overflow-y: hidden;
+  // overflow-y: hidden;
   width: 800px;
   background-image: url('../assets/sidebar/sidebar-bg.png');
   background-repeat: no-repeat;
@@ -473,4 +505,17 @@ export default {
 //   left: 0;
 //   transition: all .5s;
 // }
+.sys-tips-body{
+  background-image: url('../assets/img/sys-tips-bg.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.sys-tips-foot{
+  margin-top: 2px;
+  width: 100%;
+  height: 13px;
+  background-image: url('../assets/img/sys-tips-bottom.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
 </style>

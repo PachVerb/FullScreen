@@ -120,13 +120,13 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用电趋势分析" delay="400" height="25.19%">
-          <div class="trendAnalysis" slot="body">
-            <div class="checkBox">
-              <div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
-              <div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
-              <div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
-            </div>
+        <sideItem title="用电趋势分析" delay="400" height="25.19%" class="trendAnalysis">
+          <div class="checkBox" slot="headRight">
+            <div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
+            <div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
+            <div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
+          </div>
+          <div class="content" slot="body">
             <div class="chart-trend" id="trendChart"></div>
           </div>
         </sideItem>
@@ -250,13 +250,13 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="用水趋势分析" transitionType="right" delay="400" height="25.19%">
-          <div class="trendAnalysis water" slot="body">
-            <div class="checkBox">
-              <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
-              <div :class="trendWaterKey==1?'btn checked':'btn'" @click="getTrendAnalyWaterData(1)">近一月</div>
-              <div :class="trendWaterKey==2?'btn checked':'btn'" @click="getTrendAnalyWaterData(2)">近一年</div>
-            </div>
+        <sideItem title="用水趋势分析" transitionType="right" delay="400" height="25.19%" class="trendAnalysis water">
+          <div class="checkBox" slot="headRight">
+            <div :class="trendWaterKey==0?'btn checked':'btn'" @click="getTrendAnalyWaterData(0)">近一周</div>
+            <div :class="trendWaterKey==1?'btn checked':'btn'" @click="getTrendAnalyWaterData(1)">近一月</div>
+            <div :class="trendWaterKey==2?'btn checked':'btn'" @click="getTrendAnalyWaterData(2)">近一年</div>
+          </div>
+          <div class="content" slot="body">
             <div class="chart-trend" id="trendChart_water"></div>
           </div>
         </sideItem>
@@ -304,16 +304,16 @@ export default {
     //初始化
     init() {
       this.$nextTick(() => {
-        this.getDeviceStatiList();
-        this.getWaterDeviceStatiList();
-        this.getSurveyData();
-        this.getSurveyWaterData();
-        this.getTrendAnalyData(2);
-        this.getTrendAnalyWaterData(2);
-        this.getRatioData();
-        this.getRatioWaterData();
-        // setTimeout(() => {
-        // }, 1400)
+        setTimeout(() => {
+          this.getDeviceStatiList();
+          this.getWaterDeviceStatiList();
+          this.getSurveyData();
+          this.getSurveyWaterData();
+          this.getTrendAnalyData(2);
+          this.getTrendAnalyWaterData(2);
+          this.getRatioData();
+          this.getRatioWaterData();
+        }, 600)
       })
     },
     //获取用电设备统计列表
@@ -668,11 +668,7 @@ export default {
               }
             },
             data: list,
-            animationType: 'scale',
-            animationEasing: 'elasticOut',
-            animationDelay: function (idx) {
-              return idx * 550;
-            }
+            animationDuration: 2000,
           },
           {
             name: '',
@@ -773,6 +769,7 @@ export default {
               }
             },
             data: list,
+            animationDuration: 3000,
           },
           {
             name: '',
@@ -987,16 +984,12 @@ export default {
     }
   }
   .trendAnalysis {
-		// min-height: 130px;
-    width: 100%;
-    position: relative;
-    padding: 10px 16px 0;
     .checkBox {
-      position: absolute;
-      right: 30px;
-      top: -20px;
       display: flex;
-      align-items: center;
+      justify-content: flex-end;
+      align-items: flex-end;
+      height: 100%;
+      padding-right: 16px;
       .btn {
         width: 48px;
         line-height: 22px;
@@ -1012,10 +1005,15 @@ export default {
         background: url(../assets/img/btn-check.png) no-repeat 100%;
       }
     }
-    .chart-trend {
-      width: 340px;
-      height: 150px;
+		.content{
+      width: 100%;
+      padding: 10px 16px 0;
+      .chart-trend {
+        width: 340px;
+        height: 150px;
+      }
     }
+    
   }
   .ratio {
     // min-height: 140px;

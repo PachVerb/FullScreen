@@ -1,9 +1,14 @@
 <template>
   <transition :name="`go-in-item-${transitionType}`">
     <div class="side-item" :style="{height}" v-show="currentSys == thisCrrentSys">
-      <div class="side-item-title">
-        <img src="../assets/img/side-item-title.png" alt="">
-        <span>{{title}}</span>
+      <div class="side-item-head">
+        <div class="side-item-title">
+          <img src="../assets/img/side-item-title.png" alt="">
+          <span>{{title}}</span>
+        </div>
+        <div class="side-item-right">
+          <slot name="headRight"></slot>
+        </div>
       </div>
       <!-- <div class="title-border"></div> -->
       <div class="side-item-body" v-show="!loading">
@@ -12,7 +17,7 @@
       <div :class="[loading ?'side-item-loading' : '']" v-show="loading">
         <loading/>
       </div>
-      <div class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
+      <div v-show="!loading" class="border"><img src="../assets/img/side-item-border.png" alt=""></div>
     </div>
   </transition>
 </template>
@@ -66,6 +71,13 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.side-item-head{
+  display: flex;
+  .side-item-right{
+    flex: 1;
+    height: 100%;
+  }
+}
 .side-item-title{
   position: relative;
   width: fit-content;
@@ -98,7 +110,7 @@ export default {
   overflow: hidden;
 }
 .side-item-loading{
-  min-height: 150px;
+  height: 100%;
 }
 .border{
   display: flex;

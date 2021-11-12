@@ -392,7 +392,7 @@ export default {
     //停止自动滚动
     dormScrollStop() {
       clearInterval(this.dormTimer);
-      document.querySelector('.dormState .scroll').className = 'scroll';//显示滚动条
+      document.querySelector('.dormState .scroll')&&(document.querySelector('.dormState .scroll').className = 'scroll');//显示滚动条
     },
     //教室分类统计
     getRoomType() {
@@ -563,7 +563,7 @@ export default {
     //停止自动滚动
     attendScrollStop() {
       clearInterval(this.attendTimer);
-      document.querySelector('.attendStati .scroll').className = 'scroll';//显示滚动条
+      document.querySelector('.attendStati .scroll')&&(document.querySelector('.attendStati .scroll').className = 'scroll');//显示滚动条
     },
   }
 }
@@ -954,10 +954,12 @@ export default {
         top: 0;
       }
       .icon {
-        animation: ani-icon 3s infinite linear;
+        animation: ani-icon 2s infinite linear;
+        animation-direction: alternate;
       }
       .light {
-        animation: ani-light 3s infinite linear;
+        animation: ani-light 2s infinite linear;
+        animation-direction: alternate;
       }
       @keyframes ani-light {
         0% {
@@ -965,26 +967,18 @@ export default {
           transform: scale(0);
           top: 30%;
         }
-        50% {
-          opacity: 1;
-          transform: scale(1);
-          top: 0;
-        }
         100% {
-          opacity: 0.3;
-          transform: scale(0);
-          top: 30%;
+          opacity: 1;
+          transform: scale(1.1);
+          top: 0;
         }
       }
       @keyframes ani-icon {
         0% {
           top: -5px;
         }
-        50% {
-          top: 5px;
-        }
         100% {
-          top: -5px;
+          top: 5px;
         }
       }
     }

@@ -15,7 +15,7 @@
             ></currency>
 					</div>
 				</sideItem>
-				<sideItem title="违规事件统计" :delay="1000" height="34%">
+				<sideItem title="违规事件统计" :delay="1000" height="34%" :loading="true">
 					<div slot='body' class="violations">
 						<img class="outpieimg" src="../assets/pieimg/vehicle/vehiclebox.png" >
 						<img class="topleft topbsize" src="../assets/pieimg/vehicle/topleft.png" alt="">
@@ -543,8 +543,8 @@
 		display: inline-block;
 		width: 58px;
 		height: 18px;
-		background: #F2896B;
-		opacity: 0.58;
+		background: rgb(240,125,92);
+		// opacity: 0.58;
 		border-radius: 4px;
 		cursor: pointer;
 		line-height: 18px;
@@ -553,8 +553,8 @@
 		display: inline-block;
 		width: 58px;
 		height: 18px;
-		background: #1E9A5C;
-		opacity: 0.58;
+		background: rgb(13,162,101);
+		// opacity: 0.58;
 		border-radius: 4px;
 		cursor: pointer;
 		line-height: 18px;

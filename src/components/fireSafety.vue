@@ -28,6 +28,11 @@
 					</div>
 				</sideItem>
 				<sideItem title="异常设备位置分析" delay="1000" height="30%">
+					<div class="checkBox" slot="headRight">
+						<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
+						<div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
+						<div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
+					</div>
 					<div slot='body' class="abnormaldevice-box">
 						<div class="abnormaldevice">
 							<img src="../assets/pieimg/fire/firearc.png" class="abnormaldeviceimg fireleftarc">
@@ -170,6 +175,7 @@
 		data() {
 			return {
 				thisCrrentSys: 'fireSafety',
+				trendKey: 0,
 				colorone: ["#6AB0FF", '#6AB0FF'],
 				colortwo: ["#F6886A", "#F6886A"],
 				colorthir: ["#E5BC80", "#E5BC80"],
@@ -343,6 +349,9 @@
 							]
 					}, 1500)
 				})
+			},
+			getTrendAnalyData(key){
+				this.trendKey = key
 			},
 			initcolors(){
 				
@@ -611,12 +620,7 @@
 									}
 								}
 							},
-							data: list,
-							animationType: 'scale',
-							animationEasing: 'elasticOut',
-							animationDelay: function(idx) {
-								return idx * 550;
-							}
+							data: list
 						},
 						{
 							name: '',
@@ -1101,6 +1105,29 @@
 		height: 100%;
 		.ab-list{
 			height: calc(100% - 60px);
+		}
+	}
+	.checkBox {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-top: 15px;
+		width: 100%;
+		height: calc(100% - 15px);
+		.btn {
+			width: 48px;
+			line-height: 22px;
+			font-size: 12px;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 0.6);
+			background: url(../assets/img/btn.png) no-repeat 100%;
+			margin: 0 4px;
+			cursor: pointer;
+		}
+
+		.checked {
+			color: #00f5ff;
+			background: url(../assets/img/btn-check.png) no-repeat 100%;
 		}
 	}
 </style>
