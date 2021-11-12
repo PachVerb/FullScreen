@@ -1032,6 +1032,23 @@ export default {
         top: 0;
         left: 0;
       }
+      .img2{
+        animation: aniImg2 4s infinite linear;
+      }
+      .img3{
+        animation: aniImg2 4s infinite linear;
+      }
+      @keyframes aniImg2{
+        0%{
+          top: 0;
+        }
+        50%{
+          top: 10px;
+        }
+        100%{
+          top: 0;
+        }
+      }
     }
     .detailBox {
       flex: 1;
