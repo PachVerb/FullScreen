@@ -133,7 +133,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['currentSys','currentSysModule']),
+    ...mapGetters(['currentSys','oldCurrentSys','currentSysModule']),
   },
   mounted(){
     this.page = Math.ceil(this.allSideList.length/this.size)
@@ -229,6 +229,7 @@ export default {
       }
     },
     checkCurrentSys(side,index,type){
+      if(this.$parent.$refs[this.currentSys] && this.$parent.$refs[this.currentSys].destroySys) this.$parent.$refs[this.currentSys].destroySys()
       this.SET_CURRENTSYS_MODULE('')
       this.currentSysThisIndex = this.thisIndex
       this.SET_OLD_CURRENTSYS(this.currentSys)
@@ -237,10 +238,6 @@ export default {
       this.checkSideItem = JSON.parse(JSON.stringify(side))
       this.SET_CURRENTSYS(side.name)
       if(side.children) this.SET_CURRENTSYS_MODULE(side.children[0].name)
-      // let a = this.returnClassType(index,this.thisIndex)
-      // this.SysTop = (42-(a-1)*17) - 70 + 'px'
-      // let marginLeft = side.children ? (side.children.length)*105/2 : 0
-      // this.SysLeft = 38 + (index - this.thisIndex*this.size)*105 - marginLeft + 'px'
     },
     checkCurrentSysModule(sideChild, parentSys){
       this.SET_CURRENTSYS(parentSys.name)

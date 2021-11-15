@@ -9,7 +9,7 @@
 			</div> -->
       <!-- <div id="he-plugin-simple" style=""></div> -->
     </div>
-    <!-- <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/> -->
+    <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
     <SideBar></SideBar>
     <!-- <VideoCheck v-if="showVideo"/> -->
@@ -81,17 +81,22 @@ export default {
   },
   watch: {
     currentSys(val){
-      console.log(this.$refs[val])
-      if(this.$refs[this.oldCurrentSys] && this.$refs[this.oldCurrentSys].destroy) this.$refs[this.oldCurrentSys].destroy()
+      this.map && this.map.setZoom(16.1)
+      this.map && this.map.setCenter([104.05758988604839, 30.595132552688057])
       if(this.$refs[val] && this.$refs[val].init) this.$refs[val].init()
     },
+    mapLoad(val){
+      if(val){
+        this.SET_CURRENTSYS('comprehensive')
+      }
+    }
   },
   created(){
 		this.getWeather(document)
 	},
   mounted(){
 		// this.copyWeatherHtml()
-    this.SET_CURRENTSYS('comprehensive')
+    // this.SET_CURRENTSYS('comprehensive')
 	},
   methods:{
     zoomdata(data){

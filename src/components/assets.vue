@@ -82,6 +82,8 @@ export default {
   },
   data(){
     return {
+      markerList: [],
+      assetsMesList: [],
       ratioList:[],
       totalAssetsOption: {
         tooltip: {
@@ -313,7 +315,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentSys']),
+    ...mapGetters(['map','currentSys']),
     ratioAbTotal(){
       return this.ratioList.reduce((sum,item)=>sum+item.val,0);
     },
@@ -327,6 +329,10 @@ export default {
   },
   methods: {
     init(){
+      let domList = [...document.querySelectorAll('.buildingtext')]
+      domList.forEach(item => {
+        item.style.opacity = 0
+      })
       this.$nextTick(() => {
         setTimeout(() => {
           totalAssetsChartDom = document.getElementById('totalAssets');
@@ -361,7 +367,86 @@ export default {
           })
         },2000)
         // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
+        this.assetsMesList = [{
+          num: 65,
+          unit: 1,
+          value: 100,
+          location: [104.05664280605345, 30.595559445013265]
+        },{
+          num: 315,
+          unit: 2,
+          value: 177,
+          location: [104.05284762571148, 30.595657085458583]
+        },{
+          num: 465,
+          unit: 3,
+          value: 350,
+          location: [104.05293927849556, 30.600887884709223]
+        },{
+          num: 396,
+          unit: 4,
+          value: 250,
+          location: [104.05486617272919, 30.59760797571019]
+        },{
+          num: 666,
+          unit: 5,
+          value: 1150,
+          location: [104.0591943232202, 30.594376896666788]
+        }]
+        this.map.on('click', (e) => {
+          console.log(e)
+          console.log(this.map.queryRenderedFeatures(e.point))
+        })
+        this.createAssetsMraker()
+        this.createLayer()
       })
+    },
+    destroySys(){
+      let domList = [...document.querySelectorAll('.buildingtext')]
+      domList.forEach(item => {
+        item.style.opacity = 1
+      })
+      this.markerList.forEach(item => {
+        item.remove()
+      })
+      this.markerList = []
+    },
+    createAssetsMraker(){
+      this.assetsMesList.forEach(item => {
+        let div = document.createElement('div')
+        div.className = 'assets-marker-wrap'
+        div.innerHTML = `
+          <div><span>资产数量：</span><span>${item.num}套</span></div>
+          <div><span>资产单位：</span><span>${item.unit}个</span></div>
+          <div><span>资产价值：</span><span>${item.value}万元</span></div>
+        `
+        let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+        this.markerList.push(marker)
+      })
+    },
+    createLayer(){
+      this.map.addSource('assetsRoomData', {
+        "type": "geojson",
+        "data": {
+          "type": "Feature",
+          "geometry": {"type":"Polygon","coordinates":[[[104.06021179738,30.5918365444],[104.06018531587,30.59183606041],[104.06018483634,30.59185469235],[104.06021131757,30.59185519736],[104.06021179738,30.5918365444]]]},
+          "properties": {
+            "title": "my title",
+            "marker-symbol": "tree",
+            "color": 'red'
+          }
+        }
+      })
+      console.log(this.map.getSource('assetsRoomData'))
+      this.map.addLayer({
+        id: 'assetsRoom',
+        source: 'assetsRoomData',//上述定义的source
+        type: 'fill',//图层类型，见3.5节中图层描述
+        paint: {
+          'fill-color': ['get', 'color'],
+        }
+      })
+      console.log(this.map.getLayer('assetsRoom'))
     },
     getEcharts3DBar (xAxisData, data, colorType) {
       var colorArr = [];
@@ -695,5 +780,18 @@ export default {
 .chart-wrap{
   width: 100%;
   height: 100%;
+}
+</style>
+<style lang="less">
+.assets-marker-wrap{
+  padding: 8px 15px 15px;
+  width: 133px;
+  height: 65px;
+  background-image: url('../assets/marker/assetsMrakerBg.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 12px;
+  text-align: left;
 }
 </style>

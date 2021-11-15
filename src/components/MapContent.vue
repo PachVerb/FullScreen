@@ -3,6 +3,7 @@
   <div class="vmap-content-container">
     <!-- 'start-select' -->
     <div id="map-box"></div>
+    <div id="map-floor"></div>
   </div>
 </template>
 
@@ -180,6 +181,18 @@ export default {
             this.$emit('zoomdata', false)
           }
         });
+        var SelectFloor =
+        new creeper.FloorSelector(this.vMap,{
+            id: 'map-floor', // 必传， 楼层组件存放的容器id ，div标签的id名称
+            currentFloor: 0, //楼层 0是1楼  非必传默认是1楼
+            displaySize: 8, //展示的数量  非必传默认是5个楼层信息
+            displayZoom: 18,//显示的最小地图放大等级  非必传默认是18
+
+            onChange: (level) => {
+              console.log(level) // 更改的楼层  1楼为0，-1楼为-1
+            }, // 变化的回调
+
+        })
       });
     },
 
@@ -635,6 +648,11 @@ export default {
       font-family: 'Times New Roman', Times, serif;
       
   }
+}
+#map-floor{
+  position: fixed;
+  right: 420px;
+  bottom: 200px;
 }
 </style>
 

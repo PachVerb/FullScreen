@@ -310,10 +310,14 @@
 				abPatrolEqOption: {},
 				loading: true,
       	ratioList:[],
+				bearing: 0,
+				pitch: 0,
+				fireSafetyList: [],
+				markerList: [], 
 			}
 		},
 		computed: {
-			...mapGetters(['currentSys']),
+			...mapGetters(['map','currentSys']),
 			ratioAbTotal(){
 				return this.ratioList.reduce((sum,item)=>sum+item.val,0);
 			},
@@ -329,6 +333,88 @@
 		},
 		methods: {
 			init() {
+				this.bearing = this.map.getBearing()
+				this.pitch = this.map.getPitch()
+				this.map.setBearing(0)
+				this.map.setPitch(0)
+				let domList = [...document.querySelectorAll('.buildingtext')]
+				domList.forEach(item => {
+					item.style.opacity = 0
+				})
+				this.map.setLayoutProperty('modellayer', 'visibility', 'none')
+				this.fireSafetyList = [{
+					type: 0,// 人
+					cate: 0,
+					cateName: '正常',
+					name: '王猛',
+					location: [104.05468396412635, 30.597666764843567]
+				},{
+					type: 0,// 人
+					cate: 0,
+					cateName: '正常',
+					name: '刘悦',
+					location: [104.05622201941372, 30.596874684260015]
+				},{
+					type: 0,// 人
+					cate: 1,
+					cateName: '异常',
+					name: '齐星',
+					location: [104.06021833400604, 30.598153325420384]
+				},{
+					type: 0,// 人
+					cate: 1,
+					cateName: '异常',
+					name: '张珊',
+					location: [104.06407004511186, 30.595663919996667]
+				},{
+					type: 1,// 车
+					cate: 0,
+					cateName: '正常',
+					name: '巡逻车1号',
+					location: [104.05365859393618, 30.59901328697572]
+				},{
+					type: 1,// 车
+					cate: 0,
+					cateName: '正常',
+					name: '巡逻车2号',
+					location: [104.05762861698526, 30.59448708789614]
+				},{
+					type: 1,// 车
+					cate: 1,
+					cateName: '异常',
+					name: '巡逻车3号',
+					location: [104.05760232544213, 30.59664837433226]
+				},{
+					type: 0,
+					cate: 1,
+					cateName: '长时间未移动',
+					name: '吴继',
+					location: [104.05306494977515, 30.59448892240171]
+				},{
+					type: 1,
+					cate: 0,
+					cateName: '正常',
+					name: '巡逻车4号',
+					location: [104.05202763864776, 30.591376453791625]
+				},{
+					type: 0,
+					cate: 0,
+					cateName: '正常',
+					name: '魏寄虏',
+					location: [104.06048527108084, 30.59425632970199]
+				},{
+					type: 1,
+					cate: 0,
+					cateName: '正常',
+					name: '巡逻车5号',
+					location: [104.06139982048535, 30.593880601855176]
+				},{
+					type: 1,
+					cate: 0,
+					cateName: '正常',
+					name: '巡逻车6号',
+					location: [104.06131667963098, 30.59726210003609]
+				},]
 				allPatrolOption = this.initDashboardEchartOption(this.colorone)
 				abPatrolOption = this.initDashboardEchartOption(this.colortwo)
 				abPatrolEqOption = this.initDashboardEchartOption(this.colorthir)
@@ -351,6 +437,46 @@
 								{name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
 							]
 					}, 1500)
+				})
+				this.createFireMraker()
+			},
+			destroySys(){
+				this.map.setBearing(this.bearing)
+				this.map.setPitch(this.pitch)
+				let domList = [...document.querySelectorAll('.buildingtext')]
+				domList.forEach(item => {
+					item.style.opacity = 1
+				})
+				this.map.setLayoutProperty('modellayer', 'visibility', '')
+					this.markerList.forEach(item => {
+					item.remove()
+				})
+				this.markerList = []
+			},	
+			createFireMraker(){
+				this.fireSafetyList.forEach(item => {
+					let imgsrc = ''
+					if(item.type == 0 && item.cate == 0){
+						imgsrc = require('../assets/marker/personNormal.png')
+					} else if (item.type == 0 && item.cate == 1) {
+						imgsrc = require('../assets/marker/personAbnormal.png')
+					} else if (item.type == 1 && item.cate == 0) {
+						imgsrc = require('../assets/marker/carNormal.png')
+					} else if (item.type == 1 && item.cate == 1) {
+						imgsrc = require('../assets/marker/carAbnormal.png')
+					}
+					let div = document.createElement('div')
+					div.className = 'fire-marker-wrap'
+					div.innerHTML = `
+						<img class="fire-marker-img" src="${imgsrc}" />
+						<div class="fire-marker-mes">
+							<div>${item.type == 0 ? '<span>姓名：</span>' : ''}<span>${item.name}</span></div>
+							<div><span>状态：</span><span>${item.cateName}</span></div>
+						</div>
+					`
+					let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+					this.markerList.push(marker)
+
 				})
 			},
 			getTrendAnalyData(key){
@@ -1137,4 +1263,27 @@
 			background: url(../assets/img/btn-check.png) no-repeat 100%;
 		}
 	}
+</style>
+<style lang="less">
+.fire-marker-wrap{
+	.fire-marker-img{
+		width: 50px;
+		height: 50px;
+	}
+	.fire-marker-mes{
+		position: absolute;
+		top: -60px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 8px 15px 10px;
+		width: max-content;
+		height: 50px;
+		background-image: url('../assets/marker/assetsMrakerBg.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		color: #fff;
+		font-size: 12px;
+		text-align: left;
+	}
+}
 </style>
