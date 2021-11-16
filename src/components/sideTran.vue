@@ -1,12 +1,14 @@
 <template>
   <div style="height: 100%;">
     <transition name="go-in-sys-left">
-      <div class="sys-left" :style="{width: widthL}" v-if="currentSys === thisCrrentSys">
+      <div class="sys-left" :style="{width: widthL}" v-if="currentSys === thisCrrentSys" v-show="showLeftSys">
+        <img @click="handleShowLeftSys" class="sys-hide-btn" src="../assets/img/hideSysBtn.png" alt="">
         <slot name="left"/>
       </div>
     </transition>
     <transition name="go-in-sys-right">
-      <div class="sys-right" :style="{width: widthR}" v-if="currentSys === thisCrrentSys">
+      <div class="sys-right" :style="{width: widthR}" v-if="currentSys === thisCrrentSys" v-show="showRightSys">
+        <img @click="handleShowRightSys" class="sys-hide-btn right-sys-hide-btn" src="../assets/img/hideSysBtn.png" alt="">
         <slot name="right"/>
       </div>
     </transition>
@@ -30,10 +32,20 @@ export default {
   data(){
     return {
       // thisCrrentSys: ''
+      showLeftSys: true,
+      showRightSys: true
     }
   },
   computed: {
-    ...mapGetters(['currentSys'])
+    ...mapGetters(['currentSys',])
+  },
+  methods: {
+    handleShowLeftSys(){
+      this.showLeftSys = !this.showLeftSys
+    },
+    handleShowRightSys(){
+      this.showRightSys = !this.showRightSys
+    },  
   },
   mounted(){
     
@@ -87,5 +99,16 @@ export default {
 }
 .go-in-sys-right-leave-to{
   transform: translateX(150%);
+}
+.sys-hide-btn{
+  position: absolute;
+  left: 373px;
+  top: 50%;
+  cursor: pointer;
+  width: 25px;
+}
+.right-sys-hide-btn{
+  left: -23px;
+  transform: rotate(180deg);
 }
 </style>

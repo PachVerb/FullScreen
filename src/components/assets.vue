@@ -53,6 +53,54 @@
 				
       </div>
     </sideTran>
+    <modal :show="showAssetsDetailFlag">
+      <div class="assets-modal">
+        <div class="assets-modal-head">
+          <span>机电信息实验大楼 > B109</span>
+          <i @click="handleHideAssetsDetail" class="el-icon-close"></i>
+        </div>
+        <div class="assets-modal-body">
+          <div class="assets-modal-body-top">
+            <div class="assets-detail-mes">
+              <div class="assets-detail-mes-top">
+                <img src="../assets/assets/assets-type.png" alt="">
+                <span>7类</span>
+              </div>
+              <div class="assets-detail-mes-bottom">资产类别</div>
+            </div>
+            <div class="assets-detail-mes">
+              <div class="assets-detail-mes-top">
+                <img src="../assets/assets/assets-num.png" alt="">
+                <span>34套</span>
+              </div>
+              <div class="assets-detail-mes-bottom">资产数量</div>
+            </div>
+            <div class="assets-detail-mes">
+              <div class="assets-detail-mes-top">
+                <img src="../assets/assets/assets-company.png" alt="">
+                <span>资产处</span>
+              </div>
+              <div class="assets-detail-mes-bottom">使用单位</div>
+            </div>
+          </div>
+          <div class="assets-modal-body-bottom">
+            <div class="assets-modal-body-bottom-title">资产明细</div>
+            <div class="assets-modal-body-bottom-table">
+              <div class="assets-modal-body-bottom-table-head">
+                <div class="assets-modal-body-bottom-table-tr">
+                  <div class="assets-modal-body-bottom-table-td" v-for="th in tableHead" :key="th.cname" :style="{width: th.width}">{{th.cname}}</div>
+                </div>
+              </div>
+              <div class="assets-modal-body-bottom-table-body">
+                <div class="assets-modal-body-bottom-table-tr" v-for="(tr,trIndex) in tableBody" :key="trIndex">
+                  <div class="assets-modal-body-bottom-table-td" v-for="(val,key) in tr" :key="key" :style="{width: tableHead[key].width}">{{val}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </modal>
   </div>
 </template>
 
@@ -63,7 +111,9 @@ import { mapGetters } from 'vuex'
 import * as echarts from 'echarts';
 import nowpeopleslide from '@/components/nowpeopleslide.vue'
 import flop from '@/components/commonComponent/flop.vue'
+import modal from '@/components/commonComponent/modal.vue'
 import AnimatedNumber from "animated-number-vue";
+import {Icon} from 'element-ui'
 let totalAssetsChartDom,
 totalAssetsChart,
 allTotalAssetschartDom,
@@ -78,7 +128,9 @@ export default {
     sideItem,
     nowpeopleslide,
     flop,
-    AnimatedNumber
+    AnimatedNumber,
+    modal,
+    [Icon.name]: Icon
   },
   data(){
     return {
@@ -312,16 +364,156 @@ export default {
       num: 12345,
       numtow: 67898,
       unitil: "人",
+      showAssetsDetailFlag: false,
+      geoJson: {
+        'type': 'FeatureCollection',
+        'features': []
+      },
+      tableHead: {
+        1:{
+        cname: '资产编号',
+        width: '90px',
+        name: 1
+      },
+        2:{
+        cname: '资产名称',
+        width: '150px',
+        name: 2
+      },
+        3:{
+        cname: '分类名称',
+        width: '80px',
+        name: 3
+      },
+        4:{
+        cname: '型号',
+        width: '80px',
+        name: 4
+      },
+        5:{
+        cname: '购置日期',
+        width: '155px',
+        name: 5
+      },
+        6:{
+        cname: '数量',
+        width: '50px',
+        name: 6
+      },
+        7:{
+        cname: '生产厂家',
+        width: '136px',
+        name: 7
+      },
+        8:{
+        cname: '领用人姓名',
+        width: '100px',
+        name: 8
+      },
+        9:{
+        cname: '使用单位名称',
+        width: '120px',
+        name: 9
+      },
+        10:{
+        cname: '使用科室名称',
+        width: '120px',
+        name: 10
+      },},
+      tableBody: [{
+        1: '20080356',
+        2: '物理设计性实验装置',
+        3: '设备',
+        4: 'JW-SJ3',
+        5: '2021-10-01 00:00:00',
+        6: '1套',
+        7: '南京嘉沃公司',
+        8: '王秀杰',
+        9: '理学院',
+        10: '理学院实验中心',
+      },{
+        1: '20080356',
+        2: '物理设计性实验装置',
+        3: '设备',
+        4: 'JW-SJ3',
+        5: '2021-10-01 00:00:00',
+        6: '1套',
+        7: '南京嘉沃公司',
+        8: '王秀杰',
+        9: '理学院',
+        10: '理学院实验中心',
+      },{
+        1: '20080356',
+        2: '物理设计性实验装置',
+        3: '设备',
+        4: 'JW-SJ3',
+        5: '2021-10-01 00:00:00',
+        6: '1套',
+        7: '南京嘉沃公司',
+        8: '王秀杰',
+        9: '理学院',
+        10: '理学院实验中心',
+      },{
+        1: '20080356',
+        2: '物理设计性实验装置',
+        3: '设备',
+        4: 'JW-SJ3',
+        5: '2021-10-01 00:00:00',
+        6: '1套',
+        7: '南京嘉沃公司',
+        8: '王秀杰',
+        9: '理学院',
+        10: '理学院实验中心',
+      },{
+        1: '20080356',
+        2: '物理设计性实验装置',
+        3: '设备',
+        4: 'JW-SJ3',
+        5: '2021-10-01 00:00:00',
+        6: '1套',
+        7: '南京嘉沃公司',
+        8: '王秀杰',
+        9: '理学院',
+        10: '理学院实验中心',
+      },{
+        1: '20080356',
+        2: '物理设计性实验装置',
+        3: '设备',
+        4: 'JW-SJ3',
+        5: '2021-10-01 00:00:00',
+        6: '1套',
+        7: '南京嘉沃公司',
+        8: '王秀杰',
+        9: '理学院',
+        10: '理学院实验中心',
+      }],
     }
   },
   computed: {
-    ...mapGetters(['map','currentSys']),
+    ...mapGetters(['map','currentSys', 'isInDoor', 'currentFloor']),
     ratioAbTotal(){
       return this.ratioList.reduce((sum,item)=>sum+item.val,0);
     },
   },
   watch: {
-
+    isInDoor(val){
+      if(this.currentSys !== 'assets') return
+      if(val && this.currentFloor === 0){
+        this.setGeoJson()
+      } else {
+        this.geoJson.features = []
+        this.map.getSource('assetsRoomData').setData(this.geoJson)
+      }
+    },
+    currentFloor(val){
+      if(this.currentSys !== 'assets') return
+      if(val === 0 && this.isInDoor){
+        this.setGeoJson()
+      } else {
+        this.geoJson.features = []
+        this.map.getSource('assetsRoomData').setData(this.geoJson)
+      }
+    }
   },
   mounted(){
     console.log('assets')
@@ -368,30 +560,30 @@ export default {
         },2000)
         // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
         this.assetsMesList = [{
-          num: 65,
-          unit: 1,
-          value: 100,
-          location: [104.05664280605345, 30.595559445013265]
-        },{
-          num: 315,
-          unit: 2,
-          value: 177,
-          location: [104.05284762571148, 30.595657085458583]
-        },{
-          num: 465,
+        //   num: 65,
+        //   unit: 1,
+        //   value: 100,
+        //   location: [104.05664280605345, 30.595559445013265]
+        // },{
+        //   num: 315,
+        //   unit: 2,
+        //   value: 177,
+        //   location: [104.05284762571148, 30.595657085458583]
+        // },{
+        //   num: 465,
+        //   unit: 3,
+        //   value: 350,
+        //   location: [104.05293927849556, 30.600887884709223]
+        // },{
+        //   num: 396,
+        //   unit: 4,
+        //   value: 250,
+        //   location: [104.05486617272919, 30.59760797571019]
+        // },{
+          num: 27,
           unit: 3,
-          value: 350,
-          location: [104.05293927849556, 30.600887884709223]
-        },{
-          num: 396,
-          unit: 4,
-          value: 250,
-          location: [104.05486617272919, 30.59760797571019]
-        },{
-          num: 666,
-          unit: 5,
-          value: 1150,
-          location: [104.0591943232202, 30.594376896666788]
+          value: 67,
+          location: [104.05993975869626, 30.59215369965594]
         }]
         this.map.on('click', (e) => {
           console.log(e)
@@ -410,6 +602,12 @@ export default {
         item.remove()
       })
       this.markerList = []
+      this.geoJson = {
+        'type': 'FeatureCollection',
+        'features': []
+      }
+      this.map.getSource('assetsRoomData').setData(this.geoJson)
+      this.map.off('click', 'assetsRoomBg',this.handleShowAssetsDetail)
     },
     createAssetsMraker(){
       this.assetsMesList.forEach(item => {
@@ -424,29 +622,94 @@ export default {
         this.markerList.push(marker)
       })
     },
-    createLayer(){
-      this.map.addSource('assetsRoomData', {
-        "type": "geojson",
-        "data": {
-          "type": "Feature",
-          "geometry": {"type":"Polygon","coordinates":[[[104.06021179738,30.5918365444],[104.06018531587,30.59183606041],[104.06018483634,30.59185469235],[104.06021131757,30.59185519736],[104.06021179738,30.5918365444]]]},
-          "properties": {
-            "title": "my title",
-            "marker-symbol": "tree",
-            "color": 'red'
+    setGeoJson(){
+      this.geoJson.features.push({
+          type: 'fill',
+          geometry: {"type":"Polygon","coordinates":[[[104.06030589667,30.59173094939],[104.06030379654,30.5918125773],[104.06034770009,30.5918134148],[104.06034979954,30.59173178626],[104.06030589667,30.59173094939]]]},
+          properties: { 
+            "blank": '\n',
+            "title": "B109" + '\n',
+            "num": "资产数量：27套" + '\n',
+            "unit": "资产单位：3个" + '\n',
+            "company": "资产价值：67万元" + '\n',
+            "handle": '点击查看详情' + '\n',
+            "blank2": '\n',
           }
-        }
       })
-      console.log(this.map.getSource('assetsRoomData'))
-      this.map.addLayer({
-        id: 'assetsRoom',
-        source: 'assetsRoomData',//上述定义的source
-        type: 'fill',//图层类型，见3.5节中图层描述
-        paint: {
-          'fill-color': ['get', 'color'],
-        }
-      })
-      console.log(this.map.getLayer('assetsRoom'))
+      this.map.getSource('assetsRoomData').setData(this.geoJson)
+    },
+    createLayer(){
+      if(!this.map.getSource('assetsRoomData')){
+        this.map.addSource('assetsRoomData', {
+          type: 'geojson',
+          data: this.geoJson
+        })
+      } else {
+        this.map.getSource('assetsRoomData').setData(this.geoJson)
+      }
+      // 文字图层
+      if(!this.map.getLayer('assetsRoomText')){
+        this.map.addLayer({
+          id: 'assetsRoomText',
+          source: 'assetsRoomData',//上述定义的source
+          type: 'symbol',//图层类型，见3.5节中图层描述
+          layout: {
+            'text-field': ["format", 
+              ["get", "blank"], {
+                  "font-scale": 0.8
+              },
+              ["get", "title"], {
+                  "font-scale": 0.8
+              },
+              ["get", "num"], {
+                  "font-scale": 0.8
+              },
+              ["get", "unit"], {
+                  "font-scale": 0.8
+              },
+              ["get", "company"], {
+                  "font-scale": 0.8
+              },
+              ["get", "handle"], {
+                  "font-scale": 0.8,
+                  "text-color": 'rgba(0, 48, 171, 1)'
+              },
+              ["get", "blank2"], {
+                "font-scale": 0.8
+              },
+            ],
+            'text-allow-overlap': true,
+            'text-size': 14,
+            // 'text-halo-color': '0px 1px 4px rgba(10, 30, 52, 0.6)'
+          },
+          paint: {
+            'text-color': '#fff'
+          }
+        })
+      }
+      // 背景图层
+      if(!this.map.getLayer('assetsRoomBg')){
+        this.map.addLayer({
+          id: 'assetsRoomBg',
+          source: 'assetsRoomData',//上述定义的source
+          type: 'fill',//图层类型，见3.5节中图层描述
+          layout: {
+            // 'text-field': ['get', 'title']
+          },
+          paint: {
+            'fill-color': 'rgba(70, 177, 246, 1)',
+            // 'text-color': '#fff'
+          }
+        },"room23")
+      }
+      this.map.on('click', 'assetsRoomBg',this.handleShowAssetsDetail)
+    },
+    handleShowAssetsDetail(e){
+      console.log(e)
+      this.showAssetsDetailFlag = true 
+    },
+    handleHideAssetsDetail(){
+      this.showAssetsDetailFlag = false 
     },
     getEcharts3DBar (xAxisData, data, colorType) {
       var colorArr = [];
@@ -780,6 +1043,94 @@ export default {
 .chart-wrap{
   width: 100%;
   height: 100%;
+}
+.assets-modal{
+  width: 1184px;
+  color: #fff;
+  &-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 21px;
+    height: 40px;
+    background-color: rgba(50, 75, 160, 1);
+  }
+  &-body{
+    padding: 41px 47px 47px;
+    height: 585px;
+    background-color: rgba(22, 42, 112, 0.76);
+    border: 1px solid #00F5FF;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    &-top{
+      display: flex;
+      justify-content: space-between;
+      .assets-detail-mes{
+        padding: 31px 30px 21px;
+        background-color: rgba(106, 176, 255, .5);
+        &-top{
+          display: flex;
+          align-items: center;
+          padding: 14px 28px;
+          width: 224px;
+          background-color: rgba(13, 25, 139, .45);
+          img{
+            height: 68px;
+          }
+          span{
+            margin-left: 42px;
+            font-size: 20px;
+            line-height: 68px;
+          }
+        }
+        &-bottom{
+          margin-top: 16px;
+          font-size: 18px;
+        }
+      }
+    }
+    &-bottom{
+      &-title{
+        margin-bottom: 22px;
+        padding-top: 32px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #00F5FF;
+        text-align: left;
+      }
+      &-table{
+        background-color: rgba(106, 176, 255, 0.3);
+        // &-head{
+        //   display: flex;
+        // }
+        &-body{
+          height: 275px;
+          overflow-y: scroll;
+        }
+        &-tr{
+          display: flex;
+          width: calc(100% - 4px);
+          border-bottom: 1px solid rgba(106, 176, 255, .3);
+        }
+        &-td{
+          box-sizing: border-box;
+          flex-shrink: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 48px;
+          overflow: hidden;
+          border-right: 1px solid rgba(106, 176, 255, .3);
+        }
+        &-td:last-child{
+          border: none;
+        }
+      }
+    }
+  }
+}
+.el-icon-close{
+  cursor: pointer;
 }
 </style>
 <style lang="less">

@@ -190,6 +190,7 @@ export default {
 
             onChange: (level) => {
               console.log(level) // 更改的楼层  1楼为0，-1楼为-1
+              this.SET_CURRENTFLOOR(level)
             }, // 变化的回调
 
         })

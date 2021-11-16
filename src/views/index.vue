@@ -13,17 +13,17 @@
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
     <SideBar></SideBar>
     <!-- <VideoCheck v-if="showVideo"/> -->
-    <comprehensive ref="comprehensive"></comprehensive>
-    <assets ref="assets"></assets>
-    <fireSafety ref="fireSafety"></fireSafety>
-    <vehicle ref="vehicle"></vehicle>
-    <peoplestatues ref="peoplestatues"></peoplestatues>
-    <energyUsage ref="energyUsage"></energyUsage>
-		<dormitory ref="dormitory" style="position: absolute;"/>  
-		<interstatues ref="interstatues"></interstatues>
-		<publichouse ref="publichouse"></publichouse>
-		<studystatues ref="studystatues"></studystatues>
-		<networkoperation ref="networkoperation"></networkoperation>
+    <comprehensive v-show="currentSys" ref="comprehensive"></comprehensive>
+    <assets v-show="currentSys" ref="assets"></assets>
+    <fireSafety v-show="currentSys" ref="fireSafety"></fireSafety>
+    <vehicle v-show="currentSys" ref="vehicle"></vehicle>
+    <peoplestatues v-show="currentSys" ref="peoplestatues"></peoplestatues>
+    <energyUsage v-show="currentSys" ref="energyUsage"></energyUsage>
+		<dormitory v-show="currentSys" ref="dormitory" style="position: absolute;"/>  
+		<interstatues v-show="currentSys" ref="interstatues"></interstatues>
+		<publichouse v-show="currentSys" ref="publichouse"></publichouse>
+		<studystatues v-show="currentSys" ref="studystatues"></studystatues>
+		<networkoperation v-show="currentSys" ref="networkoperation"></networkoperation>
   </div>
 </template>
 <script>
@@ -77,7 +77,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['mapLoad', 'map', 'currentSys', 'oldCurrentSys'])
+    ...mapGetters(['mapLoad', 'map', 'currentSys', 'oldCurrentSys']),
   },
   watch: {
     currentSys(val){
@@ -99,8 +99,9 @@ export default {
     // this.SET_CURRENTSYS('comprehensive')
 	},
   methods:{
+    
     zoomdata(data){
-      if(this.map && this.map.getZoom && this.map.getZoom() <18.5){
+      if(this.map && this.map.getZoom && this.map.getZoom() <16.1){
           this.foolce=false;
           this.SET_ISINDOOR(false)
       }else if(data != false){
@@ -152,7 +153,7 @@ export default {
         })
       },
 
-    ...mapMutations(['SET_ISINDOOR','SET_CURRENTSYS']),
+    ...mapMutations(['SET_ISINDOOR','SET_CURRENTSYS','SET_CURRENTFLOOR']),
   }
 };
 </script>
