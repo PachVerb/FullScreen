@@ -328,8 +328,8 @@ export default {
   font-size: 12px;
   color: #fff;
   line-height: 47.7px;
-  animation: scale-in-bottom 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-  transition: all 1s;
+  animation: scale-in-bottom .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  transition: all .5s;
 }
 @keyframes scale-in-bottom {
   0% {

@@ -18,7 +18,7 @@ function refreshRem(){
 import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'vant/lib/index.css';
-
+import './common/font/font.css'
 
 // import echarts from 'echarts';
 // import ElementUI from 'element-ui';
@@ -40,8 +40,8 @@ import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.min.css'
 
  */
-
-
+import mixins from './components/mixins'
+Vue.mixin(mixins)
 
 
 window.vue = new Vue({

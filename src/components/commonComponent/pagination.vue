@@ -3,7 +3,7 @@
     <el-pagination
       small
       layout="total, prev, pager, next"
-      :total="100">
+      :total="total">
     </el-pagination>
   </div>
 </template>
@@ -14,7 +14,7 @@ import {
 } from 'element-ui'
 export default {
   props: {
-
+    total: 0
   },
   components: {
     [Pagination.name]: Pagination

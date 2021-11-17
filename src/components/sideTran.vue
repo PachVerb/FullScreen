@@ -1,14 +1,14 @@
 <template>
   <div style="height: 100%;">
     <transition name="go-in-sys-left">
-      <div class="sys-left" :style="{width: widthL}" v-if="currentSys === thisCrrentSys" v-show="showLeftSys">
-        <img @click="handleShowLeftSys" class="sys-hide-btn" src="../assets/img/hideSysBtn.png" alt="">
+      <div class="sys-left" :style="{width: widthL,left: showLeftSys ? 0 : '-380px'}" v-if="currentSys === thisCrrentSys">
+        <img @click="handleShowLeftSys" :class="['sys-hide-btn']" :src="showLeftSys ? require('../assets/img/hideSysBtn.png') : require('../assets/img/showSys.png')" alt="">
         <slot name="left"/>
       </div>
     </transition>
     <transition name="go-in-sys-right">
-      <div class="sys-right" :style="{width: widthR}" v-if="currentSys === thisCrrentSys" v-show="showRightSys">
-        <img @click="handleShowRightSys" class="sys-hide-btn right-sys-hide-btn" src="../assets/img/hideSysBtn.png" alt="">
+      <div class="sys-right" :style="{width: widthR,right: showRightSys ? 0 : '-380px' }" v-if="currentSys === thisCrrentSys">
+        <img @click="handleShowRightSys" :class="['sys-hide-btn',showRightSys ? 'right-sys-hide-btn' : 'right-sys-show-btn']" src="../assets/img/hideRightSys.png" alt="">
         <slot name="right"/>
       </div>
     </transition>
@@ -56,6 +56,7 @@ export default {
 <style scoped>
 .sys-left,.sys-right{
   height: 90%;
+  transition: all 1s;
   /* background-color: rgba(10,25,46, .8); */
 }
 .sys-left{
@@ -105,10 +106,14 @@ export default {
   left: 373px;
   top: 50%;
   cursor: pointer;
-  width: 25px;
+  width: 45px;
 }
 .right-sys-hide-btn{
-  left: -23px;
-  transform: rotate(180deg);
+  left: -37px;
+  transform: rotateX(180deg);
+}
+.right-sys-show-btn{
+  left: -45px;
+  transform: rotateX(0);
 }
 </style>

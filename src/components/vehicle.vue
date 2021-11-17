@@ -171,7 +171,7 @@
 			AnimatedNumber
 		},
 		computed: {
-			...mapGetters(['currentSys'])
+			...mapGetters(['map','currentSys'])
 		},
 		data() {
 			return {
@@ -268,7 +268,10 @@
 					cname: '空闲车位',
 					id: 4
 				},],
-				loading: true
+				loading: true,
+				carList: [],
+				carMarkerList: [],
+				markerNameList: []
 			}
 		},
 		watch: {
@@ -280,6 +283,7 @@
 		},
 		methods: {
 			init() {
+				this.hideBuildingText()
 				setTimeout(() => {
 					this.loading = false
 				},2500)
@@ -291,6 +295,134 @@
 						this.randerBar()
 					}, 1500)
 				})
+				this.carList = [{
+					type: 0, // 正常
+					goin: 4,
+					goout: 8,
+					location: [104.05770952061329, 30.591833220446006]
+				},{
+					type: 1,
+					goin: 42,
+					goout: 18,
+					ab: 15,
+					location: [104.0577995524622, 30.594567804926783]
+				},{
+					type: 0, // 正常
+					goin: 14,
+					goout: 28,
+					location: [104.05787054368835, 30.59764980689455]
+				},{
+					type: 1,
+					goin: 14,
+					goout: 82,
+					ab: 10,
+					location: [104.06143324955798, 30.59131103037565]
+				},{
+					type: 0, // 正常
+					goin: 14,
+					goout: 28,
+					location: [104.06127705010374, 30.59750252595603]
+				},{
+					type: 1, 
+					goin: 14,
+					goout: 28,
+					ab: 13,
+					location: [104.05370371212604, 30.600148109533137]
+				},{
+					type: 0, // 正常
+					goin: 14,
+					goout: 28,
+					location: [104.05199870899884, 30.59535577814711]
+				},]
+				this.createMarker('carList','carMarkerList')
+			},
+			destroySys(){
+				this.showBuildingText()
+				this.clearMarker()
+			},
+			createMarker(listName, markerListName){
+				this[listName].forEach(item => {
+					let imgsrc = ''
+					let popup
+					if(item.type == 0){
+						imgsrc = require('../assets/vehicle/normal.png')
+					} else if (item.type == 1) {
+						imgsrc = require('../assets/vehicle/abnormal.png')
+					}
+					let div = document.createElement('div')
+					div.className = 'vehicle-marker-wrap'
+					if(item.type == 0){
+						div.innerHTML = `
+							<img class="vehicle-marker-img" src="${imgsrc}" />
+							<div class="vehicle-marker-mes">
+								<div><span>驶入：</span><span>${item.goin}辆</span></div>
+								<div><span>驶出：</span><span>${item.goout}辆</span></div>
+							</div>
+						`
+					} else {
+						div.innerHTML = `
+							<img class="vehicle-marker-img" src="${imgsrc}" />
+							<div class="vehicle-marker-mes vehicle-marker-mes-ab">
+								<div><span>超速：</span><span class="vehicle-marker-mes-ab-num">${item.ab}辆</span></div>
+							</div>
+						`
+						let pophtml = `
+							<div class="vehicle-abcar-table">
+								<div class="vehicle-abcar-table-head">
+									<div class="vehicle-abcar-table-tr">
+										<span></span>
+										<span>超速时间</span>
+										<span>超速车牌</span>
+									</div>
+								</div>
+								<div class="vehicle-abcar-table-body">
+									<div class="vehicle-abcar-table-tr">
+										<span class="vehicle-abcar-table-td-index">1</span>
+										<span>2021-10-01 15:03</span>
+										<span>豫A148w2</span>
+									</div>
+									<div class="vehicle-abcar-table-tr">
+										<span class="vehicle-abcar-table-td-index">2</span>
+										<span>2021-10-01 15:03</span>
+										<span>豫QT147E</span>
+									</div>
+									<div class="vehicle-abcar-table-tr">
+										<span class="vehicle-abcar-table-td-index">3</span>
+										<span>2021-10-01 15:03</span>
+										<span>豫Q5678Y</span>
+									</div>
+									<div class="vehicle-abcar-table-tr">
+										<span class="vehicle-abcar-table-td-index">4</span>
+										<span>2021-10-01 15:03</span>
+										<span>豫Q78888</span>
+									</div>
+								</div>
+							</div>
+						`
+						popup = new creeper.Popup({
+							closeButton: false,
+							offset: [120, 95],
+						}).setHTML(
+							`<div class="vehicle-abcar-popup">${pophtml}</div>`)
+					}
+					let marker
+					if(popup){
+						marker = new creeper.Marker({element: div}).setLngLat(item.location).setPopup(popup).addTo(this.map)
+					} else {
+						marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+					}
+					this[markerListName].push(marker)
+				})
+				this.markerNameList.push(markerListName)
+			},
+			clearMarker(){
+				this.markerNameList.forEach(name => {
+					this[name].forEach(item => {
+						item.remove()
+					})
+					this[name] = []
+				})
+				this.markerNameList = []
 			},
 			handleCheckTrajector(id){
 				this.checkTrajector = id
@@ -930,4 +1062,90 @@
 			}
 		}
 	}
+</style>
+<style lang="less">
+.vehicle-marker-wrap{
+	.vehicle-marker-img{
+		width: 50px;
+		// height: 50px;
+	}
+	.vehicle-marker-mes{
+		position: absolute;
+		top: -60px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 8px 15px 15px;
+		width: max-content;
+		height: auto;
+		background-image: url('../assets/marker/assetsMrakerBg.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		color: #fff;
+		font-size: 12px;
+		text-align: left;
+	}
+	.vehicle-marker-mes-ab{
+		top: -40px;
+		.vehicle-marker-mes-ab-num{
+			color: #FF8461;
+		}
+	}
+}
+.vehicle-abcar-popup{
+	width: 323px;
+	height: 167px;
+	background-image: url('../assets/vehicle/popup-bg.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	.vehicle-abcar-table{
+		display: flex;
+		flex-direction: column;
+		padding-left: 80px;
+		padding-right: 25px;
+		height: 100%;
+		color: #fff;
+		font-size: 12px;
+		.vehicle-abcar-table-head{
+			padding-top: 10px;
+			height: 29px;
+			line-height: 29px;
+			.vehicle-abcar-table-tr{
+				border: none;
+				span:nth-child(1){
+					border: none;
+				}
+			}
+		}
+		.vehicle-abcar-table-body{
+			flex: 1;
+		}
+		.vehicle-abcar-table-tr{
+			display: flex;
+			align-items: center;
+			border-top: 1px dashed rgba(106, 176, 255, .3);
+			min-height: 24px;
+			span:nth-child(1){
+				margin: 0 9px;
+				width: 18px;
+				height: 18px;
+				line-height: 18px;
+				border: 1px solid #fff;
+				border-radius: 50%;
+			}
+			span:nth-child(2){
+				flex: 1;
+			}
+			span:nth-child(3){
+				width: 65px;
+			}
+		}
+	}
+}
+.mapboxgl-popup-content{
+	background-color: transparent;
+}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip{
+	border: none;
+}
 </style>

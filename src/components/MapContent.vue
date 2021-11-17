@@ -546,7 +546,7 @@ export default {
 
   //地图样式
   .divcss5{
-      font-family: 'Times New Roman', Times, serif;
+      // font-family: 'Times New Roman', Times, serif;
   }
   #rotate{
       position:absolute;
@@ -646,7 +646,7 @@ export default {
       font-size: 18px;
       color: white;
       text-shadow: 0px 0px 12px white, 2px 2px 15px white,-2px -2px 12px white;
-      font-family: 'Times New Roman', Times, serif;
+      // font-family: 'Times New Roman', Times, serif;
       
   }
 }
@@ -654,6 +654,17 @@ export default {
   position: fixed;
   right: 420px;
   bottom: 200px;
+  .creeper-level-list{
+    background-color: rgb(12,30,53);
+    border: 1px solid rgb(11,74,94);
+  }
+  .creeper-level-item{
+    color: rgb(98,162,235);
+  }
+  .creeper-current-level{
+    background-color: rgb(4,206,220);
+    color: #fff;
+  }
 }
 </style>
 

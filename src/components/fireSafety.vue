@@ -59,14 +59,14 @@
 								:key="nav.id" @click="handleAbCheckNav(nav.id)">{{ nav.name }}</span>
 						</div>
 						<div class="ab-list">
-							<div class="ab-item-wrap" v-for="item in abDetailList" :key="item.id">
+							<div class="ab-item-wrap" v-for="(item,index) in abDetailList" :key="item.id">
 								<div class="ab-item">
 									<div>
 										<div class="ab-item-name">{{ item.name }}</div>
 										<div class="ab-item-date">{{ item.date }}</div>
 									</div>
 									<div>{{ item.address }}</div>
-									<div class="ab-close-btn"></div>
+									<div class="ab-close-btn" @click="handleCloseAb(item,index)"></div>
 								</div>
 							</div>
 						</div>
@@ -123,18 +123,18 @@
 								:key="head.name">{{ head.name }}</span>
 						</div>
 						<div class="ab-list patrol">
-							<div class="ab-item-wrap" v-for="(item) in abDetailList" :key="item.id">
+							<div class="ab-item-wrap" v-for="(item,index) in personList.filter(person => person.cate == 1)" :key="index">
 								<div class="ab-item">
 									<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
 										{{ item.name }}
 									</div>
-									<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
+									<div class="table-item" :style="{width: tableHead[1].width}">{{ item.cateName }}</div>
 									<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
-									<div :style="{width: tableHead[3].width}" class="last-address table-item"></div>
+									<div :style="{width: tableHead[3].width}" class="last-address table-item" @click="handleCheckAddress(item.location)"></div>
 								</div>
 							</div>
 						</div>
-						<pageination></pageination>
+						<pageination :total="3"></pageination>
 					</div>
 				</sideItem>
 			</div>
@@ -314,6 +314,9 @@
 				pitch: 0,
 				fireSafetyList: [],
 				markerList: [], 
+				personList: [],
+				personMarkerList: [],
+				markerNameList: []
 			}
 		},
 		computed: {
@@ -343,30 +346,6 @@
 				})
 				this.map.setLayoutProperty('modellayer', 'visibility', 'none')
 				this.fireSafetyList = [{
-					type: 0,// 人
-					cate: 0,
-					cateName: '正常',
-					name: '王猛',
-					location: [104.05468396412635, 30.597666764843567]
-				},{
-					type: 0,// 人
-					cate: 0,
-					cateName: '正常',
-					name: '刘悦',
-					location: [104.05622201941372, 30.596874684260015]
-				},{
-					type: 0,// 人
-					cate: 1,
-					cateName: '异常',
-					name: '齐星',
-					location: [104.06021833400604, 30.598153325420384]
-				},{
-					type: 0,// 人
-					cate: 1,
-					cateName: '异常',
-					name: '张珊',
-					location: [104.06407004511186, 30.595663919996667]
-				},{
 					type: 1,// 车
 					cate: 0,
 					cateName: '正常',
@@ -385,23 +364,11 @@
 					name: '巡逻车3号',
 					location: [104.05760232544213, 30.59664837433226]
 				},{
-					type: 0,
-					cate: 1,
-					cateName: '长时间未移动',
-					name: '吴继',
-					location: [104.05306494977515, 30.59448892240171]
-				},{
 					type: 1,
 					cate: 0,
 					cateName: '正常',
 					name: '巡逻车4号',
 					location: [104.05202763864776, 30.591376453791625]
-				},{
-					type: 0,
-					cate: 0,
-					cateName: '正常',
-					name: '魏寄虏',
-					location: [104.06048527108084, 30.59425632970199]
 				},{
 					type: 1,
 					cate: 0,
@@ -414,6 +381,55 @@
 					cateName: '正常',
 					name: '巡逻车6号',
 					location: [104.06131667963098, 30.59726210003609]
+				},]
+				this.personList = [{
+					type: 0,// 人
+					cate: 0,
+					cateName: '正常',
+					name: '王猛',
+					date: '2016-05-04',
+					address: '上海市普陀区金沙江路 1516 弄',
+					location: [104.05468396412635, 30.597666764843567]
+				},{
+					type: 0,// 人
+					cate: 0,
+					cateName: '正常',
+					name: '刘悦',
+					date: '2016-05-04',
+					address: '上海市普陀区金沙江路 1516 弄',
+					location: [104.05622201941372, 30.596874684260015]
+				},{
+					type: 0,// 人
+					cate: 1,
+					cateName: '异常',
+					name: '齐星',
+					date: '2016-05-04',
+					address: '上海市普陀区金沙江路 1516 弄',
+					location: [104.06021833400604, 30.598153325420384]
+				},{
+					type: 0,// 人
+					cate: 1,
+					cateName: '异常',
+					name: '张珊',
+					date: '2016-05-04',
+					address: '上海市普陀区金沙江路 1516 弄',
+					location: [104.06407004511186, 30.595663919996667]
+				},{
+					type: 0,
+					cate: 0,
+					cateName: '正常',
+					name: '魏寄虏',
+					date: '2016-05-04',
+					address: '上海市普陀区金沙江路 1516 弄',
+					location: [104.06048527108084, 30.59425632970199]
+				},{
+					type: 0,
+					cate: 1,
+					cateName: '长时间未移动',
+					name: '吴继',
+					date: '2016-05-04',
+					address: '上海市普陀区金沙江路 1516 弄',
+					location: [104.05306494977515, 30.59448892240171]
 				},]
 				allPatrolOption = this.initDashboardEchartOption(this.colorone)
 				abPatrolOption = this.initDashboardEchartOption(this.colortwo)
@@ -438,7 +454,8 @@
 							]
 					}, 1500)
 				})
-				this.createFireMraker()
+				this.createFireMraker('fireSafetyList','markerList')
+				this.createFireMraker('personList','personMarkerList')
 			},
 			destroySys(){
 				this.map.setBearing(this.bearing)
@@ -448,13 +465,10 @@
 					item.style.opacity = 1
 				})
 				this.map.setLayoutProperty('modellayer', 'visibility', '')
-					this.markerList.forEach(item => {
-					item.remove()
-				})
-				this.markerList = []
+				this.clearFireMarker()
 			},	
-			createFireMraker(){
-				this.fireSafetyList.forEach(item => {
+			createFireMraker(listName, markerListName){
+				this[listName].forEach(item => {
 					let imgsrc = ''
 					if(item.type == 0 && item.cate == 0){
 						imgsrc = require('../assets/marker/personNormal.png')
@@ -475,9 +489,27 @@
 						</div>
 					`
 					let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
-					this.markerList.push(marker)
-
+					this[markerListName].push(marker)
 				})
+				this.markerNameList.push(markerListName)
+			},
+			clearFireMarker(){
+				this.markerNameList.forEach(name => {
+					this[name].forEach(item => {
+						item.remove()
+					})
+					this[name] = []
+				})
+				this.markerNameList = []
+			},
+			handleCheckAddress(location){
+				if(!location) return
+				this.map.flyTo({
+					center: location,
+				})
+			},
+			handleCloseAb(item, index){
+				this.abDetailList = this.abDetailList.filter(ab => ab.id !== item.id)
 			},
 			getTrendAnalyData(key){
 				this.trendKey = key
@@ -918,6 +950,7 @@
 		background-image: url('../assets/img/btn-close-img.png');
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
+		cursor: pointer;
 	}
 
 	.last-address {
