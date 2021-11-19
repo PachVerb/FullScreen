@@ -389,7 +389,9 @@
 					name: '王猛',
 					date: '2016-05-04',
 					address: '上海市普陀区金沙江路 1516 弄',
-					location: [104.05468396412635, 30.597666764843567]
+					location: [104.05468396412635, 30.597666764843567],
+					buildingId: '23452',
+					floor: 1
 				},{
 					type: 0,// 人
 					cate: 0,
@@ -421,7 +423,9 @@
 					name: '魏寄虏',
 					date: '2016-05-04',
 					address: '上海市普陀区金沙江路 1516 弄',
-					location: [104.06048527108084, 30.59425632970199]
+					location: [104.06048527108084, 30.59425632970199],
+					buildingId: '21209',
+					floor: 1
 				},{
 					type: 0,
 					cate: 1,
@@ -429,7 +433,7 @@
 					name: '吴继',
 					date: '2016-05-04',
 					address: '上海市普陀区金沙江路 1516 弄',
-					location: [104.05306494977515, 30.59448892240171]
+					location: [104.05306494977515, 30.59448892240171],
 				},]
 				allPatrolOption = this.initDashboardEchartOption(this.colorone)
 				abPatrolOption = this.initDashboardEchartOption(this.colortwo)
@@ -468,7 +472,7 @@
 				this.clearFireMarker()
 			},	
 			createFireMraker(listName, markerListName){
-				this[listName].forEach(item => {
+				let domList = this[listName].map(item => {
 					let imgsrc = ''
 					if(item.type == 0 && item.cate == 0){
 						imgsrc = require('../assets/marker/personNormal.png')
@@ -488,17 +492,40 @@
 							<div><span>状态：</span><span>${item.cateName}</span></div>
 						</div>
 					`
-					let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
-					this[markerListName].push(marker)
+					return {dom: div}
+					// let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+					// this[markerListName].push(marker)
 				})
+				let geoJson = this.setFeature(this[listName])
+				console.log('geoJson',geoJson)
+				this[markerListName] = new creeper.MarkerIndoor(this.map)
+				this[markerListName].addMarker(geoJson,domList,true)
 				this.markerNameList.push(markerListName)
+			},
+			setFeature(markerList){
+				let list = markerList.map(item => {
+					let obj = {
+						"type": "Feature",
+						"properties": {
+							
+						},
+						"geometry": {
+								"type": "Point",
+								"coordinates": JSON.parse(JSON.stringify(item.location))
+						}
+					}
+					if(item.buildingId) obj.properties.buildingId = item.buildingId
+					if(item.floor) obj.properties.floor = item.floor
+					return obj
+				})
+				return {
+					"type": "FeatureCollection",
+					"features": list
+				}
 			},
 			clearFireMarker(){
 				this.markerNameList.forEach(name => {
-					this[name].forEach(item => {
-						item.remove()
-					})
-					this[name] = []
+					this[name].remove()
 				})
 				this.markerNameList = []
 			},

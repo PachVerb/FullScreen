@@ -287,13 +287,23 @@
 					name: '操作',
 					width: '64px'
 				}, ],
+				gatherGeoJson: {
+					'type': 'FeatureCollection',
+					'features': []
+				},
 			}
 		},
 		computed: {
-			...mapGetters(['currentSys'])
+			...mapGetters(['map','currentSys','currentSysModule'])
 		},
 		watch: {
+			currentSysModule(val){
+				if(this.currentSys === 'peoplestatues'){
+					if(this.currentSysModule){
 
+					}
+				}
+			}
 		},
 		mounted() {
 			// console.log(this.num, 'assets11', this.oneobj)
@@ -301,6 +311,10 @@
 		},
 		methods: {
 			init() {
+				this.map.setBearing(0)
+				this.map.setPitch(0)
+				this.map.setLayoutProperty('modellayer', 'visibility', 'none')
+				this.hideBuildingText()
 				this.$nextTick(() => {
 					setTimeout(() => {
 						this.randerBar()
@@ -312,6 +326,47 @@
 					this.radar()
 
 				})
+				this.createGatherLayer()
+			},
+			destroySys(){
+				this.showBuildingText()
+				this.map.setLayoutProperty('modellayer', 'visibility', '')
+				this.gatherGeoJson.features = []
+				if(this.map.getSource('peopleGatherData')) this.map.getSource('peopleGatherData').setData(this.gatherGeoJson)
+			},
+			createGatherLayer(){
+				this.createGatherData()
+				if(!this.map.getSource('peopleGatherData')){
+					this.map.addSource('peopleGatherData', {
+						type: 'geojson',
+						data: this.gatherGeoJson
+					})
+				} else {
+					this.map.getSource('peopleGatherData').setData(this.gatherGeoJson)
+				}
+				if(!this.map.getLayer('peopleGather')){
+					this.map.addLayer({
+						id: 'peopleGather',
+						source: 'peopleGatherData',//上述定义的source
+						type: 'circle',//图层类型，见3.5节中图层描述
+						layout: {
+						
+						},
+						paint: {
+							'circle-color': 'red'
+						}
+					})
+				}
+			},
+			createGatherData(){
+				this.gatherGeoJson.features.push({
+          type: 'circle',
+          geometry: {"type":"Polygon","coordinates":[[[104.06030589667,30.59173094939],[104.06030379654,30.5918125773],[104.06034770009,30.5918134148],[104.06034979954,30.59173178626],[104.06030589667,30.59173094939]]]},
+          properties: { 
+						
+          }
+				})
+				this.map.getSource('peopleGatherData').setData(this.gatherGeoJson)
 			},
 			renderstudentpie() {
 

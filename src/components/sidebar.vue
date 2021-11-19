@@ -52,7 +52,17 @@ export default {
         name: 'interstatues',
         cname: '网络态势',
         normal: require('../assets/sidebar/normal/assets.png'),
-        select: require('../assets/sidebar/select/assets.png')
+        select: require('../assets/sidebar/select/assets.png'),
+        children: [{
+          name: 'networkEquipment',
+          cname: '网络设备态势'
+        },{
+          name: 'networkHeat',
+          cname: '网络连接热力图'
+        },{
+          name: 'networkOpticalFiber',
+          cname: '网络光纤态势'
+        }]
       },{
         name: 'studystatues',
         cname: '教学态势',
@@ -100,16 +110,6 @@ export default {
         cname: '网络运维',
         normal: require('../assets/sidebar/normal/networkoperation.png'),
         select: require('../assets/sidebar/select/networkoperation.png'),
-        children: [{
-          name: 'networkEquipment',
-          cname: '网络设备态势'
-        },{
-          name: 'networkHeat',
-          cname: '网络连接热力图'
-        },{
-          name: 'networkOpticalFiber',
-          cname: '网络光纤态势'
-        }]
       }
 			],
       sideList: [[]],

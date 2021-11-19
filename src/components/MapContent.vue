@@ -44,7 +44,8 @@ const threeLayer = new creeper.ThreeLayer({
         useDraggingObjects:false,
         useTooltip: false,
         useSelectingObjects:false,
-				usePostprocessing:true
+				usePostprocessing:true,
+        skySrc: '../assets/img/sky.png'
     }
 });
 // 计数器，计算点数

@@ -271,7 +271,8 @@
 				loading: true,
 				carList: [],
 				carMarkerList: [],
-				markerNameList: []
+				markerNameList: [],
+				lineGeoJson: { type: 'FeatureCollection', features: [] }
 			}
 		},
 		watch: {
@@ -339,6 +340,9 @@
 			destroySys(){
 				this.showBuildingText()
 				this.clearMarker()
+				this.lineGeoJson = { type: 'FeatureCollection', features: [] }
+				if(this.map.getSource('vehicleLineData')) this.map.getSource('vehicleLineData').setData(this.lineGeoJson)
+				this.checkTrajector = ''
 			},
 			createMarker(listName, markerListName){
 				this[listName].forEach(item => {
@@ -426,9 +430,57 @@
 			},
 			handleCheckTrajector(id){
 				this.checkTrajector = id
+				this.clearMarker()
+				this.setLineLayer()
+			},
+			setLineLayer(){
+				let lineImg = require('../assets/img/yellow_line.png')
+        if (!this.map.hasImage(`vehicle-line-img`)) {
+            this.map.loadImage(lineImg, (err, data) => {
+              this.map.addImage(`vehicle-line-img`, data);
+            })
+        }
+				this.lineGeoJson.features.push({
+					type: 'line',
+					geometry: {"type":"LineString","coordinates":[
+						[104.0536790002352, 30.593758777480332],
+						[104.0536563672133, 30.596705408507972],
+						[104.06129554184974, 30.596714547211135],
+						[104.06121161635173, 30.600269776430196],
+						[104.05793594620422, 30.600305041267504],
+						[104.05796483282677, 30.600313864215096],
+						[104.05796483282677, 30.600313864215096],
+					]}
+				})
+				if (!this.map.getSource('vehicleLineData')) {
+						this.map.addSource('vehicleLineData', {
+								type: 'geojson',
+								data: this.lineGeoJson
+						})
+				} else {
+					this.map.getSource('vehicleLineData').setData(this.lineGeoJson)
+				}
+				if(!this.map.getLayer('vehicleLineLayer')){
+					this.map.addLayer({
+						type: 'line',
+						source: 'vehicleLineData',
+						id: 'vehicleLineLayer',
+						paint: {
+							'line-width': 5,
+							"line-pattern": `vehicle-line-img`,
+						},
+						layout: {
+							'line-cap': 'round',
+							'line-join': 'round'
+						}
+					})
+				}
 			},
 			handleCloseTrajector(id){
 				this.checkTrajector = ''
+				this.createMarker('carList','carMarkerList')
+				this.lineGeoJson = { type: 'FeatureCollection', features: [] }
+				this.map.getSource('vehicleLineData').setData(this.lineGeoJson)
 			},
 			//违规车辆详情
 			getAbDetail(){

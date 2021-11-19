@@ -134,6 +134,7 @@ export default {
   },
   data(){
     return {
+      markerIndoor: null,
       markerList: [],
       assetsMesList: [],
       ratioList:[],
@@ -598,10 +599,10 @@ export default {
       domList.forEach(item => {
         item.style.opacity = 1
       })
-      this.markerList.forEach(item => {
-        item.remove()
-      })
-      this.markerList = []
+      if(this.markerIndoor){
+        this.markerIndoor.remove()
+        this.markerIndoor = null
+      }
       this.geoJson = {
         'type': 'FeatureCollection',
         'features': []
@@ -610,6 +611,7 @@ export default {
       this.map.off('click', 'assetsRoomBg',this.handleShowAssetsDetail)
     },
     createAssetsMraker(){
+      let domList = []
       this.assetsMesList.forEach(item => {
         let div = document.createElement('div')
         div.className = 'assets-marker-wrap'
@@ -618,9 +620,32 @@ export default {
           <div><span>资产单位：</span><span>${item.unit}个</span></div>
           <div><span>资产价值：</span><span>${item.value}万元</span></div>
         `
-        let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
-        this.markerList.push(marker)
+        domList.push({dom: div})
+        // let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+        // this.markerList.push(marker)
       })
+      let geoJson = this.setFeature(this.assetsMesList)
+      console.log('geoJson',geoJson)
+      this.markerIndoor = new creeper.MarkerIndoor(this.map)
+      this.markerIndoor.addMarker(geoJson,domList,true)
+    },
+    setFeature(markerList){
+      let list = markerList.map(item => {
+        return {
+          "type": "Feature",
+          "properties": {
+              
+          },
+          "geometry": {
+              "type": "Point",
+              "coordinates": JSON.parse(JSON.stringify(item.location))
+          }
+        }
+      })
+      return {
+        "type": "FeatureCollection",
+        "features": list
+      }
     },
     setGeoJson(){
       this.geoJson.features.push({

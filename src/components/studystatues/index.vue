@@ -180,7 +180,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentSys']),
+    ...mapGetters(['map','currentSys']),
     scrollOpt() {
       return {
         step: 1, // 数值越大速度滚动越快
@@ -190,7 +190,10 @@ export default {
         openWatch: true, // 开启数据实时监控刷新dom
         singleHeight: 52, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
         singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
-        waitTime: 1000 // 单步运动停止的时间(默认值1000ms)
+        waitTime: 1000, // 单步运动停止的时间(默认值1000ms)
+        mesList: [],
+        markerList: null,
+        markerNameList: []
       }
     }
   },
@@ -204,6 +207,7 @@ export default {
   },
   methods: {
     init() {
+      this.hideBuildingText()
       this.$nextTick(() => {
         setTimeout(() => {
           this.getStuClass();
@@ -214,6 +218,103 @@ export default {
           this.getAttendStati();
         }, 500)
       })
+      this.mesList = [{
+        type: 1,// 车
+        cate: 0,
+        cateName: '正常',
+        name: '巡逻车1号',
+        location: [104.05365859393618, 30.59901328697572]
+      },{
+        type: 1,// 车
+        cate: 0,
+        cateName: '正常',
+        name: '巡逻车2号',
+        location: [104.05762861698526, 30.59448708789614]
+      },{
+        type: 1,// 车
+        cate: 1,
+        cateName: '异常',
+        name: '巡逻车3号',
+        location: [104.05760232544213, 30.59664837433226]
+      },{
+        type: 1,
+        cate: 0,
+        cateName: '正常',
+        name: '巡逻车4号',
+        location: [104.05202763864776, 30.591376453791625]
+      },{
+        type: 1,
+        cate: 0,
+        cateName: '正常',
+        name: '巡逻车5号',
+        location: [104.06139982048535, 30.593880601855176]
+      },{
+        type: 1,
+        cate: 0,
+        cateName: '正常',
+        name: '巡逻车6号',
+        location: [104.06131667963098, 30.59726210003609]
+      },]
+      this.createStudystatusMraker('mesList', 'markerList')
+    },
+    destroySys(){
+      this.showBuildingText()
+      this.clearStudystatusMarker()
+    },
+    createStudystatusMraker(listName, markerListName){
+      let domList = this[listName].map(item => {
+        let imgsrc = ''
+        if(item.type == 0 && item.cate == 0){
+          imgsrc = require('../../assets/marker/personNormal.png')
+        } else if (item.type == 0 && item.cate == 1) {
+          imgsrc = require('../../assets/marker/personAbnormal.png')
+        } else if (item.type == 1 && item.cate == 0) {
+          imgsrc = require('../../assets/marker/carNormal.png')
+        } else if (item.type == 1 && item.cate == 1) {
+          imgsrc = require('../../assets/marker/carAbnormal.png')
+        }
+        let div = document.createElement('div')
+        div.className = 'studystatus-marker-wrap'
+        div.innerHTML = `
+          <img class="studystatus-marker-img" src="${imgsrc}" />
+          <div class="studystatus-marker-mes">
+            <div>${item.type == 0 ? '<span>姓名：</span>' : ''}<span>${item.name}</span></div>
+            <div><span>状态：</span><span>${item.cateName}</span></div>
+          </div>
+        `
+        return {dom: div}
+        // let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+        // this[markerListName].push(marker)
+      })
+      let geoJson = this.setFeature(this[listName])
+      console.log('geoJson',geoJson)
+      this[markerListName] = new creeper.MarkerIndoor(this.map)
+      this[markerListName].addMarker(geoJson,domList,true)
+    },
+    setFeature(markerList){
+      let list = markerList.map(item => {
+        let obj = {
+          "type": "Feature",
+          "properties": {
+            
+          },
+          "geometry": {
+              "type": "Point",
+              "coordinates": JSON.parse(JSON.stringify(item.location))
+          }
+        }
+        if(item.buildingId) obj.properties.buildingId = item.buildingId
+        if(item.floor) obj.properties.floor = item.floor
+        return obj
+      })
+      return {
+        "type": "FeatureCollection",
+        "features": list
+      }
+    },
+    clearStudystatusMarker(){
+      if(this.markerList) this.markerList.remove()
+      this.markerList = null
     },
     //学生到课统计
     getStuClass() {
@@ -1090,5 +1191,28 @@ export default {
   100% {
     -webkit-transform: rotate(360deg);
   }
+}
+</style>
+<style lang="less">
+.studystatus-marker-wrap{
+	.studystatus-marker-img{
+		width: 50px;
+		height: 50px;
+	}
+	.studystatus-marker-mes{
+		position: absolute;
+		top: -60px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 8px 15px 10px;
+		width: max-content;
+		height: 50px;
+		background-image: url('../../assets/marker/assetsMrakerBg.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		color: #fff;
+		font-size: 12px;
+		text-align: left;
+	}
 }
 </style>
