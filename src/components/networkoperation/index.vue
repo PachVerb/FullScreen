@@ -271,11 +271,11 @@
 								},
 						],
 				},
-				ratioList: []
+				ratioList: [],
 			}
 		},
 		computed: {
-			...mapGetters(['currentSys']),
+			...mapGetters(['map','currentSys']),
 			ratioAbTotal(){
 				return this.ratioList.reduce((sum,item)=>sum+item.val,0);
 			},

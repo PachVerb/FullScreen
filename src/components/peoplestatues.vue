@@ -145,7 +145,7 @@
 								</div>
 								<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
 								<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
-								<div :style="{width: tableHead[3].width}" class="last-address table-item"></div>
+								<div :style="{width: tableHead[3].width}" class="last-address table-item" @click="handleLastAddress(item)"></div>
 							</div>
 						</div>
 					</div>
@@ -175,7 +175,7 @@
 	import nowpeopleslide from './nowpeopleslide.vue'
 	import migrateDate from './commonComponent/dateSelect.vue'
 	import {
-		mapGetters
+		mapGetters, mapMutations
 	} from 'vuex'
 	import * as echarts from 'echarts';
 
@@ -225,59 +225,63 @@
 					id: '1',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.05365859393618, 30.59901328697572]
 				}, {
 					id: '2',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.05762861698526, 30.59448708789614]
 				}, {
 					id: '3',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.05760232544213, 30.59664837433226]
 				}, {
 					id: '4',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.05202763864776, 30.591376453791625]
 				}, {
 					id: '5',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.06139982048535, 30.593880601855176]
 				}, {
 					id: '6',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.06131667963098, 30.59726210003609]
 				}, {
 					id: '7',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.05468396412635, 30.597666764843567],
 				}, {
 					id: '8',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.05622201941372, 30.596874684260015]
 				}, {
 					id: '9',
 					name: '张海',
 					date: '无位置感知信息',
+					location: [104.06021833400604, 30.598153325420384]
 				}, {
 					id: '11',
 					name: '张海1',
 					date: '无位置感知信息',
+					location: [104.06407004511186, 30.595663919996667]
 				}, {
 					id: '12',
 					name: '张海1',
 					date: '无位置感知信息',
+					location: [104.06048527108084, 30.59425632970199],
 				}, {
 					id: '13',
 					name: '张海1',
 					date: '无位置感知信息',
-				}, {
-					id: '14',
-					name: '张海1',
-					date: '无位置感知信息',
-				}, {
-					id: '15',
-					name: '张海1',
-					date: '无位置感知信息',
-				}, ],
+					location: [104.05306494977515, 30.59448892240171],
+				},],
 				tableHead: [{
 					name: '姓名',
 					width: '60px'
@@ -329,6 +333,7 @@
 
 		},
 		methods: {
+			...mapMutations(['SET_DETAIL_MSG']),
 			init() {
 				this.map.setBearing(0)
 				this.map.setPitch(0)
@@ -350,6 +355,9 @@
 				this.showBuildingText()
 				this.map.setLayoutProperty('modellayer', 'visibility', '')
 				this.resetLayer()
+			},
+			handleLastAddress(msg){
+				this.SET_DETAIL_MSG(msg)
 			},
 			resetLayer(){
 				this.gatherGeoJson.features = []
@@ -1773,6 +1781,7 @@
 		background-image: url('../assets/img/last-address.png');
 		background-repeat: no-repeat;
 		background-size: 100% 100%;
+		cursor: pointer;
 	}
 
 	.patrol {

@@ -77,7 +77,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['mapLoad', 'map', 'currentSys', 'oldCurrentSys']),
+    ...mapGetters(['mapLoad', 'detailMsg', 'detailMsgMarker','map', 'currentSys', 'oldCurrentSys']),
   },
   watch: {
     currentSys(val){
@@ -86,12 +86,22 @@ export default {
 				this.map.setPitch(60)
         this.map.setZoom(16.1)
         this.map.setCenter([104.05758988604839, 30.595132552688057])
+        this.SET_DETAIL_MSG(null)
       }
       if(this.$refs[val] && this.$refs[val].init) this.$refs[val].init()
     },
     mapLoad(val){
       if(val){
         this.SET_CURRENTSYS('comprehensive')
+      }
+    },
+    detailMsg(val){
+      this.clearMarker()
+      if(val && val.location){
+        this.map.flyTo({
+          center: val.location,
+        })
+        this.createMarker()
       }
     }
   },
@@ -103,7 +113,21 @@ export default {
     // this.SET_CURRENTSYS('comprehensive')
 	},
   methods:{
-    
+    ...mapMutations(['SET_ISINDOOR','SET_CURRENTSYS','SET_CURRENTFLOOR','SET_DETAIL_MSG','SET_DETAIL_MSG_MARKER']),
+    createMarker(){
+      let div = document.createElement('div')
+      div.innerHTML = `
+        <img style="width: 50px;height: 50px;" src="${require('../assets/gif/marker.gif')}" />
+      `
+      let marker = new creeper.Marker({element: div}).setLngLat(this.detailMsg.location).addTo(this.map)
+      this.SET_DETAIL_MSG_MARKER(marker)
+    },
+    clearMarker(){
+      if(this.detailMsgMarker){
+        this.detailMsgMarker.remove()
+        this.SET_DETAIL_MSG_MARKER(null)
+      }
+    },
     zoomdata(data){
       if(this.map && this.map.getZoom && this.map.getZoom() <16.1){
           this.foolce=false;
@@ -156,8 +180,6 @@ export default {
         sn.parentNode.insertBefore(w, sn)
         })
       },
-
-    ...mapMutations(['SET_ISINDOOR','SET_CURRENTSYS','SET_CURRENTFLOOR']),
   }
 };
 </script>

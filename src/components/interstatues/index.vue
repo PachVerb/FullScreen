@@ -41,14 +41,14 @@
 					</div>
 				</sideItem>
 				<sideItem title="设备告警详情" transitionType="left" delay="2000" height="28%">
-					<div slot='body'  style="width: 100%;height: 100%;">
-						<div class="deviceDetail">
+					<div slot='headRight' class="deviceDetail">
 						<div class="checkBox">
 							<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
 							<div :class="trendKey==1?'btn checked':'btn'" @click="getTrendAnalyData(1)">近一月</div>
 							<div :class="trendKey==2?'btn checked':'btn'" @click="getTrendAnalyData(2)">近一年</div>
 						</div>
-						</div>
+					</div>
+					<div slot='body'  style="width: 100%;height: 100%;">
 						<div  id="trendChart" ></div>
 					</div>
 				</sideItem>
@@ -217,15 +217,107 @@
 					date: '2021-11-09 15:22:47',
 					reason: "#2015柜内存使用率超标"
 				}, ],
-				timer: null
+				timer: null,
+				mesList: [],
+				interStatusEqMarkerList: null,
+				apList: [],
+				apMarkerList: null
 			}
 		},
 		computed: {
-			...mapGetters(['currentSys'])
+			...mapGetters(['map','currentSys','currentSysModule'])
 		},
 		watch: {
 			timer(val) {
 				console.log(val, "vvvvvvsdds")
+			},
+			currentSysModule(val){
+				if(this.currentSys === 'interstatues'){
+					if(this.currentSysModule){
+						this.resetLayer()
+						switch(this.currentSysModule){
+							case 'networkEquipment':
+								this.mesList = [{
+									type: 1,// 车
+									cate: 0,
+									cateName: '正常',
+									name: '巡逻车1号',
+									num: 230,
+									location: [104.05503605386514, 30.599576983291087]
+								},{
+									type: 1,// 车
+									cate: 0,
+									cateName: '正常',
+									name: '巡逻车2号',
+									num: 230,
+									location: [104.0566532045147, 30.595614470505396]
+								},{
+									type: 1,// 车
+									cate: 1,
+									cateName: '异常',
+									name: '巡逻车3号',
+									num: 0,
+									location: [104.05911022720113, 30.594363769431368]
+								},{
+									type: 1,
+									cate: 0,
+									cateName: '正常',
+									name: '巡逻车4号',
+									num: 2120,
+									location: [104.05290291183809, 30.5921035884149]
+								},{
+									type: 1,
+									cate: 0,
+									cateName: '正常',
+									name: '巡逻车5号',
+									num: 2230,
+									location: [104.0624515193606, 30.593249536360887]
+								},{
+									type: 1,
+									cate: 0,
+									cateName: '正常',
+									name: '巡逻车6号',
+									num: 30,
+									location: [104.06071569864514, 30.59813182360351]
+								},]
+								this.createInterStatusEqMraker('mesList', 'interStatusEqMarkerList')
+								this.apList = [{
+									buildingId: '18780',
+									location: [104.05413063965034, 30.59611519612072],
+									num: 170,
+									abnum: 23
+								},{
+									buildingId: '18780',
+									floor: 4,
+									location: [104.05428880285922, 30.59587187630838],
+									num: 170,
+									abnum: 23
+								},{
+									buildingId: '18780',
+									floor: 1,
+									location: [104.05412916135646, 30.596099302686213],
+									num: 170,
+									abnum: 23
+								},{
+									buildingId: '18780',
+									floor: 1,
+									location: [104.05415310028582, 30.595836672570343],
+									num: 170,
+									abnum: 23
+								}]
+								this.createApMraker('apList', 'apMarkerList')
+							break
+							case 'networkHeat':
+								// this.createMigrateLayer()
+							break
+							case 'networkOpticalFiber':
+
+							break
+							default:
+							break
+						}
+					}
+				}
 			}
 		},
 		created() {
@@ -237,6 +329,7 @@
 		},
 		methods: {
 			init() {
+				this.hideBuildingText()
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'interstatues'
 					setTimeout(() => {
@@ -248,6 +341,89 @@
 						this.getTrendAnalyData(2);
 					}, 2500)
 				})
+				
+			},
+			destroySys(){
+				this.showBuildingText()
+				this.clearInterStatusEqMarker()
+			},
+			createApMraker(listName, markerListName){
+				let domList = this[listName].map(item => {
+					let div = document.createElement('div')
+					div.className = 'interStatusEq-marker-wrap'
+					div.innerHTML = `
+						<div class="interStatusEq-marker-mes interStatusAp-marker-mes">
+							<div class="interStatusAp-title">AP设备</div>
+							<div class="interStatusAp-body">
+								<div>正常：${item.num}个</div>
+								<div>异常：${item.abnum}</div>
+							</div>
+						</div>
+					`
+					return {dom: div}
+					// let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+					// this[markerListName].push(marker)
+				})
+				let geoJson = this.setFeature(this[listName])
+				console.log('geoJson',geoJson)
+				this[markerListName] = new creeper.MarkerIndoor(this.map)
+				this[markerListName].addMarker(geoJson,domList,true)
+			},
+			createInterStatusEqMraker(listName, markerListName){
+				let domList = this[listName].map(item => {
+					let imgsrc = ''
+					if(item.cate == 0){
+						imgsrc = require('../../assets/interstatus/interstatus-eq.png')
+					} else if (item.cate == 1) {
+						imgsrc = require('../../assets/interstatus/interstatus-ab.png')
+					}
+					let div = document.createElement('div')
+					div.className = 'interStatusEq-marker-wrap'
+					div.innerHTML = `
+						<img class="interStatusEq-marker-img" src="${imgsrc}" />
+						<div class="interStatusEq-marker-mes">
+							<div class="interStatusEq-marker-num">${item.num}</div>
+							<div>连接人数</div>
+						</div>
+					`
+					return {dom: div}
+					// let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+					// this[markerListName].push(marker)
+				})
+				let geoJson = this.setFeature(this[listName])
+				console.log('geoJson',geoJson)
+				this[markerListName] = new creeper.MarkerIndoor(this.map)
+				this[markerListName].addMarker(geoJson,domList,true)
+			},
+			setFeature(markerList){
+				let list = markerList.map(item => {
+					let obj = {
+						"type": "Feature",
+						"properties": {
+							
+						},
+						"geometry": {
+								"type": "Point",
+								"coordinates": JSON.parse(JSON.stringify(item.location))
+						}
+					}
+					if(item.buildingId) obj.properties.buildingId = item.buildingId
+					if(item.floor) obj.properties.floor = item.floor
+					return obj
+				})
+				return {
+					"type": "FeatureCollection",
+					"features": list
+				}
+			},
+			clearInterStatusEqMarker(){
+				if(this.interStatusEqMarkerList) this.interStatusEqMarkerList.remove()
+				this.interStatusEqMarkerList = null
+				if(this.apMarkerList) this.apMarkerList.remove()
+				this.apMarkerList = null
+			},
+			resetLayer(){
+				this.clearInterStatusEqMarker()
 			},
 			getDormStatus() {
 			  this.dormList = [
@@ -987,13 +1163,11 @@
 
 	.deviceDetail {
 		position: relative;
-		padding: 10px 16px 0;
+		padding: 15px 16px 0;
 
 		.checkBox {
-			position: absolute;
-			right: 16px;
-			top: -10px;
 			display: flex;
+			justify-content: flex-end;
 			align-items: center;
 
 			.btn {
@@ -1214,4 +1388,41 @@
 	    }
 	  }
 	}
+</style>
+<style lang="less">
+.interStatusEq-marker-wrap{
+	.interStatusEq-marker-img{
+		width: 50px;
+		height: 50px;
+	}
+	.interStatusEq-marker-mes{
+		position: absolute;
+		top: -60px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 8px 25px 10px;
+		width: max-content;
+		height: 50px;
+		background-image: url('../../assets/marker/assetsMrakerBg.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		color: #fff;
+		font-size: 12px;
+		.interStatusEq-marker-num{
+			color: rgba(0, 245, 255, 1);
+		}
+	}
+	.interStatusAp-marker-mes{
+		padding: 8px 9px 20px;
+		height: auto;
+		text-align: left;
+		.interStatusAp-title{
+			text-align: center;
+			background-color: rgba(232, 38, 255, 1);
+		}
+		.interStatusAp-body{
+			padding: 0 20px;
+		}
+	}
+}
 </style>

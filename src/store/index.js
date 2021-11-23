@@ -11,7 +11,9 @@ const state = {
     currentPanelIndex: 0, // 当前模块
     currentSys: '',
     currentSysModule: '',
-    oldCurrentSys: ''
+    oldCurrentSys: '',
+    detailMsg: null,
+    detailMsgMarker: null
 }
 
 const mutations = {
@@ -35,7 +37,13 @@ const mutations = {
     },
     SET_CURRENTSYS_MODULE(state, module){
         state.currentSysModule = module
-    }
+    },
+    SET_DETAIL_MSG(state, detailMsg){
+        state.detailMsg = detailMsg
+    },
+    SET_DETAIL_MSG_MARKER(state, detailMsgMarker){
+        state.detailMsgMarker = detailMsgMarker
+    },
 }
 
 const getters = {
@@ -45,7 +53,9 @@ const getters = {
     isInDoor: state => state.isInDoor,
     currentFloor: state => state.currentFloor,
     currentSys: state => state.currentSys,
-    currentSysModule: state => state.currentSysModule
+    currentSysModule: state => state.currentSysModule,
+    detailMsg: state => state.detailMsg,
+    detailMsgMarker: state => state.detailMsgMarker
 }
 
 export default new Vuex.Store({
