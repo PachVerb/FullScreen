@@ -162,15 +162,18 @@
         </nowpeopleslide> -->
 			</div>
 		</sideTran>
+		<migrateDate v-if="currentSysModule == 'personnelMigration'" />
 	</div>
 </template>
 
 <script>
+	import initOption from "../js/echarts-layer"
 	import AnimatedNumber from "animated-number-vue";
 	import sideItem from './sideItem.vue'
 	import sideTran from './sideTran'
 	import currency from './currency' //通用box组件
 	import nowpeopleslide from './nowpeopleslide.vue'
+	import migrateDate from './commonComponent/dateSelect.vue'
 	import {
 		mapGetters
 	} from 'vuex'
@@ -183,7 +186,8 @@
 			nowpeopleslide,
 			currency,
 			sideItem,
-			AnimatedNumber
+			AnimatedNumber,
+			migrateDate
 		},
 		data() {
 			return {
@@ -291,6 +295,10 @@
 					'type': 'FeatureCollection',
 					'features': []
 				},
+				migrateLayer: null,
+				migrateChart: null,
+				geoCoordMap: {},
+				migrate: []
 			}
 		},
 		computed: {
@@ -300,7 +308,18 @@
 			currentSysModule(val){
 				if(this.currentSys === 'peoplestatues'){
 					if(this.currentSysModule){
-
+						this.resetLayer()
+						switch(this.currentSysModule){
+							case 'personnelGathering':
+								this.createGatherLayer()
+								this.createGatherTextLayer()
+							break
+							case 'personnelMigration':
+								this.createMigrateLayer()
+							break
+							default:
+							break
+						}
 					}
 				}
 			}
@@ -326,13 +345,77 @@
 					this.radar()
 
 				})
-				this.createGatherLayer()
 			},
 			destroySys(){
 				this.showBuildingText()
 				this.map.setLayoutProperty('modellayer', 'visibility', '')
+				this.resetLayer()
+			},
+			resetLayer(){
 				this.gatherGeoJson.features = []
 				if(this.map.getSource('peopleGatherData')) this.map.getSource('peopleGatherData').setData(this.gatherGeoJson)
+				if(this.map.getSource('peopleGatherTextData')) this.map.getSource('peopleGatherTextData').setData(this.gatherGeoJson)
+				if(this.migrateLayer){
+					this.migrateLayer.remove()
+					this.migrateLayer = null
+					this.migrateChart = null
+				}
+			},
+			createMigrateLayer(){
+				this.geoCoordMap = {
+					'梅园七栋公寓': [104.05314017675698, 30.59751292579422],
+					'图书馆': [104.05678482128587, 30.59539035004218],
+					'松园一栋公寓': [104.05316727448559, 30.59304613268138],
+					'1号教学楼': [104.05931845893178, 30.594550636908963],
+					'2号教学楼': [104.06086302947722, 30.594352370246824],
+					'灵奇图书馆': [104.06005212034233, 30.596160080688236],
+					'理想中心3栋': [104.0609192476652, 30.59810770516505],
+					'999': [104.06224340171684, 30.59593735374841],
+					'建筑与设计学院艺术实验教学中心': [104.06411662528387, 30.599441056893568]
+				}
+				this.migrate = [
+					[{name: '梅园七栋公寓'}, {name: '图书馆', value: 272}],
+					[{name: '图书馆'}, {name: '1号教学楼', value: 90}],
+					[{name: '1号教学楼'}, {name: '图书馆', value: 3}],
+					[{name: '图书馆'}, {name: '2号教学楼', value: 105}],
+					[{name: '2号教学楼'}, {name: '灵奇图书馆', value: 65}],
+					[{name: '灵奇图书馆'}, {name: '理想中心3栋', value: 80}],
+					[{name: '理想中心3栋'}, {name: '999', value: 7}],
+					[{name: '999'}, {name: '建筑与设计学院艺术实验教学中心', value: 20}],
+					[{name: '建筑与设计学院艺术实验教学中心'}, {name: '松园一栋公寓', value: 60}],
+					[{name: '松园一栋公寓'}, {name: '图书馆', value: 90}],
+					[{name: '图书馆'}, {name: '梅园七栋公寓', value: 172}],
+				]
+				this.migrateLayer&&this.migrateLayer.remove()
+				this.migrateLayer = new window.EchartsLayer(this.map)
+				this.migrateChart = this.migrateLayer.chart;
+				this.migrateChart.setOption(
+					initOption(this.geoCoordMap, this.migrate)
+				)
+			},
+			createGatherTextLayer(){
+				this.createGatherData()
+				if(!this.map.getSource('peopleGatherTextData')){
+					this.map.addSource('peopleGatherTextData', {
+						type: 'geojson',
+						data: this.gatherGeoJson
+					})
+				} else {
+					this.map.getSource('peopleGatherTextData').setData(this.gatherGeoJson)
+				}
+				if(!this.map.getLayer('peopleGatherText')){
+					this.map.addLayer({
+						id: 'peopleGatherText',
+						source: 'peopleGatherTextData',//上述定义的source
+						type: 'symbol',//图层类型，见3.5节中图层描述
+						layout: {
+							'text-field': ['get', 'radius']
+						},
+						paint: {
+							'text-color': '#fff'
+						}
+					})
+				}
 			},
 			createGatherLayer(){
 				this.createGatherData()
@@ -353,20 +436,44 @@
 						
 						},
 						paint: {
-							'circle-color': 'red'
+							'circle-color': 'rgba(255, 164, 20, .65)',
+							'circle-radius': ['get', 'radius'],
 						}
 					})
 				}
 			},
 			createGatherData(){
-				this.gatherGeoJson.features.push({
+				this.gatherGeoJson.features = [{
           type: 'circle',
-          geometry: {"type":"Polygon","coordinates":[[[104.06030589667,30.59173094939],[104.06030379654,30.5918125773],[104.06034770009,30.5918134148],[104.06034979954,30.59173178626],[104.06030589667,30.59173094939]]]},
+          geometry: {"type":"Point","coordinates":[104.0603277991699, 30.59174412206073]},
           properties: { 
-						
+						radius: 30,
           }
-				})
-				this.map.getSource('peopleGatherData').setData(this.gatherGeoJson)
+				},{
+          type: 'circle',
+          geometry: {"type":"Point","coordinates":[104.0611232212317, 30.594063929249856]},
+          properties: { 
+						radius: 65,
+          }
+				},{
+          type: 'circle',
+          geometry: {"type":"Point","coordinates":[104.0598519057657, 30.594770509499256]},
+          properties: { 
+						radius: 45,
+          }
+				},{
+          type: 'circle',
+          geometry: {"type":"Point","coordinates":[104.05750948199261, 30.596416304493644]},
+          properties: { 
+						radius: 72,
+          }
+				},{
+          type: 'circle',
+          geometry: {"type":"Point","coordinates":[104.0596717193211, 30.592409477291028]},
+          properties: { 
+						radius: 18,
+          }
+				}]
 			},
 			renderstudentpie() {
 

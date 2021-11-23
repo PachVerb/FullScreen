@@ -81,8 +81,12 @@ export default {
   },
   watch: {
     currentSys(val){
-      this.map && this.map.setZoom(16.1)
-      this.map && this.map.setCenter([104.05758988604839, 30.595132552688057])
+      if(this.map){
+        this.map.setBearing(8)
+				this.map.setPitch(60)
+        this.map.setZoom(16.1)
+        this.map.setCenter([104.05758988604839, 30.595132552688057])
+      }
       if(this.$refs[val] && this.$refs[val].init) this.$refs[val].init()
     },
     mapLoad(val){

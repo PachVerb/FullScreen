@@ -40,6 +40,10 @@ import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.min.css'
 
  */
+import vueSwiper from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.min.css'
+Vue.use(vueSwiper)
+
 import mixins from './components/mixins'
 Vue.mixin(mixins)
 

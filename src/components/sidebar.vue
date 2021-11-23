@@ -89,10 +89,10 @@ export default {
         normal: require('../assets/sidebar/normal/peoplestatues.png'),
         select: require('../assets/sidebar/select/peoplestatues.png'),
         children: [{
-          name: 'networkEquipment1',
+          name: 'personnelGathering',
           cname: '人员聚集态势'
         },{
-          name: 'networkHeat1',
+          name: 'personnelMigration',
           cname: '人员迁徙态势'
         }]
       },{

@@ -336,8 +336,6 @@
 		},
 		methods: {
 			init() {
-				this.bearing = this.map.getBearing()
-				this.pitch = this.map.getPitch()
 				this.map.setBearing(0)
 				this.map.setPitch(0)
 				let domList = [...document.querySelectorAll('.buildingtext')]
@@ -462,8 +460,6 @@
 				this.createFireMraker('personList','personMarkerList')
 			},
 			destroySys(){
-				this.map.setBearing(this.bearing)
-				this.map.setPitch(this.pitch)
 				let domList = [...document.querySelectorAll('.buildingtext')]
 				domList.forEach(item => {
 					item.style.opacity = 1
