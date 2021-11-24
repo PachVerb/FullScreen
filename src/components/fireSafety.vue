@@ -520,10 +520,18 @@
 				}
 			},
 			clearFireMarker(){
-				this.markerNameList.forEach(name => {
-					this[name].remove()
-				})
-				this.markerNameList = []
+				// this.markerNameList.forEach(name => {
+				// 	this[name].remove()
+				// })
+				// this.markerNameList = []
+				if(this.markerList){
+					this.markerList.remove()
+					this.markerList = null
+				}
+				if(this.personMarkerList){
+					this.personMarkerList.remove()
+					this.personMarkerList = null
+				}
 			},
 			handleCheckAddress(location){
 				if(!location) return

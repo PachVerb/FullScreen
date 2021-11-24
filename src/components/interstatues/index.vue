@@ -135,6 +135,8 @@
 	import sideItem from '@/components/sideItem.vue'
 	import nowpeopleslide from '@/components/nowpeopleslide.vue'
 	import flop from '@/components/commonComponent/flop.vue'
+	import HeatLayer from '../../js/heatLayer'
+	import heatJson from '../../assets/json/heat.json'
 	import {
 		Table,
 		TableColumn,
@@ -221,7 +223,13 @@
 				mesList: [],
 				interStatusEqMarkerList: null,
 				apList: [],
-				apMarkerList: null
+				apMarkerList: null,
+				heatLayer: null,
+				heatData: {
+					type: "FeatureCollection",
+					features: []
+				},
+				popupMarker: null
 			}
 		},
 		computed: {
@@ -308,7 +316,10 @@
 								this.createApMraker('apList', 'apMarkerList')
 							break
 							case 'networkHeat':
-								// this.createMigrateLayer()
+								this.map.setBearing(0)
+								this.map.setPitch(0)
+								this.map.setLayoutProperty('modellayer', 'visibility', 'none')
+								this.createInterStatusHeatLayer()
 							break
 							case 'networkOpticalFiber':
 
@@ -329,6 +340,8 @@
 		},
 		methods: {
 			init() {
+				// let body = document.querySelector('body')
+				// body.addEventListener('click',this.closePopup)
 				this.hideBuildingText()
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'interstatues'
@@ -346,6 +359,41 @@
 			destroySys(){
 				this.showBuildingText()
 				this.clearInterStatusEqMarker()
+				this.resetLayer()
+			},
+			closePopup(e){
+				e.stopPropagation()
+				if(e.target.className = 'interStatus-popup-close-btn'){
+					if(this.popupMarker){
+						this.popupMarker.remove()
+						this.popupMarker = null
+					}
+				}
+			},
+			setPopup(item){
+				if(this.popupMarker){
+					this.popupMarker.remove()
+					this.popupMarker = null
+				}
+				let popupDom = document.createElement('div')
+				popupDom.className = 'interStatus-popup'
+				popupDom.innerHTML = `
+					<img class="interStatus-popup-close-btn" src="${require('../../assets/img/close-btn.png')}"/>
+					<div class="${item.cate == 0 ? 'interStatus-popup-head' : 'interStatus-popup-head interStatus-popup-abhead'}">连接人数：251人</div>
+					<div class="interStatus-popup-body">
+						<div><span>设备状态：</span><span class="${item.cate == 0 ? 'interStatus-popup-normal' : 'interStatus-popup-ab'}">${item.cate == 0 ? '正常' : '异常'}</span></div>
+						<div><span>设备名称：</span><span>maoop-3-13</span></div>
+						<div><span>IP地址：</span><span>192.168.4.205</span></div>
+						<div><span>mac地址：</span><span>17:41:3s:78:67</span></div>
+					</div>
+				`
+				popupDom.children[0].onclick = () => {
+					if(this.popupMarker){
+						this.popupMarker.remove()
+						this.popupMarker = null
+					}
+				}
+				this.popupMarker = new creeper.Marker({element: popupDom}).setLngLat(item.location).addTo(this.map)
 			},
 			createApMraker(listName, markerListName){
 				let domList = this[listName].map(item => {
@@ -364,6 +412,7 @@
 					// let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
 					// this[markerListName].push(marker)
 				})
+
 				let geoJson = this.setFeature(this[listName])
 				console.log('geoJson',geoJson)
 				this[markerListName] = new creeper.MarkerIndoor(this.map)
@@ -386,6 +435,9 @@
 							<div>连接人数</div>
 						</div>
 					`
+					div.onclick = e => {
+						this.setPopup(item)
+					}
 					return {dom: div}
 					// let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
 					// this[markerListName].push(marker)
@@ -422,8 +474,40 @@
 				if(this.apMarkerList) this.apMarkerList.remove()
 				this.apMarkerList = null
 			},
+			createInterStatusHeatLayer(){
+				console.log('heatJson',heatJson.data[0].statisticData.features)
+				this.heatData = {
+					// crs: {
+					// 	properties: {name: "urn:ogc:def:crs:OGC:1.3:CRS84"},
+					// 	type: "name"
+					// },
+					features: heatJson.data[0].statisticData.features,
+					type: "FeatureCollection"
+				}
+				this.map.getLayer("heat-point") && this.map.removeLayer("heat-point")
+				this.heatLayer = new HeatLayer(
+					this.map,
+					this.heatData,
+					"heat-layer",
+					"mag",
+					"heat-point"
+				)
+				this.heatLayer.addLayer()
+			},
 			resetLayer(){
+				this.map.setBearing(8)
+				this.map.setPitch(60)
+        this.map.setZoom(16.1)
+				this.map.setLayoutProperty('modellayer', 'visibility', '')
 				this.clearInterStatusEqMarker()
+				if(this.heatLayer){
+					this.heatLayer.destoryLayer()
+					this.heatLayer = null
+				}
+				if(this.popupMarker){
+					this.popupMarker.remove()
+					this.popupMarker = null
+				}
 			},
 			getDormStatus() {
 			  this.dormList = [
@@ -1391,6 +1475,7 @@
 </style>
 <style lang="less">
 .interStatusEq-marker-wrap{
+	z-index: 100;
 	.interStatusEq-marker-img{
 		width: 50px;
 		height: 50px;
@@ -1423,6 +1508,43 @@
 		.interStatusAp-body{
 			padding: 0 20px;
 		}
+	}
+}
+.interStatus-popup{
+	z-index: 101;
+	left: 130px;
+	padding: 5px 9px 9px 63px;
+	width: 186px;
+	height: 100px;
+	background-image: url('../../assets/vehicle/popup-bg.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	color: #fff;
+	.interStatus-popup-close-btn{
+		position: absolute;
+		top: -7px;
+		right: -7px;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+	}
+	.interStatus-popup-head{
+		background-color: rgb(8,195,61);
+		text-align: center;
+	}
+	.interStatus-popup-abhead{
+		background-color: rgb(255,94,38);
+	}
+	.interStatus-popup-body{
+		padding-left: 15px;
+		text-align: left;
+	}
+	.interStatus-popup-normal{
+		color: rgb(8,177,59);
+	}
+	.interStatus-popup-ab{
+		color: rgb(234,88,38);
 	}
 }
 </style>

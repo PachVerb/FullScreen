@@ -27,7 +27,7 @@
           'id': this.layername,
           'type': 'heatmap',
           'source': this.sourcename,
-          'maxzoom': 20,
+          'maxzoom': 24,
           'paint': {
               // Increase the heatmap weight based on frequency and property magnitude
               'heatmap-weight': [
@@ -152,6 +152,9 @@
   destoryLayer = () => {
       if (this.map && this.map.getLayer(this.layername)) {
         this.map && this.map.removeLayer(this.layername)
+      }
+      if (this.map && this.map.getLayer(this.circlename)) {
+        this.map && this.map.removeLayer(this.circlename)
       }
       if (this.map && this.map.getSource(this.sourcename)) {
         this.map && this.map.removeSource(this.sourcename)

@@ -240,6 +240,7 @@ export default {
       if(side.children) this.SET_CURRENTSYS_MODULE(side.children[0].name)
     },
     checkCurrentSysModule(sideChild, parentSys){
+      if(this.currentSys !== parentSys.name && this.$parent.$refs[this.currentSys] && this.$parent.$refs[this.currentSys].destroySys) this.$parent.$refs[this.currentSys].destroySys()
       this.SET_CURRENTSYS(parentSys.name)
       this.SET_CURRENTSYS_MODULE(sideChild.name)
     }
