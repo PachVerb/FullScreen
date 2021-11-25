@@ -72,12 +72,12 @@
               </div>
               <div class="scroll">
                 <div class="content" @mouseenter="dormScrollStop" @mouseleave="dormScrollStart">
-                  <div class="row" v-for="(item,i) in dormList" :key="i">
+                  <div class="row" v-for="(item,i) in roomMesList" :key="i">
                     <span>{{item.room}}</span>
                     <span>{{item.loca}}</span>
                     <span>{{item.person}}</span>
                     <span>
-                      <span class="btn-check">查看</span>
+                      <span class="btn-check" @click="handleCheckLocation(item)">查看</span>
                     </span>
                   </div>
                 </div>
@@ -177,6 +177,7 @@ export default {
       attendList: [],
       dormTimer: null,
       attendTimer: null,
+      roomMesList: []
     }
   },
   computed: {
@@ -193,7 +194,8 @@ export default {
         waitTime: 1000, // 单步运动停止的时间(默认值1000ms)
         mesList: [],
         markerList: null,
-        markerNameList: []
+        markerNameList: [],
+        roomLayer: null
       }
     }
   },
@@ -219,67 +221,147 @@ export default {
         }, 500)
       })
       this.mesList = [{
-        type: 1,// 车
-        cate: 0,
-        cateName: '正常',
-        name: '巡逻车1号',
-        location: [104.05365859393618, 30.59901328697572]
+        useNum: 34,
+        freeNum: 14,
+        location: [104.05472382086708, 30.597631663126307]
       },{
-        type: 1,// 车
-        cate: 0,
-        cateName: '正常',
-        name: '巡逻车2号',
-        location: [104.05762861698526, 30.59448708789614]
+        useNum: 34,
+        freeNum: 14,
+        location: [104.05941489815547, 30.594458469748886]
       },{
-        type: 1,// 车
-        cate: 1,
-        cateName: '异常',
-        name: '巡逻车3号',
-        location: [104.05760232544213, 30.59664837433226]
+        useNum: 34,
+        freeNum: 14,
+        location: [104.06086882491559, 30.594363377308042]
       },{
-        type: 1,
-        cate: 0,
-        cateName: '正常',
-        name: '巡逻车4号',
-        location: [104.05202763864776, 30.591376453791625]
+        useNum: 34,
+        freeNum: 14,
+        location: [104.06017342377481, 30.59212966788519]
       },{
-        type: 1,
-        cate: 0,
-        cateName: '正常',
-        name: '巡逻车5号',
-        location: [104.06139982048535, 30.593880601855176]
+        useNum: 34,
+        freeNum: 14,
+        location: [104.05996892566299, 30.596361187505224]
       },{
-        type: 1,
-        cate: 0,
-        cateName: '正常',
-        name: '巡逻车6号',
-        location: [104.06131667963098, 30.59726210003609]
+        useNum: 34,
+        freeNum: 14,
+        location: [104.06014443556603, 30.597449607212354]
       },]
       this.createStudystatusMraker('mesList', 'markerList')
+      this.createRoomLayer()
     },
     destroySys(){
       this.showBuildingText()
       this.clearStudystatusMarker()
+      if(this.roomLayer){
+        this.roomLayer.remove()
+        this.roomLayer = null
+      }
+    },
+    handleCheckLocation(msg){
+
+    },
+    createRoomLayer(){
+      if(this.roomLayer){
+        this.roomLayer.remove()
+        this.roomLayer = null
+      }
+      this.roomLayer = new creeper.LayerIndoor(this.map)
+      this.roomMesList = [{
+        type: 0,
+        floor: 0,
+        buildingId: "17746",
+        num: 33,
+        room: '法医实验室', 
+        loca: '文科实验楼1', 
+        person: '张锦',
+        center: [104.06032902565136, 30.591759379410234],
+        location: [[[104.06030589667,30.59173094939],[104.06030379654,30.5918125773],[104.06034770009,30.5918134148],[104.06034979954,30.59173178626],[104.06030589667,30.59173094939]]]
+      },{
+        type: 0,
+        floor: 0,
+        buildingId: "17746",
+        num: 26,
+        room: '法医实验室', 
+        loca: '文科实验楼1', 
+        person: '张锦',
+        center: [104.06028569277896, 30.591759379410234],
+        location: [[[104.0603072164,30.59173094735],[104.0602626412,30.59173009742],[104.06026044132,30.59181172599],[104.06030501504,30.59181257591],[104.0603072164,30.59173094735]]]
+      },{
+        type: 1,
+        floor: 0,
+        buildingId: "17746",
+        room: '法医实验室', 
+        loca: '文科实验楼1', 
+        person: '张锦',
+        center: [104.06037520447688, 30.591763167383718],
+        location: [[[104.06039628747,30.59173264484],[104.060350795,30.59173177776],[104.06034859432,30.59181340695],[104.0603940868,30.59181427402],[104.06039628747,30.59173264484]]]
+      }]
+      let geojsonpolygon = {
+        "type": "FeatureCollection",
+        "features": []
+      }
+      geojsonpolygon.features = this.setRoomFeature(this.roomMesList)
+      console.log('geojsonpolygon',geojsonpolygon)
+      this.roomLayer.addLayer(geojsonpolygon,{
+          sourceId:"studyStatusRoomData",
+          layerId:"studyStatusRoom-layer",
+          type:"fill",
+          paint:{
+              "fill-color": ['get', 'color'], 
+              //"line-width":5
+              
+          },
+          layout:{
+          },
+          isIndoor: true,
+          layerBefore: 'room23',
+          isBuildingDivision: true,
+      })
+      this.roomLayer.addLayer(geojsonpolygon,{
+          sourceId:"studyStatusRoomTextData",
+          layerId:"studyStatusRoomText-layer",
+          type:"symbol",
+          paint:{
+             'text-color': '#fff'
+          },
+          layout:{
+            'text-field': ['get', 'title'],
+            'text-size': 12,
+          },
+          isIndoor: true,
+          isBuildingDivision: true,
+      })
+    },
+    setRoomFeature(roomList){
+      let featureList = roomList.map(room => {
+        let feature = {
+            "type": "Feature",
+            "properties": {
+                "name": "fdggff",
+                "status": "0",
+                "color": room.type == 0 ? 'rgb(70, 177, 246)' : 'rgb(255,151,0)',
+                "title": "B109" + '\n' + (`状态：${room.type==0 ? '使用中' : '空闲中'}`) + '\n' + (room.type == 0 ? `人数：${room.num}人` : '') + '\n',
+            },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": room.location,
+            }
+        }
+        if(room.floor !== undefined) feature.properties.floor = room.floor
+        if(room.buildingId !== undefined) feature.properties.buildingId = room.buildingId
+        return feature
+      })
+      return featureList
     },
     createStudystatusMraker(listName, markerListName){
+      let imgsrc = require('../../assets/marker/personNormal.png')
       let domList = this[listName].map(item => {
-        let imgsrc = ''
-        if(item.type == 0 && item.cate == 0){
-          imgsrc = require('../../assets/marker/personNormal.png')
-        } else if (item.type == 0 && item.cate == 1) {
-          imgsrc = require('../../assets/marker/personAbnormal.png')
-        } else if (item.type == 1 && item.cate == 0) {
-          imgsrc = require('../../assets/marker/carNormal.png')
-        } else if (item.type == 1 && item.cate == 1) {
-          imgsrc = require('../../assets/marker/carAbnormal.png')
-        }
         let div = document.createElement('div')
         div.className = 'studystatus-marker-wrap'
         div.innerHTML = `
           <img class="studystatus-marker-img" src="${imgsrc}" />
           <div class="studystatus-marker-mes">
-            <div>${item.type == 0 ? '<span>姓名：</span>' : ''}<span>${item.name}</span></div>
-            <div><span>状态：</span><span>${item.cateName}</span></div>
+            <div><span>使用中：</span><span>${item.useNum}间</span></div>
+            <div><span>空闲中：</span><span>${item.freeNum}间</span></div>
           </div>
         `
         return {dom: div}
@@ -459,7 +541,7 @@ export default {
     },
     //开始自动滚动
     dormScrollStart() {
-      this.dormList.length && this.$nextTick(() => {
+      this.roomMesList.length && this.$nextTick(() => {
         this.dormScrollStop();
         let scrollBox = document.querySelector('.dormState .scroll');
         let content = document.querySelector('.dormState .scroll .content');

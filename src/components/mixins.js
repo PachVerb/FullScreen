@@ -1,7 +1,7 @@
 import {mapGetters, mapMutations} from 'vuex'
 export default {
 		computed: {
-			...mapGetters(['map','currentSys'])
+			...mapGetters(['map','currentSys',''])
 		},
 		watch: {
 
@@ -10,6 +10,7 @@ export default {
 			console.log(888888,6666)
 		},
 		methods: {
+			...mapMutations(['SET_DETAIL_MSG']),
 			hideBuildingText(){
 				let domList = [...document.querySelectorAll('.buildingtext')]
 				domList.forEach(item => {

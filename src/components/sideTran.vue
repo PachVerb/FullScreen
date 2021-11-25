@@ -8,7 +8,7 @@
     </transition>
     <transition name="go-in-sys-right">
       <div class="sys-right" :style="{width: widthR,right: showRightSys ? 0 : '-380px' }" v-if="currentSys === thisCrrentSys">
-        <img @click="handleShowRightSys" :class="['sys-hide-btn',showRightSys ? 'right-sys-hide-btn' : 'right-sys-show-btn']" src="../assets/img/hideRightSys.png" alt="">
+        <img @click="handleShowRightSys" :class="['sys-hide-btn',showRightSys ? 'right-sys-hide-btn' : 'right-sys-show-btn']" :src="showRightSys ? require('../assets/img/hideRightSys.png') : require('../assets/img/show-right.png')" alt="">
         <slot name="right"/>
       </div>
     </transition>
@@ -107,13 +107,14 @@ export default {
   top: 50%;
   cursor: pointer;
   width: 45px;
+  height: 80px;
 }
 .right-sys-hide-btn{
   left: -37px;
   transform: rotateX(180deg);
 }
 .right-sys-show-btn{
-  left: -45px;
+  left: -40px;
   transform: rotateX(0);
 }
 </style>

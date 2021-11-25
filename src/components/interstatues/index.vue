@@ -229,7 +229,10 @@
 					type: "FeatureCollection",
 					features: []
 				},
-				popupMarker: null
+				popupMarker: null,
+				lineGeoJson: { type: 'FeatureCollection', features: [] },
+				opticalFiberList: [],
+				opticalFiberMarkerList: null
 			}
 		},
 		computed: {
@@ -322,7 +325,11 @@
 								this.createInterStatusHeatLayer()
 							break
 							case 'networkOpticalFiber':
-
+								this.map.setBearing(0)
+								this.map.setPitch(0)
+								this.map.setLayoutProperty('modellayer', 'visibility', 'none')
+								this.createOpticalFiberLine()
+								this.createOpticalFiberMarker()
 							break
 							default:
 							break
@@ -360,6 +367,95 @@
 				this.showBuildingText()
 				this.clearInterStatusEqMarker()
 				this.resetLayer()
+			},
+			createOpticalFiberLine(){
+				let lineImg = require('../../assets/img/yellow_line.png')
+        if (!this.map.hasImage(`interStatus-line-img`)) {
+            this.map.loadImage(lineImg, (err, data) => {
+              this.map.addImage(`interStatus-line-img`, data);
+            })
+        }
+				this.lineGeoJson.features.push({
+					type: 'line',
+					geometry: {"type":"LineString","coordinates":[
+						[104.05587811484764, 30.595317813029837],
+						[104.0536658257281, 30.595317813029837],
+						[104.05366582571304, 30.598247464502933],
+						[104.0530351731594, 30.598256080994275],
+						[104.05786016571642, 30.5981957655395],
+						[104.05786016571642, 30.59668786695383],
+						[104.05978215445373, 30.596644783792144],
+						[104.05989226839125, 30.596231184466106],
+						[104.05978215445373, 30.596644783792144],
+						[104.06134377028957, 30.596644783796805],
+						[104.06137380136283, 30.594051142183886],
+						[104.06063303487173, 30.594145927650615],
+						[104.06137380136283, 30.594051142183886],
+						[104.06134377028957, 30.596644783796805],
+						[104.06330191110817, 30.596700435184715],
+						[104.06335196289751, 30.59518389656418],
+						[104.06474340265993, 30.595209746853214],
+						[104.06474340265993, 30.595614733813036],
+					]}
+				})
+				if (!this.map.getSource('interStatusLineData')) {
+						this.map.addSource('interStatusLineData', {
+								type: 'geojson',
+								data: this.lineGeoJson
+						})
+				} else {
+					this.map.getSource('interStatusLineData').setData(this.lineGeoJson)
+				}
+				if(!this.map.getLayer('interStatusLineLayer')){
+					this.map.addLayer({
+						type: 'line',
+						source: 'interStatusLineData',
+						id: 'interStatusLineLayer',
+						paint: {
+							'line-width': 8,
+							"line-pattern": `interStatus-line-img`,
+						},
+						layout: {
+							'line-cap': 'round',
+							'line-join': 'round'
+						}
+					})
+				}
+			},
+			createOpticalFiberMarker(){
+				this.opticalFiberList = [{
+					name: '图书馆',
+					location: [104.05602940360899, 30.595303140884354]
+				},{
+					name: '学生宿舍区',
+					location: [104.05295526229526, 30.59825378652144]
+				},{
+					name: '灵奇图书馆',
+					location: [104.05992087614413, 30.596143191495827]
+				},{
+					name: '2号教学楼',
+					location: [104.06059181968351, 30.594116556987075]
+				},{
+					name: '校医院',
+					location: [104.0647455665042, 30.59562896941253]
+				},]
+				let imgsrc = require('../../assets/interstatus/opticalFiber-marker.png')
+				let domList = this.opticalFiberList.map(item => {
+					let div = document.createElement('div')
+					div.className = 'interStatusEq-marker-wrap'
+					div.innerHTML = `
+						<img class="interStatusEq-marker-img" src="${imgsrc}" />
+						<div class="interStatusEq-marker-mes interStatus-OpticalFiber-marker-mes">
+							<div class="interStatusEq-marker-num">${item.name}</div>
+						</div>
+					`
+					return {dom: div}
+					// let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+					// this[markerListName].push(marker)
+				})
+				let geoJson = this.setFeature(this.opticalFiberList)
+				this.opticalFiberMarkerList = new creeper.MarkerIndoor(this.map)
+				this.opticalFiberMarkerList.addMarker(geoJson,domList,true)
 			},
 			closePopup(e){
 				e.stopPropagation()
@@ -507,6 +603,14 @@
 				if(this.popupMarker){
 					this.popupMarker.remove()
 					this.popupMarker = null
+				}
+				if(this.map.getSource('interStatusLineData')){
+					this.lineGeoJson = { type: 'FeatureCollection', features: [] }
+					this.map.getSource('interStatusLineData').setData(this.lineGeoJson)
+				}
+				if(this.opticalFiberMarkerList){
+					this.opticalFiberMarkerList.remove()
+					this.opticalFiberMarkerList = null
 				}
 			},
 			getDormStatus() {
@@ -1508,6 +1612,11 @@
 		.interStatusAp-body{
 			padding: 0 20px;
 		}
+	}
+	.interStatus-OpticalFiber-marker-mes{
+		padding: 6px 25px 10px;
+		top: -28px;
+		height: auto;
 	}
 }
 .interStatus-popup{

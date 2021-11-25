@@ -229,6 +229,7 @@ export default {
       }
     },
     checkCurrentSys(side,index,type){
+      if(side.name == this.currentSys) return
       if(this.$parent.$refs[this.currentSys] && this.$parent.$refs[this.currentSys].destroySys) this.$parent.$refs[this.currentSys].destroySys()
       this.SET_CURRENTSYS_MODULE('')
       this.currentSysThisIndex = this.thisIndex

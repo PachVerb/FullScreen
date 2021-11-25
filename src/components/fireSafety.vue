@@ -130,7 +130,7 @@
 									</div>
 									<div class="table-item" :style="{width: tableHead[1].width}">{{ item.cateName }}</div>
 									<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
-									<div :style="{width: tableHead[3].width}" class="last-address table-item" @click="handleCheckAddress(item.location)"></div>
+									<div :style="{width: tableHead[3].width}" class="last-address table-item" @click="handleCheckAddress(item)"></div>
 								</div>
 							</div>
 						</div>
@@ -533,11 +533,8 @@
 					this.personMarkerList = null
 				}
 			},
-			handleCheckAddress(location){
-				if(!location) return
-				this.map.flyTo({
-					center: location,
-				})
+			handleCheckAddress(msg){
+				this.SET_DETAIL_MSG(msg)
 			},
 			handleCloseAb(item, index){
 				this.abDetailList = this.abDetailList.filter(ab => ab.id !== item.id)
