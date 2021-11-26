@@ -287,10 +287,12 @@ export default {
       trendWaterKey: 2,
       ratioList:[],
       ratioWaterList:[],
+      mesList: [],
+      aMarkerList: null
     }
   },
   computed: {
-    ...mapGetters(['currentSys']),
+    ...mapGetters(['map','currentSys']),
     ratioTotal(){
       return this.ratioList.reduce((sum,item)=>sum+item.val,0);
     },
@@ -303,6 +305,7 @@ export default {
   methods: {
     //初始化
     init() {
+      this.hideBuildingText()
       this.$nextTick(() => {
         setTimeout(() => {
           this.getDeviceStatiList();
@@ -315,6 +318,135 @@ export default {
           this.getRatioWaterData();
         }, 600)
       })
+      this.mesList = [{
+        type: 1,// 水
+        cate: 0,
+        cateName: '正常',
+        name: '巡逻车1号',
+        num: 230,
+        location: [104.05503605386514, 30.599576983291087]
+      },{
+        type: 1,// 水
+        cate: 1,
+        cateName: '正常',
+        name: '巡逻车2号',
+        num: 230,
+        location: [104.0566532045147, 30.595614470505396]
+      },{
+        type: 1,
+        cate: 2,
+        cateName: '异常',
+        name: '巡逻车3号',
+        num: 0,
+        location: [104.05911022720113, 30.594363769431368]
+      },{
+        type: 1,
+        cate: 1,
+        cateName: '正常',
+        name: '巡逻车4号',
+        num: 2120,
+        location: [104.05290291183809, 30.5921035884149]
+      },{
+        type: 1,
+        cate: 2,
+        cateName: '正常',
+        name: '巡逻车5号',
+        num: 2230,
+        location: [104.0624515193606, 30.593249536360887]
+      },{
+        type: 1,
+        cate: 1,
+        cateName: '正常',
+        name: '巡逻车6号',
+        num: 30,
+        location: [104.06071569864514, 30.59813182360351]
+      },]
+      this.createInterStatusEqMraker('mesList', 'aMarkerList')
+    },
+    destroySys(){
+      this.showBuildingText()
+      this.clearInterStatusEqMarker()
+    },
+    createInterStatusEqMraker(listName, markerListName){
+      let domList = this[listName].map(item => {
+        let imgsrc = ''
+        if(item.cate == 0){
+          imgsrc = require('../assets/energyUsage/electric-ab.png')
+        } else if (item.cate == 1) {
+          imgsrc = require('../assets/energyUsage/electric-over.png')
+        } else if (item.cate == 2) {
+          imgsrc = require('../assets/energyUsage/electric.png')
+        }
+        let div = document.createElement('div')
+        div.className = 'interStatusEq-marker-wrap'
+        div.innerHTML = `
+          <img class="interStatusEq-marker-img" src="${imgsrc}" />
+          <div class="interStatusEq-marker-mes">
+            <div class="interStatusEq-marker-num">${item.num}</div>
+            <div>连接人数</div>
+          </div>
+        `
+        div.onclick = e => {
+          this.setPopup(item)
+        }
+        return {dom: div}
+        // let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+        // this[markerListName].push(marker)
+      })
+      let geoJson = this.setFeature(this[listName])
+      console.log('geoJson',geoJson)
+      this[markerListName] = new creeper.MarkerIndoor(this.map)
+      this[markerListName].addMarker(geoJson,domList,true)
+    },
+    setPopup(item){
+      if(this.popupMarker){
+        this.popupMarker.remove()
+        this.popupMarker = null
+      }
+      let popupDom = document.createElement('div')
+      popupDom.className = 'interStatus-popup'
+      popupDom.innerHTML = `
+        <img class="interStatus-popup-close-btn" src="${require('../assets/img/close-btn.png')}"/>
+        <div class="${item.cate == 0 ? 'interStatus-popup-head' : 'interStatus-popup-head interStatus-popup-abhead'}">连接人数：251人</div>
+        <div class="interStatus-popup-body">
+          <div><span>设备状态：</span><span class="${item.cate == 0 ? 'interStatus-popup-normal' : 'interStatus-popup-ab'}">${item.cate == 0 ? '正常' : '异常'}</span></div>
+          <div><span>设备名称：</span><span>maoop-3-13</span></div>
+          <div><span>IP地址：</span><span>192.168.4.205</span></div>
+          <div><span>mac地址：</span><span>17:41:3s:78:67</span></div>
+        </div>
+      `
+      popupDom.children[0].onclick = () => {
+        if(this.popupMarker){
+          this.popupMarker.remove()
+          this.popupMarker = null
+        }
+      }
+      this.popupMarker = new creeper.Marker({element: popupDom}).setLngLat(item.location).addTo(this.map)
+    },
+    setFeature(markerList){
+      let list = markerList.map(item => {
+        let obj = {
+          "type": "Feature",
+          "properties": {
+            
+          },
+          "geometry": {
+              "type": "Point",
+              "coordinates": JSON.parse(JSON.stringify(item.location))
+          }
+        }
+        if(item.buildingId) obj.properties.buildingId = item.buildingId
+        if(item.floor) obj.properties.floor = item.floor
+        return obj
+      })
+      return {
+        "type": "FeatureCollection",
+        "features": list
+      }
+    },
+    clearInterStatusEqMarker(){
+      if(this.aMarkerList) this.aMarkerList.remove()
+      this.aMarkerList = null
     },
     //获取用电设备统计列表
     getDeviceStatiList() {
@@ -1101,5 +1233,85 @@ export default {
       -webkit-transform: rotate(360deg);
     }
   }
+}
+</style>
+<style lang="less">
+.interStatusEq-marker-wrap{
+	z-index: 100;
+	.interStatusEq-marker-img{
+		width: 50px;
+		height: 50px;
+	}
+	.interStatusEq-marker-mes{
+		position: absolute;
+		top: -60px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 8px 25px 10px;
+		width: max-content;
+		height: 50px;
+		background-image: url('../assets/marker/assetsMrakerBg.png');
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		color: #fff;
+		font-size: 12px;
+		.interStatusEq-marker-num{
+			color: rgba(0, 245, 255, 1);
+		}
+	}
+	.interStatusAp-marker-mes{
+		padding: 8px 9px 20px;
+		height: auto;
+		text-align: left;
+		.interStatusAp-title{
+			text-align: center;
+			background-color: rgba(232, 38, 255, 1);
+		}
+		.interStatusAp-body{
+			padding: 0 20px;
+		}
+	}
+	.interStatus-OpticalFiber-marker-mes{
+		padding: 6px 25px 10px;
+		top: -28px;
+		height: auto;
+	}
+}
+.interStatus-popup{
+	z-index: 101;
+	left: 130px;
+	padding: 5px 9px 9px 63px;
+	width: 186px;
+	height: 100px;
+	background-image: url('../assets/vehicle/popup-bg.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	color: #fff;
+	.interStatus-popup-close-btn{
+		position: absolute;
+		top: -7px;
+		right: -7px;
+		width: 30px;
+		height: 30px;
+		cursor: pointer;
+	}
+	.interStatus-popup-head{
+		background-color: rgb(8,195,61);
+		text-align: center;
+	}
+	.interStatus-popup-abhead{
+		background-color: rgb(255,94,38);
+	}
+	.interStatus-popup-body{
+		padding-left: 15px;
+		text-align: left;
+	}
+	.interStatus-popup-normal{
+		color: rgb(8,177,59);
+	}
+	.interStatus-popup-ab{
+		color: rgb(234,88,38);
+	}
 }
 </style>

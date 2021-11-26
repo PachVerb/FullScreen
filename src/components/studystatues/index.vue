@@ -257,7 +257,11 @@ export default {
       }
     },
     handleCheckLocation(msg){
-
+      let detail = {
+        floor: msg.floor,
+        location: msg.center
+      }
+      this.SET_DETAIL_MSG(detail)
     },
     createRoomLayer(){
       if(this.roomLayer){
@@ -353,7 +357,7 @@ export default {
       return featureList
     },
     createStudystatusMraker(listName, markerListName){
-      let imgsrc = require('../../assets/marker/personNormal.png')
+      let imgsrc = require('../../assets/study/study-marker.png')
       let domList = this[listName].map(item => {
         let div = document.createElement('div')
         div.className = 'studystatus-marker-wrap'

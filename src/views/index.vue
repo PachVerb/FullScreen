@@ -98,8 +98,11 @@ export default {
     detailMsg(val){
       this.clearMarker()
       if(val && val.location){
+        let zoom = val.floor !== undefined ? 19 : 16.1
         this.map.flyTo({
           center: val.location,
+          zoom,
+          offset: [0,-50]
         })
         this.createMarker()
       }

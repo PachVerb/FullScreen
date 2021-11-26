@@ -144,6 +144,144 @@
 			sideTran,
 			sideItem
 		},
+		data() {
+			return {
+				thisCrrentSys: '',
+				peopleimg: require("../assets/img/people.png"),
+				nohomelist: [{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people.png"),
+						roomname: "修身宿舍楼",
+						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225456565",
+						class: "01班"
+					},
+				],
+				homestaueslist: [{
+						peoplenum: "21102",
+						homestatuesimg: require("../assets/img/todaypeople.png"),
+						name: "今日应归寝人数",
+					},
+					{
+						peoplenum: "21102",
+						homestatuesimg: require("../assets/img/leave.png"),
+						name: "今日请假人数",
+					},
+					{
+						peoplenum: "21102",
+						homestatuesimg: require("../assets/img/todaynowpeople.png"),
+						name: "今日当前归寝人数",
+					},
+					{
+						peoplenum: "21102",
+						homestatuesimg: require("../assets/img/todaynohomepeople.png"),
+						name: "今日未归寝人数",
+					}
+				],
+				mesList: [],
+				markerList: null
+			}
+		},
 		computed: {
 			...mapGetters(['currentSys'])
 		},
@@ -152,6 +290,7 @@
 		},
 		methods: {
 			init() {
+				this.hideBuildingText()
 				this.$nextTick(() => {
 					this.thisCrrentSys = 'dormitory'
 					setTimeout(() => {
@@ -159,8 +298,87 @@
 						this.randerBar()
 					}, 600)
 				})
+				this.mesList = [{
+					useNum: 34,
+					freeNum: 14,
+					location: [104.05418072206447, 30.596097296430713]
+				},{
+					useNum: 34,
+					freeNum: 14,
+					location: [104.05289504007709, 30.597849568538066]
+				},{
+					useNum: 34,
+					freeNum: 14,
+					location: [104.05297581881695, 30.591683078089403]
+				},{
+					useNum: 34,
+					freeNum: 14,
+					location: [104.05284012650753, 30.593330798308727]
+				},{
+					useNum: 34,
+					freeNum: 14,
+					location: [104.05302822711468, 30.599482777495666]
+				},{
+					useNum: 34,
+					freeNum: 14,
+					location: [104.05301282025277, 30.59451783566125]
+				},]
+				this.createStudystatusMraker('mesList', 'markerList')
 			},
-
+			destroySys(){
+				this.showBuildingText()
+				this.clearStudystatusMarker()
+				if(this.roomLayer){
+					this.roomLayer.remove()
+					this.roomLayer = null
+				}
+			},
+			createStudystatusMraker(listName, markerListName){
+				let imgsrc = require('../assets/dormitory/dormitory-marker.png')
+				let domList = this[listName].map(item => {
+					let div = document.createElement('div')
+					div.className = 'studystatus-marker-wrap'
+					div.innerHTML = `
+						<img class="studystatus-marker-img" src="${imgsrc}" />
+						<div class="studystatus-marker-mes">
+							<div><span>在寝人数：</span><span>${item.useNum}人</span></div>
+							<div><span>未归寝人数：</span><span>${item.freeNum}人</span></div>
+						</div>
+					`
+					return {dom: div}
+					// let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
+					// this[markerListName].push(marker)
+				})
+				let geoJson = this.setFeature(this[listName])
+				console.log('geoJson',geoJson)
+				this[markerListName] = new creeper.MarkerIndoor(this.map)
+				this[markerListName].addMarker(geoJson,domList,true)
+			},
+			setFeature(markerList){
+				let list = markerList.map(item => {
+					let obj = {
+						"type": "Feature",
+						"properties": {
+							
+						},
+						"geometry": {
+								"type": "Point",
+								"coordinates": JSON.parse(JSON.stringify(item.location))
+						}
+					}
+					if(item.buildingId) obj.properties.buildingId = item.buildingId
+					if(item.floor) obj.properties.floor = item.floor
+					return obj
+				})
+				return {
+					"type": "FeatureCollection",
+					"features": list
+				}
+			},
+			clearStudystatusMarker(){
+				if(this.markerList) this.markerList.remove()
+				this.markerList = null
+			},
 			renderpie() {
 				let todayhomeChartDom, todayhomeChartChart
 				todayhomeChartDom = document.getElementById('todayhome');
@@ -419,142 +637,7 @@
 		mounted() {
 
 		},
-		data() {
-			return {
-				thisCrrentSys: '',
-				peopleimg: require("../assets/img/people.png"),
-				nohomelist: [{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-				],
-				homestaueslist: [{
-						peoplenum: "21102",
-						homestatuesimg: require("../assets/img/todaypeople.png"),
-						name: "今日应归寝人数",
-					},
-					{
-						peoplenum: "21102",
-						homestatuesimg: require("../assets/img/leave.png"),
-						name: "今日请假人数",
-					},
-					{
-						peoplenum: "21102",
-						homestatuesimg: require("../assets/img/todaynowpeople.png"),
-						name: "今日当前归寝人数",
-					},
-					{
-						peoplenum: "21102",
-						homestatuesimg: require("../assets/img/todaynohomepeople.png"),
-						name: "今日未归寝人数",
-					}
-				],
-			}
-		}
+		
 	}
 </script>
 
