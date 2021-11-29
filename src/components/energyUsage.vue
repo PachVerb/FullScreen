@@ -288,7 +288,8 @@ export default {
       ratioList:[],
       ratioWaterList:[],
       mesList: [],
-      aMarkerList: null
+      aMarkerList: null,
+      popupMarker: null
     }
   },
   computed: {
@@ -322,42 +323,42 @@ export default {
         type: 1,// 水
         cate: 0,
         cateName: '正常',
-        name: '巡逻车1号',
+        name: '电表201',
         num: 230,
         location: [104.05503605386514, 30.599576983291087]
       },{
         type: 1,// 水
         cate: 1,
         cateName: '正常',
-        name: '巡逻车2号',
+        name: '电表202',
         num: 230,
         location: [104.0566532045147, 30.595614470505396]
       },{
         type: 1,
         cate: 2,
         cateName: '异常',
-        name: '巡逻车3号',
+        name: '电表203',
         num: 0,
         location: [104.05911022720113, 30.594363769431368]
       },{
         type: 1,
         cate: 1,
         cateName: '正常',
-        name: '巡逻车4号',
+        name: '电表204',
         num: 2120,
         location: [104.05290291183809, 30.5921035884149]
       },{
         type: 1,
         cate: 2,
         cateName: '正常',
-        name: '巡逻车5号',
+        name: '电表205',
         num: 2230,
         location: [104.0624515193606, 30.593249536360887]
       },{
         type: 1,
         cate: 1,
         cateName: '正常',
-        name: '巡逻车6号',
+        name: '电表206',
         num: 30,
         location: [104.06071569864514, 30.59813182360351]
       },]
@@ -366,26 +367,43 @@ export default {
     destroySys(){
       this.showBuildingText()
       this.clearInterStatusEqMarker()
+      if(this.popupMarker){
+        this.popupMarker.remove()
+        this.popupMarker = null
+      }
     },
     createInterStatusEqMraker(listName, markerListName){
       let domList = this[listName].map(item => {
         let imgsrc = ''
+        let div = document.createElement('div')
+        div.className = 'energyUsage-marker-wrap'
         if(item.cate == 0){
-          imgsrc = require('../assets/energyUsage/electric-ab.png')
+          imgsrc = require('../assets/energyUsage/electric.png')
+          div.innerHTML = `
+            <img class="energyUsage-marker-img" src="${imgsrc}" />
+          `
         } else if (item.cate == 1) {
           imgsrc = require('../assets/energyUsage/electric-over.png')
+          div.innerHTML = `
+            <img class="energyUsage-marker-img" src="${imgsrc}" />
+            <div class="energyUsage-over-marker-mes energyUsage-marker-mes">
+							<div class="energyUsage-over-title">超出${item.num}m³</div>
+							<div class="energyUsage-over-body">
+								<div>昨日用水</div>
+								<div>${item.num}m³</div>
+							</div>
+						</div>
+          `
         } else if (item.cate == 2) {
-          imgsrc = require('../assets/energyUsage/electric.png')
+          imgsrc = require('../assets/energyUsage/electric-ab.png')
+          div.innerHTML = `
+            <img class="energyUsage-marker-img" src="${imgsrc}" />
+            <div class="energyUsage-marker-mes">
+              <div class="energyUsage-marker-num"><span>设备名称：</span><span>${item.name}</span></div>
+              <div><span>状态：</span><span class="energyUsage-marker-mes-ab">异常</span></div>
+            </div>
+          `
         }
-        let div = document.createElement('div')
-        div.className = 'interStatusEq-marker-wrap'
-        div.innerHTML = `
-          <img class="interStatusEq-marker-img" src="${imgsrc}" />
-          <div class="interStatusEq-marker-mes">
-            <div class="interStatusEq-marker-num">${item.num}</div>
-            <div>连接人数</div>
-          </div>
-        `
         div.onclick = e => {
           this.setPopup(item)
         }
@@ -404,15 +422,17 @@ export default {
         this.popupMarker = null
       }
       let popupDom = document.createElement('div')
-      popupDom.className = 'interStatus-popup'
+      popupDom.className = 'energyUsage-popup'
       popupDom.innerHTML = `
-        <img class="interStatus-popup-close-btn" src="${require('../assets/img/close-btn.png')}"/>
-        <div class="${item.cate == 0 ? 'interStatus-popup-head' : 'interStatus-popup-head interStatus-popup-abhead'}">连接人数：251人</div>
-        <div class="interStatus-popup-body">
-          <div><span>设备状态：</span><span class="${item.cate == 0 ? 'interStatus-popup-normal' : 'interStatus-popup-ab'}">${item.cate == 0 ? '正常' : '异常'}</span></div>
-          <div><span>设备名称：</span><span>maoop-3-13</span></div>
-          <div><span>IP地址：</span><span>192.168.4.205</span></div>
-          <div><span>mac地址：</span><span>17:41:3s:78:67</span></div>
+        <img class="energyUsage-popup-close-btn" src="${require('../assets/img/close-btn.png')}"/>
+        <div class="${item.cate == 0 ? 'energyUsage-popup-head' : 'energyUsage-popup-head energyUsage-popup-abhead'}">昨日用电：${item.num}KWh</div>
+        <div class="energyUsage-popup-body">
+          <div><span>设备名称：</span><span>${item.name}</span></div>
+          <div><span>设备状态：</span><span class="${item.cate == 0 ? 'energyUsage-popup-normal' : 'energyUsage-popup-ab'}">${item.cate == 0 ? '正常' : '异常'}</span></div>
+          <div><span>位置：</span><span>教学楼</span></div>
+          <div><span>设备型号：</span><span>192.168.4.205</span></div>
+          <div><span>设备厂商：</span><span>海康威视</span></div>
+          <div><span>质保期：</span><span>3年</span></div>
         </div>
       `
       popupDom.children[0].onclick = () => {
@@ -1236,59 +1256,76 @@ export default {
 }
 </style>
 <style lang="less">
-.interStatusEq-marker-wrap{
+.energyUsage-marker-wrap{
 	z-index: 100;
-	.interStatusEq-marker-img{
+	.energyUsage-marker-img{
 		width: 50px;
 		height: 50px;
 	}
-	.interStatusEq-marker-mes{
+	.energyUsage-marker-mes{
 		position: absolute;
 		top: -60px;
 		left: 50%;
 		transform: translateX(-50%);
-		padding: 8px 25px 10px;
+		padding: 10px 25px 10px;
 		width: max-content;
 		height: 50px;
 		background-image: url('../assets/marker/assetsMrakerBg.png');
 		background-size: 100% 100%;
 		background-repeat: no-repeat;
+    text-align: left;
 		color: #fff;
 		font-size: 12px;
-		.interStatusEq-marker-num{
-			color: rgba(0, 245, 255, 1);
-		}
+		// .energyUsage-marker-num{
+		// 	color: rgba(0, 245, 255, 1);
+		// }
+    .energyUsage-marker-mes-ab{
+      color: rgba(255, 132, 97, 1);
+    }
 	}
-	.interStatusAp-marker-mes{
-		padding: 8px 9px 20px;
+  .energyUsage-over-marker-mes{
+    top: -75px;
+    padding: 8px 9px 20px;
 		height: auto;
 		text-align: left;
-		.interStatusAp-title{
+		.energyUsage-over-title{
 			text-align: center;
-			background-color: rgba(232, 38, 255, 1);
+			background-color: rgba(255,94,38, 1);
 		}
-		.interStatusAp-body{
+		.energyUsage-over-body{
 			padding: 0 20px;
 		}
-	}
-	.interStatus-OpticalFiber-marker-mes{
+  }
+	// .energyUsage-marker-mes{
+	// 	padding: 8px 9px 20px;
+	// 	height: auto;
+	// 	text-align: left;
+	// 	.energyUsage--title{
+	// 		text-align: center;
+	// 		background-color: rgba(232, 38, 255, 1);
+	// 	}
+	// 	.energyUsage-body{
+	// 		padding: 0 20px;
+	// 	}
+	// }
+	.energyUsage-OpticalFiber-marker-mes{
 		padding: 6px 25px 10px;
 		top: -28px;
 		height: auto;
 	}
 }
-.interStatus-popup{
+.energyUsage-popup{
 	z-index: 101;
 	left: 130px;
-	padding: 5px 9px 9px 63px;
+	padding: 5px 9px 13px 63px;
 	width: 186px;
-	height: 100px;
+	// height: 100px;
 	background-image: url('../assets/vehicle/popup-bg.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	background-color: transparent;
 	color: #fff;
-	.interStatus-popup-close-btn{
+	.energyUsage-popup-close-btn{
 		position: absolute;
 		top: -7px;
 		right: -7px;
@@ -1296,21 +1333,21 @@ export default {
 		height: 30px;
 		cursor: pointer;
 	}
-	.interStatus-popup-head{
+	.energyUsage-popup-head{
 		background-color: rgb(8,195,61);
 		text-align: center;
 	}
-	.interStatus-popup-abhead{
+	.energyUsage-popup-abhead{
 		background-color: rgb(255,94,38);
 	}
-	.interStatus-popup-body{
+	.energyUsage-popup-body{
 		padding-left: 15px;
 		text-align: left;
 	}
-	.interStatus-popup-normal{
+	.energyUsage-popup-normal{
 		color: rgb(8,177,59);
 	}
-	.interStatus-popup-ab{
+	.energyUsage-popup-ab{
 		color: rgb(234,88,38);
 	}
 }
