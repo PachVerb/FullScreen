@@ -303,6 +303,9 @@
 				}, {
 					id: '8',
 					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+				}, {
+					id: '9',
+					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
 				}, ],
 				monitorIndex: 1,
 				allPatrolOption: {},
@@ -859,7 +862,7 @@
 			changeMonitoList(index){
 				let content = document.querySelector('.monitor-list .content');
 				let item = document.querySelector('.monitor-list .monitor-item');
-				content.style.top = `${this.monitorIndex<index?'-':''}${(index-1)*2*item.clientHeight}px`;
+				content.style.top = `-${(index-1)*2*item.clientHeight}px`;
 				this.monitorIndex = index;
 			}
 		}
