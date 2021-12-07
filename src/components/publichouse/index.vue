@@ -59,9 +59,9 @@
         <sideItem title="空置房源统计" transitionType="right" delay="100" height="23.91%">
           <div class="freeStati" slot="body">
             <div class="imgBox">
-              <img class="img1" src="../../assets/img/free-img1.png" alt="">
-              <img class="img2" src="../../assets/img/free-img2.png" alt="">
-              <img class="img3" src="../../assets/img/free-img3.png" alt="">
+              <img class="img1" src="../../assets/img/free-img1.png" alt />
+              <img class="img2" src="../../assets/img/free-img2.png" alt />
+              <img class="img3" src="../../assets/img/free-img3.png" alt />
             </div>
             <div class="detailBox">
               <div class="row" v-for="(item,i) in freeList" :key="i">
@@ -119,19 +119,37 @@ export default {
       staList: [],
       houseStaList: [],
       freeList: [],
-      useStatiList:[],
+      useStatiList: [],
+      buildList: [],//大楼信息
+      markers: null,//大楼标签
+      roomList: [], //室内信息
+      roomMarkers: null,//室内标签
     }
   },
   computed: {
-    ...mapGetters(['currentSys'])
+    ...mapGetters(['currentSys', 'map','isInDoor', 'currentFloor']),
+    flagLayer(){
+      return `${this.isInDoor}${this.currentFloor}`;
+    }
   },
-  watch: {},
+  watch: {
+    flagLayer(){
+      if(this.currentSys !== 'publichouse') return
+      if(this.isInDoor){
+        this.createRoomLayer(this.roomList.filter(item=>item.floor==this.currentFloor));
+      } else {
+        this.createRoomLayer();
+      }
+    }
+  },
   mounted() { },
   methods: {
     init() {
+      this.toggleBuilds(0);
+      this.initMarkerLayer();
       this.$nextTick(() => {
         setTimeout(() => {
-          this.renderpie()
+          this.renderpie();
           this.getSchoolState();
           this.getHouseStati();
           this.getUseStati();
@@ -140,6 +158,141 @@ export default {
           this.getLandState();
         }, 500);
       })
+    },
+    //初始化marker和layer
+    initMarkerLayer() {
+      this.buildList = [
+        { count: 32, unit: 24, area: 321, loca: ['104.05916095507013', '30.594350283405163'] },
+        { count: 32, unit: 24, area: 321, loca: ['104.0606976640587', '30.594294837221923'] },
+      ]
+      this.createBuildMarker(this.buildList);
+      this.roomList = [
+        {
+          id:1,buildingId:'17746', name: 'B112多媒体教室', area: 76.59, part: '后基处', color: '#FF9700', floor: 0, center:['104.06033145841116','30.591803834370793'],
+          geometry: {
+            "type": "Polygon", "coordinates": [[[104.06030589667, 30.59173094939], [104.06030379654, 30.5918125773],
+            [104.06034770009, 30.5918134148], [104.06034979954, 30.59173178626], [104.06030589667, 30.59173094939]]]
+          },
+          areaDetail: { build: 110.5, use: 106.8, self: 106.8, rent: 0 }
+        },
+      ]
+      this.createRoomMarker(this.roomList);
+      this.createRoomLayer();
+    },
+    //创建大楼marker
+    createBuildMarker(list=[]) {
+      let obj = { doms: [], geoJson: { "type": "FeatureCollection", "features": [] } };
+      list.forEach(item => {
+        let div = document.createElement('div')
+        div.className = 'build-marker'
+        div.innerHTML = `<p>公房数量：${item.count}间</p><p>公房单位：${item.unit}个</p><p>公房面积：${item.area}㎡</p>`
+        obj.doms.push({ dom: div });
+        obj.geoJson.features.push({
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Point",
+            "coordinates": [...item.loca]
+          }
+        });
+      })
+      this.markers = new creeper.MarkerIndoor(this.map)
+      this.markers.addMarker(obj.geoJson, obj.doms, true)
+      // console.log(this.markers)
+    },
+    //创建室内marker
+    createRoomMarker(list=[]) {
+      let obj = { doms: [], geoJson: { "type": "FeatureCollection", "features": [] } };
+      list.forEach(item => {
+        let div = document.createElement('div')
+        div.className = 'build-marker none'
+        div.innerHTML = `<p>建筑面积：${item.areaDetail.build}㎡</p><p>使用面积：${item.areaDetail.use}㎡</p><p>自用面积：${item.areaDetail.self}㎡</p><p>租用面积：${item.areaDetail.rent}㎡</p>`
+        obj.doms.push({ dom: div });
+        obj.geoJson.features.push({
+          "type": "Feature",
+          "properties": {...item},
+          "geometry": {
+            "type": "Point",
+            "coordinates": [...item.center]
+          }
+        });
+      })
+      this.roomMarkers = new creeper.MarkerIndoor(this.map)
+      this.roomMarkers.addMarker(obj.geoJson, obj.doms, true)
+      // console.log(this.roomMarkers)
+    },
+    //创建室内layer
+    createRoomLayer(list=[]) {
+      let geoJson = { type: 'FeatureCollection', features: [] };
+      if (!this.map.getSource('pubRoomData')) {
+        this.map.addSource('pubRoomData', {
+          type: 'geojson',
+          data: geoJson
+        })
+      }
+      // 文字图层
+      if (!this.map.getLayer('pubRoomText')) {
+        this.map.addLayer({
+          id: 'pubRoomText',
+          source: 'pubRoomData',//上述定义的source
+          type: 'symbol',//图层类型，见3.5节中图层描述
+          layout: {
+            'text-field': ["format", ["get", "content"], { "font-scale": 0.8 }],
+            'text-allow-overlap': true,
+            'text-size': 14,
+          },
+          paint: {
+            'text-color': '#fff'
+          }
+        })
+        this.map.on('click', 'pubRoomText',this.ShowRoomDetail)
+      }
+      // 背景图层
+      if (!this.map.getLayer('pubRoomBg')) {
+        this.map.addLayer({
+          id: 'pubRoomBg',
+          source: 'pubRoomData',//上述定义的source
+          type: 'fill',//图层类型，见3.5节中图层描述
+          paint: {
+            'fill-color': ['get', 'color'],
+          }
+        }, "room23")
+      }
+
+      geoJson.features = list.map(item => {
+        return {
+          type: 'fill',
+          geometry: item.geometry,
+          properties: {
+            content:`${item.name}\n使用面积：${item.area}㎡\n使用部门：${item.part}`,
+            ...item
+          }
+        }
+      })
+      this.map.getSource('pubRoomData').setData(geoJson)
+    },
+    //显示室内详细信息
+    ShowRoomDetail(e){
+      let data = this.map.queryRenderedFeatures(e.point)[0].properties;
+      let marker = this.roomMarkers.allmarkerInfoList.find(item=>item.properties.id==data.id);
+      if(marker.markerDom.className.includes('none')){
+        marker.markerDom.classList.remove('none');
+      }else{
+        marker.markerDom.classList.add('none');
+      }
+    },
+    //销毁模块
+    destroySys() {
+      if (this.markers) {
+        this.markers.remove()
+        this.markers = null
+      }
+      if (this.roomMarkers) {
+        this.roomMarkers.remove()
+        this.roomMarkers = null
+      }
+      this.createRoomLayer();
+      this.toggleBuilds(1);
     },
     //学校概况
     getSchoolState() {
@@ -167,10 +320,10 @@ export default {
         { name: "办公用房", val: 17325.68, color: 'rgba(19, 181, 177,.8)' },
         { name: "科研用房", val: 5124.65, color: 'rgba(229, 188, 128,.8)' },
       ]
-      let sum = this.useStatiList.reduce((t,item)=>t+item.val,0);//数据总数
+      let sum = this.useStatiList.reduce((t, item) => t + item.val, 0);//数据总数
       // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
       function getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, height) {
-        height=height/sum*5;//换算高度
+        height = height / sum * 5;//换算高度
         // 计算
         let midRatio = (startRatio + endRatio) / 2;
 
@@ -305,7 +458,7 @@ export default {
         // 准备待返回的配置项，把准备好的 legendData、series 传入。
         let option = {
           tooltip: {
-            show:false,
+            show: false,
             formatter: (params) => {
               if (params.seriesName !== 'mouseoutSeries') {
                 return `<span style="display:inline-block;margin-right:5px;border-radius:8px;width:8px;height:8px;background-color:${params.color};"></span>${params.seriesName}<br/>${option.series[params.seriesIndex].pieData.value}㎡`;
@@ -313,7 +466,7 @@ export default {
             },
             backgroundColor: 'rgba(44,62,80,0.8)',
             borderColor: 'rgba(153, 209, 246, 0.6)',
-            padding:[4,4,4,4],
+            padding: [4, 4, 4, 4],
             textStyle: {
               align: 'left',
               fontSize: 12,
@@ -359,7 +512,7 @@ export default {
 
       // 传入数据生成 option
       let option = getPie3D(
-        this.useStatiList.map(item=>{
+        this.useStatiList.map(item => {
           return {
             name: item.name,
             value: item.val,
@@ -368,7 +521,7 @@ export default {
               color: item.color,
             }
           }
-        }),this.useStatiList.length
+        }), this.useStatiList.length
       );
       // 监听鼠标事件，实现饼图选中效果（单选），近似实现高亮（放大）效果。
       function bindListen(myChart) {
@@ -788,8 +941,8 @@ export default {
       let total = seriesData.reduce((a, b) => {
         return a + b.value * 1
       }, 0);
-      var legendData = seriesData.map(item=>item.name);
-      var colorList = seriesData.map(item=>item.label.color);
+      var legendData = seriesData.map(item => item.name);
+      var colorList = seriesData.map(item => item.label.color);
       usepublicChartChart.setOption({
         // title: {
         //     text: `总计`,
@@ -885,6 +1038,12 @@ export default {
           data: seriesData
         },]
       });
+    },
+    //显示隐藏地图大楼标签
+    toggleBuilds(flag = 0) {
+      Array.from(document.querySelectorAll('.buildingtext')).forEach(item => {
+        item.style.opacity = flag;
+      })
     }
   }
 }
@@ -996,75 +1155,75 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .imgBox{
+    .imgBox {
       width: 145px;
       height: 150px;
       position: relative;
-      img{
+      img {
         position: absolute;
         cursor: pointer;
-        &:hover{
+        &:hover {
           filter: drop-shadow(0 0 2px #ddd);
         }
       }
-      .img1{
+      .img1 {
         width: 57px;
         top: 0;
         left: calc(50% - 28.5px);
         z-index: 3;
         animation: aniImg1 3s linear 1;
       }
-      .img2{
+      .img2 {
         width: 96px;
         top: 38px;
         left: calc(50% - 48px);
         z-index: 2;
         animation: aniImg2 2s linear 1;
       }
-      .img3{
+      .img3 {
         width: 145px;
         bottom: 0;
         left: calc(50% - 72.5px);
         z-index: 1;
         animation: aniImg3 1s linear 1;
       }
-      @keyframes aniImg1{
-        0%{
+      @keyframes aniImg1 {
+        0% {
           top: 148px;
           opacity: 0;
         }
-        33%{
+        33% {
           top: 93px;
           opacity: 0;
         }
-        66%{
+        66% {
           top: 47px;
           opacity: 0;
         }
-        100%{
+        100% {
           top: 0;
           opacity: 1;
         }
       }
-      @keyframes aniImg2{
-        0%{
+      @keyframes aniImg2 {
+        0% {
           top: 148px;
           opacity: 0;
         }
-        50%{
+        50% {
           top: 82px;
           opacity: 0;
         }
-        100%{
+        100% {
           top: 38px;
           opacity: 1;
         }
       }
-      @keyframes aniImg3{
-        0%{
+      @keyframes aniImg3 {
+        0% {
           opacity: 0;
         }
-        100%{
+        100% {
           opacity: 1;
         }
       }
@@ -1156,5 +1315,24 @@ export default {
       -webkit-transform: rotate(360deg);
     }
   }
+}
+</style>
+<style lang="less">
+.build-marker {
+  padding: 8px 15px 21px;
+  min-width: 99px;
+  background-image: url("../../assets/marker/assetsMrakerBg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: #fff;
+  font-size: 12px;
+  text-align: left;
+  p {
+    white-space: nowrap;
+    word-break: break-all;
+  }
+}
+.none{
+  display: none;
 }
 </style>
