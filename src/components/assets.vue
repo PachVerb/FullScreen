@@ -517,8 +517,10 @@ export default {
     }
   },
   mounted(){
-    console.log('assets')
-    
+    this.init()
+  },
+  beforeDestroy(){
+    this.destroySys()
   },
   methods: {
     init(){

@@ -288,6 +288,12 @@ export default {
       stuDisList: []
     }
   },
+  mounted(){
+    this.init()
+  },
+  beforeDestroy(){
+
+  },
   methods: {
     init() {
       this.$nextTick(() => {

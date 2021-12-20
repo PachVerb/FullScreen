@@ -328,9 +328,27 @@
 				}
 			}
 		},
-		mounted() {
-			// console.log(this.num, 'assets11', this.oneobj)
-
+		mounted(){
+    	this.init()
+			if(this.currentSys === 'peoplestatues'){
+				if(this.currentSysModule){
+					this.resetLayer()
+					switch(this.currentSysModule){
+						case 'personnelGathering':
+							this.createGatherLayer()
+							this.createGatherTextLayer()
+						break
+						case 'personnelMigration':
+							this.createMigrateLayer()
+						break
+						default:
+						break
+					}
+				}
+			}
+		},
+		beforeDestroy(){
+			this.destroySys()
 		},
 		methods: {
 			...mapMutations(['SET_DETAIL_MSG']),

@@ -342,8 +342,102 @@
 			this.getDormStatus()
 			this.getWebsafedate()
 		},
-		mounted() {
-
+		mounted(){
+    	this.init()
+			if(this.currentSysModule){
+				this.resetLayer()
+				switch(this.currentSysModule){
+					case 'networkEquipment':
+						this.mesList = [{
+							type: 1,// 车
+							cate: 0,
+							cateName: '正常',
+							name: '巡逻车1号',
+							num: 230,
+							location: [104.05503605386514, 30.599576983291087]
+						},{
+							type: 1,// 车
+							cate: 0,
+							cateName: '正常',
+							name: '巡逻车2号',
+							num: 230,
+							location: [104.0566532045147, 30.595614470505396]
+						},{
+							type: 1,// 车
+							cate: 1,
+							cateName: '异常',
+							name: '巡逻车3号',
+							num: 0,
+							location: [104.05911022720113, 30.594363769431368]
+						},{
+							type: 1,
+							cate: 0,
+							cateName: '正常',
+							name: '巡逻车4号',
+							num: 2120,
+							location: [104.05290291183809, 30.5921035884149]
+						},{
+							type: 1,
+							cate: 0,
+							cateName: '正常',
+							name: '巡逻车5号',
+							num: 2230,
+							location: [104.0624515193606, 30.593249536360887]
+						},{
+							type: 1,
+							cate: 0,
+							cateName: '正常',
+							name: '巡逻车6号',
+							num: 30,
+							location: [104.06071569864514, 30.59813182360351]
+						},]
+						this.createInterStatusEqMraker('mesList', 'interStatusEqMarkerList')
+						this.apList = [{
+							buildingId: '18780',
+							location: [104.05413063965034, 30.59611519612072],
+							num: 170,
+							abnum: 23
+						},{
+							buildingId: '18780',
+							floor: 4,
+							location: [104.05428880285922, 30.59587187630838],
+							num: 170,
+							abnum: 23
+						},{
+							buildingId: '18780',
+							floor: 1,
+							location: [104.05412916135646, 30.596099302686213],
+							num: 170,
+							abnum: 23
+						},{
+							buildingId: '18780',
+							floor: 1,
+							location: [104.05415310028582, 30.595836672570343],
+							num: 170,
+							abnum: 23
+						}]
+						this.createApMraker('apList', 'apMarkerList')
+					break
+					case 'networkHeat':
+						this.map.setBearing(0)
+						this.map.setPitch(0)
+						this.map.setLayoutProperty('modellayer', 'visibility', 'none')
+						this.createInterStatusHeatLayer()
+					break
+					case 'networkOpticalFiber':
+						this.map.setBearing(0)
+						this.map.setPitch(0)
+						this.map.setLayoutProperty('modellayer', 'visibility', 'none')
+						this.createOpticalFiberLine()
+						this.createOpticalFiberMarker()
+					break
+					default:
+					break
+				}
+			}
+		},
+		beforeDestroy(){
+			this.destroySys()
 		},
 		methods: {
 			init() {

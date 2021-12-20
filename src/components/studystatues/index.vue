@@ -207,6 +207,12 @@ export default {
       }
     }
   },
+  mounted(){
+    this.init()
+  },
+  beforeDestroy(){
+    this.destroySys()
+  },
   methods: {
     init() {
       this.hideBuildingText()

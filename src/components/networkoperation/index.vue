@@ -281,9 +281,11 @@
 			},
 		},
 		watch: {},
-		mounted() {
-			// console.log('assets')
-
+		mounted(){
+    	this.init()
+		},
+		beforeDestroy(){
+			this.destroySys()
 		},
 		methods: {
 			init() {

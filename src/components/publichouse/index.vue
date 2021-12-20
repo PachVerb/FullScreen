@@ -142,7 +142,12 @@ export default {
       }
     }
   },
-  mounted() { },
+  mounted(){
+    this.init()
+  },
+  beforeDestroy(){
+    this.destroySys()
+  },
   methods: {
     init() {
       this.toggleBuilds(0);

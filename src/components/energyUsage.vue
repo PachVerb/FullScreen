@@ -302,7 +302,12 @@ export default {
     },
   },
   watch: {},
-  mounted() { },
+  mounted(){
+    this.init()
+  },
+  beforeDestroy(){
+    this.destroySys()
+  },
   methods: {
     //初始化
     init() {

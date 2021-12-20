@@ -334,8 +334,11 @@
 		created() {
 
 		},
-		mounted() {
-
+		mounted(){
+    	this.init()
+		},
+		beforeDestroy(){
+			this.destroySys()
 		},
 		methods: {
 			init() {

@@ -288,6 +288,12 @@
 		watch: {
 
 		},
+		mounted(){
+    	this.init()
+		},
+		beforeDestroy(){
+			this.destroySys()
+		},
 		methods: {
 			init() {
 				this.hideBuildingText()
@@ -633,9 +639,6 @@
 					dormitoryChartChart.resize();
 				});
 			}
-		},
-		mounted() {
-
 		},
 		
 	}

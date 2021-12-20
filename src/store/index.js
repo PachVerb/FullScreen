@@ -13,15 +13,27 @@ const state = {
     currentSysModule: '',
     oldCurrentSys: '',
     detailMsg: null,
-    detailMsgMarker: null
+    detailMsgMarker: null,
+    schoolList: [],
+    mapMes: {},
+    lineLoad: false,// 动画路线是否加载完成
 }
 
 const mutations = {
+    SET_MAP_MES(state, mapMes){
+        state.mapMes = mapMes
+    },
+    SET_SCHOOL_LIST(state, schoolList){
+        state.schoolList = schoolList
+    },
     SET_MAP(state, map) {
         state.map = map
     },
     SET_MAP_LOAD(state, mapLoad) {
         state.mapLoad = mapLoad
+    },
+    SET_LINE_LOAD(state, lineLoad){
+        state.lineLoad = lineLoad
     },
     SET_ISINDOOR(state, isInDoor) {
         state.isInDoor = isInDoor
@@ -47,9 +59,12 @@ const mutations = {
 }
 
 const getters = {
+    schoolList: state => state.schoolList,
+    mapMes: state => state.mapMes,
     map: state => state.map,
     showAll: state => state.showAll,
     mapLoad: state => state.mapLoad,
+    lineLoad: state => state.lineLoad,
     isInDoor: state => state.isInDoor,
     currentFloor: state => state.currentFloor,
     currentSys: state => state.currentSys,

@@ -11,19 +11,19 @@
     </div>
     <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
     <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
-    <SideBar></SideBar>
+    <SideBar v-if="lineLoad"></SideBar>
     <!-- <VideoCheck v-if="showVideo"/> -->
-    <comprehensive v-show="currentSys" ref="comprehensive"></comprehensive>
-    <assets v-show="currentSys" ref="assets"></assets>
-    <fireSafety v-show="currentSys" ref="fireSafety"></fireSafety>
-    <vehicle v-show="currentSys" ref="vehicle"></vehicle>
-    <peoplestatues v-show="currentSys" ref="peoplestatues"></peoplestatues>
-    <energyUsage v-show="currentSys" ref="energyUsage"></energyUsage>
-		<dormitory v-show="currentSys" ref="dormitory" style="position: absolute;"/>  
-		<interstatues v-show="currentSys" ref="interstatues"></interstatues>
-		<publichouse v-show="currentSys" ref="publichouse"></publichouse>
-		<studystatues v-show="currentSys" ref="studystatues"></studystatues>
-		<networkoperation v-show="currentSys" ref="networkoperation"></networkoperation>
+    <comprehensive v-if="currentSys == 'comprehensive'" ref="comprehensive"></comprehensive>
+    <assets v-if="currentSys == 'assets'" ref="assets"></assets>
+    <fireSafety v-if="currentSys == 'fireSafety'" ref="fireSafety"></fireSafety>
+    <vehicle v-if="currentSys == 'vehicle'" ref="vehicle"></vehicle>
+    <peoplestatues v-if="currentSys == 'peoplestatues'" ref="peoplestatues"></peoplestatues>
+    <energyUsage v-if="currentSys == 'energyUsage'" ref="energyUsage"></energyUsage>
+		<dormitory v-if="currentSys == 'dormitory'" ref="dormitory" style="position: absolute;"/>  
+		<interstatues v-if="currentSys == 'interstatues'" ref="interstatues"></interstatues>
+		<publichouse v-if="currentSys == 'publichouse'" ref="publichouse"></publichouse>
+		<studystatues v-if="currentSys == 'studystatues'" ref="studystatues"></studystatues>
+		<networkoperation v-if="currentSys == 'networkoperation'" ref="networkoperation"></networkoperation>
   </div>
 </template>
 <script>
@@ -77,9 +77,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['mapLoad', 'detailMsg', 'detailMsgMarker','map', 'currentSys', 'oldCurrentSys']),
+    ...mapGetters(['lineLoad','mapLoad', 'detailMsg', 'detailMsgMarker','map', 'currentSys', 'oldCurrentSys']),
   },
   watch: {
+    lineLoad(val){
+      if(val){
+        this.SET_CURRENTSYS('comprehensive')
+      }
+    },
     currentSys(val){
       if(this.map){
         this.map.setBearing(8)
@@ -88,12 +93,9 @@ export default {
         this.map.setCenter([104.05758988604839, 30.595132552688057])
         this.SET_DETAIL_MSG(null)
       }
-      if(this.$refs[val] && this.$refs[val].init) this.$refs[val].init()
     },
     mapLoad(val){
-      if(val){
-        this.SET_CURRENTSYS('comprehensive')
-      }
+
     },
     detailMsg(val){
       this.clearMarker()

@@ -75,7 +75,7 @@ export default {
     nowBuild() {
       return this.vMap.floorComponent.nowBuildingId
     },
-    ...mapGetters(['map'])
+    ...mapGetters(['map','schoolList', 'mapMes'])
   },
   created() {
     counter = 0
@@ -107,7 +107,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations(['SET_MAP', 'SET_MAP_LOAD', 'SET_CURRENTFLOOR']),
+    ...mapMutations(['SET_MAP', 'SET_MAP_LOAD', 'SET_CURRENTFLOOR','SET_LINE_LOAD']),
     toHome() {
       let param = {
         center: this.vMap.getStyle().center,
@@ -379,6 +379,9 @@ export default {
               let label2=threeLayer.threemap.objects.add3DLabel(divtets1,[ 104.05745924744474, 30.595047272850607,2],[Math.PI/2,Math.PI,0])
               label2.scale.set(0.0015,0.0015,1)
               //threeLayer.threemap.add(label2)
+              setTimeout(() => {
+                that.SET_LINE_LOAD(true)
+              },3000)
             }, 5000);
           }
       
@@ -427,7 +430,7 @@ export default {
             let pointcar=threeLayer.threemap.projectToWorld(this.lineData[n][counter][0]);
             //console.log(pointcar);
             carlist[n].position.set(pointcar.x,pointcar.y,0)
-            carlist[n].rotation.set(0,0,-this.lineData[n][counter][1]*Math.PI/180+Math.PI/2)
+            carlist[n].rotation.set(0,0,-this.lineData[n][counter][1]*Math.PI/180-Math.PI/2)
               
           }
 
