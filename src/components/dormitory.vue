@@ -151,107 +151,107 @@
 				nohomelist: [{
 						img: require("../assets/img/people.png"),
 						roomname: "修身宿舍楼",
+						name: "李晶",
+						promess: "网络安全与工程",
+						number: "A5102",
+						studentnumber: "225456565",
+						class: "09班"
+					},
+					{
+						img: require("../assets/img/people2.png"),
+						roomname: "修身宿舍楼",
+						name: "李志云",
+						promess: "网络安全与工程",
+						number: "C5102",
+						studentnumber: "225456545",
+						class: "02班"
+					},
+					{
+						img: require("../assets/img/people3.png"),
+						roomname: "修身宿舍楼",
+						name: "李梦",
+						promess: "网络安全与工程",
+						number: "B5102",
+						studentnumber: "225453565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people4.png"),
+						roomname: "修身宿舍楼",
 						name: "王猛",
+						promess: "网络安全与工程",
+						number: "B4102",
+						studentnumber: "225456565",
+						class: "02班"
+					},
+					{
+						img: require("../assets/img/people5.png"),
+						roomname: "修身宿舍楼",
+						name: "周雨生",
+						promess: "网络安全与工程",
+						number: "B5982",
+						studentnumber: "225556565",
+						class: "12班"
+					},
+					{
+						img: require("../assets/img/people6.png"),
+						roomname: "修身宿舍楼",
+						name: "李晶",
+						promess: "网络安全与工程",
+						number: "B2242",
+						studentnumber: "225987565",
+						class: "01班"
+					},
+					{
+						img: require("../assets/img/people7.png"),
+						roomname: "修身宿舍楼",
+						name: "唐月",
 						promess: "网络安全与工程",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
 					},
 					{
-						img: require("../assets/img/people.png"),
+						img: require("../assets/img/people8.png"),
 						roomname: "修身宿舍楼",
-						name: "王猛",
+						name: "王谢",
 						promess: "网络安全与工程",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
 					},
 					{
-						img: require("../assets/img/people.png"),
+						img: require("../assets/img/people9.png"),
 						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
+						name: "舒云",
+						promess: "软件工程系",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
 					},
 					{
-						img: require("../assets/img/people.png"),
+						img: require("../assets/img/people10.png"),
 						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
+						name: "吴星星",
+						promess: "美术系",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
 					},
 					{
-						img: require("../assets/img/people.png"),
+						img: require("../assets/img/people4.png"),
 						roomname: "修身宿舍楼",
 						name: "王猛",
-						promess: "网络安全与工程",
+						promess: "音乐系",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
 					},
 					{
-						img: require("../assets/img/people.png"),
+						img: require("../assets/img/people6.png"),
 						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
-						number: "B5102",
-						studentnumber: "225456565",
-						class: "01班"
-					},
-					{
-						img: require("../assets/img/people.png"),
-						roomname: "修身宿舍楼",
-						name: "王猛",
-						promess: "网络安全与工程",
+						name: "李春",
+						promess: "教育系",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
@@ -936,8 +936,8 @@
 
 	.userightbox {
 		/* width: 100%; */
-		height: .18rem;
-		background-size: 100% .18rem !important;
+		height: 40px;
+		background-size: 100% 100% !important;
 		background: url(../assets/img/nohomebox.png) no-repeat;
 		border: 1px solid transparent;
 	}
@@ -954,7 +954,7 @@
 	.colorbox {
 		display: flex;
 		justify-content: space-between;
-		height: .15rem;
+		height: 32px;
 		width: 96%;
 		background-color: rgba(68, 92, 121, 0.6);
 		margin-left: 5px;
