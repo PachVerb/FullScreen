@@ -52,7 +52,7 @@ export default {
         this.clearCookie();
       }
       //判断登录
-			if(this.username=='test'&&this.passWord=='lqkj123456'){
+			if(this.username=='admin'&&this.passWord=='123456'){
 				localSetItem("username",this.username)
 				this.$router.push('/')
 			}else{
