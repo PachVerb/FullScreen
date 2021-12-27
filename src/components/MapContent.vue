@@ -9,9 +9,9 @@
 
 <script>
 /* 加载静态资源 */
-import BUILDING_JSON from "../../public/static/json/building.json";
-import STYLEBLACK_JSON from "../../public/static/json/styleblack.json";
-import BUILDINGANDROUTE_GEOJSON from "../../public/static/json/buildingandroute.json";
+import BUILDING_JSON from "../assets/json/building.json";
+import STYLEBLACK_JSON from "../assets/json/styleblack.json";
+import BUILDINGANDROUTE_GEOJSON from "../assets/json/buildingandroute.json";
 /* 加载静态资源 */
 import Bus from "../js/Bus";
 import {mapGetters, mapMutations} from 'vuex'
@@ -66,6 +66,7 @@ export default {
       routeoutcircle: [],
       buildingdata: [],
       lineData: [], //路线数据
+      domainUrl: window.location.href.split('#')[0]
     };
   },
   computed: {
@@ -240,15 +241,17 @@ export default {
     //获取建筑信息
     getBuildingFn() {
       //给info赋值给定义好的变量
-      const pageData=BUILDING_JSON.data;
+      const pageData=BUILDING_JSON.data.content;
       let buildingdata = []
+      let ids = [8165,21209,19771]
       pageData.forEach(element => {
         buildingdata.push({
-          center:JSON.parse(element.center).coordinates,
-          name:element.name,
-          text:element.name,
-          coordinates:JSON.parse(element.geometry).coordinates[0],
-          height:Math.random()*5
+          id: element.id,
+          center: JSON.parse('['+element.center+']'),
+          name:element.tags.name || '',
+          text:element.tags.name || '',  
+          coordinates: JSON.parse(element.geom)[0],
+          height: element.tags.height / 10 || 0
         })
       });
       console.log('buildingdata', buildingdata)
@@ -268,13 +271,98 @@ export default {
       this.vMap.addLayer(threeLayer); // 将3D模型的图层加入地图
       this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
       this.loadOjbFn()
+      this.loadTree()
       setTimeout(() => {this.load3DLine()}, 3000) // 3S之后加载路线
       
+    },
+    // 加载树
+    loadTree(){
+      threeLayer.threemap
+      .loadModel({
+        url: `${this.domainUrl}/static/3dl_cs/lou1.obj`,
+        type: 'obj',
+        units: 'meters',
+          mtl: `${this.domainUrl}/static/3dl_cs/lou1.mtl`,
+          properties:{
+              id:"2345",
+              name:"树",
+              buildingId:"254862",
+
+          },
+          scale:1
+      })
+      .then(group => {
+        // model=group
+        // group.addSprite("教学楼1栋")
+        console.log("building",group);
+        group.setCoords([104.06057600331104, 30.594222243844968]);
+        threeLayer.threemap.add(group);
+               
+        // setTimeout(() => {
+        //     let model1=model.duplicate()
+        //     model1.setCoords([ 104.05888701417172, 30.592952287792542])
+        //     threeLayer.threemap.add(model1);
+        // }, 1000);
+               
+      });
+      threeLayer.threemap
+      .loadModel({
+        url: `${this.domainUrl}/static/3dl_cs/lxzx.obj`,
+        type: 'obj',
+        units: 'meters',
+        mtl: `${this.domainUrl}/static/3dl_cs/lxzx.mtl`,
+        properties:{
+            id:"2345",
+            name:"树",
+            buildingId:"267297"
+        },
+        scale:1
+      })
+      .then(group => {
+        // model=group
+        //group.addSprite("教学楼1栋")
+        console.log("building",group);
+        group.setCoords([104.06079320286767, 30.59740962355285]);
+        threeLayer.threemap.add(group);
+        
+        // setTimeout(() => {
+        //     let model1=model.duplicate()
+        //     model1.setCoords([ 104.05888701417172, 30.592952287792542])
+        //     threeLayer.threemap.add(model1);
+        // }, 1000);
+               
+      });
+      threeLayer.threemap
+      .loadModel({
+        url: `${this.domainUrl}/static/3dl_cs/lou2.obj`,
+        type: 'obj',
+        units: 'meters',
+        mtl: `${this.domainUrl}/static/3dl_cs/lou2.mtl`,
+        properties:{
+            id:"2345",
+            name:"树",
+            buildingId:"256300"
+        },
+        scale:1
+      })
+      .then(group => {
+        // model=group
+        //group.addSprite("教学楼1栋")
+        console.log("building",group);
+        group.setCoords([104.05997525589669, 30.596176830376905]);
+        threeLayer.threemap.add(group);  
+        // setTimeout(() => {
+        //     let model1=model.duplicate()
+        //     model1.setCoords([ 104.05888701417172, 30.592952287792542])
+        //     threeLayer.threemap.add(model1);
+        // }, 1000);
+               
+      });
     },
     // 加载3D建筑
     loadBuildFn() {
       let that = this
-			const buildingpng=require("../../public/static/building.png")
+			const buildingpng=require("../assets/img/building.png")
       this.vMap.flyTo({
         bearing:40,
         center:[ 104.05619359161085, 30.594327139005628],
@@ -393,10 +481,10 @@ export default {
     // 加载3D OJB模型
     loadOjbFn() {
       threeLayer.threemap.loadModel({
-				url: '/static/max/xqchp.obj',
+				url: `${this.domainUrl}/static/max/xqchp.obj`,
 				type: 'obj',
 				units: 'meters',
-        mtl:'/static/max/xqchp.mtl',
+        mtl: `${this.domainUrl}/static/max/xqchp.obj`,
         scale:0.01,
         properties:{
             id:"1234",
@@ -488,7 +576,7 @@ export default {
               //外围路线
               let line2= threeLayer.threemap.objects.cubeline(
                 that.routeoutcircle,
-                "/static/img/3DLine.png",
+                require("../assets/img/3DLine.png"),
               )
               threeLayer.threemap.add(line2)
 

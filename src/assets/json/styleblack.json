@@ -1,0 +1,3521 @@
+{
+  "version": 8,
+  "name": "南湖校区",
+  "metadata": {
+    "mapbox:autocomposite": true,
+    "mapbox:origin": "basic-template",
+    "mapbox:sdk-support": {"android": "5.1.0", "js": "0.53.0", "ios": "3.7.0"},
+    "mapbox:type": "template",
+    "maputnik:renderer": "mbgljs"
+  },
+  "center": [104.060015, 30.594199],
+  "zoom": 18,
+  "bearing": -10.308084,
+  "pitch": 42,
+  "light": {
+    "intensity": 0.2,
+    "color": "#f4f5f5",
+    "anchor": "viewport",
+    "position": [25, 210, 30]
+  },
+  "sources": {
+    "indoor": {
+      "data": {"type": "FeatureCollection", "features": []},
+      "type": "geojson"
+    },
+    "buildingGeo": {
+      "data": {"type": "FeatureCollection", "features": []},
+      "type": "geojson"
+    },
+    "outdoor": {
+      "type": "vector",
+      "tiles": [
+        "https://wisec.you07.com/cmgis-server/map/v3/data/mvt/outdoor/9/{z}/{x}/{y}.mvt"
+      ]
+    }
+  },
+  "sprite": "https://wisec.you07.com/cmgis-server/mapdata/sprite/sprite",
+  "glyphs": "https://wisec.you07.com/cmgis-server/mapdata/fonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "vector_white_background",
+      "type": "background",
+      "paint": {"background-color": "#010429"}
+    },
+    {
+      "id": "fangweixian",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 14,
+      "filter": ["==", "boundary", "administrative"],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "#010429"}
+    },
+    {
+      "id": "qukuai",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "amenity", "school"],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-color": "rgba(2, 15, 58, 1)",
+        "fill-outline-color": "rgba(13, 13, 74, 1)"
+      }
+    },
+    {
+      "id": "green_2d",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "23"],
+      "layout": {},
+      "paint": {"fill-color": "#0a3b59"}
+    },
+    {
+      "id": "water",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "22"],
+      "layout": {},
+      "paint": {"fill-color": "#0d3a71"}
+    },
+    {
+      "id": "guangchang",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "24"],
+      "layout": {},
+      "paint": {"fill-color": "rgba(8, 22, 66, 1)"}
+    },
+    {
+      "id": "green_2d_1",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "23"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {"fill-color": "#0a3b59"}
+    },
+    {
+      "filter": [
+        "all",
+        [
+          "==",
+          "newid",
+          "23"
+        ]
+      ],
+      "layout": {},
+      "maxzoom": 23,
+      "paint": {
+        "fill-extrusion-height": [
+          "to-number",
+          [
+            "get",
+            "height"
+          ]
+        ],
+        "fill-extrusion-base": [
+          "to-number",
+          [
+            "get",
+            "base_height"
+          ]
+        ],
+        "fill-extrusion-color": "#0a3b59"
+      },
+      "id": "green_3D",
+      "source": "buildingGeo",
+      "type": "fill-extrusion"
+    },
+    {
+      "id": "water_1",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "22"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {"fill-color": "#0d3a71"}
+    },
+    {
+      "id": "guangchang_1",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "24"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {"fill-color": "rgba(6, 50, 98, 1)"}
+    },
+   
+    {
+      "id": "water-shadow_2",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "22"], ["==", "layer", "2"]],
+      "layout": {},
+      "paint": {
+        "fill-color": "hsl(215, 63%, 68%)",
+        "fill-translate": [
+          "interpolate",
+          ["exponential", 1.2],
+          ["zoom"],
+          7,
+          ["literal", [0, 0]],
+          16,
+          ["literal", [-1, -1]]
+        ],
+        "fill-translate-anchor": "viewport"
+      }
+    },
+    {
+      "id": "water_2",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "22"], ["==", "layer", "2"]],
+      "layout": {},
+      "paint": {"fill-color": "hsl(196, 78%, 85%)"}
+    },
+    {
+      "id": "guangchang_2",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "24"], ["==", "layer", "2"]],
+      "layout": {},
+      "paint": {"fill-color": "rgba(20, 44, 125, 1)"}
+    },
+    {
+      "id": "parking",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "25"],
+      "layout": {},
+      "paint": {"fill-color": "rgba(29, 62, 72, 1)"}
+    },
+    {
+      "id": "parking_chewei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "parking:type", "berth"],
+      "layout": {"line-join": "round", "line-cap": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1.5,
+          15,
+          0.5,
+          22,
+          1.5
+        ],
+        "line-color": "rgba(14, 36, 72, 1)"
+      }
+    },
+    {
+      "id": "suidao_layer",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["in", "highway", "secondary", "tertiary"],
+        ["==", "tunnel", "yes"]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": ["step", ["zoom"], "#ffffff", 16, "#D3D3D3"],
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          0.1,
+          15,
+          3.5,
+          18,
+          22,
+          20,
+          48,
+          21,
+          146,
+          22,
+          196
+        ]
+      }
+    },
+    {
+      "id": "suidao1_layer",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["in", "highway", "motorway", "trunk", "primary"],
+        ["==", "tunnel", "yes"]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": ["step", ["zoom"], "#ffa35c", 16, "#663300"],
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          0.75,
+          15,
+          ["match", ["get", "highway"], "motorway", 4, "trunk", 4, 3],
+          18,
+          ["match", ["get", "highway"], "motorway", 40, "trunk", 40, 16],
+          20,
+          48,
+          21,
+          146,
+          22,
+          196
+        ]
+      }
+    },
+    {
+      "id": "road_rail_wai_bound",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "railway", "rail"],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {"line-color": "gray", "line-width": 2.5, "line-opacity": 1}
+    },
+    {
+      "id": "road_rail_wai",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "railway", "rail"],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {"line-color": "white", "line-width": 2, "line-opacity": 1}
+    },
+    {
+      "id": "road_rail_nei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "railway", "rail"],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-dasharray": [2, 4],
+        "line-color": "gray",
+        "line-width": 2,
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "road_3_under",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 14,
+      "filter": ["==", "name", "下穿人行道"],
+      "layout": {"line-cap": "butt", "line-join": "bevel"},
+      "paint": {
+        "line-color": "#accdec",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          [
+            "case",
+            ["has", "width_times"],
+            ["*", 4, ["to-number", ["get", "width_times"]]],
+            4
+          ],
+          18,
+          [
+            "case",
+            ["has", "width_times"],
+            ["*", 18, ["to-number", ["get", "width_times"]]],
+            18
+          ],
+          22,
+          [
+            "case",
+            ["has", "width_times"],
+            ["*", 100, ["to-number", ["get", "width_times"]]],
+            100
+          ]
+        ],
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "road_3_crossing",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 14,
+      "filter": ["==", "name", "斑马线"],
+      "layout": {"line-cap": "butt", "line-join": "bevel"},
+      "paint": {
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [0.03, 0.5]],
+          16,
+          ["literal", [0.01, 0.1]],
+          18,
+          ["literal", [0.03, 0.3]],
+          22,
+          ["literal", [0.03, 0.3]]
+        ],
+        "line-color": "#bfbfbf",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          1,
+          16,
+          5,
+          18,
+          20,
+          20,
+          100,
+          22,
+          200
+        ],
+        "line-opacity": ["interpolate", ["linear"], ["zoom"], 14, 0.6, 22, 0.8]
+      }
+    },
+    {
+      "id": "road_3_path_wai",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "highway", "path"],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [1, 0]],
+          15,
+          ["literal", [1.75, 1]],
+          16,
+          ["literal", [1, 0.75]],
+          17,
+          ["literal", [1, 0.5]]
+        ],
+        "line-color": "rgba(36, 96, 182, 1)",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          15,
+          2,
+          18,
+          7
+        ],
+        "line-opacity": ["step", ["zoom"], 0, 14, 0.75]
+      }
+    },
+    {
+      "id": "road_3_path_nei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "highway", "path"],
+      "layout": {"line-cap": "butt", "line-join": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          13,
+          0.5,
+          14,
+          1,
+          15,
+          1,
+          18,
+          4
+        ],
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [1, 0]],
+          15,
+          ["literal", [1.75, 1]],
+          16,
+          ["literal", [1, 0.75]],
+          17,
+          ["literal", [1, 0.5]]
+        ],
+        "line-color": "#082764",
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "road_steps_nei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "name", "steps"],
+      "layout": {"line-join": "bevel"},
+      "paint": {
+        "line-color": "hsl(229, 3%, 73%)",
+        "line-blur": 0,
+        "line-opacity": 0.9,
+        "line-offset": 0,
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [0.03, 0.5]],
+          16,
+          ["literal", [0.01, 0.1]],
+          18,
+          ["literal", [0.03, 0.3]],
+          22,
+          ["literal", [0.03, 0.3]]
+        ],
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          1,
+          14,
+          2,
+          16,
+          6,
+          18,
+          12,
+          19,
+          20,
+          20,
+          50,
+          21,
+          150,
+          22,
+          200
+        ]
+      }
+    },
+    {
+      "id": "road_steps_waibian1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "name", "steps"],
+      "layout": {"line-join": "bevel"},
+      "paint": {
+        "line-color": "#a4a8b6",
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          -0.5,
+          14,
+          -1,
+          16,
+          -3,
+          18,
+          -6,
+          19,
+          -10,
+          20,
+          -25,
+          21,
+          -75,
+          22,
+          -100
+        ],
+        "line-opacity": 0.9,
+        "line-blur": 1,
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          0.5,
+          18,
+          1,
+          20,
+          4
+        ]
+      }
+    },
+    {
+      "id": "road_steps_waibian2",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "name", "steps"],
+      "layout": {"line-join": "bevel"},
+      "paint": {
+        "line-color": "#a4a8b6",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          0.5,
+          18,
+          1,
+          20,
+          4
+        ],
+        "line-opacity": 0.9,
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          14,
+          1,
+          16,
+          3,
+          18,
+          6,
+          19,
+          10,
+          20,
+          25,
+          21,
+          75,
+          22,
+          100
+        ],
+        "line-blur": 1
+      }
+    },
+    {
+      "id": "road_3_ruhu_wai_bridge",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["!in", "name", "斑马线", "下穿人行道", "天桥", "人行虚线", "steps"],
+        ["==", "highway", "pedestrian"],
+        ["==", "bridge", "yes"]
+      ],
+      "layout": {"line-cap": "square", "line-join": "round"},
+      "paint": {
+        "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.75,
+          14,
+          1,
+          16,
+          3,
+          18,
+          5,
+          19,
+          9,
+          20,
+          24,
+          21,
+          73,
+          22,
+          98
+        ],
+        "line-color": "#787468",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0.75,
+          20,
+          2
+        ],
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "road_2_living_street_bridge",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["in", "highway", "living_street", "service", "pedestrian"],
+        ["==", "bridge", "yes"],
+        ["!in", "name", "斑马线", "下穿人行道", "天桥", "人行虚线", "steps"]
+      ],
+      "layout": {"line-cap": "square", "line-join": "round"},
+      "paint": {
+        "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.75,
+          14,
+          1,
+          16,
+          ["case", ["==", ["get", "highway"], "service"], 5, 3],
+          18,
+          ["case", ["==", ["get", "highway"], "service"], 10, 5],
+          19,
+          ["case", ["==", ["get", "highway"], "service"], 18, 9],
+          20,
+          ["case", ["==", ["get", "highway"], "service"], 48, 24],
+          21,
+          ["case", ["==", ["get", "highway"], "service"], 146, 73],
+          22,
+          ["case", ["==", ["get", "highway"], "service"], 196, 98]
+        ],
+        "line-color": "#787468",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0.75,
+          20,
+          2
+        ],
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "highway-motorway-link-wai",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "any",
+        ["==", "highway", "motorway_link"],
+        ["==", "highway", "trunk_link"],
+        ["==", "highway", "primary_link"],
+        ["==", "highway", "secondary_link"],
+        ["==", "highway", "tertiary_link"]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          12,
+          0.75,
+          20,
+          2
+        ],
+        "line-color": "#082764",
+        "line-gap-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            0.75,
+            "trunk_link",
+            0.75,
+            "primary_link",
+            0.75,
+            "secondary_link",
+            0.1,
+            "tertiary_link",
+            0.1,
+            0.75
+          ],
+          15,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            2,
+            "trunk_link",
+            2,
+            "primary_link",
+            1,
+            "secondary_link",
+            2,
+            "tertiary_link",
+            2,
+            4
+          ],
+          18,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            20,
+            "trunk_link",
+            20,
+            "primary_link",
+            8,
+            "secondary_link",
+            11,
+            "tertiary_link",
+            11,
+            40
+          ],
+          20,
+          24,
+          21,
+          73,
+          22,
+          98
+        ]
+      }
+    },
+    {
+      "id": "road_2_living_street_nei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["in", "highway", "living_street", "service", "pedestrian"],
+        ["!in", "name", "斑马线", "下穿人行道", "天桥", "人行虚线", "steps"]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.75,
+          14,
+          1,
+          16,
+          ["case", ["==", ["get", "highway"], "service"], 5, 3],
+          18,
+          ["case", ["==", ["get", "highway"], "service"], 10, 5],
+          19,
+          ["case", ["==", ["get", "highway"], "service"], 18, 9],
+          20,
+          ["case", ["==", ["get", "highway"], "service"], 48, 24],
+          21,
+          ["case", ["==", ["get", "highway"], "service"], 146, 73],
+          22,
+          ["case", ["==", ["get", "highway"], "service"], 196, 98]
+        ],
+        "line-opacity": 1,
+        "line-color": "#082764"
+      }
+    },
+    {
+      "id": "highway-motorway-link-nei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "any",
+        ["==", "highway", "motorway_link"],
+        ["==", "highway", "trunk_link"],
+        ["==", "highway", "primary_link"],
+        ["==", "highway", "secondary_link"],
+        ["==", "highway", "tertiary_link"]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            0.75,
+            "trunk_link",
+            0.75,
+            "primary_link",
+            0.75,
+            "secondary_link",
+            0.1,
+            "tertiary_link",
+            0.1,
+            0.75
+          ],
+          15,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            2,
+            "trunk_link",
+            2,
+            "primary_link",
+            1,
+            "secondary_link",
+            2,
+            "tertiary_link",
+            2,
+            4
+          ],
+          18,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            20,
+            "trunk_link",
+            20,
+            "primary_link",
+            8,
+            "secondary_link",
+            11,
+            "tertiary_link",
+            11,
+            40
+          ],
+          20,
+          24,
+          21,
+          73,
+          22,
+          98
+        ],
+        "line-color": "#082764"
+      }
+    },
+    {
+      "id": "highway-motorway-nei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "any",
+        ["all", ["==", "highway", "secondary"], ["!=", "tunnel", "yes"]],
+        ["all", ["==", "highway", "tertiary"], ["!=", "tunnel", "yes"]],
+        ["all", ["==", "highway", "primary"], ["!=", "tunnel", "yes"]],
+        ["all", ["==", "highway", "secondary"], ["!=", "tunnel", "yes"]],
+        ["all", ["==", "highway", "tertiary"], ["!=", "tunnel", "yes"]]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": "rgba(8, 39, 100, 1)",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            0.75,
+            "trunk",
+            0.75,
+            "primary",
+            0.75,
+            "secondary",
+            0.1,
+            "tertiary",
+            0.1,
+            0.75
+          ],
+          15,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            4,
+            "trunk",
+            4,
+            "primary",
+            3,
+            "secondary",
+            3.5,
+            "tertiary",
+            3.5,
+            4
+          ],
+          18,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            40,
+            "trunk",
+            40,
+            "primary",
+            16,
+            "secondary",
+            22,
+            "tertiary",
+            22,
+            40
+          ],
+          20,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            48,
+            "trunk",
+            48,
+            "primary",
+            48,
+            "secondary",
+            48,
+            "tertiary",
+            48,
+            40
+          ],
+          21,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            146,
+            "trunk",
+            146,
+            "primary",
+            146,
+            "secondary",
+            146,
+            "tertiary",
+            146,
+            40
+          ],
+          22,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            196,
+            "trunk",
+            196,
+            "primary",
+            196,
+            "secondary",
+            196,
+            "tertiary",
+            196,
+            40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "road_3_bridge_zhong",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "name", "天桥"],
+      "layout": {"line-cap": "butt", "line-join": "bevel"},
+      "paint": {
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [0.03, 0.5]],
+          16,
+          ["literal", [0.01, 0.1]],
+          18,
+          ["literal", [0.03, 0.3]],
+          22,
+          ["literal", [0.03, 0.3]]
+        ],
+        "line-color": "hsl(225, 3%, 73%)",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          1,
+          16,
+          5,
+          18,
+          20,
+          20,
+          100,
+          22,
+          200
+        ],
+        "line-opacity": 0.9
+      }
+    },
+    {
+      "id": "road_3_bridge_bian1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "name", "天桥"],
+      "layout": {"line-cap": "butt", "line-join": "miter"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          1,
+          18,
+          1.5,
+          20,
+          6
+        ],
+        "line-color": "#8996d2",
+        "line-blur": 1,
+        "line-opacity": 0.9,
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          0.5,
+          16,
+          2.5,
+          18,
+          10,
+          20,
+          50,
+          22,
+          100
+        ]
+      }
+    },
+    {
+      "id": "road_3_bridge_bian2",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": ["==", "name", "天桥"],
+      "layout": {"line-cap": "butt", "line-join": "miter"},
+      "paint": {
+        "line-color": "#8996d2",
+        "line-opacity": 0.9,
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          -0.5,
+          16,
+          -2.5,
+          18,
+          -10,
+          20,
+          -50,
+          22,
+          -100
+        ],
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          1,
+          18,
+          1.5,
+          20,
+          6
+        ],
+        "line-blur": 1
+      }
+    },
+    {
+      "id": "highway-tertiary-link-nei-1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["==", "layer", "1"],
+        [
+          "in",
+          "highway",
+          "tertiary_link",
+          "secondary_link",
+          "primary_link",
+          "trunk_link",
+          "motorway_link"
+        ]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": "#082764",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            0.75,
+            "trunk_link",
+            0.75,
+            "primary_link",
+            0.75,
+            "secondary_link",
+            0.1,
+            "tertiary_link",
+            0.1,
+            0.75
+          ],
+          15,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            2,
+            "trunk_link",
+            2,
+            "primary_link",
+            1,
+            "secondary_link",
+            2,
+            "tertiary_link",
+            2,
+            4
+          ],
+          18,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            20,
+            "trunk_link",
+            20,
+            "primary_link",
+            8,
+            "secondary_link",
+            11,
+            "tertiary_link",
+            11,
+            40
+          ],
+          20,
+          24,
+          21,
+          73,
+          22,
+          98
+        ]
+      }
+    },
+    {
+      "id": "highway-tertiary-nei-1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["==", "layer", "1"],
+        ["==", "bridge", "yes"],
+        [
+          "in",
+          "highway",
+          "tertiary",
+          "secondary",
+          "primary",
+          "trunk",
+          "motorway"
+        ]
+      ],
+      "layout": {"line-cap": "butt", "line-join": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            0.75,
+            "trunk",
+            0.75,
+            "primary",
+            0.75,
+            "secondary",
+            0.1,
+            "tertiary",
+            0.1,
+            0.75
+          ],
+          15,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            4,
+            "trunk",
+            4,
+            "primary",
+            3,
+            "secondary",
+            3.5,
+            "tertiary",
+            3.5,
+            4
+          ],
+          18,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            40,
+            "trunk",
+            40,
+            "primary",
+            16,
+            "secondary",
+            22,
+            "tertiary",
+            22,
+            40
+          ],
+          20,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            48,
+            "trunk",
+            48,
+            "primary",
+            48,
+            "secondary",
+            48,
+            "tertiary",
+            48,
+            40
+          ],
+          21,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            146,
+            "trunk",
+            146,
+            "primary",
+            146,
+            "secondary",
+            146,
+            "tertiary",
+            146,
+            40
+          ],
+          22,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            196,
+            "trunk",
+            196,
+            "primary",
+            196,
+            "secondary",
+            196,
+            "tertiary",
+            196,
+            40
+          ]
+        ],
+        "line-color": "#082764"
+      }
+    },
+    {
+      "id": "highway-tertiary-link-nei-2",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["==", "layer", "2"],
+        [
+          "in",
+          "highway",
+          "tertiary_link",
+          "secondary_link",
+          "primary_link",
+          "trunk_link",
+          "motorway_link"
+        ]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": "#082764",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            0.75,
+            "trunk_link",
+            0.75,
+            "primary_link",
+            0.75,
+            "secondary_link",
+            0.1,
+            "tertiary_link",
+            0.1,
+            0.75
+          ],
+          15,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            2,
+            "trunk_link",
+            2,
+            "primary_link",
+            1,
+            "secondary_link",
+            2,
+            "tertiary_link",
+            2,
+            4
+          ],
+          18,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway_link",
+            20,
+            "trunk_link",
+            20,
+            "primary_link",
+            8,
+            "secondary_link",
+            11,
+            "tertiary_link",
+            11,
+            40
+          ],
+          20,
+          24,
+          21,
+          73,
+          22,
+          98
+        ]
+      }
+    },
+    {
+      "id": "highway-tertiary-nei-2",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 11,
+      "filter": [
+        "all",
+        ["==", "layer", "2"],
+        ["==", "bridge", "yes"],
+        [
+          "in",
+          "highway",
+          "tertiary",
+          "motorway",
+          "trunk",
+          "secondary",
+          "primary"
+        ]
+      ],
+      "layout": {"line-cap": "butt", "line-join": "round"},
+      "paint": {
+        "line-color": "#082764",
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          5,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            0.75,
+            "trunk",
+            0.75,
+            "primary",
+            0.75,
+            "secondary",
+            0.1,
+            "tertiary",
+            0.1,
+            0.75
+          ],
+          15,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            4,
+            "trunk",
+            4,
+            "primary",
+            3,
+            "secondary",
+            3.5,
+            "tertiary",
+            3.5,
+            4
+          ],
+          18,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            40,
+            "trunk",
+            40,
+            "primary",
+            16,
+            "secondary",
+            22,
+            "tertiary",
+            22,
+            40
+          ],
+          20,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            48,
+            "trunk",
+            48,
+            "primary",
+            48,
+            "secondary",
+            48,
+            "tertiary",
+            48,
+            40
+          ],
+          21,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            146,
+            "trunk",
+            146,
+            "primary",
+            146,
+            "secondary",
+            146,
+            "tertiary",
+            146,
+            40
+          ],
+          22,
+          [
+            "match",
+            ["get", "highway"],
+            "motorway",
+            196,
+            "trunk",
+            196,
+            "primary",
+            196,
+            "secondary",
+            196,
+            "tertiary",
+            196,
+            40
+          ]
+        ]
+      }
+    },
+    {
+      "id": "subway1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "railway", "subway"],
+      "layout": {"line-cap": "round"},
+      "paint": {
+        "line-color": [
+          "case",
+          ["==", ["get", "newid"], "517"],
+          "#da81a3",
+          "#709df0"
+        ],
+        "line-width": [
+          "interpolate",
+          ["exponential", 1.5],
+          ["zoom"],
+          10,
+          2,
+          18,
+          3
+        ]
+      }
+    },
+    {
+      "id": "cw_wai",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 18,
+      "filter": ["in", "car", "1", "2"],
+      "layout": {"line-cap": "butt", "line-join": "miter"},
+      "paint": {
+        "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          2,
+          19,
+          1.5,
+          20,
+          11,
+          21,
+          25,
+          22,
+          47
+        ],
+        "line-width": 1,
+        "line-color": "#c2c2c2",
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          4,
+          19,
+          8,
+          20,
+          18.5,
+          21,
+          60,
+          22,
+          75
+        ],
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "cw_nei",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 18,
+      "filter": ["in", "car", "1", "2"],
+      "layout": {"line-cap": "butt", "line-join": "miter"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          2,
+          19,
+          1.5,
+          20,
+          11,
+          21,
+          25,
+          22,
+          47
+        ],
+        "line-color": "#c2c2c2",
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [0.05, 10]],
+          19,
+          ["literal", [0.05, 8]],
+          20,
+          ["literal", [0.05, 3]],
+          21,
+          ["literal", [0.03, 3]],
+          22,
+          ["literal", [0.01, 3]]
+        ],
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          4,
+          19,
+          8,
+          20,
+          18.5,
+          21,
+          60,
+          22,
+          75
+        ]
+      }
+    },
+    {
+      "id": "cw_p",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 18,
+      "filter": ["in", "car", "1", "2"],
+      "layout": {
+        "text-pitch-alignment": "viewport",
+        "text-field": "P",
+        "text-rotation-alignment": "map",
+        "text-size": ["interpolate", ["linear"], ["zoom"], 18, 10, 22, 30],
+        "text-offset": [
+          "interpolate",
+          ["exponential", 1],
+          ["zoom"],
+          19,
+          ["literal", [0, 1]],
+          19.5,
+          ["literal", [0, 1.2]],
+          20,
+          ["literal", [0, 1.6]],
+          20.5,
+          ["literal", [0, 1.8]],
+          21,
+          ["literal", [0, 2.3]],
+          22,
+          ["literal", [0, 2.4]]
+        ],
+        "symbol-placement": "line",
+        "text-padding": 1,
+        "text-font": ["xiaomi"],
+        "text-max-angle": 30
+      },
+      "paint": {"text-color": "#3033df"}
+    },
+    {
+      "id": "cw_wai_2",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 18,
+      "filter": ["==", "car", "2"],
+      "layout": {"line-cap": "butt", "line-join": "miter"},
+      "paint": {
+        "line-gap-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          2,
+          19,
+          1.5,
+          20,
+          11,
+          21,
+          25,
+          22,
+          47
+        ],
+        "line-width": 1,
+        "line-color": "#c2c2c2",
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          -4,
+          19,
+          -8,
+          20,
+          -18.5,
+          21,
+          -60,
+          22,
+          -75
+        ],
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "cw_nei_2",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 18,
+      "filter": ["==", "car", "2"],
+      "layout": {"line-cap": "butt", "line-join": "miter"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          2,
+          19,
+          1.5,
+          20,
+          11,
+          21,
+          25,
+          22,
+          47
+        ],
+        "line-color": "#c2c2c2",
+        "line-dasharray": [
+          "step",
+          ["zoom"],
+          ["literal", [0.05, 10]],
+          19,
+          ["literal", [0.05, 8]],
+          20,
+          ["literal", [0.05, 3]],
+          21,
+          ["literal", [0.03, 3]],
+          22,
+          ["literal", [0.01, 3]]
+        ],
+        "line-offset": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          -4,
+          19,
+          -8,
+          20,
+          -18.5,
+          21,
+          -60,
+          22,
+          -75
+        ]
+      }
+    },
+    {
+      "id": "cw_p_2",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 18,
+      "filter": ["==", "car", "2"],
+      "layout": {
+        "text-pitch-alignment": "viewport",
+        "text-field": "P",
+        "text-rotation-alignment": "map",
+        "text-size": ["interpolate", ["linear"], ["zoom"], 18, 10, 22, 30],
+        "text-offset": [
+          "interpolate",
+          ["exponential", 1],
+          ["zoom"],
+          19,
+          ["literal", [0, -1]],
+          19.5,
+          ["literal", [0, -1.2]],
+          20,
+          ["literal", [0, -1.6]],
+          20.5,
+          ["literal", [0, -1.8]],
+          21,
+          ["literal", [0, -2.3]],
+          22,
+          ["literal", [0, -2.4]]
+        ],
+        "symbol-placement": "line",
+        "text-padding": 1,
+        "text-font": ["xiaomi"],
+        "text-max-angle": 30
+      },
+      "paint": {"text-color": "#3033df"}
+    },
+    {
+      "id": "ydc_wai",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "26"],
+      "layout": {},
+      "paint": {
+        "fill-outline-color": "#f9d2d2",
+        "fill-color": "rgba(16, 28, 47, 1)"
+      }
+    },
+    {
+      "id": "ydc_wai_line",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "26"],
+      "layout": {},
+      "paint": {
+        "line-color": "rgba(41, 70, 185, 1)",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 12, 0.8, 22, 1],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          14,
+          0.8,
+          18,
+          1,
+          22,
+          1
+        ]
+      }
+    },
+    {
+      "id": "ydc_zhong",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "27"],
+      "layout": {},
+      "paint": {
+        "line-color": "rgba(10, 14, 37, 1)",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          14,
+          1,
+          18,
+          1,
+          20,
+          1
+        ],
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "ydc_zuineiquan",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "28"],
+      "layout": {},
+      "paint": {"fill-color": "rgba(15, 22, 39, 1)"}
+    },
+    {
+      "id": "ydc_zuineiquan_line",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "28"],
+      "layout": {},
+      "paint": {
+        "line-color": "rgba(8, 11, 35, 1)",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          14,
+          1,
+          18,
+          1,
+          22,
+          1.5
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.2,
+          14,
+          0.4,
+          16,
+          0.6,
+          18,
+          1,
+          22,
+          1
+        ]
+      }
+    },
+    {
+      "id": "ydc_wai-f1",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "26"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {"fill-outline-color": "#f9d2d2", "fill-color": "#eec4c4"}
+    },
+    {
+      "id": "ydc_wai_line-f1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "26"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          18,
+          0.8,
+          22,
+          1
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          14,
+          0.8,
+          18,
+          1,
+          22,
+          1
+        ]
+      }
+    },
+    {
+      "id": "ydc_zhong-f1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "27"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          14,
+          1,
+          18,
+          1,
+          20,
+          1
+        ],
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "ydc_zuineiquan-f1",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "28"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {"fill-color": "#a4dfb9"}
+    },
+    {
+      "id": "ydc_zuineiquan_line-f1",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["all", ["==", "newid", "28"], ["==", "layer", "1"]],
+      "layout": {},
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.5,
+          14,
+          1,
+          18,
+          1,
+          22,
+          1.5
+        ],
+        "line-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.2,
+          14,
+          0.4,
+          16,
+          0.6,
+          18,
+          1,
+          22,
+          1
+        ]
+      }
+    },
+    
+    {
+      "id": "jieti_2d",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "maxzoom": 12,
+      "filter": ["match", ["get", "newid"], ["", "88"], true, false],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "hsl(0, 0%, 92%)"}
+    },
+    {
+      "id": "jieti_line",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["match", ["get", "newid"], ["", "88"], true, false],
+      "layout": {"line-join": "round", "line-cap": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1.5,
+          15,
+          0.5,
+          19,
+          1,
+          22,
+          2
+        ],
+        "line-color": "rgba(33, 53, 94, 1)",
+        "line-opacity": ["interpolate", ["linear"], ["zoom"], 13, 0.9, 20, 0.8]
+      }
+    },
+    {
+      "id": "building3_3D",
+      "type": "fill-extrusion",
+      "source": "buildingGeo",
+      "filter": ["all", ["==", "newid", "88"], ["has", "height"]],
+      "layout": {},
+      "paint": {
+        "fill-extrusion-height": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          ["case", ["has", "height"], ["to-number", ["get", "height"]], 0],
+          17.5,
+          ["case", ["has", "height"], ["to-number", ["get", "height"]], 0]
+        ],
+        "fill-extrusion-base": ["to-number", ["get", "base_height"]],
+        "fill-extrusion-color": "hsl(0, 0%, 92%)"
+      }
+    },
+    {
+      "id": "tree_line",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", ["get", "natural"], "tree_row"],
+      "layout": {
+        "icon-image": [
+          "match",
+          ["get", "tree_catagory"],
+          ["柏形-大"],
+          "tree-1",
+          ["柏形-小"],
+          "tree-6",
+          ["松形"],
+          "tree-3",
+          ["柳树"],
+          "tree_liushu",
+          ["银杏"],
+          "tree_yinxing",
+          ["花丛树"],
+          "tree-7",
+          ["红色树"],
+          "tree_redtree",
+          ["桃花"],
+          "tree_taohua",
+          ["樱花"],
+          "tree_yinghua",
+          "tree-1"
+        ],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.1,
+          16,
+          0.3,
+          18,
+          0.5,
+          20,
+          1,
+          22,
+          1
+        ],
+        "symbol-spacing": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          2,
+          16,
+          15,
+          22,
+          50
+        ],
+        "icon-rotation-alignment": "viewport",
+        "symbol-placement": "line"
+      },
+      "paint": {"icon-opacity": 0.9}
+    },
+    {
+      "id": "tree_point",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 12,
+      "filter": ["match", ["get", "natural"], ["", "tree"], true, false],
+      "layout": {
+        "icon-image": [
+          "match",
+          ["get", "tree_catagory"],
+          ["柏形-小"],
+          "tree_6",
+          ["松形"],
+          "tree_3",
+          ["柳树"],
+          "tree_liushu",
+          ["银杏"],
+          "tree_yinxing",
+          ["花丛树"],
+          "tree_7",
+          ["红色树"],
+          "tree_redtree",
+          ["桃花"],
+          "tree_taohua",
+          ["樱花"],
+          "tree_yinghua",
+          "tree_1"
+        ],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          0.1,
+          16,
+          0.3,
+          18,
+          0.5,
+          20,
+          1,
+          22,
+          1
+        ]
+      },
+      "paint": {"icon-opacity": 0.9}
+    },
+    {
+      "id": "building1_2d",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": [
+        "match",
+        ["get", "newid"],
+        [
+          "",
+          "10",
+          "11",
+          "12",
+          "14",
+          "15",
+          "16",
+          "19",
+          "13",
+          "18",
+          "20",
+          "21",
+          "17"
+        ],
+        true,
+        false
+      ],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(8, 24, 59, 1)"}
+    },
+    {
+      "id": "building5_2d",
+      "type": "fill",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "newid", "17"],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(13, 11, 51, 0.8)"}
+    },
+    {
+      "id": "building5_3D",
+      "type": "fill-extrusion",
+      "source": "buildingGeo",
+      "filter": ["==", "newid", "17"],
+      "layout": {},
+      "paint": {
+        "fill-extrusion-height": ["to-number", ["get", "height"]],
+        "fill-extrusion-base": ["to-number", ["get", "base_height"]],
+        "fill-extrusion-opacity": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          13,
+          0.9,
+          20,
+          0.6
+        ],
+        "fill-extrusion-color": "#f4a594"
+      }
+    },
+    {
+      "id": "build_line",
+      "type": "line",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 18,
+      "filter": [
+        "match",
+        ["get", "newid"],
+        ["", "10", "11", "12", "13", "14", "15", "16", "18", "19", "20", "21"],
+        true,
+        false
+      ],
+      "layout": {"line-join": "round", "line-cap": "round"},
+      "paint": {
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          1.5,
+          15,
+          0.5,
+          22,
+          2
+        ],
+        "line-color": "rgba(28, 99, 164, 1)"
+      }
+    },
+    
+    {
+      "id": "room_zoulang",
+      "type": "fill",
+      "source": "indoor",
+      "minzoom": 18,
+      "filter": ["==", "newid", "35"],
+      "layout": {},
+      "paint": {"fill-outline-color": "#ffffff", "fill-color": "#163051"}
+    },
+    {
+      "id": "room1",
+      "type": "fill",
+      "metadata": {},
+      "source": "indoor",
+      "minzoom": 18,
+      "filter": [
+        "match",
+        ["get", "newid"],
+        [
+          "",
+          "30",
+          "32",
+          "33",
+          "34",
+          "36",
+          "37",
+          "38",
+          "39",
+          "40",
+          "41",
+          "42",
+          "45",
+          "46",
+          "47",
+          "43",
+          "44",
+          "48",
+          "49",
+          "50",
+          "51",
+          "52",
+          "53",
+          "54",
+          "55",
+          "56",
+          "57",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62",
+          "63",
+          "64",
+          "65",
+          "66",
+          "67",
+          "68",
+          "69",
+          "70",
+          "71",
+          "72",
+          "73",
+          "74",
+          "75",
+          "76",
+          "77",
+          "80",
+          "81",
+          "82",
+          "83",
+          "84",
+          "85",
+          "86"
+        ],
+        true,
+        false
+      ],
+      "layout": {},
+      "paint": {
+       
+        "fill-color": "#163051"
+      }
+    },
+    {
+      "id": "room_xian",
+      "type": "line",
+      "source": "indoor",
+      "minzoom": 18,
+      "filter": ["all", [">=", "newid", "30"], ["<=", "newid", "77"]],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": "#254a80",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          16,
+          1,
+          18,
+          1,
+          20,
+          2
+        ],
+        "line-opacity": 1
+      }
+    },
+    
+    {
+      "id": "room23",
+      "type": "fill-extrusion",
+      "metadata": {"mapbox:group": "eacbba3d49702a9fabc0364195628304"},
+      "source": "indoor",
+      "minzoom": 18,
+      "filter": ["match", ["get", "newid"], ["", "87", "90"], true, false],
+      "layout": {},
+      "paint": {
+        "fill-extrusion-height": 2.5,
+        "fill-extrusion-base": ["case", ["==", ["get", "newid"], "87"], 0, 2.2],
+        "fill-extrusion-color": "#254a80",
+        "fill-extrusion-opacity": 0.8
+      }
+    },
+    {
+      "id": "shitiqiangti-3d",
+      "type": "fill-extrusion",
+      "source": "indoor",
+      "minzoom": 18,
+      "filter": ["==", "newid", "91"],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-extrusion-height": 2.5,
+        "fill-extrusion-opacity": 1,
+        "fill-extrusion-color": "#254a80"
+      }
+    },
+    {
+      "id": "room23_top",
+      "type": "fill-extrusion",
+      "metadata": {"mapbox:group": "eacbba3d49702a9fabc0364195628304"},
+      "source": "indoor",
+      "minzoom": 18,
+      "filter": ["match", ["get", "newid"], ["", "87", "90"], true, false],
+      "layout": {},
+      "paint": {
+        "fill-extrusion-height": 2.5,
+        "fill-extrusion-base": 2.5,
+        "fill-extrusion-color": "#a6ceff"
+      }
+    },
+    {
+      "id": "road-shiwai",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 12,
+      "filter": ["in", "highway", "secondary"],
+      "layout": {
+        "text-pitch-alignment": "viewport",
+        "text-field": "{name}",
+        "text-rotation-alignment": "map",
+        "text-size": 11,
+        "symbol-placement": "line",
+        "text-padding": 1,
+        "text-font": ["xiaomi"],
+        "text-max-angle": 30
+      },
+      "paint": {
+        "text-color": "hsl(0, 0%, 0%)",
+        "text-halo-color": "hsla(0, 0%, 100%, 0.95)",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "road-shinei",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 12,
+      "filter": [
+        "in",
+        "highway",
+        "service",
+        "primary",
+        "secondary",
+        "tertiary",
+        "primary",
+        "trunk",
+        "living_street"
+      ],
+      "layout": {
+        "text-pitch-alignment": "viewport",
+        "text-field": "{name}",
+        "text-rotation-alignment": "map",
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          11,
+          18,
+          12,
+          22,
+          50
+        ],
+        "symbol-placement": "line",
+        "symbol-spacing": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          100,
+          18,
+          250,
+          22,
+          800
+        ],
+        "text-padding": 1,
+        "text-font": ["xiaomi"],
+        "text-max-angle": 30
+      },
+      "paint": {
+        "text-color": "rgba(255, 255, 255, 1)",
+        "text-halo-color": "hsla(0, 0%, 100%, 0.95)",
+        "text-halo-width": 0
+      }
+    },
+    {
+      "id": "ziti_indoor",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": ["in", "$type", "LineString", "Polygon"],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 10,
+        "text-field": "{name}",
+        "text-size": 12,
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-halo-color": "#254a80",
+        "text-halo-blur": 0.2,
+        "text-color": "#ffffff",
+        "text-halo-width": 0.2
+      }
+    },
+    {
+      "id": "ziti_indoor_gongfang1",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "asset"],
+        ["!=", "asset_name_1", "{asset_name_1}"],
+        ["!=", "asset_name_2", "{asset_name_2}"],
+        ["!=", "asset_name_3", "{asset_name_3}"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ],
+        "icon-image": [
+          "match",
+          ["get", "asset_type_code"],
+          ["1020601"],
+          "gf-jyyf",
+          ["1021300"],
+          "gf-jzyf",
+          ["1020399"],
+          "gf-qtyf",
+          ""
+        ],
+        "icon-offset": [30, -25]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "ziti_indoor_gongfang2",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "asset"],
+        ["has", "asset_name_1"],
+        ["!=", "asset_name_2", "{asset_name_2}"],
+        ["!=", "asset_name_3", "{asset_name_3}"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0} \n{asset_name_1}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ],
+        "icon-image": [
+          "match",
+          ["get", "asset_type_code"],
+          ["1020601"],
+          "gf-jyyf",
+          ["1021300"],
+          "gf-jzyf",
+          ["1020399"],
+          "gf-qtyf",
+          ""
+        ],
+        "icon-offset": [30, -30]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "ziti_indoor_gongfang3",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "asset"],
+        ["has", "asset_name_1"],
+        ["has", "asset_name_2"],
+        ["!=", "asset_name_3", "{asset_name_3}"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0} \n{asset_name_1} \n{asset_name_2}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ],
+        "icon-image": [
+          "match",
+          ["get", "asset_type_code"],
+          ["1020601"],
+          "gf-jyyf",
+          ["1021300"],
+          "gf-jzyf",
+          ["1020399"],
+          "gf-qtyf",
+          ""
+        ],
+        "icon-offset": [30, -40]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "ziti_indoor_gongfang4",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "asset"],
+        ["has", "asset_name_1"],
+        ["has", "asset_name_2"],
+        ["has", "asset_name_3"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0} \n{asset_name_1} \n{asset_name_2} \n{asset_name_3}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ],
+        "icon-offset": [30, -55],
+        "icon-image": [
+          "match",
+          ["get", "asset_type_code"],
+          ["1020601"],
+          "gf-jyyf",
+          ["1021300"],
+          "gf-jzyf",
+          ["1020399"],
+          "gf-qtyf",
+          ""
+        ]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "ziti_indoor_sushe1",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "dorm"],
+        ["!=", "asset_name_1", "{asset_name_1}"],
+        ["!=", "asset_name_2", "{asset_name_2}"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "ziti_indoor_sushe2",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "dorm"],
+        ["has", "asset_name_1"],
+        ["!=", "asset_name_2", "{asset_name_2}"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0} \n{asset_name_1}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "ziti_indoor_sushe3",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "dorm"],
+        ["has", "asset_name_2"],
+        ["!=", "asset_name_1", "{asset_name_1}"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0} \n{asset_name_2}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "ziti_indoor_sushe4",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 23,
+      "filter": [
+        "all",
+        ["==", "system_type", "dorm"],
+        ["has", "asset_name_1"],
+        ["has", "asset_name_2"]
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 12,
+        "text-field": "{asset_name_0} \n{asset_name_1} \n{asset_name_2}",
+        "text-size": 12,
+        "text-anchor": "center",
+        "text-offset": [0, 0],
+        "text-font": ["xiaomi"],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.5,
+          19,
+          0.6,
+          20,
+          0.7,
+          22,
+          0.8
+        ]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 1,
+        "text-color": "#2c282e",
+        "text-halo-width": 1
+      }
+    },
+    {
+      "id": "outdoor_ziti",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 15,
+      "maxzoom": 19,
+      "filter": ["==", "building:part", "university"],
+      "layout": {
+        "text-max-width": 10,
+        "text-field": "{name}",
+        "text-transform": "uppercase",
+        "text-letter-spacing": 0.15,
+        "text-padding": 3,
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          9,
+          15,
+          9,
+          16,
+          10,
+          17,
+          11,
+          18,
+          12,
+          19,
+          12,
+          20,
+          12,
+          21,
+          12,
+          22,
+          12
+        ],
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-halo-color": "hsl(0, 0%, 100%)",
+        "text-halo-blur": 0.5,
+        "text-color": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          "#9E9E9E",
+          18,
+          "#626467"
+        ],
+        "text-halo-width": 1.25
+      }
+    },
+    {
+      "id": "symbol_jiantou",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 16,
+      "filter": [
+        "all",
+        [
+          "in",
+          "highway",
+          "secondary",
+          "tertiary",
+          "secondary_link",
+          "tertiary_link",
+          "service",
+          "living_street",
+          "primary",
+          "trunk",
+          "highway_link",
+          "primary_link",
+          "trunk_link"
+        ],
+        ["==", "oneway", "yes"]
+      ],
+      "layout": {
+        "symbol-placement": "line",
+        "icon-image": [
+          "case",
+          [
+            "in",
+            ["get", "highway"],
+            ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
+          ],
+          "oneway-white-small",
+          "oneway-large-01"
+        ],
+        "symbol-spacing": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          200,
+          18,
+          400,
+          20,
+          1000
+        ],
+        "icon-rotation-alignment": "map",
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          [
+            "case",
+            [
+              "in",
+              ["get", "highway"],
+              ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
+            ],
+            1,
+            0.5
+          ],
+          18,
+          [
+            "case",
+            [
+              "in",
+              ["get", "highway"],
+              ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
+            ],
+            2,
+            1
+          ],
+          20,
+          [
+            "case",
+            [
+              "in",
+              ["get", "highway"],
+              ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
+            ],
+            4,
+            2
+          ]
+        ]
+      }
+    },
+    {
+      "id": "ziti_dalou",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 14,
+      "maxzoom": 21,
+      "filter": [
+        "match",
+        ["get", "newid"],
+        [
+          "",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21"
+        ],
+        true,
+        false
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 20,
+        "text-field": "{name}",
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          ["match", ["get", "newid"], "17", 8, 5],
+          22,
+          14
+        ],
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-color": "rgba(137, 174, 249, 1)",
+        "text-halo-color": "hsla(0, 0%, 100%, 0.75)",
+        "text-halo-width": 0.1,
+        "text-halo-blur": 0.5,
+        "text-opacity": [
+          "step",
+          ["zoom"],
+          1,
+          17,
+          1,
+          18,
+          ["case", ["has", "building:levels"], 0, 1]
+        ]
+      }
+    },
+    {
+      "id": "ziti_ditiezhang",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 15,
+      "maxzoom": 23,
+      "filter": ["==", "railway", "subway_entrance"],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 5,
+        "text-field": "{name}",
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          0,
+          9,
+          15,
+          4,
+          18,
+          18,
+          22,
+          40
+        ],
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-color": "hsl(39, 0%, 100%)",
+        "text-halo-color": "hsl(39, 100%, 52%)",
+        "text-halo-blur": 1,
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "ziti_subway",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 12,
+      "maxzoom": 23,
+      "filter": ["==", "railway", "subway"],
+      "layout": {
+        "text-field": ["to-string", ["get", "name"]],
+        "symbol-placement": "line",
+        "text-max-angle": 45,
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          15,
+          10,
+          18,
+          ["case", ["==", ["get", "newid"], "517"], 10, 15],
+          22,
+          ["case", ["==", ["get", "newid"], "517"], 10, 20]
+        ],
+        "text-rotation-alignment": "viewport",
+        "text-padding": 2,
+        "symbol-spacing": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          12,
+          1000,
+          22,
+          800
+        ],
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-color": "hsl(0, 0%, 93%)",
+        "text-halo-color": [
+          "case",
+          ["==", ["get", "newid"], "517"],
+          "#da81a3",
+          "#709df0"
+        ],
+        "text-halo-blur": 1,
+        "text-halo-width": 4
+      }
+    },
+    {
+      "id": "heliu",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "filter": ["==", "waterway", "river"],
+      "layout": {
+        "text-line-height": 1.2,
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          8,
+          18,
+          16,
+          22,
+          40
+        ],
+        "text-max-angle": 45,
+        "symbol-spacing": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          10,
+          200,
+          15,
+          300,
+          20,
+          600,
+          22,
+          1000
+        ],
+        "text-font": ["xiaomi"],
+        "symbol-placement": "line",
+        "text-offset": [0, 0],
+        "text-rotation-alignment": "map",
+        "text-field": ["to-string", ["get", "name"]],
+        "text-rotate": 0,
+        "text-letter-spacing": 1,
+        "text-max-width": 10
+      },
+      "paint": {
+        "text-color": "#3a4ca6",
+        "text-halo-width": 0.5,
+        "text-halo-color": "hsl(0, 0%, 100%)"
+      }
+    },
+    {
+      "id": "ziti_shiwaiother",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 14,
+      "maxzoom": 23,
+      "filter": [
+        "match",
+        ["get", "newid"],
+        ["", "22", "23", "24", "25", "26", "27", "28"],
+        true,
+        false
+      ],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 5,
+        "text-field": "{name}",
+        "text-size": ["interpolate", ["linear"], ["zoom"], 10, 6, 22, 15],
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-color": "rgba(255, 255, 255, 1)",
+        "text-halo-color": "hsla(0, 0%, 100%, 0.95)",
+        "text-halo-blur": 0,
+        "icon-opacity": 1,
+        "text-halo-width": 0
+      }
+    },
+    {
+      "id": "ziti_poi_xuexiao",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 12,
+      "maxzoom": 17,
+      "filter": ["==", "newid", "227"],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 5,
+        "text-field": "{name}",
+        "text-size": 15,
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 2,
+        "text-color": "#0B9543",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "symbol_entrance",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 17.5,
+      "maxzoom": 18.2,
+      "filter": ["all", ["==", ["get", "entrance"], "emergency"]],
+      "layout": {
+        "icon-image": "churukou-3",
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          1,
+          20,
+          1.4,
+          22,
+          2
+        ],
+        "icon-offset": [0, -14],
+        "text-font": ["xiaomi"],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          8,
+          19,
+          10,
+          20,
+          12,
+          22,
+          16
+        ]
+      },
+      "paint": {
+        "text-color": "hsl(0, 0%, 0%)",
+        "text-halo-color": "hsla(0, 0%, 100%, 0.95)",
+        "text-halo-width": 1,
+        "text-halo-blur": 0.5,
+        "icon-opacity": 1
+      }
+    },
+    {
+      "id": "ziti_poi_yuanqu",
+      "type": "symbol",
+      "source": "outdoor",
+      "source-layer": "cmgis",
+      "minzoom": 14,
+      "maxzoom": 17,
+      "filter": ["==", "newid", "228"],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 5,
+        "text-field": "{name}",
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          14,
+          8,
+          16,
+          10,
+          17,
+          11
+        ],
+        "icon-offset": [0, -12],
+        "icon-image": "jiaoxuelou",
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 2,
+        "text-color": "#0B9543",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "fangjian_men",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "maxzoom": 21,
+      "filter": ["all", ["==", "entrance", "main"], ["!=", "icon", "yes"]],
+      "layout": {
+        "visibility": "visible",
+        "text-max-width": 5,
+        "text-field": "门",
+        "text-size": 2,
+        "text-font": ["xiaomi"]
+      },
+      "paint": {
+        "text-halo-color": "#ffffff",
+        "text-halo-blur": 2,
+        "text-color": "#0B9543",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "symbol_indoor",
+      "type": "symbol",
+      "source": "indoor",
+      "minzoom": 18,
+      "filter": [
+        "match",
+        ["get", "newid"],
+        ["", "30", "32", "31"],
+        true,
+        false
+      ],
+      "layout": {
+        "icon-image": [
+          "match",
+          ["get", "name"],
+          ["男卫生间"],
+          "boy",
+          ["男厕所"],
+          "boy",
+          ["女卫生间"],
+          "lady",
+          ["卫生间"],
+          "wc",
+          ["厕所"],
+          "wc",
+          ["女厕所"],
+          "lady",
+          ["楼梯"],
+          "stair",
+          ["电梯"],
+          "elevator",
+          ""
+        ],
+        "icon-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          0.6,
+          20,
+          1,
+          22,
+          1
+        ],
+        "text-field": ["to-string", ["get", "name"]],
+        "icon-offset": [0, -12],
+        "text-font": ["xiaomi"],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          18,
+          8,
+          19,
+          10,
+          20,
+          12,
+          22,
+          16
+        ]
+      },
+      "paint": {
+        "text-color": "#ffffff"
+      }
+    }
+  ],
+  "id": "fec9smxo1"
+}
