@@ -337,11 +337,11 @@ export default {
         },
       ]
       this.createRoomLayer(this.allDormList)
-      this.map.on('click', (e) => {
-        let feas = this.map.queryRenderedFeatures(e.point)
-        console.log(feas)
-        console.log(JSON.stringify([e.lngLat.lng, e.lngLat.lat]), JSON.stringify(feas[0].geometry.coordinates))
-      })
+      // this.map.on('click', (e) => {
+      //   let feas = this.map.queryRenderedFeatures(e.point)
+      //   console.log(feas)
+      //   console.log(JSON.stringify([e.lngLat.lng, e.lngLat.lat]), JSON.stringify(feas[0].geometry.coordinates))
+      // })
     },
     destroySys() {
       this.showBuildingText()
