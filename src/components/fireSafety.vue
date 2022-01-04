@@ -54,11 +54,13 @@
 				</sideItem>
 				<sideItem title="设备异常详情" delay="1500" height="45%">
 					<div slot='body' class="ab-detail-list-wrap">
+						<div class="violation-detail-table">
 						<div class="ab-nav">
 							<span :class="[abCheckNav == nav.id ? 'ab-check-nav' : '']" v-for="nav in abNavList"
 								:key="nav.id" @click="handleAbCheckNav(nav.id)">{{ nav.name }}</span>
 						</div>
 						<div class="ab-list">
+							<div class="content" @mouseenter="abScrollStop" @mouseleave="abScrollStart">
 							<div class="ab-item-wrap" v-for="(item,index) in abDetailList" :key="item.id">
 								<div class="ab-item">
 									<div>
@@ -69,6 +71,8 @@
 									<div class="ab-close-btn" @click="handleCloseAb(item,index)"></div>
 								</div>
 							</div>
+							</div>
+						</div>
 						</div>
 					</div>
 				</sideItem>
@@ -329,7 +333,11 @@
 			},
 		},
 		watch: {
-
+			currentSys(val) {
+				if (val != 'vehicle') {
+					this.abScrollStop();
+				}
+			}
 		},
 		created() {
 
@@ -460,6 +468,7 @@
 								{name:"机房",val:501,color:'rgba(19,181,177,0.8)'},
 								{name:"应急通道",val:300,color:'rgba(229,188,128,0.8)'}
 							]
+							this.abScrollStart()
 					}, 1500)
 				})
 				this.createFireMraker('fireSafetyList','markerList')
@@ -473,6 +482,42 @@
 				this.map.setLayoutProperty('modellayer', 'visibility', '')
 				this.clearFireMarker()
 			},	
+			//开始自动滚动
+			abScrollStart() {
+				this.abDetailList.length && this.$nextTick(() => {
+					this.abScrollStop();
+					let scrollBox = document.querySelector('.violation-detail-table .ab-list');
+					let content = document.querySelector('.violation-detail-table .ab-list .content');
+					let items = document.querySelectorAll('.violation-detail-table .ab-list .content .ab-item-wrap');
+					let itemH = items[0].clientHeight;
+					let flag = true;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					this.abTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//来回移动
+						// if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+						//   scrollBox.scrollTop += 1;
+						// }else if(!flag&&scrollBox.scrollTop>0){
+						//   scrollBox.scrollTop -= 1;
+						// }else{
+						//   flag = !flag
+						// }
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			abScrollStop() {
+				clearInterval(this.abTimer);
+			},
 			createFireMraker(listName, markerListName){
 				let domList = this[listName].map(item => {
 					let imgsrc = ''
@@ -873,6 +918,16 @@
 </script>
 
 <style lang="less" scoped>
+	.violation-detail-table{
+		height: calc(100% - 30px);
+		display: flex;
+		flex-direction: column;
+		.ab-list{
+			// height: calc(100% - 45px);
+			flex: 1;
+			overflow-y: scroll;
+		}
+	}
 	.fire-safety {
 		height: 100%;
 		color: #F6FAFF;

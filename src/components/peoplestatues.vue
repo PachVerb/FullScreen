@@ -108,9 +108,9 @@
 					</div>
 				</sideItem>
 			</div>
-			<div slot="right">
-				<sideItem title="打卡异常统计" transitionType="right" delay="500">
-					<div slot='body' style="height: 20%;width: 100%;" class="abnormal">
+			<div slot="right" style="height: 100%;">
+				<sideItem title="打卡异常统计" transitionType="right" delay="500" height="30%">
+					<div slot='body'  class="abnormal">
 						<div class="abnormalbox eq-num-box-chart">
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gear">
 							<img src="../assets/pieimg/fire/gearout.png" alt="" class="gearout">
@@ -131,22 +131,28 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="常去位置分析" style="height: 20%;" transitionType="right" delay="1000">
-					<div slot='body' style="height: 20%;">
+				<sideItem title="常去位置分析" height="30%" transitionType="right" delay="1000">
+					<div slot='body' >
 						<div id="radar"></div>
 					</div>
 				</sideItem>
-				<sideItem title="长期异常监测" style="height: 60%;"transitionType="right" delay="1500" height="40%">
-					<div slot='body' style="height:100%;width: 100%; ">
+				<sideItem title="长期异常监测" transitionType="right" delay="1500" height="38%">
+					<div slot='body' class="ab-detail-list-wrap">
+						<div class="violation-detail-table">
 						<div class="ab-list patrol">
-							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
+							<div class="content" @mouseenter="abScrollStop" @mouseleave="abScrollStart">
+							<div class="ab-item-wrap" v-for="(item) in abDetailList" :key="item.id">
+								<div class="ab-item">
 								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
 									{{ item.name }}
 								</div>
 								<div class="table-item" :style="{width: tableHead[1].width}">{{ item.address }}</div>
 								<div class="table-item" :style="{width: tableHead[2].width}">{{ item.date }}</div>
 								<div :style="{width: tableHead[3].width}" class="last-address table-item" @click="handleLastAddress(item)"></div>
+								</div>
 							</div>
+							</div>
+						</div>
 						</div>
 					</div>
 				</sideItem>
@@ -191,6 +197,7 @@
 		},
 		data() {
 			return {
+				abTimer:null,
 				colorone: ["#6AB0FF", '#6AB0FF'],
 				colortwo: ["#F6886A", "#F6886A"],
 				colorthir: ["#E5BC80", "#E5BC80"],
@@ -281,7 +288,13 @@
 					name: '张海1',
 					date: '无位置感知信息',
 					location: [104.05306494977515, 30.59448892240171],
-				},],
+				},{
+					id: '16',
+					name: '舒云',
+					date: '无位置感知信息',
+					location: [104.05306494977515, 30.59448892240171],
+				}
+				],
 				tableHead: [{
 					name: '姓名',
 					width: '60px'
@@ -326,7 +339,14 @@
 						}
 					}
 				}
-			}
+			},
+			watch: {
+				currentSys(val) {
+					if (val != 'vehicle') {
+						this.abScrollStop();
+					}
+				}
+			},
 		},
 		mounted(){
     	this.init()
@@ -364,6 +384,7 @@
 						this.randernormalsec()
 						this.randernormalthir()
 						this.renderstudentpie()
+						this.abScrollStart()
 					}, 1500)
 					this.radar()
 
@@ -373,6 +394,43 @@
 				this.showBuildingText()
 				this.map.setLayoutProperty('modellayer', 'visibility', '')
 				this.resetLayer()
+			},
+			//开始自动滚动
+			abScrollStart() {
+				this.abDetailList.length && this.$nextTick(() => {
+					this.abScrollStop();
+					let scrollBox = document.querySelector('.violation-detail-table .ab-list');
+					let content = document.querySelector('.violation-detail-table .ab-list .content');
+					let items = document.querySelectorAll('.violation-detail-table .ab-list .content .ab-item-wrap');
+					let itemH = items[0].clientHeight;
+					let flag = true;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					console.log(content.clientHeight,scrollBox.clientHeight,itemH,"abScrollStart",content.clientHeight - scrollBox.clientHeight < itemH)
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					this.abTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//来回移动
+						// if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+						//   scrollBox.scrollTop += 1;
+						// }else if(!flag&&scrollBox.scrollTop>0){
+						//   scrollBox.scrollTop -= 1;
+						// }else{
+						//   flag = !flag
+						// }
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			abScrollStop() {
+				clearInterval(this.abTimer);
 			},
 			handleLastAddress(msg){
 				this.SET_DETAIL_MSG(msg)
@@ -1575,7 +1633,33 @@
 	}
 </script>
 
-<style scoped>
+<style scoped  lang="less" >
+	.ab-detail-list-wrap{
+		width: 100%;
+		height: 100%;
+		.ab-list{
+			height: calc(100% - 60px);
+		}
+	}
+	.ab-item-name {
+		font-size: 14px;
+		color: #F6FAFF;
+		font-weight: bold;
+	}
+	.violation-detail-table{
+		// height: calc(100% - 10px);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		.ab-list{
+			// height: calc(100% - 45px);
+			flex: 1;
+			overflow-y: scroll;
+		}
+	}
+	.ab-item-wrap:hover{
+		background: rgba(106, 176, 255, 0.2);
+	}
 	.nowbox {
 		display: flex;
 		justify-content: space-around;
@@ -1753,11 +1837,11 @@
 		}
 	}
 
-	.ab-list {
-		font-size: 12px;
-		height: 520px;
-		overflow-y: scroll;
-	}
+	// .ab-list {
+	// 	font-size: 12px;
+	// 	height: 520px;
+	// 	overflow-y: scroll;
+	// }
 
 	.ab-item {
 		display: flex;
