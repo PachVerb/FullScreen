@@ -1330,8 +1330,8 @@ export default {
 <style lang="less">
 .studystatus-marker-wrap {
   .studystatus-marker-img {
-    width: 50px;
-    height: 50px;
+    width: 49px;
+    height: 54px;
   }
   .studystatus-marker-mes {
     position: absolute;
