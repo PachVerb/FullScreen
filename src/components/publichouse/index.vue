@@ -304,7 +304,7 @@ export default {
       this.staList = [
         { type: '总占地面积', count: 172469, color: '#00F5FF', unit: '㎡' },
         { type: '总楼栋数', count: 63, color: '#F2896B', unit: '栋' },
-        { type: '总房间数', count: 87, color: '#DBBB8A', unit: '间' },
+        { type: '总房间数', count: 187, color: '#DBBB8A', unit: '间' },
         { type: '总房间面积', count: 28227, color: '#A488EF', unit: '㎡' },
       ]
     },
@@ -754,7 +754,7 @@ export default {
     getFreeStati() {
       this.freeList = [
         { name: "北校区", val: 11, color: '#7892FF' },
-        { name: "北校区", val: 22, color: '#5172FF' },
+        { name: "南校区", val: 22, color: '#5172FF' },
         { name: "东校区", val: 67, color: '#0C72F0' },
       ]
     },
@@ -765,7 +765,7 @@ export default {
       let parma = {
         names: ['总使用权面积', '划拨使用权面积', '出让使用权面积'],
         unit: '(亿元)',
-        lineX: ['北校区', '北校区', '东校区'],
+        lineX: ['北校区', '南校区', '东校区'],
         value: [
           [218, 218, 218], [85, 85, 85], [44, 44, 44],
         ],

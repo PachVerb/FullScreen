@@ -1004,22 +1004,23 @@ export default {
       position: absolute;
       width: 21px;
       height: 36px;
-      top: calc(100%);
+      // top: calc(100%);
+      top: calc(50% - 20px);
       z-index: 1;
     }
     .car1 {
       left: 22px;
-      animation: carMove 5s infinite linear;
+      // animation: carMove 5s infinite linear;
     }
     .car2 {
       left: calc(50% - 10.5px);
-      animation: carMove 4s infinite linear;
+      // animation: carMove 4s infinite linear;
     }
     .car3 {
-      top: -36px;
+      // top: -36px;
       right: 22px;
-      transform: rotate(180deg);
-      animation: carMove_rev 5s infinite linear;
+      // transform: rotate(180deg);
+      // animation: carMove_rev 5s infinite linear;
     }
     @keyframes carMove {
       0% {
