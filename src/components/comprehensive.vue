@@ -278,7 +278,7 @@ export default {
     sideItem
   },
   computed: {
-    ...mapGetters(['currentSys'])
+    ...mapGetters(['currentSys','map'])
   },
   data() {
     return {
