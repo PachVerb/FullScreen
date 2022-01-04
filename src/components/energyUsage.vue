@@ -390,7 +390,7 @@ export default {
         } else if (item.cate == 1) {
           imgsrc = require('../assets/energyUsage/electric-over.png')
           div.innerHTML = `
-            <img class="energyUsage-marker-img" src="${imgsrc}" />
+            <img class="energyUsage-marker-img markerImg" src="${imgsrc}" />
             <div class="energyUsage-over-marker-mes energyUsage-marker-mes">
 							<div class="energyUsage-over-title">超出${item.num}m³</div>
 							<div class="energyUsage-over-body">
@@ -402,7 +402,7 @@ export default {
         } else if (item.cate == 2) {
           imgsrc = require('../assets/energyUsage/electric-ab.png')
           div.innerHTML = `
-            <img class="energyUsage-marker-img" src="${imgsrc}" />
+            <img class="energyUsage-marker-img markerImg" src="${imgsrc}" />
             <div class="energyUsage-marker-mes">
               <div class="energyUsage-marker-num"><span>设备名称：</span><span>${item.name}</span></div>
               <div><span>状态：</span><span class="energyUsage-marker-mes-ab">异常</span></div>
@@ -1264,8 +1264,9 @@ export default {
 .energyUsage-marker-wrap{
 	z-index: 100;
 	.energyUsage-marker-img{
+    position: relative;
 		width: 50px;
-		height: 50px;
+		// height: 50px;
 	}
 	.energyUsage-marker-mes{
 		position: absolute;
@@ -1318,6 +1319,18 @@ export default {
 		top: -28px;
 		height: auto;
 	}
+}
+.markerImg{
+  animation: markerImgAni 1.5s linear infinite alternate;
+}
+@-webkit-keyframes markerImgAni {
+  0% {
+    top: -10px;
+  }
+
+  100% {
+    top: 10px;
+  }
 }
 .energyUsage-popup{
 	z-index: 101;

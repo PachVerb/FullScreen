@@ -106,6 +106,9 @@ export default {
           zoom,
           offset: [0,-50]
         })
+        val.floor !== undefined&&this.map.once('moveend',()=>{
+          this.map.setLevel(val.floor)
+        })
         this.createMarker()
       }
     }
