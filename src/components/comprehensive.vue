@@ -197,8 +197,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai1.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -211,8 +211,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai2.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -225,8 +225,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai3.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -239,8 +239,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai4.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -265,6 +265,7 @@
 </template>
 
 <script>
+import mixins from './mixins'
 import sideTran from './sideTran'
 import nowpeopleslide from './nowpeopleslide.vue'
 import sideItem from './sideItem.vue'
@@ -273,12 +274,13 @@ import {
 } from 'vuex'
 import * as echarts from 'echarts';
 export default {
+  mixins: [mixins],
   components: {
     sideTran,
     sideItem
   },
   computed: {
-    ...mapGetters(['currentSys','map'])
+    ...mapGetters(['currentSys','isInDoor','map'])
   },
   data() {
     return {
@@ -287,6 +289,15 @@ export default {
       cardList: [],
       stuDisList: []
     }
+  },
+  watch: {
+    isInDoor(val){
+      if(val){
+        this.hideBuildingText()
+      } else {
+        this.showBuildingText()
+      }
+    },
   },
   mounted(){
     this.init()
@@ -996,6 +1007,7 @@ export default {
     position: relative;
     overflow: hidden;
     .box-car {
+      display: block;
       width: 100%;
     }
     .car1,

@@ -83,6 +83,8 @@ export default {
     lineLoad(val){
       if(val){
         this.SET_CURRENTSYS('comprehensive')
+        this.map.setMinZoom(15.5)
+        this.map.setMaxZoom(19.5)
       }
     },
     currentSys(val){
@@ -117,6 +119,9 @@ export default {
 		this.getWeather(document)
 	},
   mounted(){
+    console.log('clientWidth',document.documentElement.clientWidth)
+    let clientWidth = document.documentElement.clientWidth
+    document.body.style.zoom = clientWidth / 1920
 		// this.copyWeatherHtml()
     // this.SET_CURRENTSYS('comprehensive')
 	},

@@ -92,6 +92,7 @@
 </template>
 
 <script>
+	import mixins from '../mixins'
 	import sideTran from '../sideTran'
 	import nowpeopleslide from '../nowpeopleslide.vue'
 	import sideItem from '../sideItem.vue'
@@ -102,6 +103,7 @@
 	import * as echarts from 'echarts';
 	import 'echarts-liquidfill'
 	export default {
+		mixins: [mixins],
 		components: {
 			sideTran,
 			sideItem,
@@ -284,12 +286,20 @@
 			}
 		},
 		computed: {
-			...mapGetters(['map','currentSys']),
+			...mapGetters(['map','currentSys','isInDoor']),
 			ratioAbTotal(){
 				return this.ratioList.reduce((sum,item)=>sum+item.val,0);
 			},
 		},
-		watch: {},
+		watch: {
+			isInDoor(val){
+				if(val){
+					this.hideBuildingText()
+				} else {
+					this.showBuildingText()
+				}
+			},
+		},
 		mounted(){
     	this.init()
 		},
