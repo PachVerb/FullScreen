@@ -14,19 +14,22 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="网络设备统计" transitionType="left" delay="1000" height="25%">
+				<sideItem title="网络设备分类统计" transitionType="left" delay="1000" height="25%">
 					<div slot='body' class="networkdevicetotal" style="height: 100%;width: 100%;">
 						<div id="networkdevicetotal"></div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警统计" transitionType="left" delay="1500" height="26%">
+				<sideItem title="设备告警详情" transitionType="left" delay="1500" height="26%">
 					<div slot='body' class="equipmentalarmtotal" style="height: 100%;width: 100%;">
+						<div class="violation-detail-table">
 						<div class="table-head">
 							<span :style="{width: head.width}" v-for="head in tableHead"
 								:key="head.name">{{ head.name }}</span>
 						</div>
 						<div class="ab-list patrol">
-							<div class="ab-item" v-for="(item) in abDetailList" :key="item.id">
+							<div class="content" @mouseenter="abScrollStop" @mouseleave="abScrollStart">
+							<div class="ab-item-wrap" v-for="(item) in abDetailList" :key="item.id">
+								<div class="ab-item">
 								<div class="table-item ab-item-name" :style="{width: tableHead[0].width}">
 									{{ item.name }}
 								</div>
@@ -36,11 +39,14 @@
 								<div class="table-item" :style="{width: tableHead[2].width}" :title=item.date>
 									{{ item.date }}
 								</div>
+								</div>
 							</div>
+							</div>
+						</div>
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警详情" transitionType="left" delay="2000" height="28%">
+				<sideItem title="设备告警趋势统计" transitionType="left" delay="2000" height="28%">
 					<div slot='headRight' class="deviceDetail">
 						<div class="checkBox">
 							<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
@@ -54,7 +60,7 @@
 				</sideItem>
 			</div>
 			<div slot="right" style="height: 100%;">
-				<sideItem title="网站安全统计" height="50%" transitionType="right" delay="500">
+				<sideItem title="网站安全统计" height="38%" transitionType="right" delay="500">
 					<div slot='body' style="width: 100%;height: 100%;">
 						<div style="width: 100%;height: 100%;">
 							<div class="calendar">
@@ -62,17 +68,17 @@
 								<date-picker v-model="value1" type="daterange" range-separator="至"
 									start-placeholder="开始日期" end-placeholder="结束日期">
 								</date-picker>
-								<img src="@/assets/img/internetstatues/back.png" alt="">
-								<img src="@/assets/img/internetstatues/stop.png" alt="">
+							<!-- 	<img src="@/assets/img/internetstatues/back.png" alt="">
+								<img src="@/assets/img/internetstatues/stop.png" alt=""> -->
 							</div>
-							<div class="rightpie">
+							<!-- <div class="rightpie">
 								<img src="../../assets/pieimg/internetstatues/rightpieiner.png"
 									class="rightpieimginner">
 								<img src="../../assets/pieimg/internetstatues/innercircle.png"
 									class="rightpieimginnercircle">
 								<img src="../../assets/pieimg/internetstatues/outpie.png" class="rightpieimgout">
 								<div id="webSecuritytotalpie"></div>
-								<div>
+								<div class="pieRight">
 									<div v-for="item in rightpiedata"
 										style="margin-top: 10px;text-align: left;margin-left: 80px;">
 										<p
@@ -82,14 +88,14 @@
 											style="font-size: 14px;color: rgba(0, 245, 255, 1);">{{item.vale}}</span>
 									</div>
 								</div>
-							</div>
+							</div> -->
 							<div id="rightbar" style="margin-top: 20px;"></div>
 						</div>
-
+				
 						<!-- <div class="echartspie" ref='topPie'></div> -->
 					</div>
 				</sideItem>
-				<sideItem title="服务器安全分析" height="25%" transitionType="right" delay="1000">
+				<sideItem title="服务器安全分析" height="30%" transitionType="right" delay="1000">
 					<div slot='body' class="serverSecuritytotal" style="width: 100%;height: 100%;">
 						<div class="head">
 						  <span>攻击时间</span>
@@ -98,16 +104,18 @@
 						  <span>攻击类型</span>
 						</div>
 						<div class="listBox">
-						  <div class="row" v-for="(item,i) in dormList" :key="i">
-						    <span style="padding-left: 10px;">{{item.date}}</span>
-						    <span>{{item.ipaddress}}</span>
-						    <span>{{item.targetip}}</span>
-								<span>{{item.type}}</span>
-						  </div>
+							<div class="content" @mouseenter="dormScrollStop" @mouseleave="dormScrollStart">
+								<div class="row" v-for="(item,i) in dormList" :key="i">
+									<span style="padding-left: 10px;">{{item.date}}</span>
+									<span>{{item.ipaddress}}</span>
+									<span>{{item.targetip}}</span>
+									<span>{{item.type}}</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="网站安全分析" height="25%" transitionType="right" delay="1500">
+				<sideItem title="网站安全分析" height="30%" transitionType="right" delay="1500">
 					<div slot='body' class="websiteSecurityanalysis" style="width: 100%;height: 100%;">
 						<div class="head">
 						  <span>排行</span>
@@ -116,12 +124,14 @@
 						  <span>告警数</span>
 						</div>
 						<div class="listBox">
-						  <div class="row" v-for="(item,i) in webSafedate" :key="i">
-						    <span style="padding-left: 10px;">{{item.ranking}}</span>
-						    <span>{{item.domainName}}</span>
-						    <span>{{item.type}}</span>
-								<span>{{item.numberAlarms}}</span>
-						  </div>
+							<div class="content" @mouseenter="webScrollStop" @mouseleave="webScrollStart">
+								<div class="row" v-for="(item,i) in webSafedate" :key="i">
+									<span style="padding-left: 10px;">{{item.ranking}}</span>
+									<span>{{item.domainName}}</span>
+									<span>{{item.type}}</span>
+									<span>{{item.numberAlarms}}</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</sideItem>
@@ -158,6 +168,9 @@
 		},
 		data() {
 			return {
+				abTimer:null,//自动滚动定时器
+				dormTimer:null,
+				webTimer:null,
 				dormList: [],
 				webSafedate:[],
 				value1: "", //时间选择器的值
@@ -218,7 +231,19 @@
 					name: '正常',
 					date: '2021-11-09 15:22:47',
 					reason: "#2015柜内存使用率超标"
-				}, ],
+				},  {
+					id: '6',
+					name: '正常',
+					date: '2021-11-09 15:22:47',
+					reason: "#2015柜内存使用率超标"
+				},
+				{
+					id: '7',
+					name: '正常',
+					date: '2021-11-09 15:22:47',
+					reason: "#2015柜内存使用率超标"
+				},
+				],
 				timer: null,
 				mesList: [],
 				interStatusEqMarkerList: null,
@@ -241,6 +266,14 @@
 		watch: {
 			timer(val) {
 				console.log(val, "vvvvvvsdds")
+			},
+			currentSys(val) {
+				console.log(val,"watch")
+				if (val != 'interstatues') {
+					this.abScrollStop();
+					this.dormTimer&&this.dormScrollStop();
+					this.webTimer&&this.webScrollStop();
+				}
 			},
 			currentSysModule(val){
 				if(this.currentSys === 'interstatues'){
@@ -448,11 +481,14 @@
 					this.thisCrrentSys = 'interstatues'
 					setTimeout(() => {
 						this.randerBar()
-						this.renderrightpie()
+						// this.renderrightpie()
 						this.renderrightbar()
 					}, 1500)
 					setTimeout(() => {
 						this.getTrendAnalyData(2);
+						this.abScrollStart();
+						this.dormScrollStart()
+						this.webScrollStart()
 					}, 2500)
 				})
 				
@@ -461,6 +497,75 @@
 				this.showBuildingText()
 				this.clearInterStatusEqMarker()
 				this.resetLayer()
+			},
+			//开始自动滚动
+			dormScrollStart() {
+				this.dormList.length && this.$nextTick(() => {
+					this.dormScrollStop();
+					let scrollBox = document.querySelector('.serverSecuritytotal .listBox');
+					let content = document.querySelector('.serverSecuritytotal .listBox .content');
+					let items = document.querySelectorAll('.serverSecuritytotal .listBox .content .row');
+					let itemH = items[0].clientHeight;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					scrollBox.className = 'listBox noScroll';//隐藏滚动条
+					this.dormTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			dormScrollStop() {
+				clearInterval(this.dormTimer);
+				document.querySelector('.serverSecuritytotal .listBox')&&(document.querySelector('.serverSecuritytotal .listBox').className = 'listBox');//显示滚动条
+			},
+			//开始自动滚动
+			abScrollStart() {
+				console.log("abScrollStart11")
+				this.abDetailList.length && this.dormList.length && this.$nextTick(() => {
+					console.log("jinru")
+					this.abScrollStop();
+					let scrollBox = document.querySelector('.violation-detail-table .ab-list');
+					let content = document.querySelector('.violation-detail-table .ab-list .content');
+					let items = document.querySelectorAll('.violation-detail-table .ab-list .content .ab-item-wrap');
+					console.log(scrollBox,content,items,"44444")
+					let itemH = items[0].clientHeight;
+					let flag = true;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					console.log(content.clientHeight - scrollBox.clientHeight < itemH,"5555",content.clientHeight, scrollBox.clientHeight)
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					this.abTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//来回移动
+						// if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+						//   scrollBox.scrollTop += 1;
+						// }else if(!flag&&scrollBox.scrollTop>0){
+						//   scrollBox.scrollTop -= 1;
+						// }else{
+						//   flag = !flag
+						// }
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			abScrollStop() {
+				clearInterval(this.abTimer);
 			},
 			createOpticalFiberLine(){
 				let lineImg = require('../../assets/img/yellow_line.png')
@@ -718,6 +823,7 @@
 					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web弱命令" },
 					{ date: '09-01 00:00:00', ipaddress: '122.168.6.14', targetip: '211.234.145.255',type:"web强命令" },
 			  ]
+				this.dormScrollStart();
 			},
 			getWebsafedate() {
 			  this.webSafedate = [
@@ -730,8 +836,37 @@
 					{ ranking: '07', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
 					{ ranking: '08', domainName: '122.168.6.14', type: '恶意访问接口',numberAlarms:"156" },
 			  ]
+				this.webScrollStart();
 			},
-			
+			//开始自动滚动
+			webScrollStart() {
+				this.webSafedate.length && this.$nextTick(() => {
+					this.webScrollStop();
+					let scrollBox = document.querySelector('.websiteSecurityanalysis .listBox');
+					let content = document.querySelector('.websiteSecurityanalysis .listBox .content');
+					let items = document.querySelectorAll('.websiteSecurityanalysis .listBox .content .row');
+					let itemH = items[0].clientHeight;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					scrollBox.className = 'listBox noScroll';//隐藏滚动条
+					this.webTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			webScrollStop() {
+				clearInterval(this.webTimer);
+				document.querySelector('.websiteSecurityanalysis .listBox')&&(document.querySelector('.websiteSecurityanalysis .listBox').className = 'listBox');//显示滚动条
+			},
 			renderrightbar() {
 				let rightbarpieChartDom, rightbarpieChartChart
 				rightbarpieChartDom = document.getElementById('rightbar');
@@ -1345,6 +1480,23 @@
 </script>
 
 <style lang="less" scoped="scoped">
+	
+	.serverSecuritytotal {
+		height: 150px;
+	}
+	.violation-detail-table{
+		height: calc(100% - 30px);
+		display: flex;
+		flex-direction: column;
+		.ab-list{
+			// height: calc(100% - 45px);
+			flex: 1;
+			overflow-y: scroll;
+		}
+	}
+	.ab-item-wrap:hover{
+		background: rgba(106, 176, 255, 0.2);
+	}
 	.flopbox {
 		display: flex;
 		align-items: center;
@@ -1396,11 +1548,11 @@
 		color: white;
 	}
 
-	.ab-list {
-		font-size: 12px;
-		height: calc(100% - 60px);
-		overflow-y: scroll;
-	}
+	// .ab-list {
+	// 	font-size: 12px;
+	// 	height: calc(100% - 60px);
+	// 	overflow-y: scroll;
+	// }
 
 	.ab-item {
 		display: flex;
@@ -1574,7 +1726,9 @@
 
 	#rightbar {
 		width: 100%;
-		height: calc(52% - 30px);
+		// height: calc(52% - 30px);
+		// height: 100%;
+		height: calc(90% - 30px);
 	}
 	.head {
 	  position: relative;

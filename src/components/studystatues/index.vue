@@ -39,7 +39,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="各宿舍楼归寝情况" delay="300" height="51.9%">
+        <sideItem title="教室利用统计" delay="300" height="51.9%">
           <div slot="body" class="dormState">
             <div class="statiBox">
               <div class="group" style="color:#46B1F6;">
@@ -59,9 +59,9 @@
               </span>
             </div>
             <div class="navBox">
-              <span :class="dormKey?`text checked`:'text'" @click="getDormStatus(true)">使用中</span>
+              <span :class="dormKey?`text checked`:'text'" @click="getClassStati(true)">使用中</span>
               <span style="margin:0 20px;">|</span>
-              <span :class="dormKey?`text`:'text checked'" @click="getDormStatus(false)">空闲中</span>
+              <span :class="dormKey?`text`:'text checked'" @click="getClassStati(false)">空闲中</span>
             </div>
             <div class="listBox">
               <div class="head">
@@ -72,7 +72,7 @@
               </div>
               <div class="scroll">
                 <div class="content" @mouseenter="dormScrollStop" @mouseleave="dormScrollStart">
-                  <div class="row" v-for="(item,i) in roomMesList" :key="i">
+                  <div class="row" v-for="(item,i) in dormList" :key="i">
                     <span>{{item.room}}</span>
                     <span>{{item.loca}}</span>
                     <span>{{item.person}}</span>
@@ -172,32 +172,16 @@ export default {
       dormKey: true,//使用中,空闲中
       dormProVal: 0,
       dormList: [],
+      allDormList: [],
       roomList: [],
       courseList: [],
       attendList: [],
       dormTimer: null,
       attendTimer: null,
-      roomMesList: []
     }
   },
   computed: {
-    ...mapGetters(['map','currentSys']),
-    scrollOpt() {
-      return {
-        step: 1, // 数值越大速度滚动越快
-        limitMoveNum: this.dormList.length, // 开始无缝滚动的数据量
-        hoverStop: true, // 是否开启鼠标悬停stop
-        direction: 1, // 0向下 1向上 2向左 3向右
-        openWatch: true, // 开启数据实时监控刷新dom
-        singleHeight: 52, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
-        singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
-        waitTime: 1000, // 单步运动停止的时间(默认值1000ms)
-        mesList: [],
-        markerList: null,
-        markerNameList: [],
-        roomLayer: null
-      }
-    }
+    ...mapGetters(['map', 'currentSys']),
   },
   watch: {
     currentSys(val) {
@@ -207,10 +191,10 @@ export default {
       }
     }
   },
-  mounted(){
+  mounted() {
     this.init()
   },
-  beforeDestroy(){
+  beforeDestroy() {
     this.destroySys()
   },
   methods: {
@@ -220,7 +204,7 @@ export default {
         setTimeout(() => {
           this.getStuClass();
           this.getStudyStatus();
-          this.getDormStatus();
+          this.getClassStati();
           this.getRoomType();
           this.getCourseStati();
           this.getAttendStati();
@@ -230,139 +214,214 @@ export default {
         useNum: 34,
         freeNum: 14,
         location: [104.05472382086708, 30.597631663126307]
-      },{
+      }, {
         useNum: 34,
         freeNum: 14,
         location: [104.05941489815547, 30.594458469748886]
-      },{
+      }, {
         useNum: 34,
         freeNum: 14,
         location: [104.06086882491559, 30.594363377308042]
-      },{
+      }, {
         useNum: 34,
         freeNum: 14,
         location: [104.06017342377481, 30.59212966788519]
-      },{
+      }, {
         useNum: 34,
         freeNum: 14,
         location: [104.05996892566299, 30.596361187505224]
-      },{
+      }, {
         useNum: 34,
         freeNum: 14,
         location: [104.06014443556603, 30.597449607212354]
       },]
       this.createStudystatusMraker('mesList', 'markerList')
-      this.createRoomLayer()
+      this.allDormList= [
+        {
+          type: 0,
+          floor: 0,
+          buildingId: "17746",
+          num: 33, room: '法医实验室', loca: '机电信息实验大楼', person: '张锦', center: [104.06032902565136, 30.591759379410234],
+          location: [[[104.06030589667, 30.59173094939], [104.06030379654, 30.5918125773], [104.06034770009, 30.5918134148], [104.06034979954, 30.59173178626], [104.06030589667, 30.59173094939]]]
+        },
+        {
+          type: 0,
+          floor: 0,
+          buildingId: "17746",
+          num: 26, room: '化学实验室', loca: '机电信息实验大楼', person: '李达', center: [104.06028569277896, 30.591759379410234],
+          location: [[[104.0603072164, 30.59173094735], [104.0602626412, 30.59173009742], [104.06026044132, 30.59181172599], [104.06030501504, 30.59181257591], [104.0603072164, 30.59173094735]]]
+        },
+        {
+          type: 0,
+          floor: 0,
+          buildingId: "17746", num: 34,
+          room: '统计大数据实验室', loca: '机电信息实验大楼', person: '王晓悦', center: [104.06023186315275, 30.591761364212843],
+          location: [[[104.06020486727357, 30.591728992336513], [104.06020252034068, 30.591810669183175], [104.06026052311063, 30.591811679320443], [104.06026270240545, 30.59173014678005], [104.06020486727357, 30.591728992336513]]]
+        },
+        {
+          type: 0,
+          floor: 0, num: 38,
+          buildingId: "17746", room: '现代旅游服务技能实验室', loca: '机电信息实验大楼', person: '程慕', center: [104.06017613542929, 30.591761798330438],
+          location: [[[104.06020486727357, 30.591728992336513], [104.06015072017908, 30.591727982198407], [104.06014854088426, 30.59180965904592], [104.06020252034068, 30.591810669183175], [104.06020486727357, 30.591728992336513]]]
+        },
+        {
+          type: 0,
+          floor: 1, num: 40,
+          buildingId: "17746", room: '网络统计实验室', loca: '机电信息实验大楼', person: '杨澜', center: [104.060180476136, 30.591776222530825],
+          location: [[[104.06021459028125, 30.591729136641945], [104.0601497143507, 30.591727982198407], [104.06014770269394, 30.59180965904592], [104.06014770269394, 30.59180965904592], [104.06021241098642, 30.591810813488493], [104.06021459028125, 30.591729136641945]]]
+        },
+        {
+          type: 0,
+          floor: 1, num: 31,
+          buildingId: "17746", room: '软件实验室', loca: '机电信息实验大楼', person: '杨澜', center: [104.06010281037385, 30.591762113339527],
+          location: [[[104.06009204685688, 30.59172682775484], [104.06006438657641, 30.591726394838503], [104.06005935743451, 30.591807494466053], [104.06007578596473, 30.59180821599267], [104.06014770269394, 30.59180965904592], [104.0601497143507, 30.591727982198407], [104.06009204685688, 30.59172682775484]]]
+        },
+        {
+          type: 0,
+          floor: 1, num: 33,
+          buildingId: "17746", room: '算法实验室', loca: '机电信息实验大楼', person: '杨澜', center: [104.06000724113807, 30.591771881237207],
+          location: [[[104.06006438657641, 30.591726394838503], [104.05997201800346, 30.59172451886765], [104.0599663183093, 30.59175193689933], [104.059954918921, 30.591805907107442], [104.06005935743451, 30.591807494466053], [104.06006438657641, 30.591726394838503]]]
+        },
+        {
+          type: 0,
+          floor: 1, num: 28,
+          buildingId: "17746", room: '嵌入式实验室', loca: '机电信息实验大楼', person: '杨澜', center: [104.05984762286869, 30.591787944002974],
+          location: [[[104.05988115817308, 30.591830150399687], [104.05988182872534, 30.591804464054135], [104.05988316982985, 30.59175049384524], [104.05981946736574, 30.59174933940193], [104.05981728807092, 30.591835201084805], [104.05988099053502, 30.591836499832368], [104.05988115817308, 30.591830150399687]]]
+        }, {
+          type: 1,
+          floor: 0,
+          buildingId: "17746", room: '地理实验室', loca: '机电信息实验大楼', person: '张锦', center: [104.06037520447688, 30.591763167383718],
+          location: [[[104.06039628747, 30.59173264484], [104.060350795, 30.59173177776], [104.06034859432, 30.59181340695], [104.0603940868, 30.59181427402], [104.06039628747, 30.59173264484]]]
+        },
+        {
+          type: 1,
+          floor: 1,
+          buildingId: "17746", room: '生化实验室', loca: '理科实验楼2', person: '李达', center: [104.06048161359814, 30.591940462998807],
+          location: [[[104.0604311786592, 30.591959880771284], [104.06052153557539, 30.591961612432442], [104.0605223737657, 30.59192322726898], [104.0604330226779, 30.591921495607124], [104.06043218448758, 30.591921495607124], [104.0604311786592, 30.591959880771284]]]
+        },
+        {
+          type: 1,
+          floor: 1,
+          buildingId: "17746", room: '政治思想实验室', loca: '理科实验楼3', person: '王晓悦', center: [104.06047751321142, 30.5919766888355],
+          location: [[[104.06052153557539, 30.591961612432442], [104.0604311786592, 30.591959880771284], [104.06043017283082, 30.592001440631122], [104.06052036210895, 30.592003172291555], [104.06052153557539, 30.591961612432442]]]
+        },
+        {
+          type: 1,
+          floor: 1,
+          buildingId: "17746", room: '现代军事技能实验室', loca: '理科实验楼4', person: '程慕', center: [104.0604749920933, 30.592034904160172],
+          location: [[[104.06052036210895, 30.592003172291555], [104.06043017283082, 30.592001440631122], [104.06042866408825, 30.592057286664712], [104.06051902100444, 30.59205901832415], [104.06052036210895, 30.592003172291555]]]
+        },
+        {
+          type: 1,
+          floor: 1,
+          buildingId: "17746", room: '计算机1实验室', loca: '理科实验楼5', person: '杨澜', center: [104.06047179842489, 30.592089000070857],
+          location: [[[104.06051902100444, 30.59205901832415], [104.06042866408825, 30.592057286664712], [104.06042732298374, 30.592110535178378], [104.06051751226187, 30.592112266836864], [104.06051902100444, 30.59205901832415]]]
+        },
+        {
+          type: 1,
+          floor: 1,
+          buildingId: "17746", room: '计算机2实验室', loca: '理科实验楼6', person: '李治', center: [104.06046650858389, 30.59214199931435],
+          location: [[[104.06051751226187, 30.592112266836864], [104.06042732298374, 30.592110535178378], [104.06042598187923, 30.592163783662798], [104.06051617115736, 30.59216551532036], [104.06051751226187, 30.592112266836864]]]
+        },
+        {
+          type: 1,
+          floor: 1,
+          buildingId: "17746", room: '计算机3实验室', loca: '理科实验楼7', person: '张三', center: [104.0604676200125, 30.592248083581737],
+          location: [[[104.06051483005285, 30.592218763774582], [104.06042464077473, 30.592217032118], [104.06042329967022, 30.5922702805439], [104.06051348894835, 30.592272012199544], [104.06051483005285, 30.592218763774582]]]
+        },
+        {
+          type: 1,
+          floor: 1,
+          buildingId: "17746", room: '计算机4实验室', loca: '理科实验楼8', person: '杨澜', center: [104.060466273977, 30.592294025608368],
+          location: [[[104.06051348894835, 30.592272012199544], [104.06042329967022, 30.5922702805439], [104.06042179092765, 30.592323961854248], [104.06051214784384, 30.592325549204347], [104.06051348894835, 30.592272012199544]]]
+        },
+      ]
+      this.createRoomLayer(this.allDormList)
+      // this.map.on('click', (e) => {
+      //   let feas = this.map.queryRenderedFeatures(e.point)
+      //   console.log(feas)
+      //   console.log(JSON.stringify([e.lngLat.lng, e.lngLat.lat]), JSON.stringify(feas[0].geometry.coordinates))
+      // })
     },
-    destroySys(){
+    destroySys() {
       this.showBuildingText()
       this.clearStudystatusMarker()
-      if(this.roomLayer){
+      if (this.roomLayer) {
         this.roomLayer.remove()
         this.roomLayer = null
       }
     },
-    handleCheckLocation(msg){
+    handleCheckLocation(msg) {
       let detail = {
         floor: msg.floor,
         location: msg.center
       }
       this.SET_DETAIL_MSG(detail)
     },
-    createRoomLayer(){
-      if(this.roomLayer){
+    createRoomLayer(list) {
+      if (this.roomLayer) {
         this.roomLayer.remove()
         this.roomLayer = null
       }
       this.roomLayer = new creeper.LayerIndoor(this.map)
-      this.roomMesList = [{
-        type: 0,
-        floor: 0,
-        buildingId: "17746",
-        num: 33,
-        room: '法医实验室', 
-        loca: '文科实验楼1', 
-        person: '张锦',
-        center: [104.06032902565136, 30.591759379410234],
-        location: [[[104.06030589667,30.59173094939],[104.06030379654,30.5918125773],[104.06034770009,30.5918134148],[104.06034979954,30.59173178626],[104.06030589667,30.59173094939]]]
-      },{
-        type: 0,
-        floor: 0,
-        buildingId: "17746",
-        num: 26,
-        room: '法医实验室', 
-        loca: '文科实验楼1', 
-        person: '张锦',
-        center: [104.06028569277896, 30.591759379410234],
-        location: [[[104.0603072164,30.59173094735],[104.0602626412,30.59173009742],[104.06026044132,30.59181172599],[104.06030501504,30.59181257591],[104.0603072164,30.59173094735]]]
-      },{
-        type: 1,
-        floor: 0,
-        buildingId: "17746",
-        room: '法医实验室', 
-        loca: '文科实验楼1', 
-        person: '张锦',
-        center: [104.06037520447688, 30.591763167383718],
-        location: [[[104.06039628747,30.59173264484],[104.060350795,30.59173177776],[104.06034859432,30.59181340695],[104.0603940868,30.59181427402],[104.06039628747,30.59173264484]]]
-      }]
       let geojsonpolygon = {
         "type": "FeatureCollection",
         "features": []
       }
-      geojsonpolygon.features = this.setRoomFeature(this.roomMesList)
-      console.log('geojsonpolygon',geojsonpolygon)
-      this.roomLayer.addLayer(geojsonpolygon,{
-          sourceId:"studyStatusRoomData",
-          layerId:"studyStatusRoom-layer",
-          type:"fill",
-          paint:{
-              "fill-color": ['get', 'color'], 
-              //"line-width":5
-              
-          },
-          layout:{
-          },
-          isIndoor: true,
-          layerBefore: 'room23',
-          isBuildingDivision: true,
+      geojsonpolygon.features = this.setRoomFeature(list)
+      console.log('geojsonpolygon', geojsonpolygon)
+      this.roomLayer.addLayer(geojsonpolygon, {
+        sourceId: "studyStatusRoomData",
+        layerId: "studyStatusRoom-layer",
+        type: "fill",
+        paint: {
+          "fill-color": ['get', 'color'],
+          //"line-width":5
+
+        },
+        layout: {
+        },
+        isIndoor: true,
+        layerBefore: 'room23',
+        isBuildingDivision: true,
       })
-      this.roomLayer.addLayer(geojsonpolygon,{
-          sourceId:"studyStatusRoomTextData",
-          layerId:"studyStatusRoomText-layer",
-          type:"symbol",
-          paint:{
-             'text-color': '#fff'
-          },
-          layout:{
-            'text-field': ['get', 'title'],
-            'text-size': 12,
-          },
-          isIndoor: true,
-          isBuildingDivision: true,
+      this.roomLayer.addLayer(geojsonpolygon, {
+        sourceId: "studyStatusRoomTextData",
+        layerId: "studyStatusRoomText-layer",
+        type: "symbol",
+        paint: {
+          'text-color': '#fff'
+        },
+        layout: {
+          'text-field': ['get', 'title'],
+          'text-size': 12,
+        },
+        isIndoor: true,
+        isBuildingDivision: true,
       })
     },
-    setRoomFeature(roomList){
+    setRoomFeature(roomList) {
       let featureList = roomList.map(room => {
         let feature = {
-            "type": "Feature",
-            "properties": {
-                "name": "fdggff",
-                "status": "0",
-                "color": room.type == 0 ? 'rgb(70, 177, 246)' : 'rgb(255,151,0)',
-                "title": "B109" + '\n' + (`状态：${room.type==0 ? '使用中' : '空闲中'}`) + '\n' + (room.type == 0 ? `人数：${room.num}人` : '') + '\n',
-            },
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": room.location,
-            }
+          "type": "Feature",
+          "properties": {
+            "name": "fdggff",
+            "status": "0",
+            "color": room.type == 0 ? 'rgb(70, 177, 246)' : 'rgb(255,151,0)',
+            "title": room.room + '\n' + (`状态：${room.type == 0 ? '使用中' : '空闲中'}`) + '\n' + (room.type == 0 ? `人数：${room.num}人` : '') + '\n',
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": room.location,
+          }
         }
-        if(room.floor !== undefined) feature.properties.floor = room.floor
-        if(room.buildingId !== undefined) feature.properties.buildingId = room.buildingId
+        if (room.floor !== undefined) feature.properties.floor = room.floor
+        if (room.buildingId !== undefined) feature.properties.buildingId = room.buildingId
         return feature
       })
       return featureList
     },
-    createStudystatusMraker(listName, markerListName){
+    createStudystatusMraker(listName, markerListName) {
       let imgsrc = require('../../assets/study/study-marker.png')
       let domList = this[listName].map(item => {
         let div = document.createElement('div')
@@ -374,29 +433,29 @@ export default {
             <div><span>空闲中：</span><span>${item.freeNum}间</span></div>
           </div>
         `
-        return {dom: div}
+        return { dom: div }
         // let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
         // this[markerListName].push(marker)
       })
       let geoJson = this.setFeature(this[listName])
-      console.log('geoJson',geoJson)
+      console.log('geoJson', geoJson)
       this[markerListName] = new creeper.MarkerIndoor(this.map)
-      this[markerListName].addMarker(geoJson,domList,true)
+      this[markerListName].addMarker(geoJson, domList, true)
     },
-    setFeature(markerList){
+    setFeature(markerList) {
       let list = markerList.map(item => {
         let obj = {
           "type": "Feature",
           "properties": {
-            
+
           },
           "geometry": {
-              "type": "Point",
-              "coordinates": JSON.parse(JSON.stringify(item.location))
+            "type": "Point",
+            "coordinates": JSON.parse(JSON.stringify(item.location))
           }
         }
-        if(item.buildingId) obj.properties.buildingId = item.buildingId
-        if(item.floor) obj.properties.floor = item.floor
+        if (item.buildingId) obj.properties.buildingId = item.buildingId
+        if (item.floor) obj.properties.floor = item.floor
         return obj
       })
       return {
@@ -404,8 +463,8 @@ export default {
         "features": list
       }
     },
-    clearStudystatusMarker(){
-      if(this.markerList) this.markerList.remove()
+    clearStudystatusMarker() {
+      if (this.markerList) this.markerList.remove()
       this.markerList = null
     },
     //学生到课统计
@@ -512,33 +571,15 @@ export default {
     //教学综合情况
     getStudyStatus() {
       this.staList = [
-        { name: '教师人数', val: 1577 }, { name: '实验室', val: 1577 },
-        { name: '学生人数', val: 1577 }, { name: '教学楼', val: 1577 },
-        { name: '学院总数', val: 1577 }, { name: '学院建筑', val: 1577 },
+        { name: '教师人数', val: 244 }, { name: '实验室', val: 236 },
+        { name: '学生人数', val: 11577 }, { name: '教学楼', val: 45 },
+        { name: '学院总数', val: 16 }, { name: '学院建筑', val: 102 },
       ]
     },
-    //各宿舍楼归寝情况
-    getDormStatus(flag = true) {
+    //教室利用统计
+    getClassStati(flag = true) {
       this.dormKey = flag;
-      this.dormList = flag ? [
-        { room: '法医实验室', loca: '文科实验楼1', person: '张锦' },
-        { room: '化学实验室', loca: '文科实验楼2', person: '李达' },
-        { room: '统计大数据实验室', loca: '文科实验楼3', person: '王晓悦' },
-        { room: '现代旅游服务技能实验室', loca: '文科实验楼4', person: '程慕' },
-        { room: '网络统计实验室', loca: '文科实验楼5', person: '杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼6', person: '杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼7', person: '杨澜' },
-        { room: '网络统计实验室', loca: '文科实验楼8', person: '杨澜' },
-      ] : [
-        { room: '地理实验室', loca: '理科实验楼1', person: '张锦' },
-        { room: '生化实验室', loca: '理科实验楼2', person: '李达' },
-        { room: '政治思想实验室', loca: '理科实验楼3', person: '王晓悦' },
-        { room: '现代军事技能实验室', loca: '理科实验楼4', person: '程慕' },
-        { room: '计算机1实验室', loca: '理科实验楼5', person: '杨澜' },
-        { room: '计算机2实验室', loca: '理科实验楼6', person: '李治' },
-        { room: '计算机3实验室', loca: '理科实验楼7', person: '张三' },
-        { room: '计算机4实验室', loca: '理科实验楼8', person: '杨澜' },
-      ]
+      this.dormList = this.allDormList.filter(item=>item.type==(flag?0:1));
       this.dormProVal = 0;
       let t = setInterval(() => {
         if (this.dormProVal < 30.6) {
@@ -551,7 +592,7 @@ export default {
     },
     //开始自动滚动
     dormScrollStart() {
-      this.roomMesList.length && this.$nextTick(() => {
+      this.dormList.length && this.$nextTick(() => {
         this.dormScrollStop();
         let scrollBox = document.querySelector('.dormState .scroll');
         let content = document.querySelector('.dormState .scroll .content');
@@ -585,7 +626,7 @@ export default {
     //停止自动滚动
     dormScrollStop() {
       clearInterval(this.dormTimer);
-      document.querySelector('.dormState .scroll')&&(document.querySelector('.dormState .scroll').className = 'scroll');//显示滚动条
+      document.querySelector('.dormState .scroll') && (document.querySelector('.dormState .scroll').className = 'scroll');//显示滚动条
     },
     //教室分类统计
     getRoomType() {
@@ -709,14 +750,14 @@ export default {
     //出勤异常统计
     getAttendStati() {
       this.attendList = [
-        { name: '周雨生1', num: 19, class: '土木工程12班', type: 1 },
-        { name: '周雨生2', num: 29, class: '土木工程12班', type: 2 },
-        { name: '周雨生3', num: 39, class: '土木工程12班', type: 1 },
-        { name: '周雨生4', num: 49, class: '土木工程12班', type: 1 },
-        { name: '周雨生5', num: 59, class: '土木工程12班', type: 2 },
-        { name: '周雨生6', num: 69, class: '土木工程12班', type: 2 },
-        { name: '周雨生7', num: 79, class: '土木工程12班', type: 1 },
-        { name: '周雨生8', num: 89, class: '土木工程12班', type: 1 },
+        { name: '周雨生', num: 1, class: '土木工程12班', type: 1 },
+        { name: '周梦臣', num: 3, class: '软件工程3班', type: 2 },
+        { name: '杨大位', num: 2, class: '网络工程6班', type: 1 },
+        { name: '王博', num: 5, class: '英语学院1班', type: 1 },
+        { name: '高健', num: 4, class: '俄语学院7班', type: 2 },
+        { name: '李佳佳', num: 3, class: '地理科学2班', type: 2 },
+        { name: '杨澜', num: 1, class: '应用化学3班', type: 1 },
+        { name: '王依依', num: 1, class: '机械工程11班', type: 1 },
       ]
       this.attendScrollStart();
     },
@@ -756,7 +797,7 @@ export default {
     //停止自动滚动
     attendScrollStop() {
       clearInterval(this.attendTimer);
-      document.querySelector('.attendStati .scroll')&&(document.querySelector('.attendStati .scroll').className = 'scroll');//显示滚动条
+      document.querySelector('.attendStati .scroll') && (document.querySelector('.attendStati .scroll').className = 'scroll');//显示滚动条
     },
   }
 }
@@ -872,6 +913,7 @@ export default {
         font-weight: bold;
         color: #ffffff;
         border-radius: 2px;
+        min-width: 40px;
       }
     }
     .line {
@@ -1286,25 +1328,25 @@ export default {
 }
 </style>
 <style lang="less">
-.studystatus-marker-wrap{
-	.studystatus-marker-img{
-		width: 50px;
-		height: 50px;
-	}
-	.studystatus-marker-mes{
-		position: absolute;
-		top: -60px;
-		left: 50%;
-		transform: translateX(-50%);
-		padding: 8px 15px 10px;
-		width: max-content;
-		height: 50px;
-		background-image: url('../../assets/marker/assetsMrakerBg.png');
-		background-size: 100% 100%;
-		background-repeat: no-repeat;
-		color: #fff;
-		font-size: 12px;
-		text-align: left;
-	}
+.studystatus-marker-wrap {
+  .studystatus-marker-img {
+    width: 49px;
+    height: 54px;
+  }
+  .studystatus-marker-mes {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 15px 10px;
+    width: max-content;
+    height: 50px;
+    background-image: url("../../assets/marker/assetsMrakerBg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    color: #fff;
+    font-size: 12px;
+    text-align: left;
+  }
 }
 </style>

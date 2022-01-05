@@ -197,8 +197,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai1.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -211,8 +211,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai2.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,59 20,59 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -225,8 +225,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai3.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -239,8 +239,8 @@
             <dir class="item">
               <img class="bg1" src="../assets/compre/bg-ai4.png" alt />
               <svg class="svg-box">
-                <polyline class="ani-line1" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
-                <polyline class="ani-line2" points="20,0 52,0 70,30 52,60 20,60 0,30 20,0" />
+                <polyline class="ani-line1" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
+                <polyline class="ani-line2" points="20,1 52,1 70,30 52,58 20,58 0,30 20,0" />
                 <polyline class="ani-line3" points="58,2 72,25 80,25" />
                 <polyline class="ani-line4" points="58,58 72,35 160,35" />
               </svg>
@@ -280,7 +280,7 @@ export default {
     sideItem
   },
   computed: {
-    ...mapGetters(['currentSys','isInDoor'])
+    ...mapGetters(['currentSys','isInDoor','map'])
   },
   data() {
     return {
@@ -1007,6 +1007,7 @@ export default {
     position: relative;
     overflow: hidden;
     .box-car {
+      display: block;
       width: 100%;
     }
     .car1,
@@ -1015,22 +1016,23 @@ export default {
       position: absolute;
       width: 21px;
       height: 36px;
-      top: calc(100%);
+      // top: calc(100%);
+      top: calc(50% - 20px);
       z-index: 1;
     }
     .car1 {
       left: 22px;
-      animation: carMove 5s infinite linear;
+      // animation: carMove 5s infinite linear;
     }
     .car2 {
       left: calc(50% - 10.5px);
-      animation: carMove 4s infinite linear;
+      // animation: carMove 4s infinite linear;
     }
     .car3 {
-      top: -36px;
+      // top: -36px;
       right: 22px;
-      transform: rotate(180deg);
-      animation: carMove_rev 5s infinite linear;
+      // transform: rotate(180deg);
+      // animation: carMove_rev 5s infinite linear;
     }
     @keyframes carMove {
       0% {

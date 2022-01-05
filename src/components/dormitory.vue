@@ -34,7 +34,7 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各学院资产总数统计" delay="200" height="30%" style="margin-top: 30px;">
+				<sideItem title="宿舍利用概况" delay="200" height="30%" style="margin-top: 30px;">
 					<div style="height: 100%;width: 100%;margin-top: 10%;" slot='body'>
 						<div class="dormitoryUtilization">
 							<div class="useleft">
@@ -103,7 +103,11 @@
 			<div slot="right" style="height: 100%;" class="right">
 				<sideItem title="未归寝名单" transitionType="right" delay="100" height="100%" >
 						<div  style="height: 100%;width: 100%;overflow-y: scroll;" slot='body'>
-							<div class="nohomelist" v-for="(item,index) in nohomelist" >
+							<div class="violation-detail-table">
+								<div class="ab-list patrol">
+									<div class="content" @mouseenter="abScrollStop" @mouseleave="abScrollStart">
+							<div class="nohomelist ab-item-wrap" v-for="(item,index) in nohomelist" >
+								<div class="ab-item">
 							<div style="display: flex;position: relative;">
 								<img src="../assets/img/nohomeimg.png" alt="" class="nohomelistimg">
 								<!-- <span class="fgline">-</span> -->
@@ -123,8 +127,14 @@
 								</div>
 							</div>
 							</div>
-							
+							</div>
+							</div>
+							</div>
+							</div>
 						</div>
+						
+						
+						
 				</sideItem>
 			</div>
 		</sideTran>
@@ -146,6 +156,7 @@
 		},
 		data() {
 			return {
+				abTimer:null,
 				thisCrrentSys: '',
 				peopleimg: require("../assets/img/people.png"),
 				nohomelist: [{
@@ -286,7 +297,11 @@
 			...mapGetters(['currentSys'])
 		},
 		watch: {
-
+			currentSys(val) {
+				if (val != 'vehicle') {
+					this.abScrollStop();
+				}
+			}
 		},
 		mounted(){
     	this.init()
@@ -302,6 +317,7 @@
 					setTimeout(() => {
 						this.renderpie()
 						this.randerBar()
+						this.abScrollStart();
 					}, 600)
 				})
 				this.mesList = [{
@@ -338,6 +354,48 @@
 					this.roomLayer.remove()
 					this.roomLayer = null
 				}
+			},
+			//开始自动滚动
+			abScrollStart() {
+				console.log("abScrollStart11")
+				this.nohomelist.length && this.$nextTick(() => {
+					console.log("jinru")
+					this.abScrollStop();
+					let scrollBox = document.querySelector('.violation-detail-table .ab-list');
+					let content = document.querySelector('.violation-detail-table .ab-list .content');
+					let items = document.querySelectorAll('.violation-detail-table .ab-list .content .ab-item-wrap');
+					console.log(scrollBox,content,items,"44444")
+					let itemH = items[0].clientHeight;
+					let flag = true;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					console.log(content.clientHeight - scrollBox.clientHeight < itemH,"5555",content.clientHeight, scrollBox.clientHeight)
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					// scrollBox.className = 'scroll noScroll';//隐藏滚动条
+					this.abTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//来回移动
+						// if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+						//   scrollBox.scrollTop += 1;
+						// }else if(!flag&&scrollBox.scrollTop>0){
+						//   scrollBox.scrollTop -= 1;
+						// }else{
+						//   flag = !flag
+						// }
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			abScrollStop() {
+				clearInterval(this.abTimer);
+				// document.querySelector('.violation-detail-table .scroll')&&(document.querySelector('.violation-detail-table .scroll').className = 'scroll');//显示滚动条
 			},
 			createStudystatusMraker(listName, markerListName){
 				let imgsrc = require('../assets/dormitory/dormitory-marker.png')
@@ -537,7 +595,7 @@
 						containLabel: true,
 						left: 30,
 						top: 20,
-						right: 100,
+						right: 60,
 						bottom: 0
 					},
 					yAxis: [{
@@ -645,6 +703,33 @@
 </script>
 
 <style lang="less" scoped>
+	.scroll {
+	  flex: 1;
+	  width: 100%;
+	  overflow-y: auto;
+	}
+	.noScroll {
+	  &::-webkit-scrollbar {
+	    visibility: hidden;
+	  }
+	  &::-webkit-scrollbar-thumb {
+	    visibility: hidden;
+	  }
+	}
+	.violation-detail-table{
+		// height: calc(100% - 30px);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		.ab-list{
+			// height: calc(100% - 45px);
+			flex: 1;
+			overflow-y: scroll;
+		}
+	}
+	.ab-item-wrap:hover{
+		background: rgba(106, 176, 255, 0.2);
+	}
 	#returntoBed {
 		width: 100%;
 		height:100%;

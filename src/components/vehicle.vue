@@ -62,7 +62,7 @@
 				</sideItem>
 			</div>
 			<div slot="right" style="height: 100%;">
-				<sideItem title="土地情况" :delay="500" transitionType="right">
+				<sideItem title="车辆进出" :delay="500" transitionType="right">
 					<div slot='body' class="parking">
 						<div class="parking-item">
 							<img src="../assets/img/goin.png" alt="">

@@ -2,7 +2,7 @@
 	<div style="height:100%;">
 		<sideTran :thisCrrentSys="thisCrrentSys">
 			<div slot="left" style="height:100%;">
-				<sideItem title="学校概况" height="27%" :delay="500">
+				<sideItem title="应用系统健康分析" height="27%" :delay="500">
 					<div slot='body' class="schoolProfile-wrap">
 						<div id="schoolProfile"></div>
 						<div class="schoolProfile-right">
@@ -34,7 +34,7 @@
 						<div id="store" class="resource-analysis-item"></div>
 					</div>
 				</sideItem>
-				<sideItem title="各宿舍楼归寝概况" height="56%" :delay="1500">
+				<sideItem title="系统访问量分析" height="56%" :delay="1500">
 					<div slot='body' class="visitsChart-wrap">
 						<div id="visitsChart"></div>
 					</div>
