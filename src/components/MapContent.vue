@@ -23,10 +23,10 @@ let token = 'd2lzZWM6NzkzNmZkN2UzNWI5MGY2YWNhZWI3MjVhYzIyOTlkYzM=9';
 let map2D = {
   mapId: 9, // 地图Id
   styleId: 3,  // 样式id
-  mapCenter: [113.998659116,33.007876128], //地图中心点
-  mapZoom: 16, // 地图放大级别
-  mapPitch: 52.5,
-  mapBearing: 33.6,
+  mapCenter: [104.05788702900719, 30.59531754516823], //地图中心点
+  mapZoom: 16.2, // 地图放大级别
+  mapPitch: 60,
+  mapBearing: 0,
 }
 let map25D = {
   mapId: 43, // 地图Id
@@ -66,7 +66,11 @@ export default {
       routeoutcircle: [],
       buildingdata: [],
       lineData: [], //路线数据
-      domainUrl: window.location.href.split('#')[0]
+      domainUrl: window.location.href.split('#')[0],
+      circleInterval: null,
+      circleList: [],
+      circleIndex: 0,
+      floor2: null
     };
   },
   computed: {
@@ -76,13 +80,13 @@ export default {
     nowBuild() {
       return this.vMap.floorComponent.nowBuildingId
     },
-    ...mapGetters(['map','schoolList', 'mapMes'])
+    ...mapGetters(['map','schoolList', 'mapMes','lineLoad'])
   },
   created() {
     counter = 0
     Bus.$on("lngLat", (val) => {
       console.log(val.leaf+1)
-        this.vMap.flyTo({center:val.lngLat.coordinates, zoom:20});
+        this.vMap.flyTo({center:val.lngLat.coordinates, zoom: 18});
         this.vMap.once('moveend', () => {
           this.vMap.setLevel(val.leaf)
         })
@@ -99,12 +103,18 @@ export default {
     //   .catch((err) => {
     //     // 抛出错误信息
     //   });
-
-
   },
   watch: {
     Fllo(val){//  切换楼层
       this.vMap.setLevel(val)
+    },
+    lineLoad(val){
+      if(val){
+        if(this.floor2){
+          threeLayer.threemap.remove(this.floor2)
+          this.floor2 = null
+        }
+      }
     },
   },
   methods: {
@@ -156,6 +166,12 @@ export default {
         //获取地图样式
         this.getMapStyle()
         this.vMap.on("load", () => {
+          this.vMap.flyTo({
+            center: _mapCenter,
+            pitch: _mapPitch,
+            bearing: _mapBearing,
+            zoom: _mapZoom
+          })
           // 获取地图样式
           this.SET_MAP_LOAD(false)
           this.SET_MAP(this.vMap)
@@ -272,7 +288,10 @@ export default {
       this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
       this.loadOjbFn()
       this.loadTree()
-      setTimeout(() => {this.load3DLine()}, 3000) // 3S之后加载路线
+      setTimeout(() => {
+        this.load3DLine()
+        // this.loadAniCircle()  
+      }, 4000) // 3S之后加载路线
       
     },
     // 加载树
@@ -367,7 +386,7 @@ export default {
         bearing:40,
         center:[ 104.05619359161085, 30.594327139005628],
         zoom:16.1,
-        easing(t){
+        easing: (t) => {
           console.log('5555555555555555555555', t)
           if (t==1) {
             //加载建筑
@@ -375,8 +394,9 @@ export default {
             let building_3D=threeLayer.threemap.objects.building(that.buildingdata,buildingpng)
             threeLayer.threemap.add(building_3D)
             //建筑标签
+            let textArr = ['音乐舞蹈大楼','紫荆餐厅','图书馆','行政大楼','1号教学楼','2号教学楼','灵奇图书馆','机电信息实验大楼','体育馆','主体育场','中原农耕文化博物馆','理想中心4栋','科技实验大楼']
             that.buildingdata.forEach(e=>{
-              if (e.center) {
+              if (e.center && textArr.includes(e.text)) {
                 let div=document.createElement("div")
                 div.className="buildingtext"
                 div.innerHTML=e.text
@@ -389,8 +409,8 @@ export default {
             setTimeout(() => {
               that.vMap.flyTo({
                 center:[104.0578925643049, 30.596282208297538],
-                zoom:17,
-                bearing:8
+                zoom:16.8,
+                bearing: 30
               })
               let divtets=document.createElement("div")
               divtets.className="LABEL2D"
@@ -467,9 +487,7 @@ export default {
               let label2=threeLayer.threemap.objects.add3DLabel(divtets1,[ 104.05745924744474, 30.595047272850607,2],[Math.PI/2,Math.PI,0])
               label2.scale.set(0.0015,0.0015,1)
               //threeLayer.threemap.add(label2)
-              setTimeout(() => {
-                that.SET_LINE_LOAD(true)
-              },3000)
+              this.SET_LINE_LOAD(true)
             }, 5000);
           }
       
@@ -525,19 +543,18 @@ export default {
           //console.log(pointcar,route,steps);
           //这里随便取的是最小的路线数据集合长度，实际应该是每条路线的长度不一样，动画的时间不一样
           if (counter<=600&&!change) {
-            this.vMap.flyTo({
-                center:this.lineData[0][counter][0],
-                bearing:this.lineData[0][counter][1],
-                zoom:17.5
-            })
+            // this.vMap.flyTo({
+            //     center:this.lineData[0][counter][0],
+            //     bearing:this.lineData[0][counter][1],
+            //     zoom:17.5
+            // })
           }else{
             if (!change&&!mapease) {
-              this.vMap.flyTo({
-                center:this.vMap.getCenter(),
-                zoom:15
-              })
+              // this.vMap.flyTo({
+              //   center:this.vMap.getCenter(),
+              //   zoom:15
+              // })
               mapease=true
-              this.loadBuildFn()
             }
           }
               
@@ -568,9 +585,9 @@ export default {
       this.vMap.flyTo({
         center:[104.05482544141955, 30.59284920246894],
         zoom:15,
-        bearing:0,
-        pitch:60,
-        easing(t){
+        // bearing:0,
+        // pitch:60,
+        easing: (t) => {
           if (t==1) {
             setTimeout(() => {
               //外围路线
@@ -595,18 +612,51 @@ export default {
                 let buildingout=threeLayer.threemap.objects.buildingoutside(that.buildingoutcircle,[104.05768654235203, 30.59122228071986])
         
                 threeLayer.threemap.add(buildingout)
-                let floor2=threeLayer.threemap.objects.circlewithwireframe([104.05768654235203, 30.59122228071986,0],0x00ffff,[100,100])
 
-                threeLayer.threemap.add(floor2)
-              }, 13000);                     
-            
+                this.floor2 = threeLayer.threemap.objects.circlewithwireframe([104.05768654235203, 30.59122228071986,0],0x00ffff,[100,100])
+
+                threeLayer.threemap.add(this.floor2)
+                setTimeout(() => {
+                  this.loadAniCircle()
+                }, 2500)
+              }, 2000);
+                          
             }, 500);
               
           }
           return t
         }
       })
-    }
+    },
+    loadAniCircle(){
+      // let radius = .3;
+      // let options = {steps: 150, units: 'kilometers', properties: {foo: 'bar'}};
+      // let circle = turf.circle(center, radius, options)
+      // this.circleList = circle.geometry.coordinates[0]
+      // console.log('circle',this.circleList)
+      // 旋转动画
+      this.vMap.flyTo({
+        center: map2D.mapCenter,
+        pitch: map2D.mapPitch,
+        bearing: map2D.mapBearing,
+        zoom: map2D.mapZoom,
+        easing: (t) => {
+          if(t == 1){
+            this.circleInterval = setInterval(() => {
+              if(this.circleIndex >= 360){
+                clearInterval(this.circleInterval)
+                // this.loadAniLine()
+                this.loadBuildFn()
+                return
+              }
+              this.vMap.setBearing(this.circleIndex)
+              this.circleIndex += .4
+            }, 1000/60)
+          }
+          return t
+        }
+      })
+    },
   },
   beforeDestroy(){
   }

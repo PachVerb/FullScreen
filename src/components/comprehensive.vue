@@ -265,6 +265,7 @@
 </template>
 
 <script>
+import mixins from './mixins'
 import sideTran from './sideTran'
 import nowpeopleslide from './nowpeopleslide.vue'
 import sideItem from './sideItem.vue'
@@ -273,12 +274,13 @@ import {
 } from 'vuex'
 import * as echarts from 'echarts';
 export default {
+  mixins: [mixins],
   components: {
     sideTran,
     sideItem
   },
   computed: {
-    ...mapGetters(['currentSys'])
+    ...mapGetters(['currentSys','isInDoor'])
   },
   data() {
     return {
@@ -287,6 +289,15 @@ export default {
       cardList: [],
       stuDisList: []
     }
+  },
+  watch: {
+    isInDoor(val){
+      if(val){
+        this.hideBuildingText()
+      } else {
+        this.showBuildingText()
+      }
+    },
   },
   mounted(){
     this.init()
