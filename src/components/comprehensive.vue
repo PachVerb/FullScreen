@@ -996,6 +996,7 @@ export default {
     position: relative;
     overflow: hidden;
     .box-car {
+      display: block;
       width: 100%;
     }
     .car1,
