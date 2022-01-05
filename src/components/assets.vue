@@ -136,6 +136,7 @@ export default {
     return {
       markerIndoor: null,
       markerList: [],
+			color : ['rgb(106,176,255'],
       assetsMesList: [],
       ratioList:[],
       totalAssetsOption: {
@@ -306,6 +307,21 @@ export default {
             type: 'line',
             animationDuration: 2500,
             symbol: 'circle',
+        areaStyle: {
+            normal: {
+                
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                    offset: 0,
+										
+                    color: 'rgba(106,176,255,0.4)'
+                }, {
+                    offset: 0.8,
+                    color: 'rgba(106,176,255,0)'
+                }], false),
+                shadowColor: 'rgba(0, 0, 0, 0.1)',
+                shadowBlur: 10
+            }
+        },
             itemStyle:{
               normal:{
                 color:'rgb(106,176,255)', //折点颜色
@@ -314,7 +330,7 @@ export default {
                 }
               }
                 
-            }
+            },
           }
         ]
       },

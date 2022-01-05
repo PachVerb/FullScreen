@@ -63,7 +63,11 @@
 				</sideItem>
 				<sideItem title="应用数据发展分析" transitionType="right" :delay="1500" height="42%">
 					<div slot='body' class="application-analysis">
+						<div class="violation-detail-table">
+							<div class="ab-list patrol">
+								<div class="content" @mouseenter="abScrollStop" @mouseleave="abScrollStart">
 						<div class="application-analysis-item" v-for="item in applicationAnalysisList" :key="item.id">
+							<div class="ab-item">
 							<div class="application-analysis-item-top">
 								<img src="../../assets/img/application-analysis1.png" alt="">
 								<span>{{item.title}}</span>
@@ -74,6 +78,10 @@
 									<span class="application-analysis-item-bottom-item-value">{{ child.value }}</span>
 								</div>
 							</div>
+						</div>
+						</div>
+						</div>
+						</div>
 						</div>
 					</div>
 				</sideItem>
@@ -102,6 +110,7 @@
 		data() {
 			return {
 				thisCrrentSys: "",
+				abTimer:null,
 				applicationAnalysisList: [{
 					id: 1,
 					title: '网络数',
@@ -310,8 +319,46 @@
 						this.renderVisitsChart()
 						this.setBarChart()
 						this.renderFaultAnalysisLine()
+						this.abScrollStart()
 					}, 2000);
 				})
+			},
+			//开始自动滚动
+			abScrollStart() {
+				this.applicationAnalysisList.length && this.$nextTick(() => {
+					this.abScrollStop();
+					let scrollBox = document.querySelector('.violation-detail-table .ab-list');
+					let content = document.querySelector('.violation-detail-table .ab-list .content');
+					let items = document.querySelectorAll('.violation-detail-table .ab-list .content .application-analysis-item');
+					let itemH = items[0].clientHeight;
+					let flag = true;
+					let nexTop = Math.ceil(scrollBox.clientHeight / itemH) * itemH - scrollBox.clientHeight;
+					//检查滚动距离是否过短
+					console.log(content.clientHeight,scrollBox.clientHeight,itemH,"abScrollStart",content.clientHeight - scrollBox.clientHeight < itemH)
+					if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+					this.abTimer = setInterval(() => {
+						//检查滚动距离是否过短
+						if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+						//来回移动
+						// if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+						//   scrollBox.scrollTop += 1;
+						// }else if(!flag&&scrollBox.scrollTop>0){
+						//   scrollBox.scrollTop -= 1;
+						// }else{
+						//   flag = !flag
+						// }
+						//单向重复移动
+						if (scrollBox.scrollTop < content.clientHeight - scrollBox.clientHeight) {
+							scrollBox.scrollTop += 1;
+						} else {
+							scrollBox.scrollTop = nexTop;
+						}
+					}, 50);
+				})
+			},
+			//停止自动滚动
+			abScrollStop() {
+				clearInterval(this.abTimer);
 			},
 			setBarChart(){
 				let colors = ['#598BF1', '#E2B46D', '#F2896B', '#2B63D5', '#2039C3', ]
@@ -816,6 +863,23 @@
 </script>
 
 <style lang='less' scoped>
+	.ab-item {
+		/* display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 6px 16px 0;
+		padding: 0 0 6px; */
+	}
+	.violation-detail-table{
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		.ab-list{
+			flex: 1;
+			overflow-y: scroll;
+		}
+	}
+
 #totalAssets {
 	width: 100%;
 	height: 150px;
@@ -1017,6 +1081,10 @@
 .application-analysis{
 	width: 100%;
 	height: 100%;
+	//overflow-y: auto;
+	.ab-list{
+		height: calc(100% - 60px);
+	}
 }
 .application-analysis-item{
 	margin: 15px;

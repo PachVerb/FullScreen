@@ -1764,7 +1764,7 @@
 
 	.useright {
 		/* height: 100%; */
-		width: 110%;
+		width: 187px;
 		margin-left: 30px;
 		margin-top: -20px;
 	}
@@ -1780,9 +1780,9 @@
 	}
 
 	.userightbox {
-		width: 110%;
-		height: .18rem;
-		background-size: 100% .18rem !important;
+		width: 185px;
+		height: 36px;
+		background-size: 100% 38px !important;
 		background: url(../assets/img/nohomebox.png) no-repeat;
 		border: 1px solid transparent;
 	}
@@ -1804,8 +1804,8 @@
 	.colorbox {
 		display: flex;
 		justify-content: space-between;
-		height: .15rem;
-		width: 97%;
+		height: 29px;
+		width: 180px;
 		background-color: rgba(68, 92, 121, 0.6);
 		margin-left: 3px;
 		margin-top: 3px;
@@ -1815,7 +1815,6 @@
 
 	.peoplestrue {
 		width: 100%;
-		/* height: .75rem; */
 		display: flex;
 		margin-top: 20px;
 		padding-left: 20px;

@@ -12,7 +12,7 @@
           @mouseleave.native="handleLeave" -->
           <div class="filter-box">
               <!-- v-show="show" -->
-              <div class="filter-item">
+              <!-- <div class="filter-item">
                   <el-form-item label="校区:">
                       <el-select v-model="queryForm.campusCode">
                           <el-option
@@ -23,7 +23,7 @@
                           ></el-option>
                       </el-select>
                   </el-form-item>
-              </div>
+              </div> -->
               <div class="filter-item filter-item1" style="flex:2;">
                   <el-form-item label="时间:">
                       <el-date-picker

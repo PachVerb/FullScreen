@@ -65,7 +65,7 @@
 											<span class="userboxwz">未住满</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;">
-											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
+											<span style="color: #00F5FF;">2410</span><span style="color: gray;">间</span>
 										</div>
 										<div style="position: relative;top: 6px;margin-right: 10px;font-size: 14px;">
 											<span style="color: white;">查看明细</span>
@@ -79,7 +79,7 @@
 											<span class="userboxwz">住满</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;">
-											<span style="color: #00F5FF;">50</span><span style="color: gray;">间</span>
+											<span style="color: #00F5FF;">15241</span><span style="color: gray;">间</span>
 										</div>
 										<div style="position: relative;top: 6px;margin-right: 10px;font-size: 14px;">
 											<span style="color: white;">查看明细</span>
@@ -163,7 +163,7 @@
 						img: require("../assets/img/people.png"),
 						roomname: "修身宿舍楼",
 						name: "李晶",
-						promess: "网络安全与工程",
+						promess: "机械工程",
 						number: "A5102",
 						studentnumber: "225456565",
 						class: "09班"
@@ -172,7 +172,7 @@
 						img: require("../assets/img/people2.png"),
 						roomname: "修身宿舍楼",
 						name: "李志云",
-						promess: "网络安全与工程",
+						promess: "机械设计制造及其自动化",
 						number: "C5102",
 						studentnumber: "225456545",
 						class: "02班"
@@ -181,7 +181,7 @@
 						img: require("../assets/img/people3.png"),
 						roomname: "修身宿舍楼",
 						name: "李梦",
-						promess: "网络安全与工程",
+						promess: "电子信息工程",
 						number: "B5102",
 						studentnumber: "225453565",
 						class: "01班"
@@ -190,7 +190,7 @@
 						img: require("../assets/img/people4.png"),
 						roomname: "修身宿舍楼",
 						name: "王猛",
-						promess: "网络安全与工程",
+						promess: "电子科学与技术",
 						number: "B4102",
 						studentnumber: "225456565",
 						class: "02班"
@@ -199,7 +199,7 @@
 						img: require("../assets/img/people5.png"),
 						roomname: "修身宿舍楼",
 						name: "周雨生",
-						promess: "网络安全与工程",
+						promess: "通信工程",
 						number: "B5982",
 						studentnumber: "225556565",
 						class: "12班"
@@ -208,7 +208,7 @@
 						img: require("../assets/img/people6.png"),
 						roomname: "修身宿舍楼",
 						name: "李晶",
-						promess: "网络安全与工程",
+						promess: "微电子科学与工程",
 						number: "B2242",
 						studentnumber: "225987565",
 						class: "01班"
@@ -217,7 +217,7 @@
 						img: require("../assets/img/people7.png"),
 						roomname: "修身宿舍楼",
 						name: "唐月",
-						promess: "网络安全与工程",
+						promess: "光电信息科学与工程",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
@@ -226,7 +226,7 @@
 						img: require("../assets/img/people8.png"),
 						roomname: "修身宿舍楼",
 						name: "王谢",
-						promess: "网络安全与工程",
+						promess: "信息工程",
 						number: "B5102",
 						studentnumber: "225456565",
 						class: "01班"
