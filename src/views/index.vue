@@ -119,6 +119,9 @@ export default {
 		this.getWeather(document)
 	},
   mounted(){
+    console.log('clientWidth',document.documentElement.clientWidth)
+    let clientWidth = document.documentElement.clientWidth
+    document.body.style.zoom = clientWidth / 1920
 		// this.copyWeatherHtml()
     // this.SET_CURRENTSYS('comprehensive')
 	},
