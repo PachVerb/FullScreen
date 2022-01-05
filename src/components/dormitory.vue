@@ -34,7 +34,7 @@
 					</div>
 				</sideItem>
 
-				<sideItem title="各学院资产总数统计" delay="200" height="30%" style="margin-top: 30px;">
+				<sideItem title="宿舍利用概况" delay="200" height="30%" style="margin-top: 30px;">
 					<div style="height: 100%;width: 100%;margin-top: 10%;" slot='body'>
 						<div class="dormitoryUtilization">
 							<div class="useleft">

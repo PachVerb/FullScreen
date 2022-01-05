@@ -20,7 +20,10 @@
 
 						<div class="dormitoryUtilization">
 							<div class="useleft">
-								<img src="../assets/img/visitorstodayimg.png">
+								<!-- <img src="../assets/img/visitorstodayimg.png"> -->
+								<img class="parking-space-top" src="../assets/peopleHead/peopleHead.png" alt="">
+								<img class="light" src="../assets/peopleHead/around.png" alt="">
+								<img class="parking-space-bottom" src="../assets/peopleHead/bottomBox.png" alt="">
 							</div>
 							<div class="useright">
 								<div class="userightbox">
@@ -1634,6 +1637,81 @@
 </script>
 
 <style scoped  lang="less" >
+	.parking-space-bottom{
+		position: relative;
+		top: 20px;
+		z-index: 1;
+		width: 130px;
+	}
+      .light {
+        animation: ani-light 2s infinite linear;
+        animation-direction: alternate;
+				position: absolute;
+				bottom: -4px;
+				left: 20px;
+      }
+      @keyframes ani-light {
+        0% {
+          opacity: 0.3;
+          transform: scale(0);
+          top: 30%;
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1.1);
+          top: 0;
+        }
+      }
+	.parking-space-middle{
+		position: absolute;
+		top: 13px;
+		z-index: 2;
+		width: 100px;
+	}
+	.parking-space-middle1{
+		position: absolute;
+		bottom: -4px;
+		animation: parking-space-middle1-start 4s infinite linear;
+	}
+	@keyframes parking-space-middle1-start{
+		0%{
+			width: 100px;
+			opacity: 1;
+		}
+		50%{
+			width: 130px;
+			opacity: 1;
+		}
+		100%{
+			width: 130px;
+			opacity: 0;
+		}
+	}
+	.parking-space-top{
+		position: absolute;
+		top: 21px;
+		left: 40px;
+		z-index: 3;
+		width: 40px;
+		animation: parking-space-top-start 2s infinite linear;
+	}
+	@keyframes parking-space-top-start{
+		0%{
+			top: 21px
+		}
+		25%{
+			top: 15px
+		}
+		50%{
+			top: 20px
+		}
+		75%{
+			top: 28px;
+		}
+		100%{
+			top: 21px
+		}
+	}
 	.ab-detail-list-wrap{
 		width: 100%;
 		height: 100%;
@@ -1681,6 +1759,7 @@
 	.dormitoryUtilization {
 		/* margin-top: 10px; */
 		display: flex;
+		// justify-content: space-between;
 	}
 
 	.useright {
@@ -1719,6 +1798,7 @@
 
 	.useleft {
 		margin-top: -10px;
+		position: relative;
 	}
 
 	.colorbox {

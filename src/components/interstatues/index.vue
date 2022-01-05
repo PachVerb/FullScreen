@@ -14,12 +14,12 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="网络设备统计" transitionType="left" delay="1000" height="25%">
+				<sideItem title="网络设备分类统计" transitionType="left" delay="1000" height="25%">
 					<div slot='body' class="networkdevicetotal" style="height: 100%;width: 100%;">
 						<div id="networkdevicetotal"></div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警统计" transitionType="left" delay="1500" height="26%">
+				<sideItem title="设备告警详情" transitionType="left" delay="1500" height="26%">
 					<div slot='body' class="equipmentalarmtotal" style="height: 100%;width: 100%;">
 						<div class="violation-detail-table">
 						<div class="table-head">
@@ -46,7 +46,7 @@
 						</div>
 					</div>
 				</sideItem>
-				<sideItem title="设备告警详情" transitionType="left" delay="2000" height="28%">
+				<sideItem title="设备告警趋势统计" transitionType="left" delay="2000" height="28%">
 					<div slot='headRight' class="deviceDetail">
 						<div class="checkBox">
 							<div :class="trendKey==0?'btn checked':'btn'" @click="getTrendAnalyData(0)">近一周</div>
