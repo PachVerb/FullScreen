@@ -2,7 +2,14 @@
   <div class="index">
     <!-- <img src="../assets/img/2.png" alt=""> -->
     <div class="index_top" >
-      <img alt="logo" src="../assets/img/toptitle.png"  style="width: 95%; display: inline-block;"/>
+      <div class="logoBox">
+        <img alt="logo" src="../assets/img/toptitle.png"  style="width: 100%; display: block;"/>
+        <!-- <img class="star" src="../assets/img/star.png" alt=""> -->
+        <!-- <svg class="svg-box">
+          <polyline class="line-shadow" points="358,10 382,30 740,30 794,88 1228,88 1282,30 1640,30 1662,10" />
+          <polyline class="line" points="358,10 382,30 740,30 794,88 1228,88 1282,30 1640,30 1662,10" />
+        </svg> -->
+      </div>
 <!-- 			<div style="margin-right: 10px;display: inline-block;position: absolute;margin-top: 20px">
 				<selectschool style="position: absolute;width:340px" />
 				<clock style="margin-left: 150px;" />
@@ -89,10 +96,17 @@ export default {
     },
     currentSys(val){
       if(this.map){
-        this.map.setBearing(8)
-				this.map.setPitch(60)
-        this.map.setZoom(16.1)
-        this.map.setCenter([104.05758988604839, 30.595132552688057])
+        // this.map.setBearing(8)
+				// this.map.setPitch(60)
+        // this.map.setZoom(16.1)
+        // this.map.setCenter([104.05758988604839, 30.595132552688057])
+        this.map.flyTo({
+          center:[104.05938430427273,30.596404125302925],
+          zoom:17.5,
+          bearing:8,
+          pitch:60,
+          duration:1000
+        })
         this.SET_DETAIL_MSG(null)
       }
     },
@@ -220,6 +234,58 @@ export default {
     position: absolute;
     top:0;
     z-index: 5;
+    .logoBox{
+      width: 95%; 
+      display: inline-block;
+      position: relative;
+      .star{
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .svg-box {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        .line,.line-shadow {
+          fill: none;
+          stroke: #64C6EE;
+          stroke-linejoin: round;
+          stroke-linecap: round;
+        }
+        .line{
+          stroke-width: 2;
+          stroke-dashoffset: -2;
+          stroke-dasharray: 10, 1360;
+          animation: aniLogoMove 12s linear infinite;
+        }
+        .line-shadow{
+          stroke-width: 8;
+          stroke-opacity: 0.5;
+          stroke-dashoffset: 0;
+          stroke-dasharray: 14, 1356;
+          animation: aniShadowMove 12s linear infinite;
+        }
+        @keyframes aniLogoMove {
+          0% {
+            stroke-dashoffset: -2;
+          }
+          100% {
+            stroke-dashoffset: -1372;
+          }
+        }
+        @keyframes aniShadowMove {
+          0% {
+            stroke-dashoffset: 0;
+          }
+          100% {
+            stroke-dashoffset: -1370;
+          }
+        }
+      }
+    }
   }
 
   .foolce{
