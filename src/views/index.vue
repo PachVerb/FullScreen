@@ -2,7 +2,7 @@
   <div class="index">
     <!-- <img src="../assets/img/2.png" alt=""> -->
     <div class="index_top" >
-      <img alt="logo" src="../assets/img/toptitle.png"  style="width: 95%; display: inline-block;"/>
+      <logo />
 <!-- 			<div style="margin-right: 10px;display: inline-block;position: absolute;margin-top: 20px">
 				<selectschool style="position: absolute;width:340px" />
 				<clock style="margin-left: 150px;" />
@@ -10,24 +10,14 @@
       <!-- <div id="he-plugin-simple" style=""></div> -->
     </div>
     <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
-    <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
+    <component v-if="!mapLoad" :is="currentSys" :ref="currentSys"></component>
     <SideBar v-if="lineLoad"></SideBar>
     <!-- <VideoCheck v-if="showVideo"/> -->
-    <comprehensive v-if="currentSys == 'comprehensive'" ref="comprehensive"></comprehensive>
-    <assets v-if="currentSys == 'assets'" ref="assets"></assets>
-    <fireSafety v-if="currentSys == 'fireSafety'" ref="fireSafety"></fireSafety>
-    <vehicle v-if="currentSys == 'vehicle'" ref="vehicle"></vehicle>
-    <peoplestatues v-if="currentSys == 'peoplestatues'" ref="peoplestatues"></peoplestatues>
-    <energyUsage v-if="currentSys == 'energyUsage'" ref="energyUsage"></energyUsage>
-		<dormitory v-if="currentSys == 'dormitory'" ref="dormitory" style="position: absolute;"/>  
-		<interstatues v-if="currentSys == 'interstatues'" ref="interstatues"></interstatues>
-		<publichouse v-if="currentSys == 'publichouse'" ref="publichouse"></publichouse>
-		<studystatues v-if="currentSys == 'studystatues'" ref="studystatues"></studystatues>
-		<networkoperation v-if="currentSys == 'networkoperation'" ref="networkoperation"></networkoperation>
   </div>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import logo from '@/components/logo'
 import MapContent from "@/components/MapContent"; // 地图组件.
 import Clock from "@/components/Clock"; // 时钟
 import SideBar from '@/components/sidebar'
@@ -43,11 +33,11 @@ import energyUsage from '@/components/energyUsage'
 import publichouse from '@/components/publichouse/index.vue'//公房态势
 import networkoperation from '@/components/networkoperation/index.vue'//网络运维
 import Bus from'../js/Bus';
-import EnergyUsage from '../components/energyUsage.vue';
 export default {
   name: "index",
   flag:true,
   components: {
+    logo,
     MapContent,
     Clock,
     SideBar,
@@ -89,10 +79,10 @@ export default {
     },
     currentSys(val){
       if(this.map){
-        this.map.setBearing(8)
+        this.map.setBearing(0)
 				this.map.setPitch(60)
-        this.map.setZoom(16.1)
-        this.map.setCenter([104.05758988604839, 30.595132552688057])
+        this.map.setZoom(17.8)
+        this.map.setCenter([104.05999036597285, 30.596105715016634])
         this.SET_DETAIL_MSG(null)
       }
     },
@@ -119,7 +109,7 @@ export default {
 		this.getWeather(document)
 	},
   mounted(){
-    console.log('clientWidth',document.documentElement.clientWidth)
+    console.log('clientWidth',document.documentElement.clientWidth,document.documentElement.clientHeight)
     let clientWidth = document.documentElement.clientWidth
     document.body.style.zoom = clientWidth / 1920
 		// this.copyWeatherHtml()
