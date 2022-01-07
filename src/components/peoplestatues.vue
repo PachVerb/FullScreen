@@ -33,7 +33,7 @@
 											<span class="userboxwz">来访人员总数</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;width: 30%;">
-											<span style="color: #00F5FF;">50</span><span style="color: gray;">人</span>
+											<span style="color: #00F5FF;">58</span><span style="color: gray;">人</span>
 										</div>
 
 									</div>
@@ -46,7 +46,7 @@
 											<span class="userboxwz">在访人员</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;width: 30%;">
-											<span style="color: #00F5FF;">50</span><span style="color: gray;">人</span>
+											<span style="color: #00F5FF;">10</span><span style="color: gray;">人</span>
 										</div>
 
 									</div>
@@ -59,7 +59,7 @@
 											<span class="userboxwz">宿舍访客</span>
 										</div>
 										<div style="position: relative;top: 6px;font-size: 14px;width: 30%;">
-											<span style="color: #00F5FF;">50</span><span style="color: gray;">人</span>
+											<span style="color: #00F5FF;">36</span><span style="color: gray;">人</span>
 										</div>
 									</div>
 								</div>

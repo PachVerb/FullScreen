@@ -19,6 +19,11 @@ import 'lib-flexible/flexible.js';
 import 'element-ui/lib/theme-chalk/index.css';
 import 'vant/lib/index.css';
 import './common/font/font.css'
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+
+Vue.use(VideoPlayer)
 
 // import echarts from 'echarts';
 // import ElementUI from 'element-ui';

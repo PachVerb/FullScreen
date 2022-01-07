@@ -2,14 +2,7 @@
   <div class="index">
     <!-- <img src="../assets/img/2.png" alt=""> -->
     <div class="index_top" >
-      <div class="logoBox">
-        <img alt="logo" src="../assets/img/toptitle.png"  style="width: 100%; display: block;"/>
-        <!-- <img class="star" src="../assets/img/star.png" alt=""> -->
-        <!-- <svg class="svg-box">
-          <polyline class="line-shadow" points="358,10 382,30 740,30 794,88 1228,88 1282,30 1640,30 1662,10" />
-          <polyline class="line" points="358,10 382,30 740,30 794,88 1228,88 1282,30 1640,30 1662,10" />
-        </svg> -->
-      </div>
+      <logo />
 <!-- 			<div style="margin-right: 10px;display: inline-block;position: absolute;margin-top: 20px">
 				<selectschool style="position: absolute;width:340px" />
 				<clock style="margin-left: 150px;" />
@@ -17,24 +10,14 @@
       <!-- <div id="he-plugin-simple" style=""></div> -->
     </div>
     <MapContent ref="Map" @zoomdata='zoomdata' :Fllo='foolbtn'/>
-    <component v-if="!mapLoad" :is="echar" :ref="echar"></component>
+    <component v-if="!mapLoad" :is="currentSys" :ref="currentSys"></component>
     <SideBar v-if="lineLoad"></SideBar>
     <!-- <VideoCheck v-if="showVideo"/> -->
-    <comprehensive v-if="currentSys == 'comprehensive'" ref="comprehensive"></comprehensive>
-    <assets v-if="currentSys == 'assets'" ref="assets"></assets>
-    <fireSafety v-if="currentSys == 'fireSafety'" ref="fireSafety"></fireSafety>
-    <vehicle v-if="currentSys == 'vehicle'" ref="vehicle"></vehicle>
-    <peoplestatues v-if="currentSys == 'peoplestatues'" ref="peoplestatues"></peoplestatues>
-    <energyUsage v-if="currentSys == 'energyUsage'" ref="energyUsage"></energyUsage>
-		<dormitory v-if="currentSys == 'dormitory'" ref="dormitory" style="position: absolute;"/>  
-		<interstatues v-if="currentSys == 'interstatues'" ref="interstatues"></interstatues>
-		<publichouse v-if="currentSys == 'publichouse'" ref="publichouse"></publichouse>
-		<studystatues v-if="currentSys == 'studystatues'" ref="studystatues"></studystatues>
-		<networkoperation v-if="currentSys == 'networkoperation'" ref="networkoperation"></networkoperation>
   </div>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import logo from '@/components/logo'
 import MapContent from "@/components/MapContent"; // 地图组件.
 import Clock from "@/components/Clock"; // 时钟
 import SideBar from '@/components/sidebar'
@@ -50,11 +33,11 @@ import energyUsage from '@/components/energyUsage'
 import publichouse from '@/components/publichouse/index.vue'//公房态势
 import networkoperation from '@/components/networkoperation/index.vue'//网络运维
 import Bus from'../js/Bus';
-import EnergyUsage from '../components/energyUsage.vue';
 export default {
   name: "index",
   flag:true,
   components: {
+    logo,
     MapContent,
     Clock,
     SideBar,
@@ -96,17 +79,10 @@ export default {
     },
     currentSys(val){
       if(this.map){
-        // this.map.setBearing(8)
-				// this.map.setPitch(60)
-        // this.map.setZoom(16.1)
-        // this.map.setCenter([104.05758988604839, 30.595132552688057])
-        this.map.flyTo({
-          center:[104.05938430427273,30.596404125302925],
-          zoom:17.5,
-          bearing:8,
-          pitch:60,
-          duration:1000
-        })
+        this.map.setBearing(0)
+				this.map.setPitch(60)
+        this.map.setZoom(17.8)
+        this.map.setCenter([104.05999036597285, 30.596105715016634])
         this.SET_DETAIL_MSG(null)
       }
     },
@@ -133,7 +109,7 @@ export default {
 		this.getWeather(document)
 	},
   mounted(){
-    console.log('clientWidth',document.documentElement.clientWidth)
+    console.log('clientWidth',document.documentElement.clientWidth,document.documentElement.clientHeight)
     let clientWidth = document.documentElement.clientWidth
     document.body.style.zoom = clientWidth / 1920
 		// this.copyWeatherHtml()
@@ -144,7 +120,7 @@ export default {
     createMarker(){
       let div = document.createElement('div')
       div.innerHTML = `
-        <img style="width: 50px;height: 50px;" src="${require('../assets/gif/marker.gif')}" />
+        <img src="${require('../assets/gif/marker.gif')}" />
       `
       let marker = new creeper.Marker({element: div}).setLngLat(this.detailMsg.location).addTo(this.map)
       this.SET_DETAIL_MSG_MARKER(marker)
@@ -234,58 +210,6 @@ export default {
     position: absolute;
     top:0;
     z-index: 5;
-    .logoBox{
-      width: 95%; 
-      display: inline-block;
-      position: relative;
-      .star{
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-      .svg-box {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        .line,.line-shadow {
-          fill: none;
-          stroke: #64C6EE;
-          stroke-linejoin: round;
-          stroke-linecap: round;
-        }
-        .line{
-          stroke-width: 2;
-          stroke-dashoffset: -2;
-          stroke-dasharray: 10, 1360;
-          animation: aniLogoMove 12s linear infinite;
-        }
-        .line-shadow{
-          stroke-width: 8;
-          stroke-opacity: 0.5;
-          stroke-dashoffset: 0;
-          stroke-dasharray: 14, 1356;
-          animation: aniShadowMove 12s linear infinite;
-        }
-        @keyframes aniLogoMove {
-          0% {
-            stroke-dashoffset: -2;
-          }
-          100% {
-            stroke-dashoffset: -1372;
-          }
-        }
-        @keyframes aniShadowMove {
-          0% {
-            stroke-dashoffset: 0;
-          }
-          100% {
-            stroke-dashoffset: -1370;
-          }
-        }
-      }
-    }
   }
 
   .foolce{
