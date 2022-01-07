@@ -120,7 +120,7 @@ export default {
     createMarker(){
       let div = document.createElement('div')
       div.innerHTML = `
-        <img style="width: 50px;height: 50px;" src="${require('../assets/gif/marker.gif')}" />
+        <img src="${require('../assets/gif/marker.gif')}" />
       `
       let marker = new creeper.Marker({element: div}).setLngLat(this.detailMsg.location).addTo(this.map)
       this.SET_DETAIL_MSG_MARKER(marker)

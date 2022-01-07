@@ -1,11 +1,11 @@
 <template>
   <div class="logo-wrap">
     <img class="logo" alt="logo" src="../../assets/img/toptitle.png" />
-    <!-- <div class="logo2-wrap">
+    <div class="logo2-wrap">
       <img class="logo2" alt="logo" src="../../assets/img/toptitle2.png" />
       <div class="logo2-box span1"></div>
       <div class="logo2-box span2"></div>
-    </div> -->
+    </div>
   </div>
 </template>
 

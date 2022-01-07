@@ -814,6 +814,7 @@ export default {
   position: fixed;
   right: 420px;
   bottom: 200px;
+  transition: all 1s;
   .creeper-level-list{
     background-color: rgb(12,30,53);
     border: 1px solid rgb(11,74,94);

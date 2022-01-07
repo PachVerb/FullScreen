@@ -45,6 +45,12 @@ export default {
     },
     handleShowRightSys(){
       this.showRightSys = !this.showRightSys
+      let floorDom = document.querySelector('#map-floor')
+      if(this.showRightSys){
+        floorDom.style.right = '420px'
+      } else {
+        floorDom.style.right = '100px'
+      }
     },  
   },
   mounted(){
