@@ -638,7 +638,7 @@ export default {
         easing: (t) => {
           if(t == 1){
             this.circleInterval = setInterval(() => {
-              if(this.circleIndex >= 360){
+              if(this.circleIndex >= 10){
                 clearInterval(this.circleInterval)
                 this.circleInterval = null
                 // this.loadAniLine()

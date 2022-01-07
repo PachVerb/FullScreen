@@ -102,7 +102,7 @@
 					</div>
 				</sideItem>
 				<sideItem title="监控画面" transitionType="right" delay="1000" height="38%">
-					<div slot='body'>
+					<div slot='body' style="width: 100%;">
 						<div class="up-btn">
 							<img v-if="monitorIndex!=1" @click="changeMonitoList(monitorIndex-1)" class="img-rotate" src="../assets/img/down.png" alt="">
 							<img v-else src="../assets/img/up.png" alt="">
@@ -110,7 +110,19 @@
 						<div class="monitor-list">
 							<div class="content">
 								<div class="monitor-item" v-for="item in monitorList" :key="item.id">
-									<video class="monitor-item-img" :src="item.src" autoplay loop></video>
+									<video-box
+										:showMask="true"
+										:controls="false"
+										@check="handleVideo(item)" 
+										:videoTitle="item.address"
+										class="monitor-item-img" 
+										:videoUrl="item.src" 
+										:timeDivider="false"
+										:durationDisplay="false"
+										:remainingTimeDisplay="false"
+										:fullscreenToggle="false"
+									/>
+									<!-- <video class="monitor-item-img" :src="item.src" autoplay loop></video> -->
 								</div>
 							</div>
 						</div>
@@ -120,6 +132,7 @@
 						</div>
 					</div>
 				</sideItem>
+
 				<sideItem title="巡更人员异常概况" transitionType="right" delay="1500" height="37%">
 					<div slot='body' class="patrol-list-wrap">
 						<div class="table-head">
@@ -143,6 +156,7 @@
 				</sideItem>
 			</div>
 		</sideTran>
+		<VideoModal v-if="currentSys == 'fireSafety' && showVideo" :videoList="videoList" @close="handleCloseVideo" />
 	</div>
 </template>
 
@@ -155,6 +169,8 @@
 	import sideItem from './sideItem.vue'
 	import pageination from './commonComponent/pagination.vue'
 	import AnimatedNumber from "animated-number-vue";
+	import VideoModal from './commonComponent/video.vue'
+	import VideoBox from './commonComponent/videoBox.vue'
 	import {
 		Table,
 		TableColumn,
@@ -177,10 +193,14 @@
 			Table,
 			TableColumn,
 			pageination,
-			AnimatedNumber
+			AnimatedNumber,
+			VideoModal,
+			VideoBox
 		},
 		data() {
 			return {
+				videoList:[],
+				showVideo:false,
 				thisCrrentSys: 'fireSafety',
 				trendKey: 0,
 				colorone: ["#6AB0FF", '#6AB0FF'],
@@ -285,31 +305,40 @@
 				}, ],
 				monitorList: [{
 					id: '1',
-					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/e54fe905-732e-47b4-8b57-90057f405a19.mp4',
+					address: "1号教学楼",
 				}, {
 					id: '2',
-						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+						src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/7d1e5702-e059-4425-b7c5-3810ecf95af2.mp4',
+						address: "2号教学楼",
 				}, {
 					id: '3',
-						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+						src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/1e21c81f-9bd1-4ce3-8e68-ba3808332339.mp4',
+						address: "图书馆",
 				}, {
 					id: '4',
-						src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+						src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+						address: "音乐舞蹈大楼",
 				},{
 					id: '5',
-					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					address: "紫荆餐厅",
 				}, {
 					id: '6',
-					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					address: "行政大楼",
 				}, {
 					id: '7',
-					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					address: "行政大楼",
 				}, {
 					id: '8',
-					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					address: "行政大楼",
 				}, {
 					id: '9',
-					src: 'https://media.w3.org/2010/05/sintel/trailer.mp4'
+					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					address: "行政大楼",
 				}, ],
 				monitorIndex: 1,
 				allPatrolOption: {},
@@ -482,6 +511,18 @@
 				this.map.setLayoutProperty('modellayer', 'visibility', '')
 				this.clearFireMarker()
 			},	
+			handleVideo(item){
+				this.SET_DETAIL_MSG({
+					...item
+				})
+				this.videoList = [item]
+				this.showVideo = true
+			},
+			handleCloseVideo(){
+				this.videoList = []
+				this.showVideo = false
+				this.SET_DETAIL_MSG(null)
+			},
 			//开始自动滚动
 			abScrollStart() {
 				this.abDetailList.length && this.$nextTick(() => {
