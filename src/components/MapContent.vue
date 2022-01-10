@@ -515,7 +515,7 @@ export default {
               let label2=threeLayer.threemap.objects.add3DLabel(divtets1,[ 104.05745924744474, 30.595047272850607,2],[Math.PI/2,Math.PI,0])
               label2.scale.set(0.0015,0.0015,1)
               //threeLayer.threemap.add(label2)
-              this.SET_LINE_LOAD(true)
+              this.loadAniCenterBuilding()
             }, 5000);
           }
       
@@ -657,11 +657,6 @@ export default {
       })
     },
     loadAniCircle(){
-      // let radius = .3;
-      // let options = {steps: 150, units: 'kilometers', properties: {foo: 'bar'}};
-      // let circle = turf.circle(center, radius, options)
-      // this.circleList = circle.geometry.coordinates[0]
-      // console.log('circle',this.circleList)
       // 旋转动画
       this.vMap.flyTo({
         center: map2D.mapCenter,
@@ -673,20 +668,42 @@ export default {
             this.circleInterval = setInterval(() => {
               if(this.circleIndex >= 10){
                 clearInterval(this.circleInterval)
+                this.circleInterval = null
                 // this.loadAniLine()
                 this.loadBuildFn()
                 return
               }
               this.vMap.setBearing(this.circleIndex)
-              this.circleIndex += .4
+              this.circleIndex += .7
             }, 1000/60)
           }
           return t
         }
       })
     },
+    loadAniCenterBuilding(){
+      this.vMap.flyTo({
+        center: [104.05999036597285, 30.596105715016634],
+        zoom: 17.5,
+        duration: 2800,
+        bearing: 0,
+				pitch: 60,
+        easing: (t) => {
+          if(t == 1){
+            this.SET_LINE_LOAD(true)
+          }
+          return t
+        }
+      })
+    }
   },
   beforeDestroy(){
+    this.SET_CURRENTSYS('')
+    this.SET_LINE_LOAD(false)
+    if(this.circleInterval){
+      clearInterval(this.circleInterval)
+      this.circleInterval = null
+    }
   }
 
 };
@@ -825,6 +842,7 @@ export default {
   position: fixed;
   right: 420px;
   bottom: 200px;
+  transition: all 1s;
   .creeper-level-list{
     background-color: rgb(12,30,53);
     border: 1px solid rgb(11,74,94);

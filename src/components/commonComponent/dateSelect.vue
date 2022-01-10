@@ -46,7 +46,7 @@
                       </el-date-picker> -->
                   </el-form-item>
               </div>
-              <!-- <div class="filter-item">
+              <div class="filter-item granBox">
                   <el-form-item label="粒度:">
                       <el-select v-model="queryForm.granularity">
                           <el-option
@@ -63,7 +63,7 @@
                           ></el-option>
                       </el-select>
                   </el-form-item>
-              </div>-->
+              </div>
               <div class="btn-search">
                   <el-button
                       type="search"
@@ -277,15 +277,14 @@ export default {
     z-index: 1;
     // width: 60%;
     margin: 0 auto 15px;
-    padding: 15px 25px;
-    height: 56px;
+    padding: 10px 20px;
     background-image: url("../../assets/img/biankuang4.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     .filter-box {
         display: flex;
         align-items: center;
-        padding: 0 20px;
+        padding: 0 16px;
         background: rgba(1, 18, 45, 0.4);
         position: relative;
         z-index: 9999;
@@ -293,12 +292,11 @@ export default {
     .filter-item {
         /*flex: 1;*/
         padding: 0 10px;
-
         .el-form-item {
             display: flex;
-            margin: 10px 0;
+            margin: 0;
             /deep/.el-form-item__label{
-              color: #fff;
+              color: rgba(255, 255, 255, 0.8);
             }
             /deep/ .el-select .el-input .el-select__caret {
                 color: #19f2fa;
@@ -312,6 +310,8 @@ export default {
                 background-image: url("../../assets/img/biankuang1.png");
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
+                height: 30px;
+                line-height: 30px;
             }
 
             /deep/ .el-select .el-input__inner::placeholder,
@@ -321,6 +321,7 @@ export default {
 
             /deep/ .el-icon-date {
                 color: #19f2fa;
+                line-height: 24px;
             }
 
             /deep/ .el-form-item__content {
@@ -336,6 +337,8 @@ export default {
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
                 width: 100%;
+                height: 30px;
+                line-height: 30px;
             }
 
             /deep/ .el-range-input {
@@ -345,6 +348,7 @@ export default {
 
             /deep/ .el-range-separator {
                 color: #19f2fa;
+                line-height: 24px;
             }
         }
     }
@@ -359,23 +363,32 @@ export default {
     }
 
     .btn-search {
-        width: 100px;
-        height: min-content;
+        width: 80px;
+        height: 30px;
         text-align: center;
 
         /deep/ .el-button--search {
+            width: 100%;
+            height: 100%;
             border: none;
             color: #19f2fa;
             background-color: transparent;
             background-image: url("../../assets/img/biankuang1.png");
             background-size: 100% 100%;
             background-repeat: no-repeat;
+            padding: 0;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            span{
+                margin: 0;
+            }
         }
     }
 }
 .bottom-time-box {
     z-index: 1;
-    padding: 20px 0;
+    padding: 14px 0;
     height: 70px;
     // width: 60%;
     margin: 0 auto;
@@ -396,7 +409,11 @@ export default {
     .bottom-time-z {
         font-size: 14px;
         color: #fff;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        img{
+            display: block;
+        }
     }
 
     .bottom-time-bottom {
@@ -410,11 +427,69 @@ export default {
 
     /deep/ .swiper-slide-active {
         color: turquoise;
+        font-weight: bold;
     }
 
     /deep/ .swiper-button-next:after,
     .swiper-button-prev:after {
         font-size: 14px;
+    }
+}
+</style>
+<style lang="less">
+.el-select-dropdown{
+    background-color: rgba(10, 25, 46, 0.85) !important;
+    border-color: #3F97CF !important;
+    .el-select-dropdown__item{
+        color: #25B5C2;
+        &:hover{
+            background-color: rgba(24, 59, 98, 0.8) !important;
+        }
+    }
+    .hover{
+        background-color: rgba(24, 59, 98, 0.8) !important;
+    }
+    .popper__arrow{
+       border-bottom-color: #6AB0FF !important;
+       &::after{
+           border-bottom-color: #6AB0FF !important;
+       }
+    }
+}
+.el-popper{
+    .el-input__inner{
+        background-color: rgba(24, 59, 98, 0.8) !important;
+        color: #25B5C2 !important;
+        border: none;
+        &::placeholder{
+            color: #25B5C2;
+        }
+    }
+    .el-date-range-picker__time-header,.el-date-range-picker__content{
+        border-color: rgba(106, 176, 255, 0.4) !important;
+    }
+    .el-picker-panel__footer{
+        border-color: rgba(106, 176, 255, 0.4) !important;
+        background-color: rgba(24, 59, 98, 0.8) !important;
+    }
+    .el-picker-panel__link-btn{
+        padding: 7px 15px;
+        border-radius: 3px;
+    }
+    .el-button--text{
+        border: 1px solid #25B5C2;
+        color: #25B5C2;
+    }
+    .el-button--default{
+        border-color: #25B5C2 !important;
+        background: #25B5C2 !important;
+        color: #fff !important;
+    }
+    .popper__arrow{
+       border-bottom-color: #6AB0FF !important;
+       &::after{
+           border-bottom-color: #6AB0FF !important;
+       }
     }
 }
 </style>
