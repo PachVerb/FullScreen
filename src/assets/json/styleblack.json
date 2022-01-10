@@ -11,6 +11,7 @@
   "center": [104.060015, 30.594199],
   "zoom": 18,
   "bearing": -10.308084,
+  "minZoom":16,
   "pitch": 42,
   "light": {
     "intensity": 0.2,
@@ -20,6 +21,10 @@
   },
   "sources": {
     "indoor": {
+      "data": {"type": "FeatureCollection", "features": []},
+      "type": "geojson"
+    },
+    "steric-source":{
       "data": {"type": "FeatureCollection", "features": []},
       "type": "geojson"
     },
@@ -60,8 +65,8 @@
       "filter": ["==", "amenity", "school"],
       "layout": {"visibility": "visible"},
       "paint": {
-        "fill-color": "rgba(2, 15, 58, 1)",
-        "fill-outline-color": "rgba(13, 13, 74, 1)"
+        "fill-color": "#010429",
+        "fill-outline-color": "#010429"
       }
     },
     {
@@ -71,7 +76,7 @@
       "source-layer": "cmgis",
       "filter": ["==", "newid", "23"],
       "layout": {},
-      "paint": {"fill-color": "#0a3b59"}
+      "paint": {"fill-color": "#011633"}
     },
     {
       "id": "water",
@@ -126,7 +131,7 @@
             "base_height"
           ]
         ],
-        "fill-extrusion-color": "#0a3b59"
+        "fill-extrusion-color": "#011633"
       },
       "id": "green_3D",
       "source": "buildingGeo",
@@ -400,76 +405,8 @@
         "line-opacity": ["interpolate", ["linear"], ["zoom"], 14, 0.6, 22, 0.8]
       }
     },
-    {
-      "id": "road_3_path_wai",
-      "type": "line",
-      "source": "outdoor",
-      "source-layer": "cmgis",
-      "minzoom": 11,
-      "filter": ["==", "highway", "path"],
-      "layout": {"line-cap": "round", "line-join": "round"},
-      "paint": {
-        "line-dasharray": [
-          "step",
-          ["zoom"],
-          ["literal", [1, 0]],
-          15,
-          ["literal", [1.75, 1]],
-          16,
-          ["literal", [1, 0.75]],
-          17,
-          ["literal", [1, 0.5]]
-        ],
-        "line-color": "rgba(36, 96, 182, 1)",
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          15,
-          2,
-          18,
-          7
-        ],
-        "line-opacity": ["step", ["zoom"], 0, 14, 0.75]
-      }
-    },
-    {
-      "id": "road_3_path_nei",
-      "type": "line",
-      "source": "outdoor",
-      "source-layer": "cmgis",
-      "minzoom": 11,
-      "filter": ["==", "highway", "path"],
-      "layout": {"line-cap": "butt", "line-join": "round"},
-      "paint": {
-        "line-width": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          13,
-          0.5,
-          14,
-          1,
-          15,
-          1,
-          18,
-          4
-        ],
-        "line-dasharray": [
-          "step",
-          ["zoom"],
-          ["literal", [1, 0]],
-          15,
-          ["literal", [1.75, 1]],
-          16,
-          ["literal", [1, 0.75]],
-          17,
-          ["literal", [1, 0.5]]
-        ],
-        "line-color": "#082764",
-        "line-opacity": 1
-      }
-    },
+    
+    
     {
       "id": "road_steps_nei",
       "type": "line",
@@ -800,7 +737,7 @@
       "minzoom": 11,
       "filter": [
         "all",
-        ["in", "highway", "living_street", "service", "pedestrian"],
+        ["in", "highway",  "service"],
         ["!in", "name", "斑马线", "下穿人行道", "天桥", "人行虚线", "steps"]
       ],
       "layout": {"line-cap": "round", "line-join": "round"},
@@ -906,7 +843,7 @@
           98
         ],
         "line-color": "#082764"
-      }
+      },"line-opacity":0.5
     },
     {
       "id": "highway-motorway-nei",
@@ -1025,7 +962,8 @@
             196,
             40
           ]
-        ]
+        ],
+        "line-opacity":0.5
       }
     },
     {
@@ -2342,16 +2280,21 @@
     
     {
       "id": "room_zoulang",
-      "type": "fill",
+      "type": "fill-extrusion",
       "source": "indoor",
       "minzoom": 18,
       "filter": ["==", "newid", "35"],
       "layout": {},
-      "paint": {"fill-outline-color": "#ffffff", "fill-color": "#163051"}
+      "paint": {
+        
+        "fill-extrusion-color": "#163051",
+      "fill-extrusion-base":["*",["to-number",["get","level"]],5],
+      "fill-extrusion-height":["*",["to-number",["get","level"]],5]
+    }
     },
     {
       "id": "room1",
-      "type": "fill",
+      "type": "fill-extrusion",
       "metadata": {},
       "source": "indoor",
       "minzoom": 18,
@@ -2420,7 +2363,9 @@
       "layout": {},
       "paint": {
        
-        "fill-color": "#163051"
+        "fill-extrusion-color": "#163051",
+        "fill-extrusion-base":["*",["to-number",["get","level"]],5],
+        "fill-extrusion-height":["*",["to-number",["get","level"]],5]
       }
     },
     {
@@ -2459,6 +2404,36 @@
         "fill-extrusion-height": 2.5,
         "fill-extrusion-base": ["case", ["==", ["get", "newid"], "87"], 0, 2.2],
         "fill-extrusion-color": "#254a80",
+        "fill-extrusion-opacity": 1
+      }
+    },
+    {
+      "id": "room23-steric",
+      "type": "fill-extrusion",
+      "metadata": {"mapbox:group": "eacbba3d49702a9fabc0364195628304"},
+      "source": "steric-source",
+      "minzoom": 18,
+      "filter": ["match", ["get", "newid"], ["", "87", "90"], true, false],
+      "layout": {},
+      "paint": {
+        "fill-extrusion-height": ["case", ["==", ["get", "newid"], "87"], ["+",["*",["to-number",["get","level"]],5],2.5], ["+",["*",["to-number",["get","level"]],5],2.5]],
+        "fill-extrusion-base": ["case", ["==", ["get", "newid"], "87"], ["*",["to-number",["get","level"]],5], ["+",["*",["to-number",["get","level"]],5],2.2]],
+        "fill-extrusion-color": "#254a80",
+        "fill-extrusion-opacity": 0.8
+      }
+    },
+    {
+      "id": "room23-steric1",
+      "type": "fill-extrusion",
+      "metadata": {"mapbox:group": "eacbba3d49702a9fabc0364195628304"},
+      "source": "steric-source",
+      "minzoom": 18,
+      "filter": ["match", ["get", "newid"], ["", "87", "90"], true, false],
+      "layout": {},
+      "paint": {
+        "fill-extrusion-height": 5,
+        "fill-extrusion-base":0,
+        "fill-extrusion-color": "#254a80",
         "fill-extrusion-opacity": 0.8
       }
     },
@@ -2470,7 +2445,22 @@
       "filter": ["==", "newid", "91"],
       "layout": {"visibility": "visible"},
       "paint": {
-        "fill-extrusion-height": 2.5,
+        "fill-extrusion-base": ["*",["to-number",["get","level"]],5],
+        "fill-extrusion-height": ["+",["*",["to-number",["get","level"]],5],2.5],
+        "fill-extrusion-opacity": 1,
+        "fill-extrusion-color": "#254a80"
+      }
+    },
+    {
+      "id": "shitiqiangti-3d-steric",
+      "type": "fill-extrusion",
+      "source": "steric-source",
+      "minzoom": 18,
+      "filter": ["==", "newid", "91"],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-extrusion-base": ["*",["to-number",["get","level"]],5],
+        "fill-extrusion-height": ["+",["*",["to-number",["get","level"]],5],2.5],
         "fill-extrusion-opacity": 1,
         "fill-extrusion-color": "#254a80"
       }
@@ -2512,67 +2502,14 @@
         "text-halo-width": 1
       }
     },
-    {
-      "id": "road-shinei",
-      "type": "symbol",
-      "source": "outdoor",
-      "source-layer": "cmgis",
-      "minzoom": 12,
-      "filter": [
-        "in",
-        "highway",
-        "service",
-        "primary",
-        "secondary",
-        "tertiary",
-        "primary",
-        "trunk",
-        "living_street"
-      ],
-      "layout": {
-        "text-pitch-alignment": "viewport",
-        "text-field": "{name}",
-        "text-rotation-alignment": "map",
-        "text-size": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          11,
-          18,
-          12,
-          22,
-          50
-        ],
-        "symbol-placement": "line",
-        "symbol-spacing": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          12,
-          100,
-          18,
-          250,
-          22,
-          800
-        ],
-        "text-padding": 1,
-        "text-font": ["xiaomi"],
-        "text-max-angle": 30
-      },
-      "paint": {
-        "text-color": "rgba(255, 255, 255, 1)",
-        "text-halo-color": "hsla(0, 0%, 100%, 0.95)",
-        "text-halo-width": 0
-      }
-    },
+   
     {
       "id": "ziti_indoor",
       "type": "symbol",
       "source": "indoor",
       "minzoom": 18,
       "maxzoom": 23,
-      "filter": ["in", "$type", "LineString", "Polygon"],
+      "filter": ["!in","newid","30","31","32","38","35"],
       "layout": {
         "visibility": "visible",
         "text-max-width": 10,
@@ -3021,102 +2958,14 @@
         "text-halo-width": 1.25
       }
     },
-    {
-      "id": "symbol_jiantou",
-      "type": "symbol",
-      "source": "outdoor",
-      "source-layer": "cmgis",
-      "minzoom": 16,
-      "filter": [
-        "all",
-        [
-          "in",
-          "highway",
-          "secondary",
-          "tertiary",
-          "secondary_link",
-          "tertiary_link",
-          "service",
-          "living_street",
-          "primary",
-          "trunk",
-          "highway_link",
-          "primary_link",
-          "trunk_link"
-        ],
-        ["==", "oneway", "yes"]
-      ],
-      "layout": {
-        "symbol-placement": "line",
-        "icon-image": [
-          "case",
-          [
-            "in",
-            ["get", "highway"],
-            ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
-          ],
-          "oneway-white-small",
-          "oneway-large-01"
-        ],
-        "symbol-spacing": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          200,
-          18,
-          400,
-          20,
-          1000
-        ],
-        "icon-rotation-alignment": "map",
-        "icon-size": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          15,
-          [
-            "case",
-            [
-              "in",
-              ["get", "highway"],
-              ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
-            ],
-            1,
-            0.5
-          ],
-          18,
-          [
-            "case",
-            [
-              "in",
-              ["get", "highway"],
-              ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
-            ],
-            2,
-            1
-          ],
-          20,
-          [
-            "case",
-            [
-              "in",
-              ["get", "highway"],
-              ["literal", ["primary", "trunk", "primary_link", "trunk_link"]]
-            ],
-            4,
-            2
-          ]
-        ]
-      }
-    },
+    
     {
       "id": "ziti_dalou",
       "type": "symbol",
       "source": "outdoor",
       "source-layer": "cmgis",
       "minzoom": 14,
-      "maxzoom": 21,
+      "maxzoom": 18,
       "filter": [
         "match",
         ["get", "newid"],
@@ -3448,72 +3297,6 @@
         "text-halo-blur": 2,
         "text-color": "#0B9543",
         "text-halo-width": 2
-      }
-    },
-    {
-      "id": "symbol_indoor",
-      "type": "symbol",
-      "source": "indoor",
-      "minzoom": 18,
-      "filter": [
-        "match",
-        ["get", "newid"],
-        ["", "30", "32", "31"],
-        true,
-        false
-      ],
-      "layout": {
-        "icon-image": [
-          "match",
-          ["get", "name"],
-          ["男卫生间"],
-          "boy",
-          ["男厕所"],
-          "boy",
-          ["女卫生间"],
-          "lady",
-          ["卫生间"],
-          "wc",
-          ["厕所"],
-          "wc",
-          ["女厕所"],
-          "lady",
-          ["楼梯"],
-          "stair",
-          ["电梯"],
-          "elevator",
-          ""
-        ],
-        "icon-size": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          18,
-          0.6,
-          20,
-          1,
-          22,
-          1
-        ],
-        "text-field": ["to-string", ["get", "name"]],
-        "icon-offset": [0, -12],
-        "text-font": ["xiaomi"],
-        "text-size": [
-          "interpolate",
-          ["linear"],
-          ["zoom"],
-          18,
-          8,
-          19,
-          10,
-          20,
-          12,
-          22,
-          16
-        ]
-      },
-      "paint": {
-        "text-color": "#ffffff"
       }
     }
   ],

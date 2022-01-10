@@ -500,6 +500,7 @@
 			},
 			//开始自动滚动
 			dormScrollStart() {
+				console.log("dormScrollStart")
 				this.dormList.length && this.$nextTick(() => {
 					this.dormScrollStop();
 					let scrollBox = document.querySelector('.serverSecuritytotal .listBox');

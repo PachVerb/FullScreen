@@ -486,12 +486,12 @@ export default {
       let studentdistributionChartChart = echarts.init(studentdistributionChartDom);
       let series = [];
       this.stuDisList = [
-        { "value": 30, "name": "教学楼", color: "rgba(222, 125, 255, 1)" },
-        { "value": 14, "name": "图书馆", color: "rgba(250, 118, 121, 1)" },
-        { "value": 26, "name": "宿舍楼", color: "rgba(53, 198, 215, 1)" },
-        { "value": 20, "name": "实验楼", color: "rgba(101, 223, 138, 1)" },
-        { "value": 10, "name": "餐厅/食堂", color: "rgba(253, 161, 79, 1)" },
-        { "value": 10, "name": "其他位置", color: "rgba(68,165,255,1)" }
+  { "value": 30, "name": "教学楼", color: "rgba(222, 125, 255, 1)" },
+			    { "value": 14, "name": "图书馆", color: "rgba(250, 118, 121, 1)" },
+			    { "value": 26, "name": "宿舍楼", color: "rgba(53, 198, 215, 1)" },
+			    { "value": 20, "name": "实验楼", color: "rgba(101, 223, 138, 1)" },
+			    { "value": 10, "name": "餐厅/食堂", color: "rgba(253, 161, 79, 1)" },
+			    { "value": 10, "name": "其他位置", color: "rgba(68,165,255,1)" }
       ];
       let maxRadius = 90,
         barWidth = 5,

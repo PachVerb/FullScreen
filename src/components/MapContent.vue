@@ -377,6 +377,32 @@ export default {
         // }, 1000);
                
       });
+			threeLayer.threemap  //行政楼
+			.loadModel({
+			  url: `${this.domainUrl}/static/3dl_cs/xzl.obj`,
+			  type: 'obj',
+			  units: 'meters',
+			  mtl: `${this.domainUrl}/static/3dl_cs/xzl.mtl`,
+			  properties:{
+			      id:"2345",
+			      name:"树",
+			      buildingId:"13151"
+			  },
+			  scale:1
+			})
+			.then(group => {
+			  // model=group
+			  //group.addSprite("教学楼1栋")
+			  console.log("building",group);
+			  group.setCoords([104.058717899916,30.5979507224382]);
+			  threeLayer.threemap.add(group);  
+			  // setTimeout(() => {
+			  //     let model1=model.duplicate()
+			  //     model1.setCoords([ 104.05888701417172, 30.592952287792542])
+			  //     threeLayer.threemap.add(model1);
+			  // }, 1000);
+			         
+			});
     },
     // 加载3D建筑
     loadBuildFn() {
@@ -387,7 +413,7 @@ export default {
         center:[ 104.05619359161085, 30.594327139005628],
         zoom:16.1,
         easing: (t) => {
-          console.log('5555555555555555555555', t)
+          console.log(that.buildingdata,'5555555555555555555555', t)
           if (t==1) {
             //加载建筑
             console.log("1111111111111111111111111111");
@@ -398,6 +424,8 @@ export default {
             that.buildingdata.forEach(e=>{
               if (e.center && textArr.includes(e.text)) {
                 let div=document.createElement("div")
+								let img = '<img src="../assets/img/light.png" >'
+								div.append(img)
                 div.className="buildingtext"
                 div.innerHTML=e.text
                 let label=threeLayer.threemap.objects.add2DLabel(div,[...e.center,e.height+0.5])
@@ -613,9 +641,9 @@ export default {
         
                 threeLayer.threemap.add(buildingout)
 
-                this.floor2 = threeLayer.threemap.objects.circlewithwireframe([104.05768654235203, 30.59122228071986,0],0x00ffff,[100,100])
+                // this.floor2 = threeLayer.threemap.objects.circlewithwireframe([104.05768654235203, 30.59122228071986,0],0x00ffff,[100,100])
 
-                threeLayer.threemap.add(this.floor2)
+                // threeLayer.threemap.add(this.floor2)
                 setTimeout(() => {
                   this.loadAniCircle()
                 }, 2500)
@@ -788,7 +816,7 @@ export default {
   .buildingtext{
       font-size: 18px;
       color: white;
-      text-shadow: 0px 0px 12px white, 2px 2px 15px white,-2px -2px 12px white;
+      //text-shadow: 0px 0px 12px white, 2px 2px 15px white,-2px -2px 12px white;
       // font-family: 'Times New Roman', Times, serif;
       
   }
