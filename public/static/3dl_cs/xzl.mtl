@@ -12,8 +12,8 @@ newmtl Material__2146364009
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\zhuomian\xzl(07)\lqcs012.jpg
-	map_Kd E:\zhuomian\xzl(07)\lqcs012.jpg
+	map_Ka \lqcs012.jpg
+	map_Kd \lqcs012.jpg
 
 newmtl Material__2146364007
 	Ns 10.0000
@@ -26,8 +26,8 @@ newmtl Material__2146364007
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\zhuomian\xzl(07)\lqcs019.png
-	map_Kd E:\zhuomian\xzl(07)\lqcs019.png
+	map_Ka \lqcs019.png
+	map_Kd \lqcs019.png
 
 newmtl Material__2146364008
 	Ns 10.0000
@@ -40,8 +40,8 @@ newmtl Material__2146364008
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\zhuomian\xzl(07)\lqcs_qc01.jpg
-	map_Kd E:\zhuomian\xzl(07)\lqcs_qc01.jpg
+	map_Ka \lqcs_qc01.jpg
+	map_Kd \lqcs_qc01.jpg
 
 newmtl Material__2146364055
 	Ns 10.0000
@@ -54,8 +54,8 @@ newmtl Material__2146364055
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\zhuomian\xzl(07)\lqcs011.jpg
-	map_Kd E:\zhuomian\xzl(07)\lqcs011.jpg
+	map_Ka \lqcs011.jpg
+	map_Kd \lqcs011.jpg
 
 newmtl Material__2146364068
 	Ns 10.0000
@@ -68,8 +68,8 @@ newmtl Material__2146364068
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\zhuomian\xzl(07)\lqcs004.jpg
-	map_Kd E:\zhuomian\xzl(07)\lqcs004.jpg
+	map_Ka \lqcs004.jpg
+	map_Kd \lqcs004.jpg
 
 newmtl Material__2146364729
 	Ns 10.0000
@@ -82,8 +82,8 @@ newmtl Material__2146364729
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\zhuomian\xzl(07)\lqcs010.jpg
-	map_Kd E:\zhuomian\xzl(07)\lqcs010.jpg
+	map_Ka \lqcs010.jpg
+	map_Kd \lqcs010.jpg
 
 newmtl Material__2146364619
 	Ns 10.0000
@@ -96,5 +96,5 @@ newmtl Material__2146364619
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka E:\zhuomian\xzl(07)\lqcs017.jpg
-	map_Kd E:\zhuomian\xzl(07)\lqcs017.jpg
+	map_Ka \lqcs017.jpg
+	map_Kd \lqcs017.jpg

@@ -67,7 +67,7 @@
         "tags": {
           "name": "理想中心4栋",
           "newid": "11",
-          "height": "0",
+          "height": "16",
           "building": "administration",
           "artifactCode": "lqkj~24",
           "building:levels": "16",
@@ -128,7 +128,7 @@
         "tags": {
           "name": "中原农耕文化博物馆",
           "newid": "21",
-          "height": "12",
+          "height": "0",
           "building": "others",
           "polygonid": "1232001113",
           "categoryid": "11",
@@ -429,6 +429,7 @@
         "tags": {
           "name": "机电信息实验大楼",
           "newid": "10",
+					"height": "32",
           "building": "teaching",
           "artifactCode": "lqkj~42",
           "building:levels": "5",

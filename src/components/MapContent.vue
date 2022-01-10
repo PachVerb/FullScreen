@@ -253,6 +253,8 @@ export default {
       }
       this.buildingoutcircle = buildingoutcircle
       this.routeoutcircle = routeoutcircle
+			
+			console.log("this.routeoutcircle",this.routeoutcircle)
     },
     //获取建筑信息
     getBuildingFn() {
@@ -288,6 +290,9 @@ export default {
       this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
       this.loadOjbFn()
       this.loadTree()
+			this.vMap.on("click",e=>{
+				console.log(e)
+			})
       setTimeout(() => {
         this.load3DLine()
         // this.loadAniCircle()  
@@ -335,15 +340,15 @@ export default {
             name:"树",
             buildingId:"267297"
         },
-        scale:1
+        scale:1,
+				
       })
       .then(group => {
         // model=group
-        //group.addSprite("教学楼1栋")
+        //group.addSprite("理想中心4栋")
         console.log("building",group);
         group.setCoords([104.06079320286767, 30.59740962355285]);
         threeLayer.threemap.add(group);
-        
         // setTimeout(() => {
         //     let model1=model.duplicate()
         //     model1.setCoords([ 104.05888701417172, 30.592952287792542])
@@ -351,6 +356,63 @@ export default {
         // }, 1000);
                
       });
+			threeLayer.threemap //理想中心1栋
+			.loadModel({
+			  url: `${this.domainUrl}/static/3dl_cs/lxzx.obj`,
+			  type: 'obj',
+			  units: 'meters',
+			  mtl: `${this.domainUrl}/static/3dl_cs/lxzx.mtl`,
+			  properties:{
+			      id:"2345",
+			      name:"树",
+			      buildingId:"8151"
+			  },
+			  scale:1
+			})
+			.then(group => {
+			  console.log("building",group);
+			  group.setCoords([104.060117836916,30.5973737561687]);
+				group.rotation.z = 270 * Math.PI / 180;
+			  threeLayer.threemap.add(group);
+			});
+			threeLayer.threemap //理想中心2栋
+			.loadModel({
+			  url: `${this.domainUrl}/static/3dl_cs/lxzx.obj`,
+			  type: 'obj',
+			  units: 'meters',
+			  mtl: `${this.domainUrl}/static/3dl_cs/lxzx.mtl`,
+			  properties:{
+			      id:"2345",
+			      name:"树",
+			      buildingId:"8149"
+			  },
+			  scale:1
+			})
+			.then(group => {
+			  console.log("building",group);
+			  group.setCoords([104.06016700206,30.5980489899401]);
+				group.rotation.z = 180 * Math.PI / 180;
+			  threeLayer.threemap.add(group);
+			});
+			threeLayer.threemap //理想中心3栋
+			.loadModel({
+			  url: `${this.domainUrl}/static/3dl_cs/lxzx.obj`,
+			  type: 'obj',
+			  units: 'meters',
+			  mtl: `${this.domainUrl}/static/3dl_cs/lxzx.mtl`,
+			  properties:{
+			      id:"2345",
+			      name:"树",
+			      buildingId:"8150"
+			  },
+			  scale:1
+			})
+			.then(group => {
+			  console.log("building",group);
+			  group.setCoords([104.060911014572,30.5979985455168]);
+				group.rotation.z = 90 * Math.PI / 180;
+			  threeLayer.threemap.add(group);
+			});
       threeLayer.threemap
       .loadModel({
         url: `${this.domainUrl}/static/3dl_cs/lou2.obj`,
@@ -367,7 +429,7 @@ export default {
       .then(group => {
         // model=group
         //group.addSprite("教学楼1栋")
-        console.log("building",group);
+        console.log("building123",group);
         group.setCoords([104.05997525589669, 30.596176830376905]);
         threeLayer.threemap.add(group);  
         // setTimeout(() => {
@@ -391,17 +453,45 @@ export default {
 			  scale:1
 			})
 			.then(group => {
-			  // model=group
-			  //group.addSprite("教学楼1栋")
-			  console.log("building",group);
+			  console.log("building222",group);
 			  group.setCoords([104.058717899916,30.5979507224382]);
 			  threeLayer.threemap.add(group);  
-			  // setTimeout(() => {
-			  //     let model1=model.duplicate()
-			  //     model1.setCoords([ 104.05888701417172, 30.592952287792542])
-			  //     threeLayer.threemap.add(model1);
-			  // }, 1000);
-			         
+			});
+			threeLayer.threemap  //博物馆
+			.loadModel({
+			  url: `${this.domainUrl}/static/3dl_cs/bwg.obj`,
+			  type: 'obj',
+			  units: 'meters',
+			  mtl: `${this.domainUrl}/static/3dl_cs/bwg.mtl`,
+			  properties:{
+			      id:"2345",
+			      name:"树",
+			      buildingId:"12365"
+			  },
+			  scale:1
+			})
+			.then(group => {
+			  console.log("building222",group);
+			  group.setCoords([104.062421047911,30.596558067554]);
+			  threeLayer.threemap.add(group);  
+			});
+			
+			threeLayer.threemap  //1号教学楼
+			.loadModel({
+			  url: `${this.domainUrl}/static/3dl_cs/1hjxl.obj`,
+			  type: 'obj',
+			  units: 'meters',
+			  mtl: `${this.domainUrl}/static/3dl_cs/1hjxl.mtl`,
+			  properties:{
+			      id:"2345",
+			      name:"树",
+			      buildingId:"21805"
+			  },
+			  scale:1
+			})
+			.then(group => {
+			  group.setCoords([104.05914462694,30.5942922024909]);
+			  threeLayer.threemap.add(group);  
 			});
     },
     // 加载3D建筑
@@ -417,17 +507,24 @@ export default {
           if (t==1) {
             //加载建筑
             console.log("1111111111111111111111111111");
-            let building_3D=threeLayer.threemap.objects.building(that.buildingdata,buildingpng)
+						let ids = [8165,12365,8149,8150,8151]
+						let buildingdata = that.buildingdata.filter(item => !ids.includes(item.id))
+            let building_3D=threeLayer.threemap.objects.building(buildingdata,buildingpng)
             threeLayer.threemap.add(building_3D)
             //建筑标签
             let textArr = ['音乐舞蹈大楼','紫荆餐厅','图书馆','行政大楼','1号教学楼','2号教学楼','灵奇图书馆','机电信息实验大楼','体育馆','主体育场','中原农耕文化博物馆','理想中心4栋','科技实验大楼']
             that.buildingdata.forEach(e=>{
               if (e.center && textArr.includes(e.text)) {
+								let img = require("../assets/img/light.png")
+								// let div = `<div>
+								// 		<div class="buildingtext">${e.text}</div>
+								// 		<img src=${img} >
+								// 		</div>`
                 let div=document.createElement("div")
-								let img = '<img src="../assets/img/light.png" >'
-								div.append(img)
                 div.className="buildingtext"
-                div.innerHTML=e.text
+                div.innerHTML=				`<div class="buildingTitle">${e.text}</div>
+																			<img src=${img} >`
+								// div.innerHTML=`<img src=${img} >`
                 let label=threeLayer.threemap.objects.add2DLabel(div,[...e.center,e.height+0.5])
                 threeLayer.threemap.add(label)
               }
@@ -535,7 +632,8 @@ export default {
         properties:{
             id:"1234",
             name:"树"
-        }
+        },
+				glow:false
 			}).then(group => {
         // console.log("group",group);
         let carlist = []
@@ -619,9 +717,10 @@ export default {
           if (t==1) {
             setTimeout(() => {
               //外围路线
-              let line2= threeLayer.threemap.objects.cubeline(
+              let line2= threeLayer.threemap.objects.line(
                 that.routeoutcircle,
-                require("../assets/img/3DLine.png"),
+								12,
+                require("../assets/img/3DLine.png")
               )
               threeLayer.threemap.add(line2)
 
@@ -666,7 +765,7 @@ export default {
         easing: (t) => {
           if(t == 1){
             this.circleInterval = setInterval(() => {
-              if(this.circleIndex >= 10){
+              if(this.circleIndex >= 360){ // 旋转度数
                 clearInterval(this.circleInterval)
                 this.circleInterval = null
                 // this.loadAniLine()
@@ -837,6 +936,10 @@ export default {
       // font-family: 'Times New Roman', Times, serif;
       
   }
+	.buildingTitle{
+		font-size: 18px;
+		color: white;
+	}
 }
 #map-floor{
   position: fixed;

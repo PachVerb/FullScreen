@@ -10919,6 +10919,60 @@
                 ]
             }
         },
+				{
+				    "type": "Feature",
+				    "properties": {
+				        "highway": "tertiary"
+				    },
+				    "geometry": {
+				        "type": "LineString",
+				        "coordinates": [
+				            [
+				                104.04328999597578,  30.592239044571883
+				                
+				            ],
+				            [
+				                104.0610175022976, 30.59364926479907
+				            ]
+				        ]
+				    }
+				},
+				{
+				    "type": "Feature",
+				    "properties": {
+				        "highway": "tertiary"
+				    },
+				    "geometry": {
+				        "type": "LineString",
+				        "coordinates": [
+				            [
+				                104.05050813627486, 30.592179013464403
+				                
+				            ],
+				            [
+				                104.04988362366004, 30.60444805716361
+				            ]
+				        ]
+				    }
+				},
+				{
+				    "type": "Feature",
+				    "properties": {
+				        "highway": "tertiary"
+				    },
+				    "geometry": {
+				        "type": "LineString",
+				        "coordinates": [
+				            [
+				               104.0658086829904, 30.60373241402695
+				                
+				            ],
+				            [
+				               104.04734536302993, 30.604565806649475
+				            ]
+				        ]
+				    }
+				},
         {
             "type": "Feature",
             "properties": {

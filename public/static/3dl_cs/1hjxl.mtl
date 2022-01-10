@@ -12,8 +12,8 @@ newmtl Material__2147020350
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\lqcs012.jpg
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\lqcs012.jpg
+	map_Ka \lqcs012.jpg
+	map_Kd \lqcs012.jpg
 
 newmtl Material__2147020346
 	Ns 10.0000
@@ -26,8 +26,8 @@ newmtl Material__2147020346
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\lqcs001.jpg
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\lqcs001.jpg
+	map_Ka \lqcs001.jpg
+	map_Kd \lqcs001.jpg
 
 newmtl Material__2147020353
 	Ns 10.0000
@@ -40,8 +40,8 @@ newmtl Material__2147020353
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\lqcs019.png
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\lqcs019.png
+	map_Ka \lqcs019.png
+	map_Kd \lqcs019.png
 
 newmtl Material__2147020351
 	Ns 10.0000
@@ -54,8 +54,8 @@ newmtl Material__2147020351
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\lqcs010.jpg
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\lqcs010.jpg
+	map_Ka \lqcs010.jpg
+	map_Kd \lqcs010.jpg
 
 newmtl Material__2147020347
 	Ns 10.0000
@@ -68,8 +68,8 @@ newmtl Material__2147020347
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\lqcs006.jpg
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\lqcs006.jpg
+	map_Ka \lqcs006.jpg
+	map_Kd \lqcs006.jpg
 
 newmtl Material__2147020349
 	Ns 10.0000
@@ -82,8 +82,8 @@ newmtl Material__2147020349
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\lqcs004.jpg
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\lqcs004.jpg
+	map_Ka \lqcs004.jpg
+	map_Kd \lqcs004.jpg
 
 newmtl Material__2147020352
 	Ns 10.0000
@@ -96,8 +96,8 @@ newmtl Material__2147020352
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\ttt.jpg
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\ttt.jpg
+	map_Ka \ttt.jpg
+	map_Kd \ttt.jpg
 
 newmtl Material__2147020348
 	Ns 10.0000
@@ -110,5 +110,5 @@ newmtl Material__2147020348
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka C:\Users\lqkj\Desktop\yanshipt\lqcs007.jpg
-	map_Kd C:\Users\lqkj\Desktop\yanshipt\lqcs007.jpg
+	map_Ka \lqcs007.jpg
+	map_Kd \lqcs007.jpg
