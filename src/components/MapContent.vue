@@ -175,6 +175,7 @@ export default {
           // 获取地图样式
           this.SET_MAP_LOAD(false)
           this.SET_MAP(this.vMap)
+          this.vMap.setMaxPitch(80)
           // 设置地图初始值
           // this.vMap.setZoom(_mapZoom)
           // this.vMap.setCenter({lng: _mapCenter[0], lat: _mapCenter[1]})
@@ -786,7 +787,7 @@ export default {
         zoom: 17.5,
         duration: 2800,
         bearing: 0,
-				pitch: 60,
+				pitch: 75,
         easing: (t) => {
           if(t == 1){
             this.SET_LINE_LOAD(true)
