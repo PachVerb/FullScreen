@@ -10,6 +10,7 @@
 <script>
 /* 加载静态资源 */
 import BUILDING_JSON from "../assets/json/building.json";
+import WATER_JSON from "../assets/json/water.json";
 import STYLEBLACK_JSON from "../assets/json/styleblack.json";
 import BUILDINGANDROUTE_GEOJSON from "../assets/json/buildingandroute.json";
 /* 加载静态资源 */
@@ -291,6 +292,7 @@ export default {
       this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
       this.loadOjbFn()
       this.loadTree()
+			this.loadWater()
 			this.vMap.on("click",e=>{
 				console.log(e)
 			})
@@ -495,6 +497,19 @@ export default {
 			  threeLayer.threemap.add(group);  
 			});
     },
+		loadWater(){
+			//给info赋值给定义好的变量
+			let waterpng =require("../assets/img/waternormals.jpg")
+			const pageData=WATER_JSON.data.content;
+			let waterdata = pageData.map(element => {
+				return {
+			    id: element.id,
+			    coordinates: JSON.parse(element.geom)[0],
+			  }
+			})
+			let water_3D=threeLayer.threemap.objects.water(waterdata,waterpng,0xffffff)
+			threeLayer.threemap.add(water_3D)
+		},
     // 加载3D建筑
     loadBuildFn() {
       let that = this
