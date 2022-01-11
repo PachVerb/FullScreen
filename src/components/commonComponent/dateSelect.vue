@@ -457,8 +457,12 @@ export default {
     }
 }
 .el-popper{
+    .el-date-range-picker__editor{
+        background: url("../../assets/img/bg-date.png") no-repeat;
+        background-size: 100% 100%;
+    }
     .el-input__inner{
-        background-color: rgba(24, 59, 98, 0.8) !important;
+        background-color: transparent !important;
         color: #25B5C2 !important;
         border: none;
         &::placeholder{

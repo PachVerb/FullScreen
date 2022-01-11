@@ -49,7 +49,7 @@ body {
     color: rgba(255,255,255,0.1);
   }
   .el-date-table td.in-range div, .el-date-table td.in-range div:hover, .el-date-table.is-week-mode .el-date-table__row.current div, .el-date-table.is-week-mode .el-date-table__row:hover div{
-    background-color: transparent;
+    background-color: rgba(24, 59, 98, 0.8);
   }
 }
 i {
