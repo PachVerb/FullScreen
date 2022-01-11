@@ -793,8 +793,12 @@
 						show: true,
 						axisPointer: {
 							type: 'shadow'
-						}
-
+						},
+						backgroundColor: 'rgba(44,62,80,0.8)',
+						borderColor: '#00F5FF',
+						textStyle: {
+							color: 'rgba(255,255,255,0.8)',
+						},
 					},
 					grid: {
 						// left: 40,
