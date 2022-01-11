@@ -292,7 +292,7 @@ export default {
       this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
       this.loadOjbFn()
       this.loadTree()
-			this.loadWater()
+			// this.loadWater()
 			this.vMap.on("click",e=>{
 				console.log(e)
 			})
