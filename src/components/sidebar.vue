@@ -136,6 +136,9 @@ export default {
     ...mapGetters(['currentSys','oldCurrentSys','currentSysModule']),
   },
   mounted(){
+    console.log('clientWidth',document.documentElement.clientWidth,document.documentElement.clientHeight)
+    let clientWidth = document.documentElement.clientWidth
+    document.querySelector('.sidebar').style.zoom = clientWidth / 1920
     this.page = Math.ceil(this.allSideList.length/this.size)
     let sideList = []
     for(let i = 0;i < this.page;i++){
