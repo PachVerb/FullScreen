@@ -1861,9 +1861,10 @@
 	}
 
 	.abnormal {
-		margin-top: 20px;
+		// margin-top: 20px;
+		width: 100%;
 		display: flex;
-		justify-content: space-around;
+		justify-content: space-evenly;
 		position: relative;
 	}
 
