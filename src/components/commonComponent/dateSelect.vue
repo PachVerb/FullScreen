@@ -469,6 +469,28 @@ export default {
             color: #25B5C2;
         }
     }
+    .el-time-panel{
+        background-color: rgba(24, 59, 98, 0.9) !important;
+        border-color: rgba(106, 176, 255, 0.4) !important;
+        .el-time-panel__content::after, .el-time-panel__content::before{
+            border-color: rgba(106, 176, 255, 0.4) !important;
+        }
+        .el-time-spinner__item{
+            color: rgba(255,255,255,0.8);
+        }
+        .el-time-spinner__item.active:not(.disabled){
+            color: #25b5c2;
+        }
+        .el-time-spinner__item:hover:not(.disabled):not(.active){
+            background-color: rgba(37, 181, 194,0.5);
+        }
+        .el-time-panel__footer{
+            border-color: rgba(106, 176, 255, 0.4) !important;
+            .cancel{
+                color: rgba(255,255,255,0.8);
+            }
+        }
+    }
     .el-date-range-picker__time-header,.el-date-range-picker__content{
         border-color: rgba(106, 176, 255, 0.4) !important;
     }
