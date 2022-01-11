@@ -335,8 +335,8 @@ export default {
     getCardStatus() {
       this.cardList = [
         { title: '今日消费', val: 5798.62, count: 653 },
-        { title: '今日充值', val: 5798.62, count: 653 },
-        { title: '今日餐饮', val: 5798.62, count: 653 },
+        { title: '今日充值', val: 6635.45, count: 781 },
+        { title: '今日餐饮', val: 3716.36, count: 347 },
       ]
     },
     //近十日各消费类别趋势

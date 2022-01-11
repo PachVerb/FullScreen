@@ -79,8 +79,13 @@ export default {
     },
     currentSys(val){
       if(this.map){
+        let clientWidth = document.documentElement.clientWidth
+        this.$nextTick(() => {
+          document.querySelector('.sys-left').style.zoom = clientWidth / 1920
+          document.querySelector('.sys-right').style.zoom = clientWidth / 1920
+        })
         this.map.setBearing(0)
-				this.map.setPitch(60)
+				this.map.setPitch(75)
         this.map.setZoom(17.8)
         this.map.setCenter([104.05999036597285, 30.596105715016634])
         this.SET_DETAIL_MSG(null)
@@ -109,9 +114,6 @@ export default {
 		this.getWeather(document)
 	},
   mounted(){
-    console.log('clientWidth',document.documentElement.clientWidth,document.documentElement.clientHeight)
-    let clientWidth = document.documentElement.clientWidth
-    document.body.style.zoom = clientWidth / 1920
 		// this.copyWeatherHtml()
     // this.SET_CURRENTSYS('comprehensive')
 	},
