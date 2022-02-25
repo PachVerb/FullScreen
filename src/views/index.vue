@@ -72,7 +72,7 @@ export default {
   watch: {
     lineLoad(val){
       if(val){
-        this.SET_CURRENTSYS('comprehensive')
+        this.SET_CURRENTSYS('interstatues')
         this.map.setMinZoom(15.5)
         this.map.setMaxZoom(19.5)
       }

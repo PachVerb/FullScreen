@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <div class="up" @click="checkSideList('up')"><img v-if="thisIndex !== 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div>
+    <!-- <div class="up" @click="checkSideList('up')"><img v-if="thisIndex !== 0" class="img-rotate" src="../assets/img/down.png" alt=""><img v-else src="../assets/img/up.png" alt=""></div> -->
     <div class="swiper">
       <div class="side-list">
         <div :class="['side-item','side-bar-item-aa', sideItem.children ? 'side-item-has-child' : '']" 
@@ -26,7 +26,7 @@
         </div> -->
       </div>
     </div>
-    <div class="down" @click="checkSideList('down')"><img class="img-rotate1" v-if="this.thisIndex < (Math.floor(this.allSideList.length/this.size))" src="../assets/img/down.png" alt=""><img class="img-rotate2" v-else src="../assets/img/up.png" alt=""></div>
+    <!-- <div class="down" @click="checkSideList('down')"><img class="img-rotate1" v-if="this.thisIndex < (Math.floor(this.allSideList.length/this.size))" src="../assets/img/down.png" alt=""><img class="img-rotate2" v-else src="../assets/img/up.png" alt=""></div> -->
   </div>
 </template>
 
@@ -38,80 +38,28 @@ export default {
   },
   data(){
     return {
-      allSideList: [{
-        name: 'comprehensive',
-        cname: '综合态势',
-        normal: require('../assets/sidebar/normal/comprehensive.png'),
-        select: require('../assets/sidebar/select/comprehensive.png')
-      },{
-        name: 'assets',
-        cname: '资产态势',
-        normal: require('../assets/sidebar/normal/assets.png'),
-        select: require('../assets/sidebar/select/assets.png')
-      },{
-        name: 'interstatues',
-        cname: '网络态势',
-        normal: require('../assets/sidebar/normal/assets.png'),
-        select: require('../assets/sidebar/select/assets.png'),
-        children: [{
-          name: 'networkEquipment',
-          cname: '网络设备态势'
-        },{
-          name: 'networkHeat',
-          cname: '网络连接热力图'
-        },{
-          name: 'networkOpticalFiber',
-          cname: '网络光纤态势'
-        }]
-      },{
-        name: 'studystatues',
-        cname: '教学态势',
-        normal: require('../assets/sidebar/normal/assets.png'),
-        select: require('../assets/sidebar/select/assets.png')
-      },{
-        name: 'dormitory',
-        cname: '宿舍态势',
-        normal: require('../assets/sidebar/normal/dormitory.png'),
-        select: require('../assets/sidebar/select/dormitory.png')
-      },{
-        name: 'fireSafety',
-        cname: '安消态势',
-        normal: require('../assets/sidebar/normal/fireSafety.png'),
-        select: require('../assets/sidebar/select/fireSafety.png')
-      },{
-        name: 'energyUsage',
-        cname: '能耗态势',
-        normal: require('../assets/sidebar/normal/energyUsage.png'),
-        select: require('../assets/sidebar/select/energyUsage.png')
-      },{
-        name: 'peoplestatues',
-        cname: '人员态势',
-        normal: require('../assets/sidebar/normal/peoplestatues.png'),
-        select: require('../assets/sidebar/select/peoplestatues.png'),
-        children: [{
-          name: 'personnelGathering',
-          cname: '人员聚集态势'
-        },{
-          name: 'personnelMigration',
-          cname: '人员迁徙态势'
-        }]
-      },{
-        name: 'vehicle',
-        cname: '车辆态势',
-        normal: require('../assets/sidebar/normal/vehicle.png'),
-        select: require('../assets/sidebar/select/vehicle.png'),
-      },{
-        name: 'publichouse',
-        cname: '公房态势',
-        normal: require('../assets/sidebar/normal/publichouse.png'),
-        select: require('../assets/sidebar/select/publichouse.png')
-      },{
-        name: 'networkoperation',
-        cname: '网络运维',
-        normal: require('../assets/sidebar/normal/networkoperation.png'),
-        select: require('../assets/sidebar/select/networkoperation.png'),
-      }
-			],
+         allSideList: [{
+           name: 'interstatues',
+           cname: '网络态势',
+           normal: require('../assets/sidebar/normal/assets.png'),
+           select: require('../assets/sidebar/select/assets.png'),
+           children: [{
+             name: 'networkEquipment',
+             cname: '网络设备态势'
+           },{
+             name: 'networkHeat',
+             cname: '网络连接热力图'
+           },{
+             name: 'networkOpticalFiber',
+             cname: '网络光纤态势'
+           }]
+         },{
+           name: 'fireSafety',
+           cname: '安防态势',
+           normal: require('../assets/sidebar/normal/fireSafety.png'),
+           select: require('../assets/sidebar/select/fireSafety.png')
+         }
+   			],
       sideList: [[]],
       thisIndex: 0,
       swiperOption: {
@@ -136,9 +84,6 @@ export default {
     ...mapGetters(['currentSys','oldCurrentSys','currentSysModule']),
   },
   mounted(){
-    console.log('clientWidth',document.documentElement.clientWidth,document.documentElement.clientHeight)
-    let clientWidth = document.documentElement.clientWidth
-    document.querySelector('.sidebar').style.zoom = clientWidth / 1920
     this.page = Math.ceil(this.allSideList.length/this.size)
     let sideList = []
     for(let i = 0;i < this.page;i++){
@@ -167,9 +112,8 @@ export default {
       if(this.sideList[this.thisIndex].length < this.size){
         mid = mid - (this.size - this.sideList[this.thisIndex].length) 
       }
-      type = Math.abs(mid-(val+1))
+      type = Math.abs(mid-(val-1))
       type = Math.abs(type - this.thisIndex*this.size)
-      console.log(type)
       return type
     },
     checkSideList(type){
@@ -179,7 +123,6 @@ export default {
       } else if(type == 'down' && this.thisIndex < (Math.floor(this.allSideList.length/6))) {
         this.thisIndex += 1
       }
-      console.log(this.sideList[this.thisIndex],6666)
       // this.sideList = this.allSideList.filter((item,index) => {
       //   if(index < this.thisIndex*6 && index >= (this.thisIndex-1)*6){
       //     return item
@@ -203,9 +146,9 @@ export default {
       sideDomList.forEach((dom,index) => {
         let a = this.returnClassType(index,this.thisIndex)
         // dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
-        dom.style.left = 17 + (315 - (midIndex - index)*105) + 'px'
+        dom.style.left = 17 + (315 - (midIndex - index)*155) + 'px'
         // dom.style.top = (42-(a-1)*17) + 'px'
-        dom.style.top = 180 * Math.cos((15 * a * Math.PI) / 180) - 125 + 'px'
+        dom.style.top = 180 * Math.cos((30 * a * Math.PI) / 180) - 120 + 'px'
       })
     },
     hoverCurrentSys(side,index){
