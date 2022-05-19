@@ -281,6 +281,16 @@
 						this.resetLayer()
 						switch(this.currentSysModule){
 							case 'networkEquipment':
+									this.map.flyTo({
+									     center: [104.05999036597285, 30.596105715016634],
+									     bearing: 40,
+									     pitch: 60,
+									     zoom: 14.5,
+									     duration: 1000,
+									     easing(t) {
+									       return t;
+									     }
+									})
 								this.mesList = [{
 									type: 1,// 车
 									cate: 0,
@@ -381,6 +391,16 @@
 				this.resetLayer()
 				switch(this.currentSysModule){
 					case 'networkEquipment':
+					this.map.flyTo({
+					     center: [104.05999036597285, 30.596105715016634],
+					     bearing: 40,
+					     pitch: 60,
+					     zoom: 14.5,
+					     duration: 1000,
+					     easing(t) {
+					       return t;
+					     }
+					})
 						this.mesList = [{
 							type: 1,// 车
 							cate: 0,
@@ -474,6 +494,16 @@
 		},
 		methods: {
 			init() {
+				// this.map.flyTo({
+				//      center: [104.05999036597285, 30.596105715016634],
+				//      bearing: 40,
+				//      pitch: 60,
+				//      zoom: 14.5,
+				//      duration: 1000,
+				//      easing(t) {
+				//        return t;
+				//      }
+				// })
 				// let body = document.querySelector('body')
 				// body.addEventListener('click',this.closePopup)
 				this.hideBuildingText()

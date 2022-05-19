@@ -540,6 +540,16 @@ export default {
   },
   methods: {
     init(){
+		this.map.flyTo({
+		     center: [104.05999036597285, 30.596105715016634],
+		     bearing: 40,
+		     pitch: 60,
+		     zoom: 14.5,
+		     duration: 1000,
+		     easing(t) {
+		       return t;
+		     }
+		})
       let domList = [...document.querySelectorAll('.buildingtext')]
       domList.forEach(item => {
         item.style.opacity = 0

@@ -85,7 +85,7 @@ export default {
           document.querySelector('.sys-right').style.zoom = clientWidth / 1920
         })
         this.map.setBearing(0)
-				this.map.setPitch(75)
+				this.map.setPitch(49)
         this.map.setZoom(17.8)
         this.map.setCenter([104.05999036597285, 30.596105715016634])
         this.SET_DETAIL_MSG(null)

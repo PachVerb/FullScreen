@@ -305,39 +305,39 @@
 				}, ],
 				monitorList: [{
 					id: '1',
-					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/e54fe905-732e-47b4-8b57-90057f405a19.mp4',
-					address: "1号教学楼",
+					src: 'https://wisec.you07.com/cmips-server/upload/%E4%B8%9C%E5%A4%A7%E9%97%A8%E9%97%A8%E5%A4%96.mp4',
+					address: "东大门",
 				}, {
 					id: '2',
-						src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/7d1e5702-e059-4425-b7c5-3810ecf95af2.mp4',
-						address: "2号教学楼",
+						src: 'https://wisec.you07.com/cmips-server/upload/%E5%A4%96%E5%9B%B47%E5%8F%B7%E6%A5%BC%E5%8D%971.mp4',
+						address: "林荫大道",
 				}, {
 					id: '3',
-						src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/1e21c81f-9bd1-4ce3-8e68-ba3808332339.mp4',
-						address: "图书馆",
+						src: 'https://wisec.you07.com/cmips-server/upload/%E8%A5%BF%E5%9B%B4%E5%A2%9911.mp4',
+						address: "第五大道",
 				}, {
 					id: '4',
-						src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
-						address: "音乐舞蹈大楼",
+						src: 'https://wisec.you07.com/cmips-server/upload/%E8%B6%B3%E7%90%83%E5%9C%BA%E7%9C%8B%E5%8F%B0%E5%8D%97%E6%9C%BA.mp4',
+						address: "操场",
 				},{
 					id: '5',
-					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					src: 'https://wisec.you07.com/cmips-server/upload/%E4%B8%9C%E5%A4%A7%E9%97%A8%E9%97%A8%E5%A4%96.mp4',
 					address: "紫荆餐厅",
 				}, {
 					id: '6',
-					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					src: 'https://wisec.you07.com/cmips-server/upload/%E5%A4%96%E5%9B%B47%E5%8F%B7%E6%A5%BC%E5%8D%971.mp4',
 					address: "行政大楼",
 				}, {
 					id: '7',
-					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					src: 'https://wisec.you07.com/cmips-server/upload/%E8%A5%BF%E5%9B%B4%E5%A2%9911.mp4',
 					address: "行政大楼",
 				}, {
 					id: '8',
-					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					src: 'https://wisec.you07.com/cmips-server/upload/%E8%B6%B3%E7%90%83%E5%9C%BA%E7%9C%8B%E5%8F%B0%E5%8D%97%E6%9C%BA.mp4',
 					address: "行政大楼",
 				}, {
 					id: '9',
-					src: 'https://test.lqkj.top/cmips2-server/upload/shm/image/c1358d4c-1b16-444c-b7f4-c96dec593cf3.mp4',
+					src: 'https://wisec.you07.com/cmips-server/upload/%E8%A5%BF%E5%9B%B4%E5%A2%9911.mp4',
 					address: "行政大楼",
 				}, ],
 				monitorIndex: 1,
