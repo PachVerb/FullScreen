@@ -301,6 +301,12 @@ export default {
         // this.loadAniCircle()  
       }, 4000) // 3S之后加载路线
       
+       // 添加室内的模型的api
+      this.indoorModel = new creeper.modelIndoorManage(
+        this.vMap,
+        threeLayer.threemap,
+        1
+      );
     },
     // 加载树
     loadTree(){
