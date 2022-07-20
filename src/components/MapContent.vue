@@ -19,8 +19,8 @@ import {mapGetters, mapMutations} from 'vuex'
 
 import * as turf from "@turf/turf";
 let mapIp = "https://wisec.you07.com/cmgis-server";
-let token = 'd2lzZWM6NzkzNmZkN2UzNWI5MGY2YWNhZWI3MjVhYzIyOTlkYzM=9';
-
+let token = 'd2lzZWM6NzkzNmZkN2UzNWI5MGY2YWNhZWI3MjVhYzIyOTlkYzM=';
+// let token = 'Q21HaXNScGM6Q01naXNUISQmKCo='
 let map2D = {
   mapId: 9, // 地图Id
   styleId: 3,  // 样式id
@@ -300,7 +300,7 @@ export default {
         this.load3DLine()
         // this.loadAniCircle()  
       }, 4000) // 3S之后加载路线
-      
+
        // 添加室内的模型的api
       this.indoorModel = new creeper.modelIndoorManage(
         this.vMap,
