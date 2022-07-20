@@ -289,7 +289,7 @@ export default {
       this.vMap.setLayoutProperty("building1_3D","visibility","none")
       this.vMap.setLayoutProperty("ziti_dalou","visibility","none")
       this.vMap.addLayer(threeLayer); // 将3D模型的图层加入地图
-      this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
+      // this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
       this.loadOjbFn()
       this.loadTree()
 			// this.loadWater()
@@ -534,7 +534,7 @@ export default {
             let building_3D=threeLayer.threemap.objects.building(buildingdata,buildingpng)
             threeLayer.threemap.add(building_3D)
             //建筑标签
-            let textArr = ['音乐舞蹈大楼','紫荆餐厅','图书馆','行政大楼','1号教学楼','2号教学楼','灵奇图书馆','机电信息实验大楼','体育馆','主体育场','中原农耕文化博物馆','理想中心4栋','科技实验大楼']
+            let textArr = ['音乐舞蹈大楼','紫荆餐厅','图书馆','行政大楼','1号教学楼','2号教学楼','灵奇图书馆','机电信息实验大楼','体育馆','主体育场','中原农耕文化博物馆','理想中心4栋','科技实验大楼', '创新大楼']
             that.buildingdata.forEach(e=>{
               if (e.center && textArr.includes(e.text)) {
 								let img = require("../assets/img/light.png")
