@@ -42,12 +42,26 @@ let map25D = {
 const threeLayer = new creeper.ThreeLayer({
     id:"modellayer",
     threemapOption:{
-        useDraggingObjects:false,
-        useTooltip: false,
-        useSelectingObjects:false,
-				usePostprocessing:true,
-        passiveRendering: false,
-        skySrc: require('../assets/img/sky.png')
+        // useDraggingObjects:false,
+        // useTooltip: false,
+        // useSelectingObjects:false,
+				// usePostprocessing:true,
+        // passiveRendering: false,
+        // skySrc: require('../assets/img/sky.png')
+         useDraggingObjects: false,
+    useTooltip: false,
+    useSelectingObjects: false,
+    usePostprocessing: true,
+    passiveRendering: false,
+    skySrc: require("../assets/img/sky.png"),
+    bloomOptions: {
+      exposure: 1,
+      bloomThreshold: 0.2,
+      bloomStrength: 1, // 辉光强度
+      bloomRadius: 0.24,
+    },
+    // antialias: clarity ? "ssaa" : 'none', //抗锯齿
+    // antialias:"none"//抗锯齿
     }
 });
 // 计数器，计算点数
