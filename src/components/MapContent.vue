@@ -294,7 +294,7 @@ export default {
       this.loadTree()
 			// this.loadWater()
 			this.vMap.on("click",e=>{
-				console.log(e)
+				console.log(e,this.vMap.queryRenderedFeatures(e.point))
 			})
       setTimeout(() => {
         this.load3DLine()
@@ -420,6 +420,25 @@ export default {
 			  console.log("building",group);
 			  group.setCoords([104.060911014572,30.5979985455168]);
 				group.rotation.z = 90 * Math.PI / 180;
+			  threeLayer.threemap.add(group);
+			});
+      threeLayer.threemap //创新大楼
+			.loadModel({
+			  url: `${this.domainUrl}/static/3dl_cs/iocCX.gltf`,
+			  type: 'gltf',
+			  units: 'meters',
+			  // mtl: `${this.domainUrl}/static/3dl_cs/lxzx.mtl`,
+			  properties:{
+			      id:"2345",
+			      name:"树",
+			      buildingId:"72359"
+			  },
+			  scale:1
+			})
+			.then(group => {
+			  console.log("building",group);
+			  group.setCoords([104.05642355116646,30.59763307365489]);
+				group.rotation.z = 90 * Math.PI / 180; //旋转
 			  threeLayer.threemap.add(group);
 			});
       threeLayer.threemap
