@@ -35,7 +35,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="校区公房统计" delay="200" height="54%">
+        <sideItem title="管理部门统计" delay="200" height="54%">
           <div class="houseStati" slot="body">
             <div class="row title">
               <span>管理部门名称</span>
@@ -107,20 +107,25 @@
           </div>
         </sideItem> -->
         <sideItem
-          title="学校楼栋使用情况"
+          title="学校楼栋情况"
           transitionType="right"
           delay="200"
-          height="40%"
+          height="30%"
         >
           <div slot="body" class="landState">
             <div class="chart-land" id="landChart"></div>
+          </div>
+        </sideItem>
+        <sideItem title="部门使用前十排行" :delay="200" height="45%">
+          <div slot="body" class="chart-wrap">
+            <div id="totalAssets"></div>
           </div>
         </sideItem>
         <sideItem
           title="公房使用单位统计"
           transitionType="right"
           delay="300"
-          height="36%"
+          height="25%"
         >
           <div slot="body" class="usepublicunitbox">
             <div class="usebox">
@@ -152,6 +157,8 @@ import * as echarts from "echarts";
 import "echarts-gl";
 
 import mdata from "../../mock/alldata.json";
+
+let allTotalAssetschartDom, allTotalAssetsChart;
 export default {
   components: {
     sideTran,
@@ -192,6 +199,12 @@ export default {
   mounted() {
     this.init();
     this.getLandState();
+
+    // setTimeout(() => {
+    //   window.addEventListener("resize", () => {
+    //     allTotalAssetsChart.resize();
+    //   });
+    // });
   },
   beforeDestroy() {
     this.destroySys();
@@ -216,8 +229,10 @@ export default {
           this.getSchoolState();
           this.getHouseStati();
           this.getUseStati();
-          this.getTotalStati();
+          //   this.getTotalStati();
           this.getFreeStati();
+          this.getPubPaiHang();
+
           //   this.getLandState();
         }, 500);
       });
@@ -1047,6 +1062,121 @@ export default {
       chart.clear(); //清除动画
       chart.setOption(option, true);
     },
+    // 部门使用前十排行
+    getPubPaiHang() {
+      let allTotalAssetschartDom = document.getElementById("totalAssets");
+      let allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
+      console.log("排行", allTotalAssetschartDom);
+      let totalAssetsOption = {
+        tooltip: {
+          // trigger: 'axis',
+          backgroundColor: "rgba(44,62,80,0.8)",
+          borderColor: "rgba(153, 209, 246, 0.6)",
+          textStyle: {
+            align: "left",
+            fontSize: 12,
+            color: "rgba(255,255,255,0.8)",
+          },
+        },
+        grid: {
+          top: "10px",
+          left: "100px",
+          right: "30px",
+          bottom: "30px",
+        },
+        xAxis: {
+          type: "value",
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            show: false,
+          },
+          axisLabel: {
+            color: "#F6FAFF",
+            fontSize: 10,
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#6AB0FF",
+            },
+          },
+        },
+        yAxis: {
+          type: "category",
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            show: false,
+          },
+          splitLine: {
+            show: false,
+          },
+          axisLabel: {
+            show: true,
+            fontSize: 10,
+            formatter: function(value) {
+              return value;
+            },
+            color: "#F6FAFF",
+          },
+          data: [
+            "管理学院",
+            "通信与信息工程学院",
+            "计算机学院",
+            "人文社科学院",
+            "体育学院",
+            "电子工程学院",
+            "中文学院",
+            "美术学院",
+            "音乐学院",
+          ],
+        },
+        series: [
+          {
+            type: "bar",
+            barWidth: "5px",
+            animationDuration: 2500,
+            data: [177, 139, 186, 148, 119, 132, 75, 119, 95],
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  1,
+                  0,
+                  0,
+                  0, //4个参数用于配置渐变色的起止位置, 这4个参数依次对应右/下/左/上四个方位. 而0 0 0 1则代表渐变色从正上方开始
+                  [
+                    { offset: 0, color: "#6AB0FF" },
+                    // {offset: 0.5, color: '#5172FF'},
+                    { offset: 1, color: "#5172FF" },
+                  ] //数组, 用于配置颜色的渐变过程. 每一项为一个对象, 包含offset和color两个参数. offset的范围是0 ~ 1, 用于表示位置
+                ),
+                barBorderRadius: [15, 15, 15, 15],
+              },
+            },
+            encode: {
+              // Map the "amount" column to X axis.
+              x: "amount",
+              // Map the "product" column to Y axis
+              y: "product",
+            },
+            label: {
+              show: true,
+              precision: 1,
+              position: "right",
+              valueAnimation: true,
+              fontFamily: "monospace",
+              color: "#F6FAFF",
+            },
+          },
+        ],
+      };
+
+      //   allTotalAssetsChart.setOption(totalAssetsOption);
+      allTotalAssetsChart.clear(); //清除动画
+      allTotalAssetsChart.setOption(totalAssetsOption, true);
+    },
     //公房使用单位统计
     renderpie() {
       let usepublicChartDom, usepublicChartChart, option;
@@ -1507,6 +1637,12 @@ export default {
         left: calc(50% - 50px);
       }
     }
+  }
+
+  #totalAssets,
+  .chart-wrap {
+    width: 100%;
+    height: 100%;
   }
 
   /* 外圈旋转动画 */
