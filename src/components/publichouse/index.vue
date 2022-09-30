@@ -76,7 +76,7 @@
         </sideItem> -->
       </div>
       <div slot="right" style="height: 100%;">
-        <sideItem
+        <!-- <sideItem
           title="空置房源统计"
           transitionType="right"
           delay="100"
@@ -105,9 +105,9 @@
               </div>
             </div>
           </div>
-        </sideItem>
+        </sideItem> -->
         <sideItem
-          title="土地情况"
+          title="学校楼栋使用情况"
           transitionType="right"
           delay="200"
           height="40%"
@@ -191,6 +191,7 @@ export default {
   },
   mounted() {
     this.init();
+    this.getLandState();
   },
   beforeDestroy() {
     this.destroySys();
@@ -217,7 +218,7 @@ export default {
           this.getUseStati();
           this.getTotalStati();
           this.getFreeStati();
-          this.getLandState();
+          //   this.getLandState();
         }, 500);
       });
     },
@@ -930,18 +931,18 @@ export default {
     },
     //土地情况
     getLandState() {
+      console.log("土地使用情况图标");
       let dom = document.getElementById("landChart");
       let chart = echarts.init(dom);
       let parma = {
-        names: ["总使用权面积", "划拨使用权面积", "出让使用权面积"],
-        unit: "(亿元)",
-        lineX: ["北校区", "南校区", "东校区"],
+        names: ["建筑面积", "使用面积"],
+        unit: "(m²)",
+        lineX: ["行政办公楼", "实验室", "图书馆", "餐厅食堂"],
         value: [
-          [218, 218, 218],
-          [85, 85, 85],
-          [44, 44, 44],
+          [20, 45, 80, 58],
+          [52, 70, 60, 64],
         ],
-        color: ["#6AB0FF", "#E5BC80", "#C490BF"],
+        color: ["#6AB0FF", "#cd735e"],
       };
       let option = {
         animationDuration: 2000,
@@ -980,7 +981,7 @@ export default {
           right: "0",
           itemWidth: 10,
           itemHeight: 5,
-          orient: "vertical",
+          //   orient: "vertical",
         },
         xAxis: {
           type: "category",
@@ -992,6 +993,7 @@ export default {
             },
           },
           axisLabel: {
+            interval: 0,
             textStyle: {
               color: "rgba(246, 250, 255, 0.8)",
             },
