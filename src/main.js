@@ -1,8 +1,15 @@
+/*
+ * @LastEditTime: 2022-09-30 21:55:04
+ * @Description:
+ * @Date: 2022-09-30 21:30:46
+ * @Author: wangshan
+ * @LastEditors: wangshan
+ */
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import './icons' // icon
+import "./icons"; // icon
 /* 
 修改node_modules  方法refreshRem为以下函数：
 function refreshRem(){
@@ -15,15 +22,15 @@ function refreshRem(){
     flexible.rem = win.rem = rem;
 }
 */
-import 'lib-flexible/flexible.js';
-import 'element-ui/lib/theme-chalk/index.css';
-import 'vant/lib/index.css';
-import './common/font/font.css'
-import VideoPlayer from 'vue-video-player'
-require('video.js/dist/video-js.css')
-require('vue-video-player/src/custom-theme.css')
+import "lib-flexible/flexible.js";
+import "element-ui/lib/theme-chalk/index.css";
+import "vant/lib/index.css";
+import "./common/font/font.css";
+import VideoPlayer from "vue-video-player";
+require("video.js/dist/video-js.css");
+require("vue-video-player/src/custom-theme.css");
 
-Vue.use(VideoPlayer)
+Vue.use(VideoPlayer);
 
 // import echarts from 'echarts';
 // import ElementUI from 'element-ui';
@@ -45,19 +52,18 @@ import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.min.css'
 
  */
-import vueSwiper from 'vue-awesome-swiper'
-import 'swiper/swiper-bundle.min.css'
-Vue.use(vueSwiper)
+import vueSwiper from "vue-awesome-swiper";
+import "swiper/swiper-bundle.min.css";
+Vue.use(vueSwiper);
 
-import mixins from './components/mixins'
-Vue.mixin(mixins)
-
+import mixins from "./components/mixins";
+Vue.mixin(mixins);
 
 window.vue = new Vue({
-    // echarts,
-    router,
-    store,
-    render: h => h(App)
+  // echarts,
+  router,
+  store,
+  render: (h) => h(App),
 }).$mount("#app");
 
 //全局设置多次点击
