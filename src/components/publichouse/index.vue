@@ -14,6 +14,27 @@
             ></currency>
           </div>
         </sideItem>
+        <sideItem title="公房使用方向统计" delay="300" height="30%">
+          <div class="useStati" slot="body">
+            <div class="chart-useStati" id="useStatiChart"></div>
+            <div class="detailBox">
+              <div class="row" v-for="(item, i) in useStatiList" :key="i">
+                <div class="title">
+                  <i :style="`border-color:${item.color};`"></i>
+                  <span :style="`color:${item.color};`">{{ item.name }}</span>
+                </div>
+                <div class="value">
+                  <animated-number
+                    :value="item.val"
+                    :formatValue="(val) => val.toFixed(2)"
+                    :duration="4000"
+                  />
+                  <i>㎡</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sideItem>
         <sideItem title="校区公房统计" delay="200" height="25.63%">
           <div class="houseStati" slot="body">
             <div class="row title">
@@ -47,32 +68,12 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="公房使用方向统计" delay="300" height="30%">
-          <div class="useStati" slot="body">
-            <div class="chart-useStati" id="useStatiChart"></div>
-            <div class="detailBox">
-              <div class="row" v-for="(item, i) in useStatiList" :key="i">
-                <div class="title">
-                  <i :style="`border-color:${item.color};`"></i>
-                  <span :style="`color:${item.color};`">{{ item.name }}</span>
-                </div>
-                <div class="value">
-                  <animated-number
-                    :value="item.val"
-                    :formatValue="(val) => val.toFixed(2)"
-                    :duration="4000"
-                  />
-                  <i>㎡</i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </sideItem>
-        <sideItem title="学校公房总数统计" delay="400" height="22.76%">
+
+        <!-- <sideItem title="学校公房总数统计" delay="400" height="22.76%">
           <div class="totalStati" slot="body">
             <div class="chart-total" id="totalChart"></div>
           </div>
-        </sideItem>
+        </sideItem> -->
       </div>
       <div slot="right" style="height: 100%;">
         <sideItem
