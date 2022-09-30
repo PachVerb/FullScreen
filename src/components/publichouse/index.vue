@@ -2,7 +2,7 @@
   <div class="publichouse" style="height: 100%;">
     <sideTran thisCrrentSys="publichouse">
       <div slot="left" style="height: 100%;">
-        <sideItem title="学校概况" delay="100" height="20.69%">
+        <sideItem title="学校概况" delay="100" height="33%">
           <div class="schoolState" slot="body">
             <currency
               v-for="(item, i) in staList"
@@ -14,7 +14,7 @@
             ></currency>
           </div>
         </sideItem>
-        <sideItem title="公房使用方向统计" delay="300" height="30%">
+        <sideItem title="公房使用方向统计" delay="300" height="33%">
           <div class="useStati" slot="body">
             <div class="chart-useStati" id="useStatiChart"></div>
             <div class="detailBox">
@@ -29,16 +29,16 @@
                     :formatValue="(val) => val.toFixed(2)"
                     :duration="4000"
                   />
-                  <i>㎡</i>
+                  <i>间</i>
                 </div>
               </div>
             </div>
           </div>
         </sideItem>
-        <sideItem title="校区公房统计" delay="200" height="25.63%">
+        <sideItem title="校区公房统计" delay="200" height="33%">
           <div class="houseStati" slot="body">
             <div class="row title">
-              <span>所属校区</span>
+              <span>管理部门名称</span>
               <span>楼栋数</span>
               <span>房间数</span>
               <span>建筑面积</span>
@@ -430,9 +430,10 @@ export default {
       let dom = document.getElementById("useStatiChart");
       let chart = echarts.init(dom);
       this.useStatiList = [
-        { name: "教学用房", val: 3211.56, color: "rgba(106, 176, 255,.8)" },
-        { name: "办公用房", val: 17325.68, color: "rgba(19, 181, 177,.8)" },
-        { name: "科研用房", val: 5124.65, color: "rgba(229, 188, 128,.8)" },
+        { name: "教学用房", val: 609, color: "rgba(106, 176, 255,.8)" },
+        { name: "办公用房", val: 635, color: "rgba(19, 181, 177,.8)" },
+        { name: "科研用房", val: 479, color: "rgba(229, 188, 128,.8)" },
+        { name: "其他", val: 27, color: "rgba(147, 107, 150, .8)" },
       ];
       let sum = this.useStatiList.reduce((t, item) => t + item.val, 0); //数据总数
       // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
@@ -1356,7 +1357,7 @@ export default {
           i {
             font-size: 12px;
             font-weight: 400;
-            color: rgba(255, 255, 255, 0.5);
+            color: #fff;
           }
         }
       }
