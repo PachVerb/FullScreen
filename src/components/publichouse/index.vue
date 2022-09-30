@@ -2,7 +2,7 @@
   <div class="publichouse" style="height: 100%;">
     <sideTran thisCrrentSys="publichouse">
       <div slot="left" style="height: 100%;">
-        <sideItem title="学校概况" delay="100" height="33%">
+        <sideItem title="学校概况" delay="100" height="20%">
           <div class="schoolState" slot="body">
             <currency
               v-for="(item, i) in staList"
@@ -14,7 +14,7 @@
             ></currency>
           </div>
         </sideItem>
-        <sideItem title="公房使用方向统计" delay="300" height="33%">
+        <sideItem title="公房使用方向统计" delay="300" height="26%">
           <div class="useStati" slot="body">
             <div class="chart-useStati" id="useStatiChart"></div>
             <div class="detailBox">
@@ -35,23 +35,23 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="校区公房统计" delay="200" height="33%">
+        <sideItem title="校区公房统计" delay="200" height="54%">
           <div class="houseStati" slot="body">
             <div class="row title">
               <span>管理部门名称</span>
-              <span>楼栋数</span>
+              <!-- <span>楼栋数</span> -->
               <span>房间数</span>
               <span>建筑面积</span>
               <span>使用面积</span>
             </div>
             <div class="row bg" v-for="(item, i) in houseStaList" :key="i">
               <span>{{ item.campus }}</span>
-              <span>{{ item.build }}</span>
+              <!-- <span>{{ item.build }}</span> -->
               <span>{{ item.room }}</span>
               <span>{{ item.area }}</span>
               <span>{{ item.useArea }}</span>
             </div>
-            <div class="row bg total">
+            <!-- <div class="row bg total">
               <span>合计</span>
               <span>{{
                 houseStaList.reduce((sum, item) => sum + item.build, 0)
@@ -65,7 +65,7 @@
               <span>{{
                 houseStaList.reduce((sum, item) => sum + item.useArea, 0)
               }}</span>
-            </div>
+            </div> -->
           </div>
         </sideItem>
 
@@ -150,6 +150,8 @@ import AnimatedNumber from "animated-number-vue";
 import { mapGetters } from "vuex";
 import * as echarts from "echarts";
 import "echarts-gl";
+
+import mdata from "../../mock/alldata.json";
 export default {
   components: {
     sideTran,
@@ -401,29 +403,7 @@ export default {
     },
     //校区公房统计
     getHouseStati() {
-      this.houseStaList = [
-        {
-          campus: "东校区",
-          build: 13,
-          room: 195,
-          area: 13012.68,
-          useArea: 8043.58,
-        },
-        {
-          campus: "西校区",
-          build: 7,
-          room: 41,
-          area: 2785.37,
-          useArea: 1764.83,
-        },
-        {
-          campus: "南校区",
-          build: 16,
-          room: 510,
-          area: 39013.36,
-          useArea: 23284.54,
-        },
-      ];
+      this.houseStaList = mdata.houseuse;
     },
     //公房使用方向统计
     getUseStati() {
