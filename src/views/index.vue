@@ -79,7 +79,7 @@ export default {
   watch: {
     lineLoad(val) {
       if (val) {
-        this.SET_CURRENTSYS("publichouse");
+        this.SET_CURRENTSYS("assets");
         this.map.setMinZoom(15.5);
         this.map.setMaxZoom(19.5);
       }
