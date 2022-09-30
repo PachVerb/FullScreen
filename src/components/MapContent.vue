@@ -18,25 +18,27 @@ import Bus from "../js/Bus";
 import { mapGetters, mapMutations } from "vuex";
 
 import * as turf from "@turf/turf";
-let mapIp = "https://wisec.you07.com/cmgis-server";
-let token = "d2lzZWM6NzkzNmZkN2UzNWI5MGY2YWNhZWI3MjVhYzIyOTlkYzM=";
+// let mapIp = "https://wisec.you07.com/cmgis-server";
+// let token = "d2lzZWM6NzkzNmZkN2UzNWI5MGY2YWNhZWI3MjVhYzIyOTlkYzM=";
 // let token = 'Q21HaXNScGM6Q01naXNUISQmKCo='
+let mapIp = "https://zcgis.ucas.ac.cn/cmgis-server";
+let token = "Z2tkOjg5MjBjMmM4NzUwYzU4OTM0NDgxNTg4MGIzNWI5Nzgy";
 let map2D = {
-  mapId: 9, // 地图Id
+  mapId: 1, // 地图Id
   styleId: 3, // 样式id
   mapCenter: [104.05788702900719, 30.59531754516823], //地图中心点
   mapZoom: 16.2, // 地图放大级别
   mapPitch: 60,
   mapBearing: 0,
 };
-let map25D = {
-  mapId: 43, // 地图Id
-  styleId: 3, // 样式id
-  mapCenter: [113.99723367196878, 33.007189704534724], //地图中心点
-  mapZoom: 16, // 地图放大级别
-  mapPitch: 0,
-  mapBearing: 0,
-};
+// let map25D = {
+//   mapId: 43, // 地图Id
+//   styleId: 3, // 样式id
+//   mapCenter: [113.99723367196878, 33.007189704534724], //地图中心点
+//   mapZoom: 16, // 地图放大级别
+//   mapPitch: 0,
+//   mapBearing: 0,
+// };
 
 // 定义3D模型
 const threeLayer = new creeper.ThreeLayer({
