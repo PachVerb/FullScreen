@@ -79,16 +79,16 @@ export default {
     return {
       allSideList: [
         {
-          name: "publichouse",
-          cname: "公房态势",
-          normal: require("../assets/sidebar/normal/publichouse.png"),
-          select: require("../assets/sidebar/select/publichouse.png"),
-        },
-        {
           name: "assets",
           cname: "资产态势",
           normal: require("../assets/sidebar/normal/assets.png"),
           select: require("../assets/sidebar/select/assets.png"),
+        },
+        {
+          name: "publichouse",
+          cname: "公房态势",
+          normal: require("../assets/sidebar/normal/publichouse.png"),
+          select: require("../assets/sidebar/select/publichouse.png"),
         },
         // {
         //   name: "comprehensive",
