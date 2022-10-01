@@ -1085,7 +1085,7 @@ export default {
         grid: {
           top: "10px",
           left: "100px",
-          right: "30px",
+          right: "40px",
           bottom: "30px",
         },
         xAxis: {
