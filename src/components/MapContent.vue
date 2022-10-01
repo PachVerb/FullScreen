@@ -240,7 +240,7 @@ export default {
         //   this.vMap = new creeper.VectorMap("map-box", _mapId, _mapIp + "/");
         // }
         //获取地图样式
-        this.getMapStyle();
+        // this.getMapStyle();
         this.vMap.on("load", () => {
           this.vMap.flyTo({
             center: _mapCenter,
