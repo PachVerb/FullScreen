@@ -110,13 +110,13 @@
           title="学校楼栋情况"
           transitionType="right"
           delay="200"
-          height="30%"
+          height="38%"
         >
           <div slot="body" class="landState">
             <div class="chart-land" id="landChart"></div>
           </div>
         </sideItem>
-        <sideItem title="部门使用前十排行" :delay="200" height="40%">
+        <sideItem title="部门使用前十排行" :delay="200" height="33%">
           <div slot="body" class="chart-wrap">
             <div id="totalAssets"></div>
           </div>
@@ -980,7 +980,7 @@ export default {
           left: "2%",
           right: "4%",
           bottom: "0",
-          top: "24%",
+          top: "15%",
           containLabel: true,
         },
         legend: {
