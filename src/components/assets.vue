@@ -24,7 +24,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="各学院资产总数统计" :delay="1000" height="40%">
+        <sideItem title="各部门资产总数统计" :delay="1000" height="40%">
           <div slot="body" class="chart-wrap">
             <div id="totalAssets"></div>
           </div>
@@ -242,23 +242,23 @@ export default {
             color: "#F6FAFF",
           },
           data: [
-            "管理学院",
-            "通信与信息工程学院",
-            "计算机学院",
-            "人文社科学院",
-            "体育学院",
-            "电子工程学院",
-            "中文学院",
-            "美术学院",
-            "音乐学院",
-          ],
+            "图书馆",
+            "心理学系",
+            "中丹学院",
+            "科研处",
+            "材料科学与光电技术学院",
+            "纳米科学与技术学院",
+            "党政办公室",
+            "物理科学学院",
+            "未来科技学院",
+          ].reverse(),
         },
         series: [
           {
             type: "bar",
             barWidth: "5px",
             animationDuration: 2500,
-            data: [177, 139, 186, 148, 119, 132, 75, 119, 95],
+            data: [10, 6, 2, 1, 6, 2, 1, 1, 1].reverse(),
             itemStyle: {
               normal: {
                 color: new echarts.graphic.LinearGradient(
