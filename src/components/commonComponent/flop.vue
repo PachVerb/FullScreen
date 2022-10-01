@@ -1,7 +1,7 @@
 <!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-10-01 16:43:27
+ * @LastEditTime: 2022-10-01 16:51:11
  * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
@@ -34,7 +34,8 @@
 export default {
   data() {
     return {
-      orderNum: ["0", "0", ",", "0", "0", "0"], // 默认订单总数
+      //   orderNum: ["0", "0", ",", "0", "0", "0"], // 默认订单总数
+      orderNum: ["0", ",", "0", "0", "0", "0"],
     };
   },
   props: {
@@ -91,7 +92,7 @@ export default {
         // 订单数中加入逗号
         // num = num.slice(0, 2) + ',' + num.slice(2, 5) + ',' + num.slice(5, 8)
         console.log(num.slice(0, 2), num.slice(2, 5), "889898797489***");
-        num = num.slice(0, 2) + "," + num.slice(2, 5);
+        num = num.slice(0, 1) + "," + num.slice(1, 5);
         this.orderNum = num.split(""); // 将其便变成数据，渲染至滚动数组
         console.log(this.orderNum, "0000022");
       } else {

@@ -1169,7 +1169,7 @@ export default {
 }
 
 .flopboxtitle {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgb(255, 255, 255);
   text-align: left;
 }
 .detailBox {
