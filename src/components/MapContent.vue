@@ -289,7 +289,7 @@ export default {
           displayZoom: 18, //显示的最小地图放大等级  非必传默认是18
 
           onChange: (level) => {
-            console.log(level); // 更改的楼层  1楼为0，-1楼为-1
+            // console.log(level); // 更改的楼层  1楼为0，-1楼为-1
             this.SET_CURRENTFLOOR(level);
           }, // 变化的回调
         });
@@ -339,7 +339,7 @@ export default {
       this.buildingoutcircle = buildingoutcircle;
       this.routeoutcircle = routeoutcircle;
 
-      console.log("this.routeoutcircle", this.routeoutcircle);
+      //   console.log("this.routeoutcircle", this.routeoutcircle);
     },
     //获取建筑信息
     getBuildingFn() {
@@ -357,13 +357,13 @@ export default {
           height: element.tags.height / 10 || 0,
         });
       });
-      console.log("buildingdata", buildingdata);
+      //   console.log("buildingdata", buildingdata);
       this.buildingdata = buildingdata;
     },
     //获取地图样式
     getMapStyle() {
       const pageData = STYLEBLACK_JSON;
-      console.log(pageData);
+      //   console.log(pageData);
       this.vMap.setStyle(pageData);
     },
     // 地图加载完成
@@ -409,7 +409,7 @@ export default {
         .then((group) => {
           // model=group
           // group.addSprite("教学楼1栋")
-          console.log("building", group);
+          //   console.log("building", group);
           group.setCoords([104.06057600331104, 30.594222243844968]);
           threeLayer.threemap.add(group);
 
@@ -435,7 +435,7 @@ export default {
         .then((group) => {
           // model=group
           //group.addSprite("理想中心4栋")
-          console.log("building", group);
+          //   console.log("building", group);
           group.setCoords([104.06079320286767, 30.59740962355285]);
           threeLayer.threemap.add(group);
           // setTimeout(() => {
@@ -458,7 +458,7 @@ export default {
           scale: 1,
         })
         .then((group) => {
-          console.log("building", group);
+          //   console.log("building", group);
           group.setCoords([104.060117836916, 30.5973737561687]);
           group.rotation.z = (270 * Math.PI) / 180;
           threeLayer.threemap.add(group);

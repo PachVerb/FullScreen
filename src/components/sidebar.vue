@@ -191,24 +191,24 @@ export default {
     ...mapGetters(["currentSys", "oldCurrentSys", "currentSysModule"]),
   },
   mounted() {
-    console.log(
-      "clientWidth",
-      document.documentElement.clientWidth,
-      document.documentElement.clientHeight
-    );
+    // console.log(
+    //   "clientWidth",
+    //   document.documentElement.clientWidth,
+    //   document.documentElement.clientHeight
+    // );
     let clientWidth = document.documentElement.clientWidth;
     document.querySelector(".sidebar").style.zoom = clientWidth / 1920;
     this.page = Math.ceil(this.allSideList.length / this.size);
     let sideList = [];
     for (let i = 0; i < this.page; i++) {
-      console.log(i);
+      //   console.log(i);
       sideList[i] = JSON.parse(
         JSON.stringify(
           this.allSideList.slice(i * this.size, (i + 1) * this.size)
         )
       );
     }
-    console.log(this.page, sideList);
+    // console.log(this.page, sideList);
     this.sideList = sideList;
     this.checkSideList();
   },
@@ -236,7 +236,7 @@ export default {
       }
       type = Math.abs(mid - (val + 1));
       type = Math.abs(type - this.thisIndex * this.size);
-      console.log(type);
+      //   console.log(type);
       return type;
     },
     checkSideList(type) {
@@ -249,7 +249,7 @@ export default {
       ) {
         this.thisIndex += 1;
       }
-      console.log(this.sideList[this.thisIndex], 6666);
+      //   console.log(this.sideList[this.thisIndex], 6666);
       // this.sideList = this.allSideList.filter((item,index) => {
       //   if(index < this.thisIndex*6 && index >= (this.thisIndex-1)*6){
       //     return item

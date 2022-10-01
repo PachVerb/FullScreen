@@ -791,7 +791,7 @@ export default {
         // this.markerList.push(marker)
       });
       let geoJson = this.setFeature(this.assetsMesList);
-      console.log("geoJson", geoJson);
+      //   console.log("geoJson", geoJson);
       this.markerIndoor = new creeper.MarkerIndoor(this.map);
       this.markerIndoor.addMarker(geoJson, domList, true);
     },
@@ -916,7 +916,7 @@ export default {
       this.map.on("click", "assetsRoomBg", this.handleShowAssetsDetail);
     },
     handleShowAssetsDetail(e) {
-      console.log(e);
+      //   console.log(e);
       this.showAssetsDetailFlag = true;
     },
     handleHideAssetsDetail() {

@@ -950,7 +950,7 @@ export default {
     },
     //土地情况
     getLandState() {
-      console.log("土地使用情况图标");
+      //   console.log("土地使用情况图标");
       let dom = document.getElementById("landChart");
       let chart = echarts.init(dom);
       let parma = {
@@ -1070,7 +1070,7 @@ export default {
     getPubPaiHang() {
       let allTotalAssetschartDom = document.getElementById("totalAssets");
       let allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
-      console.log("排行", allTotalAssetschartDom);
+      //   console.log("排行", allTotalAssetschartDom);
       let totalAssetsOption = {
         tooltip: {
           // trigger: 'axis',
