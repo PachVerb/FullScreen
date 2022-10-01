@@ -637,7 +637,8 @@ export default {
         this.setGeoJson();
       } else {
         this.geoJson.features = [];
-        this.map.getSource("assetsRoomData").setData(this.geoJson);
+        this.map.getSource("assetsRoomData") &&
+          this.map.getSource("assetsRoomData").setData(this.geoJson);
       }
     },
     currentFloor(val) {
@@ -646,7 +647,8 @@ export default {
         this.setGeoJson();
       } else {
         this.geoJson.features = [];
-        this.map.getSource("assetsRoomData").setData(this.geoJson);
+        this.map.getSource("assetsRoomData") &&
+          this.map.getSource("assetsRoomData").setData(this.geoJson);
       }
     },
   },
@@ -773,7 +775,8 @@ export default {
         type: "FeatureCollection",
         features: [],
       };
-      this.map.getSource("assetsRoomData").setData(this.geoJson);
+      this.map.getSource("assetsRoomData") &&
+        this.map.getSource("assetsRoomData").setData(this.geoJson);
       this.map.off("click", "assetsRoomBg", this.handleShowAssetsDetail);
     },
     createAssetsMraker() {
@@ -836,7 +839,8 @@ export default {
           blank2: "\n",
         },
       });
-      this.map.getSource("assetsRoomData").setData(this.geoJson);
+      this.map.getSource("assetsRoomData") &&
+        this.map.getSource("assetsRoomData").setData(this.geoJson);
     },
     createLayer() {
       if (!this.map.getSource("assetsRoomData")) {
@@ -845,7 +849,8 @@ export default {
           data: this.geoJson,
         });
       } else {
-        this.map.getSource("assetsRoomData").setData(this.geoJson);
+        this.map.getSource("assetsRoomData") &&
+          this.map.getSource("assetsRoomData").setData(this.geoJson);
       }
       // 文字图层
       if (!this.map.getLayer("assetsRoomText")) {
