@@ -227,7 +227,13 @@ export default {
         let _mapPitch = map2D.mapPitch;
         let _mapBearing = map2D.mapBearing;
         creeper.CreeperConfig.token = token;
-        this.vMap = new creeper.VectorMap("map-box", _mapId, _mapIp + "/");
+        this.vMap = new creeper.VectorMap(
+          "map-box",
+          _mapId,
+          _mapIp + "/",
+          true,
+          _styleId
+        );
         // if(this.currentPanel === 0){
         //   this.vMap = new creeper.RasterMap("map-box", _mapId, _mapIp + "/");
         // }else{
