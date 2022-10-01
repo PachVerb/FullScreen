@@ -1,8 +1,8 @@
- <!--
+<!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-06-07 13:04:54
- * @LastEditors: wangshan 1506262681@qq.com
+ * @LastEditTime: 2022-10-01 16:43:27
+ * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
         控制transform属性有动画效果 
@@ -12,7 +12,11 @@
     <div class="chartNum">
       <div class="box-item">
         <li
-          :class="{ 'number-item': !isNaN(item), 'mark-item': isNaN(item) }"
+          :class="{
+            'number-item': !isNaN(item),
+            'mark-item': isNaN(item),
+            'gray-number': isgray ? findStartNum(item, target, index) : false,
+          }"
           v-for="(item, index) in orderNum"
           :key="index"
         >
@@ -36,6 +40,12 @@ export default {
   props: {
     num: {
       default: 0,
+    },
+    isgray: {
+      default: false,
+    },
+    target: {
+      type: Number,
     },
     unitil: "",
   },
@@ -90,10 +100,16 @@ export default {
       }
       this.setNumberTransform();
     },
+    findStartNum(num, target, numindex) {
+      let targetindex = this.orderNum.findIndex((v) => v == target);
+      if (numindex < targetindex && !isNaN(num)) {
+        return true;
+      } else return false;
+    },
   },
 };
 </script>
-<style scoped lang='less'>
+<style scoped lang="less">
 /*订单总量滚动数字设置*/
 .box-item {
   position: relative;
@@ -191,5 +207,8 @@ export default {
 }
 .chartNum {
   width: 210px;
+}
+.gray-number {
+  color: #237b8c;
 }
 </style>

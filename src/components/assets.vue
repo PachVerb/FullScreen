@@ -11,11 +11,16 @@
           <div slot="body" style="width: 100%;margin-top: 20px;">
             <div class="flopbox">
               <p class="flopboxtitle">资产总值</p>
-              <flop :num="num" :unitil="'套'"></flop>
+              <flop :num="num" :unitil="'套'" :isgray="true" :target="3"></flop>
             </div>
             <div class="flopbox">
               <p class="flopboxtitle">资产价值</p>
-              <flop :num="numtow" :unitil="'万元'"></flop>
+              <flop
+                :num="numtow"
+                :unitil="'万元'"
+                :isgray="true"
+                :target="4"
+              ></flop>
             </div>
           </div>
         </sideItem>
@@ -442,8 +447,8 @@ export default {
           },
         ],
       },
-      num: 12345,
-      numtow: 67898,
+      num: 30,
+      numtow: 410,
       unitil: "人",
       showAssetsDetailFlag: false,
       geoJson: {
