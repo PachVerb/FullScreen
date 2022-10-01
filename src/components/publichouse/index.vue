@@ -1400,7 +1400,8 @@ export default {
   }
   .houseStati {
     padding: 0 16px;
-    width: 100%;
+    width: 92%;
+    min-height: 100%;
     .row {
       margin-top: 5px;
       width: 100%;
@@ -1424,6 +1425,12 @@ export default {
       color: #00f5ff;
     }
     .bg {
+      span {
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
       background: rgba(106, 176, 255, 0.3);
     }
   }

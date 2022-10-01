@@ -245,6 +245,7 @@ export default {
           bottom: "30px",
         },
         xAxis: {
+          name: "(套)",
           type: "value",
           axisTick: {
             show: false,
@@ -257,6 +258,7 @@ export default {
             fontSize: 10,
           },
           axisLine: {
+            show: true,
             lineStyle: {
               color: "#6AB0FF",
             },
