@@ -260,7 +260,7 @@ export default {
           axisLine: {
             show: true,
             lineStyle: {
-              color: "#6AB0FF",
+              color: "#213a5f",
             },
           },
         },
@@ -279,7 +279,7 @@ export default {
             show: true,
             fontSize: 10,
             formatter: function(value) {
-              return value;
+              return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
             color: "#F6FAFF",
           },
