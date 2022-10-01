@@ -29,7 +29,7 @@
                     :formatValue="(val) => val.toFixed(2)"
                     :duration="4000"
                   />
-                  <i>间</i>
+                  <i :style="{ marginLeft: '3px' }">(间)</i>
                 </div>
               </div>
             </div>
@@ -198,8 +198,6 @@ export default {
   },
   mounted() {
     this.init();
-    this.getLandState();
-
     // setTimeout(() => {
     //   window.addEventListener("resize", () => {
     //     allTotalAssetsChart.resize();
@@ -232,11 +230,7 @@ export default {
           //   this.getTotalStati();
           this.getFreeStati();
           this.getPubPaiHang();
-          this.map.on("click", (e) => {
-            console.log(e);
-            this.map.setCenter(e.lngLat);
-            console.log(this.map.queryRenderedFeatures(e.point));
-          });
+          this.getLandState();
           //   this.getLandState();
         }, 500);
       });

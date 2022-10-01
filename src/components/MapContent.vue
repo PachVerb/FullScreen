@@ -53,17 +53,17 @@ const threeLayer = new creeper.ThreeLayer({
     useDraggingObjects: false,
     useTooltip: false,
     useSelectingObjects: false,
-    usePostprocessing: true,
+    usePostprocessing: false,
     passiveRendering: false,
     skySrc: require("../assets/img/sky.png"),
-    bloomOptions: {
-      exposure: 1,
-      bloomThreshold: 0.2,
-      bloomStrength: 1, // 辉光强度
-      bloomRadius: 0.24,
-    },
+    // bloomOptions: {
+    //   exposure: 1,
+    //   bloomThreshold: 0.2,
+    //   bloomStrength: 1, // 辉光强度
+    //   bloomRadius: 0.24,
+    // },
     // antialias: clarity ? "ssaa" : 'none', //抗锯齿
-    // antialias:"none"//抗锯齿
+    antialias: "none", //抗锯齿
   },
 });
 // 计数器，计算点数
@@ -376,13 +376,13 @@ export default {
       //   this.loadOjbFn()
       //   this.loadTree()
       // this.loadWater()
-      this.vMap.on("click", (e) => {
-        console.log(e, this.vMap.queryRenderedFeatures(e.point));
-      });
+      //   this.vMap.on("click", (e) => {
+      //     console.log(e, this.vMap.queryRenderedFeatures(e.point));
+      //   });
       setTimeout(() => {
         // this.load3DLine();
         this.loadAniCircle();
-      }, 4000); // 3S之后加载路线
+      }, 1000); // 3S之后加载路线
 
       // 添加室内的模型的api
       //   this.indoorModel = new creeper.modelIndoorManage(
@@ -951,7 +951,7 @@ export default {
               }
               this.vMap.setBearing(this.circleIndex);
               this.circleIndex += 0.7;
-            }, 1000 / 60);
+            }, 500 / 40);
           }
           return t;
         },
