@@ -1085,6 +1085,7 @@ export default {
           bottom: "30px",
         },
         xAxis: {
+          name: "(套)",
           type: "value",
           axisTick: {
             show: false,
@@ -1097,8 +1098,9 @@ export default {
             fontSize: 10,
           },
           axisLine: {
+            show: true,
             lineStyle: {
-              color: "#6AB0FF",
+              color: "#213a5f",
             },
           },
         },
@@ -1117,28 +1119,29 @@ export default {
             show: true,
             fontSize: 10,
             formatter: function(value) {
-              return value;
+              return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
             color: "#F6FAFF",
           },
           data: [
-            "管理学院",
-            "通信与信息工程学院",
-            "计算机学院",
-            "人文社科学院",
-            "体育学院",
-            "电子工程学院",
-            "中文学院",
-            "美术学院",
-            "音乐学院",
-          ],
+            "雁西湖校区管理办公室",
+            "教务部",
+            "化学科学学院",
+            "地球与行星科学学院",
+            "生命科学学院",
+            "材料科学与观点技术学院",
+            "外语系",
+            "物理学科学院",
+            "人文学院",
+            "计算科学版与技术学院",
+          ].reverse(),
         },
         series: [
           {
             type: "bar",
             barWidth: "5px",
             animationDuration: 2500,
-            data: [177, 139, 186, 148, 119, 132, 75, 119, 95],
+            data: [501, 163, 121, 81, 80, 68, 61, 60, 57, 45].reverse(),
             itemStyle: {
               normal: {
                 color: new echarts.graphic.LinearGradient(
