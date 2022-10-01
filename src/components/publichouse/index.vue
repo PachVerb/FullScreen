@@ -430,10 +430,10 @@ export default {
       let dom = document.getElementById("useStatiChart");
       let chart = echarts.init(dom);
       this.useStatiList = [
-        { name: "教学用房", val: 609, color: "rgba(106, 176, 255,.8)" },
-        { name: "办公用房", val: 635, color: "rgba(19, 181, 177,.8)" },
-        { name: "科研用房", val: 479, color: "rgba(229, 188, 128,.8)" },
-        { name: "其他", val: 27, color: "rgba(147, 107, 150, .8)" },
+        { name: "教学用房", val: 609, color: "rgba(106, 176, 255,.9)" },
+        { name: "办公用房", val: 635, color: "rgba(19, 181, 177,.9)" },
+        { name: "科研用房", val: 479, color: "rgba(229, 188, 128,.9)" },
+        { name: "其他", val: 27, color: "rgba(147, 107, 150, .9)" },
       ];
       let sum = this.useStatiList.reduce((t, item) => t + item.val, 0); //数据总数
       // 生成扇形的曲面参数方程，用于 series-surface.parametricEquation
@@ -638,14 +638,14 @@ export default {
           },
           grid3D: {
             show: false,
-            boxHeight: 20,
+            boxHeight: 30,
             //top: '30%',
-            bottom: "50%",
+            // bottom: "50%",
             // environment: '#021041',
             viewControl: {
               distance: 240,
-              alpha: 40,
-              beta: 130,
+              alpha: 25,
+              beta: 350,
             },
           },
           series: series,
@@ -665,7 +665,7 @@ export default {
             },
           };
         }),
-        this.useStatiList.length
+        1.5
       );
       // 监听鼠标事件，实现饼图选中效果（单选），近似实现高亮（放大）效果。
       function bindListen(myChart) {
