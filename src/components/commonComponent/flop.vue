@@ -1,7 +1,7 @@
 <!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-10-01 16:51:11
+ * @LastEditTime: 2022-10-02 01:37:11
  * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
@@ -52,7 +52,7 @@ export default {
   },
   watch: {
     num() {
-      console.log(this.num, "num1111");
+      //   console.log(this.num, "num1111");
       this.$nextTick(() => {
         setTimeout(() => {
           this.toOrderNum(this.num); // 这里输入数字即可调用
@@ -71,30 +71,30 @@ export default {
     setNumberTransform() {
       const numberItems = this.$refs.numberItem; // 拿到数字的ref，计算元素数量
       const numberArr = this.orderNum.filter((item) => !isNaN(item));
-      console.log(numberArr, "arry", this.orderNum);
+      //   console.log(numberArr, "arry", this.orderNum);
       // 结合CSS 对数字字符进行滚动,显示订单数量
       for (let index = 0; index < numberItems.length; index++) {
         const elem = numberItems[index];
         elem.style.transform = `translate(-50%, -${numberArr[index] * 10}%)`;
-        console.log(numberArr[index], "arry444", numberArr[index] * 10);
+        // console.log(numberArr[index], "arry444", numberArr[index] * 10);
       }
     },
     // 处理总订单数字
     toOrderNum(num) {
       num = num.toString();
       // 把订单数变成字符串
-      console.log(num, "nbum22222", num.length, num.length < 5);
+      //   console.log(num, "nbum22222", num.length, num.length < 5);
       if (num.length < 5) {
         num = "0" + num; // 如未满八位数，添加"0"补位
         this.toOrderNum(num); // 递归添加"0"补位
-        console.log("补位,", num);
+        // console.log("补位,", num);
       } else if (num.length === 5) {
         // 订单数中加入逗号
         // num = num.slice(0, 2) + ',' + num.slice(2, 5) + ',' + num.slice(5, 8)
-        console.log(num.slice(0, 2), num.slice(2, 5), "889898797489***");
+        // console.log(num.slice(0, 2), num.slice(2, 5), "889898797489***");
         num = num.slice(0, 1) + "," + num.slice(1, 5);
         this.orderNum = num.split(""); // 将其便变成数据，渲染至滚动数组
-        console.log(this.orderNum, "0000022");
+        // console.log(this.orderNum, "0000022");
       } else {
         // 订单总量数字超过八位显示异常
         this.$message.warning("总量数字过大");
@@ -103,7 +103,7 @@ export default {
     },
     findStartNum(num, target, numindex) {
       let targetindex = this.orderNum.findIndex((v) => v == target);
-      if (numindex < targetindex && !isNaN(num)) {
+      if (numindex < targetindex) {
         return true;
       } else return false;
     },
