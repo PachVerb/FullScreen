@@ -116,7 +116,7 @@
             <div class="chart-land" id="landChart"></div>
           </div>
         </sideItem>
-        <sideItem title="部门使用前十排行" :delay="200" height="45%">
+        <sideItem title="部门使用前十排行" :delay="200" height="40%">
           <div slot="body" class="chart-wrap">
             <div id="totalAssets"></div>
           </div>
@@ -125,7 +125,7 @@
           title="公房使用单位统计"
           transitionType="right"
           delay="300"
-          height="25%"
+          height="30%"
         >
           <div slot="body" class="usepublicunitbox">
             <div class="usebox">
