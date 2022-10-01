@@ -954,7 +954,7 @@ export default {
           },
         ],
       };
-      var barWidth = 30;
+      var barWidth = 20;
       var constData = [];
       var showData = [];
       data.filter(function(item) {
