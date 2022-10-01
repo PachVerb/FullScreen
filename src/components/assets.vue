@@ -29,7 +29,7 @@
             <div id="totalAssets"></div>
           </div>
         </sideItem>
-        <sideItem title="学校资产总额统计" :delay="1500" height="40%">
+        <sideItem title="资产使用统计" :delay="1500" height="40%">
           <div slot="body" class="chart-wrap">
             <div id="allTotalAssets"></div>
           </div>
