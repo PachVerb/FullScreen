@@ -87,10 +87,10 @@ export default {
     currentSys(val) {
       if (this.map) {
         let clientWidth = document.documentElement.clientWidth;
-        this.$nextTick(() => {
-          document.querySelector(".sys-left").style.zoom = clientWidth / 1920;
-          document.querySelector(".sys-right").style.zoom = clientWidth / 1920;
-        });
+        // this.$nextTick(() => {
+        //   document.querySelector(".sys-left").style.zoom = clientWidth / 1920;
+        //   document.querySelector(".sys-right").style.zoom = clientWidth / 1920;
+        // });
         this.map.setBearing(0);
         this.map.setPitch(49);
         this.map.setZoom(17.8);
