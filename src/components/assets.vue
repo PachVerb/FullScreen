@@ -24,7 +24,7 @@
             </div>
           </div>
         </sideItem>
-        <sideItem title="各部门资产总数统计" :delay="1000" height="40%">
+        <sideItem title="各部门资产总数统计" :delay="200" height="40%">
           <div slot="body" class="chart-wrap">
             <div id="totalAssets"></div>
           </div>
