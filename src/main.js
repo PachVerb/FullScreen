@@ -1,5 +1,5 @@
 /*
- * @LastEditTime: 2022-10-01 17:56:05
+ * @LastEditTime: 2022-10-02 02:12:32
  * @Description:
  * @Date: 2022-09-30 21:30:46
  * @Author: wangshan
@@ -23,14 +23,15 @@ function refreshRem(){
 }
 */
 import "lib-flexible/flexible.js";
-import "element-ui/lib/theme-chalk/index.css";
+import "element-ui/lib/theme-chalk/tooltip.css";
+import { Tooltip } from "element-ui";
 // import "element-ui/lib/theme-chalk/";
 import "vant/lib/index.css";
 import "./common/font/font.css";
 import VideoPlayer from "vue-video-player";
 require("video.js/dist/video-js.css");
 require("vue-video-player/src/custom-theme.css");
-
+Vue.use(Tooltip);
 Vue.use(VideoPlayer);
 
 // import echarts from 'echarts';

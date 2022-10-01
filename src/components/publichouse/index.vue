@@ -45,8 +45,13 @@
               <span>使用面积</span>
             </div>
             <div class="row bg" v-for="(item, i) in houseStaList" :key="i">
-              <span>{{ item.campus }}</span>
-              <!-- <span>{{ item.build }}</span> -->
+              <el-tooltip
+                effect="dark"
+                :content="item.campus"
+                placement="bottom"
+              >
+                <span>{{ item.campus }}</span>
+              </el-tooltip>
               <span>{{ item.room }}</span>
               <span>{{ item.area }}</span>
               <span>{{ item.useArea }}</span>
@@ -155,6 +160,7 @@ import AnimatedNumber from "animated-number-vue";
 import { mapGetters } from "vuex";
 import * as echarts from "echarts";
 import "echarts-gl";
+import { Tooltip } from "element-ui";
 
 import mdata from "../../mock/alldata.json";
 

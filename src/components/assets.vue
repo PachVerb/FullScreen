@@ -44,14 +44,18 @@
               <span>使用负责人</span>
             </div>
             <div class="row bg" v-for="(item, i) in sourceStaList" :key="i">
-              <!-- <el-tooltip effect="dark" :content="item.name" placement="bottom"> -->
-              <span>{{ item.name }}</span>
-              <!-- </el-tooltip> -->
+              <el-tooltip effect="dark" :content="item.name" placement="bottom">
+                <span>{{ item.name }}</span>
+              </el-tooltip>
               <span>{{ item.num }}</span>
               <span>{{ item.useto }}</span>
-              <!-- <el-tooltip effect="dark" :content="item.name" placement="bottom"> -->
-              <span>{{ item.usepart }}</span>
-              <!-- </el-tooltip> -->
+              <el-tooltip
+                effect="dark"
+                :content="item.usepart"
+                placement="bottom"
+              >
+                <span>{{ item.usepart }}</span>
+              </el-tooltip>
               <span>{{ item.people }}</span>
             </div>
             <!-- <div class="row bg total">
