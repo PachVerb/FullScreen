@@ -212,10 +212,10 @@ export default {
   methods: {
     init() {
       this.map.flyTo({
-        center: [116.67538019092922, 40.40736276448709],
-        bearing: 40,
-        pitch: 60,
-        zoom: 14.5,
+        center: [116.674824090496, 40.4065246736501],
+        bearing: 0,
+        pitch: 45,
+        zoom: 17.5,
         duration: 1000,
         easing(t) {
           return t;
@@ -232,7 +232,11 @@ export default {
           //   this.getTotalStati();
           this.getFreeStati();
           this.getPubPaiHang();
-
+          this.map.on("click", (e) => {
+            console.log(e);
+            this.map.setCenter(e.lngLat);
+            console.log(this.map.queryRenderedFeatures(e.point));
+          });
           //   this.getLandState();
         }, 500);
       });

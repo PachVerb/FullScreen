@@ -659,10 +659,10 @@ export default {
   methods: {
     init() {
       this.map.flyTo({
-        center: [116.67538019092922, 40.40736276448709],
-        bearing: 40,
-        pitch: 60,
-        zoom: 14.5,
+        center: [116.674756545935, 40.4066055539153],
+        bearing: 1,
+        pitch: 45,
+        zoom: 17.5,
         duration: 1000,
         easing(t) {
           return t;
@@ -751,10 +751,11 @@ export default {
             location: [116.67406285322318, 40.4064118565067],
           },
         ];
-        this.map.on("click", (e) => {
-          console.log(e);
-          console.log(this.map.queryRenderedFeatures(e.point));
-        });
+        // this.map.on("click", (e) => {
+        //   console.log(e);
+        //   this.map.setCenter(e.lngLat);
+        //   console.log(this.map.queryRenderedFeatures(e.point));
+        // });
         this.createAssetsMraker();
         // this.createLayer();
       });
