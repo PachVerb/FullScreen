@@ -2,55 +2,80 @@
   <div style="height: 100%;">
     <sideTran thisCrrentSys="assets">
       <div slot="left" style="height: 100%;">
-        <sideItem title="学校资产统计" transitionType="left" delay="500" height="20%">
-					<div slot='body' style="width: 100%;margin-top: 20px;">
-						<div class="flopbox">
-							<p class="flopboxtitle">资产总值</p>
-							<flop :num="num" :unitil="'套'"></flop>
-						</div>
-						<div class="flopbox">
-							<p class="flopboxtitle">资产价值</p>
-							<flop :num="numtow" :unitil="'万元'"></flop>
-						</div>
-					</div>
-				</sideItem>
+        <sideItem
+          title="学校资产统计"
+          transitionType="left"
+          delay="500"
+          height="20%"
+        >
+          <div slot="body" style="width: 100%;margin-top: 20px;">
+            <div class="flopbox">
+              <p class="flopboxtitle">资产总值</p>
+              <flop :num="num" :unitil="'套'"></flop>
+            </div>
+            <div class="flopbox">
+              <p class="flopboxtitle">资产价值</p>
+              <flop :num="numtow" :unitil="'万元'"></flop>
+            </div>
+          </div>
+        </sideItem>
         <sideItem title="各学院资产总数统计" :delay="1000" height="40%">
-          <div slot='body' class="chart-wrap">
+          <div slot="body" class="chart-wrap">
             <div id="totalAssets"></div>
           </div>
         </sideItem>
         <sideItem title="学校资产总额统计" :delay="1500" height="40%">
-          <div slot='body' class="chart-wrap">
+          <div slot="body" class="chart-wrap">
             <div id="allTotalAssets"></div>
           </div>
         </sideItem>
       </div>
       <div slot="right" style="height: 100%;">
-        <sideItem title="网站安全统计" :transitionType="'right'" :delay="500" height="45%">
-          <div slot='body' class="websafe chart-wrap">
+        <sideItem
+          title="网站安全统计"
+          :transitionType="'right'"
+          :delay="500"
+          height="45%"
+        >
+          <div slot="body" class="websafe chart-wrap">
             <div id="webSecurity"></div>
           </div>
         </sideItem>
-        <sideItem title="服务器安全分析" :transitionType="'right'" :delay="1000" height="55%">
-          <div slot='body' class="serversafebox-wrap">
-            <div class="serversafebox" >
-              <img src="../assets/pieimg/assets/assetsarc.png" class="assetsarc">
-              <img src="../assets/pieimg/assets/assetsinner.png" class="assetsinner">
+        <sideItem
+          title="服务器安全分析"
+          :transitionType="'right'"
+          :delay="1000"
+          height="55%"
+        >
+          <div slot="body" class="serversafebox-wrap">
+            <div class="serversafebox">
+              <img
+                src="../assets/pieimg/assets/assetsarc.png"
+                class="assetsarc"
+              />
+              <img
+                src="../assets/pieimg/assets/assetsinner.png"
+                class="assetsinner"
+              />
               <div id="serverSecurity"></div>
             </div>
             <div class="detailBox">
-							<div class="row" v-for="(item,i) in ratioList" :key="i">
+              <div class="row" v-for="(item, i) in ratioList" :key="i">
                 <div class="title">
-                  <i :style="`border-color:${item.color};`"></i><span :style="`color:${item.color};`">{{item.name}}</span>
+                  <i :style="`border-color:${item.color};`"></i
+                  ><span :style="`color:${item.color};`">{{ item.name }}</span>
                 </div>
                 <div class="value">
-                  <animated-number :value="item.val/ratioAbTotal*100" :formatValue="val=>val.toFixed()" :duration="4000" /><i>%</i>
+                  <animated-number
+                    :value="(item.val / ratioAbTotal) * 100"
+                    :formatValue="(val) => val.toFixed()"
+                    :duration="4000"
+                  /><i>%</i>
                 </div>
               </div>
-						</div>
+            </div>
           </div>
         </sideItem>
-				
       </div>
     </sideTran>
     <modal :show="showAssetsDetailFlag">
@@ -63,21 +88,21 @@
           <div class="assets-modal-body-top">
             <div class="assets-detail-mes">
               <div class="assets-detail-mes-top">
-                <img src="../assets/assets/assets-type.png" alt="">
+                <img src="../assets/assets/assets-type.png" alt="" />
                 <span>7类</span>
               </div>
               <div class="assets-detail-mes-bottom">资产类别</div>
             </div>
             <div class="assets-detail-mes">
               <div class="assets-detail-mes-top">
-                <img src="../assets/assets/assets-num.png" alt="">
+                <img src="../assets/assets/assets-num.png" alt="" />
                 <span>34套</span>
               </div>
               <div class="assets-detail-mes-bottom">资产数量</div>
             </div>
             <div class="assets-detail-mes">
               <div class="assets-detail-mes-top">
-                <img src="../assets/assets/assets-company.png" alt="">
+                <img src="../assets/assets/assets-company.png" alt="" />
                 <span>资产处</span>
               </div>
               <div class="assets-detail-mes-bottom">使用单位</div>
@@ -88,12 +113,30 @@
             <div class="assets-modal-body-bottom-table">
               <div class="assets-modal-body-bottom-table-head">
                 <div class="assets-modal-body-bottom-table-tr">
-                  <div class="assets-modal-body-bottom-table-td" v-for="th in tableHead" :key="th.cname" :style="{width: th.width}">{{th.cname}}</div>
+                  <div
+                    class="assets-modal-body-bottom-table-td"
+                    v-for="th in tableHead"
+                    :key="th.cname"
+                    :style="{ width: th.width }"
+                  >
+                    {{ th.cname }}
+                  </div>
                 </div>
               </div>
               <div class="assets-modal-body-bottom-table-body">
-                <div class="assets-modal-body-bottom-table-tr" v-for="(tr,trIndex) in tableBody" :key="trIndex">
-                  <div class="assets-modal-body-bottom-table-td" v-for="(val,key) in tr" :key="key" :style="{width: tableHead[key].width}">{{val}}</div>
+                <div
+                  class="assets-modal-body-bottom-table-tr"
+                  v-for="(tr, trIndex) in tableBody"
+                  :key="trIndex"
+                >
+                  <div
+                    class="assets-modal-body-bottom-table-td"
+                    v-for="(val, key) in tr"
+                    :key="key"
+                    :style="{ width: tableHead[key].width }"
+                  >
+                    {{ val }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -105,23 +148,23 @@
 </template>
 
 <script>
-import sideTran from './sideTran'
-import sideItem from './sideItem.vue'
-import { mapGetters } from 'vuex'
-import * as echarts from 'echarts';
-import nowpeopleslide from '@/components/nowpeopleslide.vue'
-import flop from '@/components/commonComponent/flop.vue'
-import modal from '@/components/commonComponent/modal.vue'
+import sideTran from "./sideTran";
+import sideItem from "./sideItem.vue";
+import { mapGetters } from "vuex";
+import * as echarts from "echarts";
+import nowpeopleslide from "@/components/nowpeopleslide.vue";
+import flop from "@/components/commonComponent/flop.vue";
+import modal from "@/components/commonComponent/modal.vue";
 import AnimatedNumber from "animated-number-vue";
-import {Icon} from 'element-ui'
+import { Icon } from "element-ui";
 let totalAssetsChartDom,
-totalAssetsChart,
-allTotalAssetschartDom,
-allTotalAssetsChart,
-webSecurityChartDom,
-webSecurityChart,
-serverSecurityChartDom,
-serverSecurityChart
+  totalAssetsChart,
+  allTotalAssetschartDom,
+  allTotalAssetsChart,
+  webSecurityChartDom,
+  webSecurityChart,
+  serverSecurityChartDom,
+  serverSecurityChart;
 export default {
   components: {
     sideTran,
@@ -130,131 +173,144 @@ export default {
     flop,
     AnimatedNumber,
     modal,
-    [Icon.name]: Icon
+    [Icon.name]: Icon,
   },
-  data(){
+  data() {
     return {
       markerIndoor: null,
       markerList: [],
-			color : ['rgb(106,176,255'],
+      color: ["rgb(106,176,255"],
       assetsMesList: [],
-      ratioList:[],
+      ratioList: [],
       totalAssetsOption: {
         tooltip: {
           // trigger: 'axis',
-          backgroundColor: 'rgba(44,62,80,0.8)',
-          borderColor: 'rgba(153, 209, 246, 0.6)',
+          backgroundColor: "rgba(44,62,80,0.8)",
+          borderColor: "rgba(153, 209, 246, 0.6)",
           textStyle: {
-            align: 'left',
+            align: "left",
             fontSize: 12,
-            color: 'rgba(255,255,255,0.8)',
+            color: "rgba(255,255,255,0.8)",
           },
         },
-        grid: { 
-          top: '10px',
-          left: '100px',  
-          right: '30px', 
-          bottom: '30px', 
+        grid: {
+          top: "10px",
+          left: "100px",
+          right: "30px",
+          bottom: "30px",
         },
-        xAxis: { 
-          type: 'value',
+        xAxis: {
+          type: "value",
           axisTick: {
-             show: false
+            show: false,
           },
           splitLine: {
-            show: false
+            show: false,
           },
           axisLabel: {
-            color: '#F6FAFF',
-            fontSize: 10
+            color: "#F6FAFF",
+            fontSize: 10,
           },
           axisLine: {
             lineStyle: {
-              color: '#6AB0FF'
-            }
-          }
+              color: "#6AB0FF",
+            },
+          },
         },
-        yAxis: { 
-          type: 'category',
+        yAxis: {
+          type: "category",
           axisTick: {
-             show: false
+            show: false,
           },
           axisLine: {
-            show: false
+            show: false,
           },
           splitLine: {
-            show: false
+            show: false,
           },
           axisLabel: {
             show: true,
             fontSize: 10,
-            formatter: function (value) {
-              return value
+            formatter: function(value) {
+              return value;
             },
-            color: '#F6FAFF'
+            color: "#F6FAFF",
           },
-          data: ['管理学院','通信与信息工程学院','计算机学院','人文社科学院','体育学院','电子工程学院','中文学院','美术学院','音乐学院']
+          data: [
+            "管理学院",
+            "通信与信息工程学院",
+            "计算机学院",
+            "人文社科学院",
+            "体育学院",
+            "电子工程学院",
+            "中文学院",
+            "美术学院",
+            "音乐学院",
+          ],
         },
         series: [
           {
-            type: 'bar',
-            barWidth: '5px',
+            type: "bar",
+            barWidth: "5px",
             animationDuration: 2500,
-            data: [177,139,186,148,119,132,75,119,95],
+            data: [177, 139, 186, 148, 119, 132, 75, 119, 95],
             itemStyle: {
-                normal: {
-                    color: new echarts.graphic.LinearGradient(
-                        1, 0, 0, 0,       //4个参数用于配置渐变色的起止位置, 这4个参数依次对应右/下/左/上四个方位. 而0 0 0 1则代表渐变色从正上方开始
-                        [
-                            {offset: 0, color: '#6AB0FF'},
-                            // {offset: 0.5, color: '#5172FF'},
-                            {offset: 1, color: '#5172FF'}
-                        ]                //数组, 用于配置颜色的渐变过程. 每一项为一个对象, 包含offset和color两个参数. offset的范围是0 ~ 1, 用于表示位置
-                    ),
-                    barBorderRadius: [15,15,15,15]
-                }
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  1,
+                  0,
+                  0,
+                  0, //4个参数用于配置渐变色的起止位置, 这4个参数依次对应右/下/左/上四个方位. 而0 0 0 1则代表渐变色从正上方开始
+                  [
+                    { offset: 0, color: "#6AB0FF" },
+                    // {offset: 0.5, color: '#5172FF'},
+                    { offset: 1, color: "#5172FF" },
+                  ] //数组, 用于配置颜色的渐变过程. 每一项为一个对象, 包含offset和color两个参数. offset的范围是0 ~ 1, 用于表示位置
+                ),
+                barBorderRadius: [15, 15, 15, 15],
+              },
             },
             encode: {
               // Map the "amount" column to X axis.
-              x: 'amount',
+              x: "amount",
               // Map the "product" column to Y axis
-              y: 'product'
+              y: "product",
             },
             label: {
               show: true,
               precision: 1,
-              position: 'right',
+              position: "right",
               valueAnimation: true,
-              fontFamily: 'monospace',
-              color: '#F6FAFF'
-            }
-          }
-        ]
+              fontFamily: "monospace",
+              color: "#F6FAFF",
+            },
+          },
+        ],
       },
       allTotalAssetsOption: {
         tooltip: {
-          trigger: 'axis',
-          backgroundColor: 'rgba(44,62,80,0.8)',
-          borderColor: 'rgba(153, 209, 246, 0.6)',
+          trigger: "axis",
+          backgroundColor: "rgba(44,62,80,0.8)",
+          borderColor: "rgba(153, 209, 246, 0.6)",
           textStyle: {
-            align: 'left',
+            align: "left",
             fontSize: 12,
-            color: 'rgba(255,255,255,0.8)',
+            color: "rgba(255,255,255,0.8)",
           },
         },
-        grid: { 
-          top: '20px',
-          left: '40px',  
-          right: '30px', 
-          bottom: '30px', 
+        grid: {
+          top: "20px",
+          left: "40px",
+          right: "30px",
+          bottom: "30px",
         },
         xAxis: {
-          type: 'category',
-          data: ['2015', '2016', '2017', '2018', '2019', '2020', '2021'],
+          type: "category",
+          data: ["2015", "2016", "2017", "2018", "2019", "2020", "2021"],
           axisLine: {
             lineStyle: {
-              color: '#6AB0FF'
-            }
+              color: "#6AB0FF",
+            },
           },
           axisTick: {
             show: false,
@@ -262,87 +318,95 @@ export default {
           splitLine: {
             show: true,
             lineStyle: {
-              type: 'dashed',
-              color: 'rgb(20,46,74)'
-            }
+              type: "dashed",
+              color: "rgb(20,46,74)",
+            },
           },
           axisLabel: {
             show: true,
             fontSize: 10,
-            formatter: function (value) {
-              return value
+            formatter: function(value) {
+              return value;
             },
-            color: '#F6FAFF'
+            color: "#F6FAFF",
           },
         },
         yAxis: {
-          type: 'value',
+          type: "value",
           axisTick: {
             show: false,
           },
           axisLine: {
             lineStyle: {
-              color: '#6AB0FF'
-            }
+              color: "#6AB0FF",
+            },
           },
           splitLine: {
             show: true,
             lineStyle: {
-              type: 'dashed',
-              color: 'rgb(20,46,74)'
-            }
+              type: "dashed",
+              color: "rgb(20,46,74)",
+            },
           },
           axisLabel: {
             show: true,
             fontSize: 10,
-            formatter: function (value) {
-              return value
+            formatter: function(value) {
+              return value;
             },
-            color: '#F6FAFF'
+            color: "#F6FAFF",
           },
         },
         series: [
           {
             data: [150, 230, 224, 218, 135, 147, 260],
-            type: 'line',
+            type: "line",
             animationDuration: 2500,
-            symbol: 'circle',
-        areaStyle: {
-            normal: {
-                
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                    offset: 0,
-										
-                    color: 'rgba(106,176,255,0.4)'
-                }, {
-                    offset: 0.8,
-                    color: 'rgba(106,176,255,0)'
-                }], false),
-                shadowColor: 'rgba(0, 0, 0, 0.1)',
-                shadowBlur: 10
-            }
-        },
-            itemStyle:{
-              normal:{
-                color:'rgb(106,176,255)', //折点颜色
-                lineStyle:{
-                  color:'rgb(106,176,255)' //折线颜色
-                }
-              }
-                
+            symbol: "circle",
+            areaStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+
+                      color: "rgba(106,176,255,0.4)",
+                    },
+                    {
+                      offset: 0.8,
+                      color: "rgba(106,176,255,0)",
+                    },
+                  ],
+                  false
+                ),
+                shadowColor: "rgba(0, 0, 0, 0.1)",
+                shadowBlur: 10,
+              },
             },
-          }
-        ]
+            itemStyle: {
+              normal: {
+                color: "rgb(106,176,255)", //折点颜色
+                lineStyle: {
+                  color: "rgb(106,176,255)", //折线颜色
+                },
+              },
+            },
+          },
+        ],
       },
       serverSecurityOption: {
         tooltip: {
-          trigger: 'item',
-          backgroundColor: 'rgba(44,62,80,0.8)',
-          borderColor: 'rgba(153, 209, 246, 0.6)',
+          trigger: "item",
+          backgroundColor: "rgba(44,62,80,0.8)",
+          borderColor: "rgba(153, 209, 246, 0.6)",
           textStyle: {
-            align: 'left',
+            align: "left",
             fontSize: 12,
-            color: 'rgba(255,255,255,0.8)',
+            color: "rgba(255,255,255,0.8)",
           },
         },
         // legend: {
@@ -351,696 +415,747 @@ export default {
         // },
         series: [
           {
-            type: 'pie',
+            type: "pie",
             animationDuration: 2500,
-            radius: ['85%', '95%'],
+            radius: ["85%", "95%"],
             avoidLabelOverlap: false,
             label: {
               show: false,
-              position: 'center'
+              position: "center",
             },
             emphasis: {
               label: {
                 show: true,
-                fontSize: '20',
-                fontWeight: 'bold'
-              }
+                fontSize: "20",
+                fontWeight: "bold",
+              },
             },
             labelLine: {
-              show: false
+              show: false,
             },
             data: [
-              { value: 1048, name: '教学' },
-              { value: 735, name: '行政' },
-              { value: 580, name: '环境' },
-              { value: 484, name: '其他' },
-            ]
-          }
-        ]
+              { value: 1048, name: "教学" },
+              { value: 735, name: "行政" },
+              { value: 580, name: "环境" },
+              { value: 484, name: "其他" },
+            ],
+          },
+        ],
       },
       num: 12345,
       numtow: 67898,
       unitil: "人",
       showAssetsDetailFlag: false,
       geoJson: {
-        'type': 'FeatureCollection',
-        'features': []
+        type: "FeatureCollection",
+        features: [],
       },
       tableHead: {
-        1:{
-        cname: '资产编号',
-        width: '90px',
-        name: 1
+        1: {
+          cname: "资产编号",
+          width: "90px",
+          name: 1,
+        },
+        2: {
+          cname: "资产名称",
+          width: "150px",
+          name: 2,
+        },
+        3: {
+          cname: "分类名称",
+          width: "80px",
+          name: 3,
+        },
+        4: {
+          cname: "型号",
+          width: "80px",
+          name: 4,
+        },
+        5: {
+          cname: "购置日期",
+          width: "155px",
+          name: 5,
+        },
+        6: {
+          cname: "数量",
+          width: "50px",
+          name: 6,
+        },
+        7: {
+          cname: "生产厂家",
+          width: "136px",
+          name: 7,
+        },
+        8: {
+          cname: "领用人姓名",
+          width: "100px",
+          name: 8,
+        },
+        9: {
+          cname: "使用单位名称",
+          width: "120px",
+          name: 9,
+        },
+        10: {
+          cname: "使用科室名称",
+          width: "120px",
+          name: 10,
+        },
       },
-        2:{
-        cname: '资产名称',
-        width: '150px',
-        name: 2
-      },
-        3:{
-        cname: '分类名称',
-        width: '80px',
-        name: 3
-      },
-        4:{
-        cname: '型号',
-        width: '80px',
-        name: 4
-      },
-        5:{
-        cname: '购置日期',
-        width: '155px',
-        name: 5
-      },
-        6:{
-        cname: '数量',
-        width: '50px',
-        name: 6
-      },
-        7:{
-        cname: '生产厂家',
-        width: '136px',
-        name: 7
-      },
-        8:{
-        cname: '领用人姓名',
-        width: '100px',
-        name: 8
-      },
-        9:{
-        cname: '使用单位名称',
-        width: '120px',
-        name: 9
-      },
-        10:{
-        cname: '使用科室名称',
-        width: '120px',
-        name: 10
-      },},
-      tableBody: [{
-        1: '20080356',
-        2: '物理设计性实验装置',
-        3: '设备',
-        4: 'JW-SJ3',
-        5: '2021-10-01 00:00:00',
-        6: '1套',
-        7: '南京嘉沃公司',
-        8: '王秀杰',
-        9: '理学院',
-        10: '理学院实验中心',
-      },{
-        1: '20080356',
-        2: '物理设计性实验装置',
-        3: '设备',
-        4: 'JW-SJ3',
-        5: '2021-10-01 00:00:00',
-        6: '1套',
-        7: '南京嘉沃公司',
-        8: '王秀杰',
-        9: '理学院',
-        10: '理学院实验中心',
-      },{
-        1: '20080356',
-        2: '物理设计性实验装置',
-        3: '设备',
-        4: 'JW-SJ3',
-        5: '2021-10-01 00:00:00',
-        6: '1套',
-        7: '南京嘉沃公司',
-        8: '王秀杰',
-        9: '理学院',
-        10: '理学院实验中心',
-      },{
-        1: '20080356',
-        2: '物理设计性实验装置',
-        3: '设备',
-        4: 'JW-SJ3',
-        5: '2021-10-01 00:00:00',
-        6: '1套',
-        7: '南京嘉沃公司',
-        8: '王秀杰',
-        9: '理学院',
-        10: '理学院实验中心',
-      },{
-        1: '20080356',
-        2: '物理设计性实验装置',
-        3: '设备',
-        4: 'JW-SJ3',
-        5: '2021-10-01 00:00:00',
-        6: '1套',
-        7: '南京嘉沃公司',
-        8: '王秀杰',
-        9: '理学院',
-        10: '理学院实验中心',
-      },{
-        1: '20080356',
-        2: '物理设计性实验装置',
-        3: '设备',
-        4: 'JW-SJ3',
-        5: '2021-10-01 00:00:00',
-        6: '1套',
-        7: '南京嘉沃公司',
-        8: '王秀杰',
-        9: '理学院',
-        10: '理学院实验中心',
-      }],
-    }
+      tableBody: [
+        {
+          1: "20080356",
+          2: "物理设计性实验装置",
+          3: "设备",
+          4: "JW-SJ3",
+          5: "2021-10-01 00:00:00",
+          6: "1套",
+          7: "南京嘉沃公司",
+          8: "王秀杰",
+          9: "理学院",
+          10: "理学院实验中心",
+        },
+        {
+          1: "20080356",
+          2: "物理设计性实验装置",
+          3: "设备",
+          4: "JW-SJ3",
+          5: "2021-10-01 00:00:00",
+          6: "1套",
+          7: "南京嘉沃公司",
+          8: "王秀杰",
+          9: "理学院",
+          10: "理学院实验中心",
+        },
+        {
+          1: "20080356",
+          2: "物理设计性实验装置",
+          3: "设备",
+          4: "JW-SJ3",
+          5: "2021-10-01 00:00:00",
+          6: "1套",
+          7: "南京嘉沃公司",
+          8: "王秀杰",
+          9: "理学院",
+          10: "理学院实验中心",
+        },
+        {
+          1: "20080356",
+          2: "物理设计性实验装置",
+          3: "设备",
+          4: "JW-SJ3",
+          5: "2021-10-01 00:00:00",
+          6: "1套",
+          7: "南京嘉沃公司",
+          8: "王秀杰",
+          9: "理学院",
+          10: "理学院实验中心",
+        },
+        {
+          1: "20080356",
+          2: "物理设计性实验装置",
+          3: "设备",
+          4: "JW-SJ3",
+          5: "2021-10-01 00:00:00",
+          6: "1套",
+          7: "南京嘉沃公司",
+          8: "王秀杰",
+          9: "理学院",
+          10: "理学院实验中心",
+        },
+        {
+          1: "20080356",
+          2: "物理设计性实验装置",
+          3: "设备",
+          4: "JW-SJ3",
+          5: "2021-10-01 00:00:00",
+          6: "1套",
+          7: "南京嘉沃公司",
+          8: "王秀杰",
+          9: "理学院",
+          10: "理学院实验中心",
+        },
+      ],
+    };
   },
   computed: {
-    ...mapGetters(['map','currentSys', 'isInDoor', 'currentFloor']),
-    ratioAbTotal(){
-      return this.ratioList.reduce((sum,item)=>sum+item.val,0);
+    ...mapGetters(["map", "currentSys", "isInDoor", "currentFloor"]),
+    ratioAbTotal() {
+      return this.ratioList.reduce((sum, item) => sum + item.val, 0);
     },
   },
   watch: {
-    isInDoor(val){
-      if(this.currentSys !== 'assets') return
-      if(val && this.currentFloor === 0){
-        this.setGeoJson()
+    isInDoor(val) {
+      if (this.currentSys !== "assets") return;
+      if (val && this.currentFloor === 0) {
+        this.setGeoJson();
       } else {
-        this.geoJson.features = []
-        this.map.getSource('assetsRoomData').setData(this.geoJson)
+        this.geoJson.features = [];
+        this.map.getSource("assetsRoomData").setData(this.geoJson);
       }
     },
-    currentFloor(val){
-      if(this.currentSys !== 'assets') return
-      if(val === 0 && this.isInDoor){
-        this.setGeoJson()
+    currentFloor(val) {
+      if (this.currentSys !== "assets") return;
+      if (val === 0 && this.isInDoor) {
+        this.setGeoJson();
       } else {
-        this.geoJson.features = []
-        this.map.getSource('assetsRoomData').setData(this.geoJson)
+        this.geoJson.features = [];
+        this.map.getSource("assetsRoomData").setData(this.geoJson);
       }
-    }
+    },
   },
-  mounted(){
-    this.init()
+  mounted() {
+    this.init();
   },
-  beforeDestroy(){
-    this.destroySys()
+  beforeDestroy() {
+    this.destroySys();
   },
   methods: {
-    init(){
-		this.map.flyTo({
-		     center: [104.05999036597285, 30.596105715016634],
-		     bearing: 40,
-		     pitch: 60,
-		     zoom: 14.5,
-		     duration: 1000,
-		     easing(t) {
-		       return t;
-		     }
-		})
-      let domList = [...document.querySelectorAll('.buildingtext')]
-      domList.forEach(item => {
-        item.style.opacity = 0
-      })
+    init() {
+      this.map.flyTo({
+        center: [116.67538019092922, 40.40736276448709],
+        bearing: 40,
+        pitch: 60,
+        zoom: 14.5,
+        duration: 1000,
+        easing(t) {
+          return t;
+        },
+      });
+      let domList = [...document.querySelectorAll(".buildingtext")];
+      domList.forEach((item) => {
+        item.style.opacity = 0;
+      });
       this.$nextTick(() => {
         setTimeout(() => {
-          totalAssetsChartDom = document.getElementById('totalAssets');
+          totalAssetsChartDom = document.getElementById("totalAssets");
           totalAssetsChart = echarts.init(totalAssetsChartDom);
-          totalAssetsChart.setOption(this.totalAssetsOption)
-        },1500)
+          totalAssetsChart.setOption(this.totalAssetsOption);
+        }, 1500);
         setTimeout(() => {
-          allTotalAssetschartDom = document.getElementById('allTotalAssets');
+          allTotalAssetschartDom = document.getElementById("allTotalAssets");
           allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
-          allTotalAssetsChart.setOption(this.allTotalAssetsOption)
-        },2000)
+          allTotalAssetsChart.setOption(this.allTotalAssetsOption);
+        }, 2000);
         setTimeout(() => {
-          webSecurityChartDom = document.getElementById('webSecurity');
+          webSecurityChartDom = document.getElementById("webSecurity");
           webSecurityChart = echarts.init(webSecurityChartDom);
-          webSecurityChart.setOption(this.getEcharts3DBar(['z','x'], [20,98], '01'))
+          webSecurityChart.setOption(
+            this.getEcharts3DBar(["z", "x"], [20, 98], "01")
+          );
           this.ratioList = [
-            {name:"教学",val:1100,color:'rgba(169,133,238,0.8)'},
-            {name:"行政",val:444,color:'rgba(196,144,191,0.8)'},
-            {name:"环境",val:501,color:'rgba(19,181,177,0.8)'},
-            {name:"其他",val:300,color:'rgba(229,188,128,0.8)'}
-          ]
-        },1500)
+            { name: "教学", val: 1100, color: "rgba(169,133,238,0.8)" },
+            { name: "行政", val: 444, color: "rgba(196,144,191,0.8)" },
+            { name: "环境", val: 501, color: "rgba(19,181,177,0.8)" },
+            { name: "其他", val: 300, color: "rgba(229,188,128,0.8)" },
+          ];
+        }, 1500);
         setTimeout(() => {
-          serverSecurityChartDom = document.getElementById('serverSecurity');
+          serverSecurityChartDom = document.getElementById("serverSecurity");
           serverSecurityChart = echarts.init(serverSecurityChartDom);
-          serverSecurityChart.setOption(this.serverSecurityOption)   
-          window.addEventListener("resize", function() {  
-            allTotalAssetsChart.resize()
-            totalAssetsChart.resize()  
-            webSecurityChart.resize()            
-            serverSecurityChart.resize();           
-          })
-        },2000)
+          serverSecurityChart.setOption(this.serverSecurityOption);
+          window.addEventListener("resize", function() {
+            allTotalAssetsChart.resize();
+            totalAssetsChart.resize();
+            webSecurityChart.resize();
+            serverSecurityChart.resize();
+          });
+        }, 2000);
         // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
-        this.assetsMesList = [{
-        //   num: 65,
-        //   unit: 1,
-        //   value: 100,
-        //   location: [104.05664280605345, 30.595559445013265]
-        // },{
-        //   num: 315,
-        //   unit: 2,
-        //   value: 177,
-        //   location: [104.05284762571148, 30.595657085458583]
-        // },{
-        //   num: 465,
-        //   unit: 3,
-        //   value: 350,
-        //   location: [104.05293927849556, 30.600887884709223]
-        // },{
-        //   num: 396,
-        //   unit: 4,
-        //   value: 250,
-        //   location: [104.05486617272919, 30.59760797571019]
-        // },{
-          num: 27,
-          unit: 3,
-          value: 67,
-          location: [104.05993975869626, 30.59215369965594]
-        }]
-        this.map.on('click', (e) => {
-          console.log(e)
-          console.log(this.map.queryRenderedFeatures(e.point))
-        })
-        this.createAssetsMraker()
-        this.createLayer()
-      })
+        this.assetsMesList = [
+          {
+            //   num: 65,
+            //   unit: 1,
+            //   value: 100,
+            //   location: [104.05664280605345, 30.595559445013265]
+            // },{
+            //   num: 315,
+            //   unit: 2,
+            //   value: 177,
+            //   location: [104.05284762571148, 30.595657085458583]
+            // },{
+            //   num: 465,
+            //   unit: 3,
+            //   value: 350,
+            //   location: [104.05293927849556, 30.600887884709223]
+            // },{
+            //   num: 396,
+            //   unit: 4,
+            //   value: 250,
+            //   location: [104.05486617272919, 30.59760797571019]
+            // },{
+            num: 27,
+            unit: 3,
+            value: 67,
+            location: [104.05993975869626, 30.59215369965594],
+          },
+        ];
+        this.map.on("click", (e) => {
+          console.log(e);
+          console.log(this.map.queryRenderedFeatures(e.point));
+        });
+        this.createAssetsMraker();
+        this.createLayer();
+      });
     },
-    destroySys(){
-      let domList = [...document.querySelectorAll('.buildingtext')]
-      domList.forEach(item => {
-        item.style.opacity = 1
-      })
-      if(this.markerIndoor){
-        this.markerIndoor.remove()
-        this.markerIndoor = null
+    destroySys() {
+      let domList = [...document.querySelectorAll(".buildingtext")];
+      domList.forEach((item) => {
+        item.style.opacity = 1;
+      });
+      if (this.markerIndoor) {
+        this.markerIndoor.remove();
+        this.markerIndoor = null;
       }
       this.geoJson = {
-        'type': 'FeatureCollection',
-        'features': []
-      }
-      this.map.getSource('assetsRoomData').setData(this.geoJson)
-      this.map.off('click', 'assetsRoomBg',this.handleShowAssetsDetail)
+        type: "FeatureCollection",
+        features: [],
+      };
+      this.map.getSource("assetsRoomData").setData(this.geoJson);
+      this.map.off("click", "assetsRoomBg", this.handleShowAssetsDetail);
     },
-    createAssetsMraker(){
-      let domList = []
-      this.assetsMesList.forEach(item => {
-        let div = document.createElement('div')
-        div.className = 'assets-marker-wrap'
+    createAssetsMraker() {
+      let domList = [];
+      this.assetsMesList.forEach((item) => {
+        let div = document.createElement("div");
+        div.className = "assets-marker-wrap";
         div.innerHTML = `
           <div><span>资产数量：</span><span>${item.num}套</span></div>
           <div><span>资产单位：</span><span>${item.unit}个</span></div>
           <div><span>资产价值：</span><span>${item.value}万元</span></div>
-        `
-        domList.push({dom: div})
+        `;
+        domList.push({ dom: div });
         // let marker = new creeper.Marker({element: div}).setLngLat(item.location).addTo(this.map)
         // this.markerList.push(marker)
-      })
-      let geoJson = this.setFeature(this.assetsMesList)
-      console.log('geoJson',geoJson)
-      this.markerIndoor = new creeper.MarkerIndoor(this.map)
-      this.markerIndoor.addMarker(geoJson,domList,true)
+      });
+      let geoJson = this.setFeature(this.assetsMesList);
+      console.log("geoJson", geoJson);
+      this.markerIndoor = new creeper.MarkerIndoor(this.map);
+      this.markerIndoor.addMarker(geoJson, domList, true);
     },
-    setFeature(markerList){
-      let list = markerList.map(item => {
+    setFeature(markerList) {
+      let list = markerList.map((item) => {
         return {
-          "type": "Feature",
-          "properties": {
-              
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "Point",
+            coordinates: JSON.parse(JSON.stringify(item.location)),
           },
-          "geometry": {
-              "type": "Point",
-              "coordinates": JSON.parse(JSON.stringify(item.location))
-          }
-        }
-      })
+        };
+      });
       return {
-        "type": "FeatureCollection",
-        "features": list
-      }
+        type: "FeatureCollection",
+        features: list,
+      };
     },
-    setGeoJson(){
+    setGeoJson() {
       this.geoJson.features.push({
-          type: 'fill',
-          geometry: {"type":"Polygon","coordinates":[[[104.06030589667,30.59173094939],[104.06030379654,30.5918125773],[104.06034770009,30.5918134148],[104.06034979954,30.59173178626],[104.06030589667,30.59173094939]]]},
-          properties: { 
-            "blank": '\n',
-            "title": "B109" + '\n',
-            "num": "资产数量：27套" + '\n',
-            "unit": "资产单位：3个" + '\n',
-            "company": "资产价值：67万元" + '\n',
-            "handle": '点击查看详情' + '\n',
-            "blank2": '\n',
-          }
-      })
-      this.map.getSource('assetsRoomData').setData(this.geoJson)
+        type: "fill",
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            [
+              [104.06030589667, 30.59173094939],
+              [104.06030379654, 30.5918125773],
+              [104.06034770009, 30.5918134148],
+              [104.06034979954, 30.59173178626],
+              [104.06030589667, 30.59173094939],
+            ],
+          ],
+        },
+        properties: {
+          blank: "\n",
+          title: "B109" + "\n",
+          num: "资产数量：27套" + "\n",
+          unit: "资产单位：3个" + "\n",
+          company: "资产价值：67万元" + "\n",
+          handle: "点击查看详情" + "\n",
+          blank2: "\n",
+        },
+      });
+      this.map.getSource("assetsRoomData").setData(this.geoJson);
     },
-    createLayer(){
-      if(!this.map.getSource('assetsRoomData')){
-        this.map.addSource('assetsRoomData', {
-          type: 'geojson',
-          data: this.geoJson
-        })
+    createLayer() {
+      if (!this.map.getSource("assetsRoomData")) {
+        this.map.addSource("assetsRoomData", {
+          type: "geojson",
+          data: this.geoJson,
+        });
       } else {
-        this.map.getSource('assetsRoomData').setData(this.geoJson)
+        this.map.getSource("assetsRoomData").setData(this.geoJson);
       }
       // 文字图层
-      if(!this.map.getLayer('assetsRoomText')){
+      if (!this.map.getLayer("assetsRoomText")) {
         this.map.addLayer({
-          id: 'assetsRoomText',
-          source: 'assetsRoomData',//上述定义的source
-          type: 'symbol',//图层类型，见3.5节中图层描述
+          id: "assetsRoomText",
+          source: "assetsRoomData", //上述定义的source
+          type: "symbol", //图层类型，见3.5节中图层描述
           layout: {
-            'text-field': ["format", 
-              ["get", "blank"], {
-                  "font-scale": 0.8
+            "text-field": [
+              "format",
+              ["get", "blank"],
+              {
+                "font-scale": 0.8,
               },
-              ["get", "title"], {
-                  "font-scale": 0.8
+              ["get", "title"],
+              {
+                "font-scale": 0.8,
               },
-              ["get", "num"], {
-                  "font-scale": 0.8
+              ["get", "num"],
+              {
+                "font-scale": 0.8,
               },
-              ["get", "unit"], {
-                  "font-scale": 0.8
+              ["get", "unit"],
+              {
+                "font-scale": 0.8,
               },
-              ["get", "company"], {
-                  "font-scale": 0.8
+              ["get", "company"],
+              {
+                "font-scale": 0.8,
               },
-              ["get", "handle"], {
-                  "font-scale": 0.8,
-                  "text-color": 'rgba(0, 48, 171, 1)'
+              ["get", "handle"],
+              {
+                "font-scale": 0.8,
+                "text-color": "rgba(0, 48, 171, 1)",
               },
-              ["get", "blank2"], {
-                "font-scale": 0.8
+              ["get", "blank2"],
+              {
+                "font-scale": 0.8,
               },
             ],
-            'text-allow-overlap': true,
-            'text-size': 14,
+            "text-allow-overlap": true,
+            "text-size": 14,
             // 'text-halo-color': '0px 1px 4px rgba(10, 30, 52, 0.6)'
           },
           paint: {
-            'text-color': '#fff'
-          }
-        })
+            "text-color": "#fff",
+          },
+        });
       }
       // 背景图层
-      if(!this.map.getLayer('assetsRoomBg')){
-        this.map.addLayer({
-          id: 'assetsRoomBg',
-          source: 'assetsRoomData',//上述定义的source
-          type: 'fill',//图层类型，见3.5节中图层描述
-          layout: {
-            // 'text-field': ['get', 'title']
+      if (!this.map.getLayer("assetsRoomBg")) {
+        this.map.addLayer(
+          {
+            id: "assetsRoomBg",
+            source: "assetsRoomData", //上述定义的source
+            type: "fill", //图层类型，见3.5节中图层描述
+            layout: {
+              // 'text-field': ['get', 'title']
+            },
+            paint: {
+              "fill-color": "rgba(70, 177, 246, 1)",
+              // 'text-color': '#fff'
+            },
           },
-          paint: {
-            'fill-color': 'rgba(70, 177, 246, 1)',
-            // 'text-color': '#fff'
-          }
-        },"room23")
+          "room23"
+        );
       }
-      this.map.on('click', 'assetsRoomBg',this.handleShowAssetsDetail)
+      this.map.on("click", "assetsRoomBg", this.handleShowAssetsDetail);
     },
-    handleShowAssetsDetail(e){
-      console.log(e)
-      this.showAssetsDetailFlag = true 
+    handleShowAssetsDetail(e) {
+      console.log(e);
+      this.showAssetsDetailFlag = true;
     },
-    handleHideAssetsDetail(){
-      this.showAssetsDetailFlag = false 
+    handleHideAssetsDetail() {
+      this.showAssetsDetailFlag = false;
     },
-    getEcharts3DBar (xAxisData, data, colorType) {
+    getEcharts3DBar(xAxisData, data, colorType) {
       var colorArr = [];
-      if (colorType == '01') {
-          colorArr = ["#5783FF", "#68ABF7", "#68ABF7"];
+      if (colorType == "01") {
+        colorArr = ["#5783FF", "#68ABF7", "#68ABF7"];
       } else {
-          colorArr = ["#28c1c6", "#50dac0", "#87e8c7"];
+        colorArr = ["#28c1c6", "#50dac0", "#87e8c7"];
       }
       var color = {
-          type: "linear",
-          x: 0,
-          x2: 1,
-          y: 0,
-          y2: 0,
-          colorStops: [
-              {
-              offset: 0,
-              color: colorArr[0],
-              },
-              {
-              offset: 0.5,
-              color: colorArr[0],
-              },
-              {
-              offset: 0.5,
-              color: colorArr[1],
-              },
-              {
-              offset: 1,
-              color: colorArr[1],
-              },
-          ],
+        type: "linear",
+        x: 0,
+        x2: 1,
+        y: 0,
+        y2: 0,
+        colorStops: [
+          {
+            offset: 0,
+            color: colorArr[0],
+          },
+          {
+            offset: 0.5,
+            color: colorArr[0],
+          },
+          {
+            offset: 0.5,
+            color: colorArr[1],
+          },
+          {
+            offset: 1,
+            color: colorArr[1],
+          },
+        ],
       };
       var barWidth = 30;
       var constData = [];
       var showData = [];
-      data.filter(function (item) {
-      if (item) {
+      data.filter(function(item) {
+        if (item) {
           constData.push(1);
           showData.push(item);
-      } else {
+        } else {
           constData.push(0);
-          showData.push(
-          {
-              value: 1,
-              itemStyle: {
-                normal: {
-                  borderColor: "rgba(0,0,0,0)",
-                  borderWidth: 2,
-                  color: "rgba(0,0,0,0)",
-                },
+          showData.push({
+            value: 1,
+            itemStyle: {
+              normal: {
+                borderColor: "rgba(0,0,0,0)",
+                borderWidth: 2,
+                color: "rgba(0,0,0,0)",
               },
-          }
-          );
-      }
+            },
+          });
+        }
       });
       return {
-          tooltip: {
-              trigger: "axis",
-              backgroundColor: 'rgba(44,62,80,0.8)',
-              borderColor: 'rgba(153, 209, 246, 0.6)',
-              textStyle: {
-                align: 'left',
-                fontSize: 12,
-                color: 'rgba(255,255,255,0.8)',
-              },
-              formatter: function (params) {
-              var str = params[0].axisValue + "：";
-              params.filter(function (item) {
-                  if (item.componentSubType == "bar") {
-                  str += "<br/>" + item.seriesName + "：" + item.value;
-                  }
-              });
-              return str;
-              },
+        tooltip: {
+          trigger: "axis",
+          backgroundColor: "rgba(44,62,80,0.8)",
+          borderColor: "rgba(153, 209, 246, 0.6)",
+          textStyle: {
+            align: "left",
+            fontSize: 12,
+            color: "rgba(255,255,255,0.8)",
           },
-          grid: {
-              left: "3%", //图表距边框的距离
-              right: "3%",
-              top: "15%",
-              bottom: "0",
-              containLabel: true,
+          formatter: function(params) {
+            var str = params[0].axisValue + "：";
+            params.filter(function(item) {
+              if (item.componentSubType == "bar") {
+                str += "<br/>" + item.seriesName + "：" + item.value;
+              }
+            });
+            return str;
           },
-          xAxis: {
-              data: xAxisData,
-              axisTick: {
-                show: false,
-              },
-              axisLine: {
-                show: true,
-                lineStyle: {
-                  color: '#6AB0FF'
-                }
-              },
-              splitLine: {
-                show: true,
-                lineStyle: {
-                  type: 'dashed',
-                  color: 'rgb(20,46,74)'
-                }
-              },
-              axisLabel: {
-                show: true,
-                fontSize: 10,
-                formatter: function (value) {
-                  return value
-                },
-                color: '#F6FAFF'
-              },
+        },
+        grid: {
+          left: "3%", //图表距边框的距离
+          right: "3%",
+          top: "15%",
+          bottom: "0",
+          containLabel: true,
+        },
+        xAxis: {
+          data: xAxisData,
+          axisTick: {
+            show: false,
           },
-          yAxis: {
-              name: '(亿元)',
-              axisTick: {
-                show: false,
-              },
-              axisLine: {
-                lineStyle: {
-                  color: '#6AB0FF'
-                }
-              },
-              splitLine: {
-                show: true,
-                lineStyle: {
-                  type: 'dashed',
-                  color: 'rgb(20,46,74)'
-                }
-              },
-              axisLabel: {
-                show: true,
-                fontSize: 10,
-                formatter: function (value) {
-                  return value
-                },
-                color: '#F6FAFF'
-              },
+          axisLine: {
+            show: true,
+            lineStyle: {
+              color: "#6AB0FF",
+            },
           },
-          series: [
-              {
-                z: 1,
-                name: '数据',
-                type: "bar",
-                animationDuration: 2500,
-                barWidth: barWidth,
-                barGap: "0%",
-                data: data,
-                itemStyle: {
-                    normal: {
-                    color: color,
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: "dashed",
+              color: "rgb(20,46,74)",
+            },
+          },
+          axisLabel: {
+            show: true,
+            fontSize: 10,
+            formatter: function(value) {
+              return value;
+            },
+            color: "#F6FAFF",
+          },
+        },
+        yAxis: {
+          name: "(亿元)",
+          axisTick: {
+            show: false,
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#6AB0FF",
+            },
+          },
+          splitLine: {
+            show: true,
+            lineStyle: {
+              type: "dashed",
+              color: "rgb(20,46,74)",
+            },
+          },
+          axisLabel: {
+            show: true,
+            fontSize: 10,
+            formatter: function(value) {
+              return value;
+            },
+            color: "#F6FAFF",
+          },
+        },
+        series: [
+          {
+            z: 1,
+            name: "数据",
+            type: "bar",
+            animationDuration: 2500,
+            barWidth: barWidth,
+            barGap: "0%",
+            data: data,
+            itemStyle: {
+              normal: {
+                color: color,
+              },
+            },
+            label: {
+              show: true,
+              position: "top",
+              valueAnimation: true,
+              color: "#D4E7F4",
+            },
+          },
+          {
+            z: 2,
+            name: "数据",
+            type: "pictorialBar",
+            animationDuration: 2500,
+            data: constData,
+            symbol: "diamond",
+            symbolOffset: ["0%", "50%"],
+            symbolSize: [barWidth, 10],
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  0,
+                  1,
+                  0,
+                  0,
+                  [
+                    {
+                      offset: 0,
+                      color: "#68ABF7", // 0% 处的颜色
                     },
-                },
-                label: {
-                  show: true,
-                  position: 'top',
-                  valueAnimation: true,
-                  color: '#D4E7F4'
-                }
+                    {
+                      offset: 0.4,
+                      color: "#68ABF7", // 60% 处的颜色
+                    },
+                    {
+                      offset: 1,
+                      color: "#5783FF", // 100% 处的颜色
+                    },
+                  ],
+                  false
+                ),
               },
-              {
-                z: 2,
-                name: '数据',
-                type: "pictorialBar",
-                animationDuration: 2500,
-                data: constData,
-                symbol: "diamond",
-                symbolOffset: ["0%", "50%"],
-                symbolSize: [barWidth, 10],
-                itemStyle: {
-                    normal: {
-                      color: new echarts.graphic.LinearGradient(0, 1, 0, 0, [{
-                          offset: 0,
-                          color: "#68ABF7" // 0% 处的颜色
-                      }, {
-                          offset: 0.4,
-                          color: "#68ABF7" // 60% 处的颜色
-                      }, {
-                          offset: 1,
-                          color: "#5783FF" // 100% 处的颜色
-                      }], false)
-                    }
-                },
-                tooltip: {
-                    show: false,
-                },
+            },
+            tooltip: {
+              show: false,
+            },
+          },
+          {
+            z: 3,
+            name: "数据",
+            type: "pictorialBar",
+            animationDuration: 2500,
+            symbolPosition: "end",
+            data: showData,
+            symbol: "diamond",
+            symbolOffset: ["0%", "-50%"],
+            symbolSize: [barWidth - 4, (10 * (barWidth - 4)) / barWidth],
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(
+                  1,
+                  0,
+                  0,
+                  0,
+                  [
+                    {
+                      offset: 0,
+                      color: "#68ABF7", // 0% 处的颜色
+                    },
+                    {
+                      offset: 0.6,
+                      color: "#5783FF", // 60% 处的颜色
+                    },
+                    {
+                      offset: 1,
+                      color: "#5783FF", // 100% 处的颜色
+                    },
+                  ],
+                  false
+                ),
               },
-              {
-                z: 3,
-                name: '数据',
-                type: "pictorialBar",
-                animationDuration: 2500,
-                symbolPosition: "end",
-                data: showData,
-                symbol: "diamond",
-                symbolOffset: ["0%", "-50%"],
-                symbolSize: [barWidth - 4, (10 * (barWidth - 4)) / barWidth],
-                itemStyle: {
-                    normal: {
-                      color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
-                          offset: 0,
-                          color: "#68ABF7" // 0% 处的颜色
-                      }, {
-                          offset: 0.6,
-                          color: "#5783FF" // 60% 处的颜色
-                      }, {
-                          offset: 1,
-                          color: "#5783FF" // 100% 处的颜色
-                      }], false)
-                    }
-                },
-                tooltip: {
-                    show: false,
-                },
-              },
-          ],
+            },
+            tooltip: {
+              show: false,
+            },
+          },
+        ],
       };
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>
-#totalAssets{
+#totalAssets {
   width: 100%;
   height: 100%;
 }
-#allTotalAssets{
+#allTotalAssets {
   width: 100%;
   height: 100%;
 }
-#webSecurity{
+#webSecurity {
   width: 100%;
   height: 100%;
 }
-#serverSecurity{
+#serverSecurity {
   width: 180px;
   height: 180px;
-	margin-left: 100px;
-	/* margin-top: 24px; */
-	position: absolute;
-	left: 0;
+  margin-left: 100px;
+  /* margin-top: 24px; */
+  position: absolute;
+  left: 0;
 }
-.serversafebox-wrap{
+.serversafebox-wrap {
   width: 100%;
 }
-.serversafebox{
-	position: relative;
+.serversafebox {
+  position: relative;
   margin: 20px 0;
-	height: 180px;
+  height: 180px;
 }
-.websafe{
-	/* height: 360px; */
+.websafe {
+  /* height: 360px; */
 }
-.assetsarc{
-	position: absolute;
-	left: 84px;
-	top: -14px;
-	width: 210px;
-	height: 210px;
-	animation: myMove 5s;
-	-webkit-animation: myMove 5s infinite linear;
+.assetsarc {
+  position: absolute;
+  left: 84px;
+  top: -14px;
+  width: 210px;
+  height: 210px;
+  animation: myMove 5s;
+  -webkit-animation: myMove 5s infinite linear;
 }
-	/* 外圈旋转动画 */
-	@-webkit-keyframes myMove {
-	
-		/**关键帧名称**/
-		0% {
-			-webkit-transform: rotate(0deg);
-		}
-	
-		100% {
-			-webkit-transform: rotate(360deg);
-		}
-	} 
-.assetsinner{
-	position: absolute;
-	left: 116px;
-	top: 14px;;
-	width: 150px;
-	height: 150px;
+/* 外圈旋转动画 */
+@-webkit-keyframes myMove {
+  /**关键帧名称**/
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+.assetsinner {
+  position: absolute;
+  left: 116px;
+  top: 14px;
+  width: 150px;
+  height: 150px;
 }
 .flopbox {
   display: flex;
@@ -1049,7 +1164,7 @@ export default {
 }
 
 .flopboxtitle {
-  color: rgba(255, 255, 255, .8);
+  color: rgba(255, 255, 255, 0.8);
   text-align: left;
 }
 .detailBox {
@@ -1059,48 +1174,48 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  .row{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 18px;
-      padding-bottom: 5px;
-      border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
-      .title{
-        i{
-          border: 2px solid;
-          border-radius: 4px;
-          display: inline-block;
-          height: 5px;
-          margin-right: 4px;
-        }
-        span{
-          font-size: 14px;
-        }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 18px;
+    padding-bottom: 5px;
+    border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
+    .title {
+      i {
+        border: 2px solid;
+        border-radius: 4px;
+        display: inline-block;
+        height: 5px;
+        margin-right: 4px;
       }
-      .value{
-        span{
-          font-size: 14px;
-          font-weight: 400;
-          color: #00F5FF;
-          margin-right: 2px;
-        }
-        i{
-          font-size: 12px;
-          font-weight: 400;
-          color: rgba(255, 255, 255, 0.5);
-        }
+      span {
+        font-size: 14px;
       }
+    }
+    .value {
+      span {
+        font-size: 14px;
+        font-weight: 400;
+        color: #00f5ff;
+        margin-right: 2px;
+      }
+      i {
+        font-size: 12px;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.5);
+      }
+    }
   }
 }
-.chart-wrap{
+.chart-wrap {
   width: 100%;
   height: 100%;
 }
-.assets-modal{
+.assets-modal {
   width: 1184px;
   color: #fff;
-  &-head{
+  &-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1108,64 +1223,64 @@ export default {
     height: 40px;
     background-color: rgba(50, 75, 160, 1);
   }
-  &-body{
+  &-body {
     padding: 41px 47px 47px;
     height: 585px;
     background-color: rgba(22, 42, 112, 0.76);
-    border: 1px solid #00F5FF;
+    border: 1px solid #00f5ff;
     border-top: none;
     border-radius: 0 0 4px 4px;
-    &-top{
+    &-top {
       display: flex;
       justify-content: space-between;
-      .assets-detail-mes{
+      .assets-detail-mes {
         padding: 31px 30px 21px;
-        background-color: rgba(106, 176, 255, .5);
-        &-top{
+        background-color: rgba(106, 176, 255, 0.5);
+        &-top {
           display: flex;
           align-items: center;
           padding: 14px 28px;
           width: 224px;
-          background-color: rgba(13, 25, 139, .45);
-          img{
+          background-color: rgba(13, 25, 139, 0.45);
+          img {
             height: 68px;
           }
-          span{
+          span {
             margin-left: 42px;
             font-size: 20px;
             line-height: 68px;
           }
         }
-        &-bottom{
+        &-bottom {
           margin-top: 16px;
           font-size: 18px;
         }
       }
     }
-    &-bottom{
-      &-title{
+    &-bottom {
+      &-title {
         margin-bottom: 22px;
         padding-top: 32px;
         font-size: 18px;
         font-weight: bold;
-        color: #00F5FF;
+        color: #00f5ff;
         text-align: left;
       }
-      &-table{
+      &-table {
         background-color: rgba(106, 176, 255, 0.3);
         // &-head{
         //   display: flex;
         // }
-        &-body{
+        &-body {
           height: 275px;
           overflow-y: scroll;
         }
-        &-tr{
+        &-tr {
           display: flex;
           width: calc(100% - 4px);
-          border-bottom: 1px solid rgba(106, 176, 255, .3);
+          border-bottom: 1px solid rgba(106, 176, 255, 0.3);
         }
-        &-td{
+        &-td {
           box-sizing: border-box;
           flex-shrink: 0;
           display: flex;
@@ -1173,25 +1288,25 @@ export default {
           align-items: center;
           height: 48px;
           overflow: hidden;
-          border-right: 1px solid rgba(106, 176, 255, .3);
+          border-right: 1px solid rgba(106, 176, 255, 0.3);
         }
-        &-td:last-child{
+        &-td:last-child {
           border: none;
         }
       }
     }
   }
 }
-.el-icon-close{
+.el-icon-close {
   cursor: pointer;
 }
 </style>
 <style lang="less">
-.assets-marker-wrap{
+.assets-marker-wrap {
   padding: 8px 15px 15px;
   width: 133px;
   height: 65px;
-  background-image: url('../assets/marker/assetsMrakerBg.png');
+  background-image: url("../assets/marker/assetsMrakerBg.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   color: #fff;

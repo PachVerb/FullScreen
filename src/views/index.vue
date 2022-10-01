@@ -94,7 +94,7 @@ export default {
         this.map.setBearing(0);
         this.map.setPitch(49);
         this.map.setZoom(17.8);
-        this.map.setCenter([104.05999036597285, 30.596105715016634]);
+        this.map.setCenter([116.67538019092922, 40.40736276448709]);
         this.SET_DETAIL_MSG(null);
       }
     },

@@ -25,8 +25,8 @@ let mapIp = "https://zcgis.ucas.ac.cn/cmgis-server";
 let token = "Z2tkOjg5MjBjMmM4NzUwYzU4OTM0NDgxNTg4MGIzNWI5Nzgy";
 let map2D = {
   mapId: 1, // 地图Id
-  styleId: 3, // 样式id
-  mapCenter: [104.05788702900719, 30.59531754516823], //地图中心点
+  styleId: 12, // 样式id
+  mapCenter: [116.67538019092922, 40.40736276448709], //地图中心点
   mapZoom: 16.2, // 地图放大级别
   mapPitch: 60,
   mapBearing: 0,
@@ -140,6 +140,7 @@ export default {
       "SET_MAP_LOAD",
       "SET_CURRENTFLOOR",
       "SET_LINE_LOAD",
+      "SET_CURRENTSYS",
     ]),
     toHome() {
       let param = {
@@ -361,11 +362,11 @@ export default {
     },
     // 地图加载完成
     mapLoadFn() {
-      this.vMap.setLayoutProperty("building_3d_hasroom", "visibility", "none");
-      this.vMap.setLayoutProperty("building1_3D", "visibility", "none");
-      this.vMap.setLayoutProperty("ziti_dalou", "visibility", "none");
+      //   this.vMap.setLayoutProperty("building_3d_hasroom", "visibility", "none");
+      //   this.vMap.setLayoutProperty("building1_3D", "visibility", "none");
+      //   this.vMap.setLayoutProperty("ziti_dalou", "visibility", "none");
       this.vMap.addLayer(threeLayer); // 将3D模型的图层加入地图
-      // this.vMap.setLayerZoomRange('modellayer', 10, 18); // 给模型设置地图等级
+      //   this.vMap.setLayerZoomRange("modellayer", 10, 18); // 给模型设置地图等级
       //   this.loadOjbFn()
       //   this.loadTree()
       // this.loadWater()
@@ -616,7 +617,7 @@ export default {
       const buildingpng = require("../assets/img/building.png");
       this.vMap.flyTo({
         bearing: 40,
-        center: [104.05619359161085, 30.594327139005628],
+        center: [116.67538019092922, 40.40736276448709],
         zoom: 16.1,
         easing: (t) => {
           console.log(that.buildingdata, "5555555555555555555555", t);
@@ -670,112 +671,112 @@ export default {
             });
 
             //立体标签，注释掉了，没有加入场景中
-            setTimeout(() => {
-              that.vMap.flyTo({
-                center: [104.0578925643049, 30.596282208297538],
-                zoom: 16.8,
-                bearing: 30,
-              });
-              let divtets = document.createElement("div");
-              divtets.className = "LABEL2D";
-              let divinner = document.createElement("div");
-              divinner.className = "labeldiv";
-              //divinner.classList.add('animate__animated', 'animate__bounceInLeft');
-              divtets.appendChild(divinner);
-              let canvasdiv = document.createElement("div");
-              canvasdiv.className = "canvasdiv";
-              //divtets.appendChild(canvasdiv)
+            // setTimeout(() => {
+            //   that.vMap.flyTo({
+            //     center: [104.0578925643049, 30.596282208297538],
+            //     zoom: 16.8,
+            //     bearing: 30,
+            //   });
+            //   let divtets = document.createElement("div");
+            //   divtets.className = "LABEL2D";
+            //   let divinner = document.createElement("div");
+            //   divinner.className = "labeldiv";
+            //   //divinner.classList.add('animate__animated', 'animate__bounceInLeft');
+            //   divtets.appendChild(divinner);
+            //   let canvasdiv = document.createElement("div");
+            //   canvasdiv.className = "canvasdiv";
+            //   //divtets.appendChild(canvasdiv)
 
-              divinner.innerHTML =
-                `<font class="text" style="color:rgb(0,250,250);family:fantasy;size:30" >用水:` +
-                String(100) +
-                `m</br>` +
-                `用电:` +
-                String(300) +
-                `kw</font>`;
-              var canvas = document.createElement("canvas");
-              canvas.width = "1000";
-              canvas.height = "1000";
-              // canvas.style.width="100px"
-              // canvas.style.height="100px"
-              canvas.style.position = "absolute";
-              canvas.style.bottom = "0px";
-              var context = canvas.getContext("2d");
-              //context.scale(4, 4);
-              context.beginPath();
-              context.lineWidth = 10;
-              context.strokeStyle = "rgb(0,250,250)";
-              context.fillStyle = "rgb(0,250,250)";
-              //实验证明第一次lineTo的时候和moveTo功能一样
-              context.lineTo(0.5, 999.5);
-              //之后的lineTo会以上次lineTo的节点为开始
-              context.lineTo(200.5, 0.5);
-              context.lineTo(999.5, 0.5);
+            //   divinner.innerHTML =
+            //     `<font class="text" style="color:rgb(0,250,250);family:fantasy;size:30" >用水:` +
+            //     String(100) +
+            //     `m</br>` +
+            //     `用电:` +
+            //     String(300) +
+            //     `kw</font>`;
+            //   var canvas = document.createElement("canvas");
+            //   canvas.width = "1000";
+            //   canvas.height = "1000";
+            //   // canvas.style.width="100px"
+            //   // canvas.style.height="100px"
+            //   canvas.style.position = "absolute";
+            //   canvas.style.bottom = "0px";
+            //   var context = canvas.getContext("2d");
+            //   //context.scale(4, 4);
+            //   context.beginPath();
+            //   context.lineWidth = 10;
+            //   context.strokeStyle = "rgb(0,250,250)";
+            //   context.fillStyle = "rgb(0,250,250)";
+            //   //实验证明第一次lineTo的时候和moveTo功能一样
+            //   context.lineTo(0.5, 999.5);
+            //   //之后的lineTo会以上次lineTo的节点为开始
+            //   context.lineTo(200.5, 0.5);
+            //   context.lineTo(999.5, 0.5);
 
-              context.stroke();
-              console.log(
-                "context.backingStorePixelRatio",
-                context.backingStorePixelRatio
-              );
-              divtets.appendChild(canvas);
-              let label = threeLayer.threemap.objects.add3DLabel(
-                divtets,
-                [104.0572094396718, 30.595124736109923, 4],
-                [Math.PI / 2, Math.PI, 0]
-              );
-              label.scale.set(0.0015, 0.0015, 1);
-              //let canvaslabel=threeLayer.threemap.objects.add3DLabel(canvasdiv,[104.0572094396718, 30.595124736109923,2],[Math.PI/2,Math.PI,0])
-              //canvaslabel.scale.set(0.0029,0.0029,1)
-              //let point=label.position
-              // console.log("point",point);
-              //label.position.set(point.x,point.y,4)
-              //console.log("label",label)
-              //threeLayer.threemap.add(label)
-              //threeLayer.threemap.add(canvaslabel)
-              let divtets1 = document.createElement("div");
-              divtets1.className = "LABEL2D";
-              let divinner1 = document.createElement("div");
-              divinner1.className = "labeldiv";
-              divtets1.appendChild(divinner1);
-              divinner1.innerHTML =
-                `<font class="text" style="color:rgb(0,250,250);family:fantasy;size:30" >摄像头:` +
-                String(100) +
-                `个</br>` +
-                `空调:` +
-                String(300) +
-                `个</font>`;
-              var canvas1 = document.createElement("canvas");
-              canvas1.width = "1000";
-              canvas1.height = "1000";
-              // canvas.style.width="100px"
-              // canvas.style.height="100px"
-              canvas1.style.position = "absolute";
-              canvas1.style.bottom = "0px";
-              var context1 = canvas1.getContext("2d");
-              //context.scale(4, 4);
-              context1.beginPath();
-              context1.lineWidth = 10;
-              context1.strokeStyle = "rgb(0,250,250)";
-              context1.fillStyle = "rgb(0,250,250)";
-              //实验证明第一次lineTo的时候和moveTo功能一样
-              context1.lineTo(0.5, 999.5);
-              //之后的lineTo会以上次lineTo的节点为开始
-              context1.lineTo(200.5, 0.5);
-              context1.lineTo(999.5, 0.5);
+            //   context.stroke();
+            //   console.log(
+            //     "context.backingStorePixelRatio",
+            //     context.backingStorePixelRatio
+            //   );
+            //   divtets.appendChild(canvas);
+            //   let label = threeLayer.threemap.objects.add3DLabel(
+            //     divtets,
+            //     [104.0572094396718, 30.595124736109923, 4],
+            //     [Math.PI / 2, Math.PI, 0]
+            //   );
+            //   label.scale.set(0.0015, 0.0015, 1);
+            //   //let canvaslabel=threeLayer.threemap.objects.add3DLabel(canvasdiv,[104.0572094396718, 30.595124736109923,2],[Math.PI/2,Math.PI,0])
+            //   //canvaslabel.scale.set(0.0029,0.0029,1)
+            //   //let point=label.position
+            //   // console.log("point",point);
+            //   //label.position.set(point.x,point.y,4)
+            //   //console.log("label",label)
+            //   //threeLayer.threemap.add(label)
+            //   //threeLayer.threemap.add(canvaslabel)
+            //   let divtets1 = document.createElement("div");
+            //   divtets1.className = "LABEL2D";
+            //   let divinner1 = document.createElement("div");
+            //   divinner1.className = "labeldiv";
+            //   divtets1.appendChild(divinner1);
+            //   divinner1.innerHTML =
+            //     `<font class="text" style="color:rgb(0,250,250);family:fantasy;size:30" >摄像头:` +
+            //     String(100) +
+            //     `个</br>` +
+            //     `空调:` +
+            //     String(300) +
+            //     `个</font>`;
+            //   var canvas1 = document.createElement("canvas");
+            //   canvas1.width = "1000";
+            //   canvas1.height = "1000";
+            //   // canvas.style.width="100px"
+            //   // canvas.style.height="100px"
+            //   canvas1.style.position = "absolute";
+            //   canvas1.style.bottom = "0px";
+            //   var context1 = canvas1.getContext("2d");
+            //   //context.scale(4, 4);
+            //   context1.beginPath();
+            //   context1.lineWidth = 10;
+            //   context1.strokeStyle = "rgb(0,250,250)";
+            //   context1.fillStyle = "rgb(0,250,250)";
+            //   //实验证明第一次lineTo的时候和moveTo功能一样
+            //   context1.lineTo(0.5, 999.5);
+            //   //之后的lineTo会以上次lineTo的节点为开始
+            //   context1.lineTo(200.5, 0.5);
+            //   context1.lineTo(999.5, 0.5);
 
-              context1.stroke();
+            //   context1.stroke();
 
-              divtets1.appendChild(canvas1);
+            //   divtets1.appendChild(canvas1);
 
-              let label2 = threeLayer.threemap.objects.add3DLabel(
-                divtets1,
-                [104.05745924744474, 30.595047272850607, 2],
-                [Math.PI / 2, Math.PI, 0]
-              );
-              label2.scale.set(0.0015, 0.0015, 1);
-              //threeLayer.threemap.add(label2)
-              this.loadAniCenterBuilding();
-            }, 5000);
+            //   let label2 = threeLayer.threemap.objects.add3DLabel(
+            //     divtets1,
+            //     [104.05745924744474, 30.595047272850607, 2],
+            //     [Math.PI / 2, Math.PI, 0]
+            //   );
+            //   label2.scale.set(0.0015, 0.0015, 1);
+            //   //threeLayer.threemap.add(label2)
+            //   this.loadAniCenterBuilding();
+            // }, 5000);
           }
 
           return t;
@@ -938,7 +939,8 @@ export default {
                 clearInterval(this.circleInterval);
                 this.circleInterval = null;
                 // this.loadAniLine()
-                this.loadBuildFn();
+                // this.loadBuildFn();
+                this.loadAniCenterBuilding();
                 return;
               }
               this.vMap.setBearing(this.circleIndex);
@@ -951,7 +953,7 @@ export default {
     },
     loadAniCenterBuilding() {
       this.vMap.flyTo({
-        center: [104.05999036597285, 30.596105715016634],
+        center: [116.67538019092922, 40.40736276448709],
         zoom: 17.5,
         duration: 2800,
         bearing: 0,

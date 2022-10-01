@@ -212,7 +212,7 @@ export default {
   methods: {
     init() {
       this.map.flyTo({
-        center: [104.05999036597285, 30.596105715016634],
+        center: [116.67538019092922, 40.40736276448709],
         bearing: 40,
         pitch: 60,
         zoom: 14.5,
