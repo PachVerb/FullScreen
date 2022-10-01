@@ -77,17 +77,17 @@
           title="学校资产分类统计"
           :transitionType="'right'"
           :delay="500"
-          height="45%"
+          height="55%"
         >
           <div slot="body" class="websafe chart-wrap">
             <div id="webSecurity"></div>
           </div>
         </sideItem>
         <sideItem
-          title="服务器安全分析"
+          title="资产使用方向统计"
           :transitionType="'right'"
           :delay="1000"
-          height="55%"
+          height="45%"
         >
           <div slot="body" class="serversafebox-wrap">
             <div class="serversafebox">
@@ -479,10 +479,8 @@ export default {
               show: false,
             },
             data: [
-              { value: 1048, name: "教学" },
-              { value: 735, name: "行政" },
-              { value: 580, name: "环境" },
-              { value: 484, name: "其他" },
+              { value: 57, name: "科研用" },
+              { value: 43, name: "非科研用" },
             ],
           },
         ],
@@ -701,10 +699,8 @@ export default {
             )
           );
           this.ratioList = [
-            { name: "教学", val: 1100, color: "rgba(169,133,238,0.8)" },
-            { name: "行政", val: 444, color: "rgba(196,144,191,0.8)" },
-            { name: "环境", val: 501, color: "rgba(19,181,177,0.8)" },
-            { name: "其他", val: 300, color: "rgba(229,188,128,0.8)" },
+            { name: "科研用", val: 1100, color: "rgba(13, 119, 5, .8)" },
+            { name: "非科研用", val: 444, color: "rgba(200, 161, 111, .8)" },
           ];
         }, 1500);
         setTimeout(() => {
