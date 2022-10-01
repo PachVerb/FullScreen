@@ -721,30 +721,34 @@ export default {
 
         this.assetsMesList = [
           {
-            //   num: 65,
-            //   unit: 1,
-            //   value: 100,
-            //   location: [104.05664280605345, 30.595559445013265]
-            // },{
-            //   num: 315,
-            //   unit: 2,
-            //   value: 177,
-            //   location: [104.05284762571148, 30.595657085458583]
-            // },{
-            //   num: 465,
-            //   unit: 3,
-            //   value: 350,
-            //   location: [104.05293927849556, 30.600887884709223]
-            // },{
-            //   num: 396,
-            //   unit: 4,
-            //   value: 250,
-            //   location: [104.05486617272919, 30.59760797571019]
-            // },{
-            num: 27,
+            num: 4,
+            unit: 4,
+            value: 62,
+            location: [116.67488669601147, 40.406300277420314],
+          },
+          {
+            num: 3,
+            unit: 1,
+            value: 26,
+            location: [116.67474653819329, 40.4080012617503],
+          },
+          {
+            num: 4,
+            unit: 2,
+            value: 26,
+            location: [116.67231245078762, 40.40945985510473],
+          },
+          {
+            num: 10,
             unit: 3,
-            value: 67,
-            location: [104.05993975869626, 30.59215369965594],
+            value: 106,
+            location: [116.6729899373413, 40.4074603218766],
+          },
+          {
+            num: 2,
+            unit: 1,
+            value: 182,
+            location: [116.67406285322318, 40.4064118565067],
           },
         ];
         this.map.on("click", (e) => {
@@ -752,7 +756,7 @@ export default {
           console.log(this.map.queryRenderedFeatures(e.point));
         });
         this.createAssetsMraker();
-        this.createLayer();
+        // this.createLayer();
       });
     },
     destroySys() {
