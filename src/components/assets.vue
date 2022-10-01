@@ -29,9 +29,46 @@
             <div id="totalAssets"></div>
           </div>
         </sideItem>
-        <sideItem title="资产使用统计" :delay="1500" height="40%">
+        <!-- <sideItem title="资产使用统计" :delay="1500" height="40%">
           <div slot="body" class="chart-wrap">
             <div id="allTotalAssets"></div>
+          </div>
+        </sideItem> -->
+        <sideItem title="资产使用统计" delay="200" height="40%">
+          <div class="houseStati" slot="body">
+            <div class="row title">
+              <span>资产名称</span>
+              <span>数量</span>
+              <span>使用方向</span>
+              <span>使用部门</span>
+              <span>使用负责人</span>
+            </div>
+            <div class="row bg" v-for="(item, i) in sourceStaList" :key="i">
+              <!-- <el-tooltip effect="dark" :content="item.name" placement="bottom"> -->
+              <span>{{ item.name }}</span>
+              <!-- </el-tooltip> -->
+              <span>{{ item.num }}</span>
+              <span>{{ item.useto }}</span>
+              <!-- <el-tooltip effect="dark" :content="item.name" placement="bottom"> -->
+              <span>{{ item.usepart }}</span>
+              <!-- </el-tooltip> -->
+              <span>{{ item.people }}</span>
+            </div>
+            <!-- <div class="row bg total">
+              <span>合计</span>
+              <span>{{
+                houseStaList.reduce((sum, item) => sum + item.build, 0)
+              }}</span>
+              <span>{{
+                houseStaList.reduce((sum, item) => sum + item.room, 0)
+              }}</span>
+              <span>{{
+                houseStaList.reduce((sum, item) => sum + item.area, 0)
+              }}</span>
+              <span>{{
+                houseStaList.reduce((sum, item) => sum + item.useArea, 0)
+              }}</span>
+            </div> -->
           </div>
         </sideItem>
       </div>
@@ -162,6 +199,9 @@ import flop from "@/components/commonComponent/flop.vue";
 import modal from "@/components/commonComponent/modal.vue";
 import AnimatedNumber from "animated-number-vue";
 import { Icon } from "element-ui";
+
+import mdata from "../mock/alldata.json";
+
 let totalAssetsChartDom,
   totalAssetsChart,
   allTotalAssetschartDom,
@@ -581,6 +621,7 @@ export default {
           10: "理学院实验中心",
         },
       ],
+      sourceStaList: [],
     };
   },
   computed: {
@@ -637,11 +678,11 @@ export default {
           totalAssetsChart = echarts.init(totalAssetsChartDom);
           totalAssetsChart.setOption(this.totalAssetsOption);
         }, 1500);
-        setTimeout(() => {
-          allTotalAssetschartDom = document.getElementById("allTotalAssets");
-          allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
-          allTotalAssetsChart.setOption(this.allTotalAssetsOption);
-        }, 2000);
+        // setTimeout(() => {
+        //   allTotalAssetschartDom = document.getElementById("allTotalAssets");
+        //   allTotalAssetsChart = echarts.init(allTotalAssetschartDom);
+        //   allTotalAssetsChart.setOption(this.allTotalAssetsOption);
+        // }, 2000);
         setTimeout(() => {
           webSecurityChartDom = document.getElementById("webSecurity");
           webSecurityChart = echarts.init(webSecurityChartDom);
@@ -660,13 +701,15 @@ export default {
           serverSecurityChart = echarts.init(serverSecurityChartDom);
           serverSecurityChart.setOption(this.serverSecurityOption);
           window.addEventListener("resize", function() {
-            allTotalAssetsChart.resize();
+            // allTotalAssetsChart.resize();
             totalAssetsChart.resize();
             webSecurityChart.resize();
             serverSecurityChart.resize();
           });
         }, 2000);
         // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
+        this.sourceStaList = mdata.sourceuse;
+
         this.assetsMesList = [
           {
             //   num: 65,
@@ -1171,6 +1214,44 @@ export default {
 .flopboxtitle {
   color: rgb(255, 255, 255);
   text-align: left;
+}
+
+.houseStati {
+  padding: 0 8px;
+  width: 95%;
+  min-height: 100%;
+  margin: 0 24px;
+  .row {
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.6);
+    span {
+      flex: 1;
+      line-height: 30px;
+    }
+  }
+  .title {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .total {
+    color: #00f5ff;
+  }
+  .bg {
+    span {
+      width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    background: rgba(106, 176, 255, 0.3);
+  }
 }
 .detailBox {
   flex: 1;

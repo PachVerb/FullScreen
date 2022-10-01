@@ -1,5 +1,5 @@
 /*
- * @LastEditTime: 2022-09-30 21:55:04
+ * @LastEditTime: 2022-10-01 17:56:05
  * @Description:
  * @Date: 2022-09-30 21:30:46
  * @Author: wangshan
@@ -24,6 +24,7 @@ function refreshRem(){
 */
 import "lib-flexible/flexible.js";
 import "element-ui/lib/theme-chalk/index.css";
+// import "element-ui/lib/theme-chalk/";
 import "vant/lib/index.css";
 import "./common/font/font.css";
 import VideoPlayer from "vue-video-player";
@@ -33,14 +34,14 @@ require("vue-video-player/src/custom-theme.css");
 Vue.use(VideoPlayer);
 
 // import echarts from 'echarts';
-// import ElementUI from 'element-ui';
+// import { Tooltop } from "element-ui";
 // import Vant from 'vant';
 // import $ from 'jquery'
 // Vue.use(Vant);
 // import axios from 'axios'
 // Vue.prototype.$http = axios
 // Vue.prototype.$ = $
-// Vue.use(ElementUI);
+// Vue.use(Tooltop);
 
 /**
 https://github.com/surmon-china/surmon-china.github.io/blob/source/projects/vue-awesome-swiper/examples/13-centered.vue
