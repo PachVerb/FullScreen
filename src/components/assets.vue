@@ -74,7 +74,7 @@
       </div>
       <div slot="right" style="height: 100%;">
         <sideItem
-          title="网站安全统计"
+          title="学校资产分类统计"
           :transitionType="'right'"
           :delay="500"
           height="45%"
@@ -687,7 +687,18 @@ export default {
           webSecurityChartDom = document.getElementById("webSecurity");
           webSecurityChart = echarts.init(webSecurityChartDom);
           webSecurityChart.setOption(
-            this.getEcharts3DBar(["z", "x"], [20, 98], "01")
+            this.getEcharts3DBar(
+              [
+                "房屋构建物",
+                "家具用具装修",
+                "通用设备",
+                "图书档案",
+                "专用设备",
+                "标本文物和用具",
+              ],
+              [27, 10, 260, 27, 130, 8],
+              "01"
+            )
           );
           this.ratioList = [
             { name: "教学", val: 1100, color: "rgba(169,133,238,0.8)" },
@@ -1009,14 +1020,15 @@ export default {
           axisLabel: {
             show: true,
             fontSize: 10,
+            rotate: 20,
             formatter: function(value) {
-              return value;
+              return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
             color: "#F6FAFF",
           },
         },
         yAxis: {
-          name: "(亿元)",
+          name: "(元)",
           axisTick: {
             show: false,
           },
