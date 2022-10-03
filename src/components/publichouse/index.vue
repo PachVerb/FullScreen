@@ -1629,7 +1629,7 @@ export default {
     width: 100%;
     .chart-land {
       width: 430px;
-      height: 300px;
+      height: 240px;
     }
   }
 
