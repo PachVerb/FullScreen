@@ -1007,7 +1007,7 @@ export default {
         grid: {
           left: "3%", //图表距边框的距离
           right: "3%",
-          top: "15%",
+          top: "10%",
           bottom: "0",
           containLabel: true,
         },
@@ -1031,7 +1031,7 @@ export default {
           },
           axisLabel: {
             show: true,
-            fontSize: 10,
+            fontSize: 12,
             rotate: 20,
             formatter: function(value) {
               return value.length > 5 ? value.substring(0, 5) + "..." : value;
