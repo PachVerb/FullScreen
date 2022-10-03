@@ -18,6 +18,9 @@
           ]"
           v-for="(sideItem, index) in allSideList"
           :key="index"
+          :style="{
+            left: index === 1 ? '380px' : '280px',
+          }"
           @click="checkCurrentSys(sideItem, index, 'click')"
         >
           <div
@@ -273,9 +276,9 @@ export default {
       sideDomList.forEach((dom, index) => {
         let a = this.returnClassType(index, this.thisIndex);
         // dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
-        dom.style.left = 17 + (315 - (midIndex - index) * 105) + "px";
+        // dom.style.left = 17 + (315 - (midIndex - index) * 105) + "px";
         // dom.style.top = (42-(a-1)*17) + 'px'
-        dom.style.top = 180 * Math.cos((15 * a * Math.PI) / 180) - 125 + "px";
+        dom.style.top = 160 * Math.cos((15 * a * Math.PI) / 180) - 125 + "px";
       });
     },
     hoverCurrentSys(side, index) {

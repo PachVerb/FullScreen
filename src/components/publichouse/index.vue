@@ -115,13 +115,13 @@
           title="学校楼栋情况"
           transitionType="right"
           delay="200"
-          height="38%"
+          height="30%"
         >
           <div slot="body" class="landState">
             <div class="chart-land" id="landChart"></div>
           </div>
         </sideItem>
-        <sideItem title="部门使用前十排行" :delay="200" height="33%">
+        <sideItem title="部门使用前十排行" :delay="200" height="40%">
           <div slot="body" class="chart-wrap">
             <div id="totalAssets"></div>
           </div>
@@ -1628,7 +1628,7 @@ export default {
     padding: 0 16px;
     width: 100%;
     .chart-land {
-      width: 340px;
+      width: 430px;
       height: 300px;
     }
   }

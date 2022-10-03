@@ -1040,7 +1040,7 @@ export default {
           },
         },
         yAxis: {
-          name: "(元)",
+          name: "(万元)",
           axisTick: {
             show: false,
           },
@@ -1189,7 +1189,7 @@ export default {
   margin-left: 100px;
   /* margin-top: 24px; */
   position: absolute;
-  left: 0;
+  left: 34px;
 }
 .serversafebox-wrap {
   width: 100%;
@@ -1204,7 +1204,7 @@ export default {
 }
 .assetsarc {
   position: absolute;
-  left: 84px;
+  left: 115px;
   top: -14px;
   width: 210px;
   height: 210px;
@@ -1224,7 +1224,7 @@ export default {
 }
 .assetsinner {
   position: absolute;
-  left: 116px;
+  left: 150px;
   top: 14px;
   width: 150px;
   height: 150px;
