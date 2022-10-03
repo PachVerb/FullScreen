@@ -281,7 +281,7 @@ export default {
           },
           axisLabel: {
             show: true,
-            fontSize: 10,
+            fontSize: 12,
             formatter: function(value) {
               return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
@@ -1224,10 +1224,10 @@ export default {
 }
 .assetsinner {
   position: absolute;
-  left: 150px;
-  top: 14px;
-  width: 150px;
-  height: 150px;
+  left: 134px;
+  top: 0px;
+  width: 180px;
+  height: 180px;
 }
 .flopbox {
   display: flex;

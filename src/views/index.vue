@@ -88,10 +88,10 @@ export default {
       if (this.map) {
         let clientWidth = document.documentElement.clientWidth;
         this.$nextTick(() => {
-          document.querySelector(".sys-left").style.zoom = clientWidth / 1920;
-          document.querySelector(".sys-right").style.zoom = clientWidth / 1920;
-          //   document.querySelector(".sys-left").style.zoom = 0.9;
-          //   document.querySelector(".sys-right").style.zoom = 0.9;
+          //   document.querySelector(".sys-left").style.zoom = clientWidth / 1920;
+          //   document.querySelector(".sys-right").style.zoom = clientWidth / 1920;
+          document.querySelector(".sys-left").style.zoom = 0.9;
+          document.querySelector(".sys-right").style.zoom = 0.9;
         });
         this.map.setBearing(0);
         this.map.setPitch(49);

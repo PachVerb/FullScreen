@@ -1127,7 +1127,7 @@ export default {
           },
           axisLabel: {
             show: true,
-            fontSize: 10,
+            fontSize: 12,
             formatter: function(value) {
               return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
@@ -1629,7 +1629,7 @@ export default {
     width: 100%;
     .chart-land {
       width: 430px;
-      height: 240px;
+      height: 200px;
     }
   }
 
