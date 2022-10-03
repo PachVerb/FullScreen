@@ -89,7 +89,7 @@ export default {
 <style scoped>
 .sys-left,
 .sys-right {
-  height: 98%;
+  height: 95%;
   transition: all 1s;
   /* background-color: rgba(10,25,46, .8); */
 }
