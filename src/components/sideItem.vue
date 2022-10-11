@@ -99,7 +99,8 @@ export default {
     content: "";
     width: 100%;
     padding: 0.8px 0;
-    background: linear-gradient(to left, #0d4255, #068898, #0d4255);
+    // background: linear-gradient(to left, #0d4255, #068898, #0d4255);
+    background: #00f5ff;
     position: absolute;
     left: 0;
     bottom: -2px;

@@ -11,7 +11,13 @@
           <div slot="body" style="width: 100%;margin-top: 20px;">
             <div class="flopbox">
               <p class="flopboxtitle">资产总值</p>
-              <flop :num="num" :unitil="'套'" :isgray="true" :target="3"></flop>
+              <flop
+                :num="num"
+                :top="true"
+                :unitil="'套'"
+                :isgray="true"
+                :target="3"
+              ></flop>
             </div>
             <div class="flopbox">
               <p class="flopboxtitle">资产价值</p>
@@ -333,7 +339,7 @@ export default {
               position: "right",
               valueAnimation: true,
               fontFamily: "monospace",
-              color: "#F6FAFF",
+              color: "#333",
             },
           },
         ],
@@ -707,8 +713,8 @@ export default {
             )
           );
           this.ratioList = [
-            { name: "科研用", val: 1100, color: "rgba(13, 119, 5, .8)" },
-            { name: "非科研用", val: 444, color: "rgba(200, 161, 111, .8)" },
+            { name: "科研用", val: 1100, color: "#A985FD;" },
+            { name: "非科研用", val: 444, color: " #FFBC57" },
           ];
         }, 1500);
         setTimeout(() => {
@@ -1026,7 +1032,7 @@ export default {
             show: true,
             lineStyle: {
               type: "dashed",
-              color: "rgb(20,46,74)",
+              color: "#6AB0FF",
             },
           },
           axisLabel: {
@@ -1036,11 +1042,14 @@ export default {
             formatter: function(value) {
               return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
-            color: "#F6FAFF",
+            color: "#333",
           },
         },
         yAxis: {
           name: "(万元)",
+          nameTextStyle: {
+            color: "#333",
+          },
           axisTick: {
             show: false,
           },
@@ -1053,7 +1062,7 @@ export default {
             show: true,
             lineStyle: {
               type: "dashed",
-              color: "rgb(20,46,74)",
+              color: "#6AB0FF",
             },
           },
           axisLabel: {
@@ -1062,7 +1071,7 @@ export default {
             formatter: function(value) {
               return value;
             },
-            color: "#F6FAFF",
+            color: "#333",
           },
         },
         series: [
@@ -1254,7 +1263,8 @@ export default {
     border-radius: 4px;
     font-size: 12px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
+    // color: rgba(255, 255, 255, 0.6);
+    color: #333;
     span {
       flex: 1;
       line-height: 30px;
@@ -1263,7 +1273,8 @@ export default {
   .title {
     font-size: 14px;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.8);
+    // color: rgba(255, 255, 255, 0.8);
+    color: #333;
   }
   .total {
     color: #00f5ff;
@@ -1293,6 +1304,7 @@ export default {
     padding-bottom: 5px;
     border-bottom: 2px dotted rgba(106, 176, 255, 0.6);
     .title {
+      font-family: Helvetica;
       i {
         border: 2px solid;
         border-radius: 4px;
@@ -1314,7 +1326,9 @@ export default {
       i {
         font-size: 12px;
         font-weight: 400;
-        color: rgba(255, 255, 255, 0.5);
+        font-family: PingFang SC;
+        color: #333333;
+        opacity: 0.7;
       }
     }
   }

@@ -1,7 +1,7 @@
 <!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-10-11 23:50:53
+ * @LastEditTime: 2022-10-12 00:42:36
  * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
@@ -14,6 +14,7 @@
         <li
           :class="{
             'number-item': !isNaN(item),
+            sbg: !isNaN(item) && top,
             'mark-item': isNaN(item),
             'gray-number': isgray ? findStartNum(item, target, index) : false,
           }"
@@ -23,7 +24,8 @@
           <span v-if="!isNaN(item)">
             <i ref="numberItem">0123456789</i>
           </span>
-          <span class="comma" v-else>{{ item }}</span>
+          <!-- <img :src="comma" alt="" /> -->
+          <!-- <span class="comma" v-else>{{ item }}</span> -->
         </li>
       </div>
     </div>
@@ -36,6 +38,7 @@ export default {
     return {
       //   orderNum: ["0", "0", ",", "0", "0", "0"], // 默认订单总数
       orderNum: ["0", ",", "0", "0", "0", "0"],
+      comma: require("../../assets/slices/common.png"),
     };
   },
   props: {
@@ -49,6 +52,9 @@ export default {
       type: Number,
     },
     unitil: "",
+    top: {
+      type: Boolean,
+    },
   },
   watch: {
     num() {
@@ -144,6 +150,8 @@ export default {
   /* line-height: 10px; */
   font-size: 38px;
   position: relative;
+  background: url("../../assets/slices/common.png") no-repeat;
+  background-position: center bottom;
 
   & > span {
     position: absolute;
@@ -213,5 +221,9 @@ export default {
 .gray-number {
   //   color: #237b8c;
   color: #438efb;
+}
+.sbg {
+  background: url(../../assets/images/numberbg.png) no-repeat center center;
+  background-size: 100% 100%;
 }
 </style>
