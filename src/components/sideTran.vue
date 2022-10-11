@@ -6,7 +6,7 @@
         :style="{ width: widthL, left: showLeftSys ? 0 : '-450px' }"
         v-if="currentSys === thisCrrentSys"
       >
-        <img
+        <!-- <img
           @click="handleShowLeftSys"
           :class="['sys-hide-btn']"
           :src="
@@ -15,7 +15,7 @@
               : require('../assets/img/showSys.png')
           "
           alt=""
-        />
+        /> -->
         <slot name="left" />
       </div>
     </transition>
@@ -25,7 +25,7 @@
         :style="{ width: widthR, right: showRightSys ? 0 : '-450px' }"
         v-if="currentSys === thisCrrentSys"
       >
-        <img
+        <!-- <img
           @click="handleShowRightSys"
           :class="[
             'sys-hide-btn',
@@ -37,7 +37,7 @@
               : require('../assets/img/show-right.png')
           "
           alt=""
-        />
+        /> -->
         <slot name="right" />
       </div>
     </transition>

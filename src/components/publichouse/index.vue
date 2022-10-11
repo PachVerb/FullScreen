@@ -421,10 +421,15 @@ export default {
     //学校概况
     getSchoolState() {
       this.staList = [
-        { type: "总占地面积", count: 21382, color: "#00F3FE", unit: "㎡" },
-        { type: "总楼栋数", count: 31, color: "#A075e8", unit: "栋" },
-        { type: "总房间数", count: 750, color: "#bd84b5", unit: "间" },
-        { type: "总房间面积", count: 112471, color: "#0cac58", unit: "㎡" },
+        {
+          type: "总占地面积",
+          count: 21382,
+          color: "#00F5FF",
+          unit: "㎡",
+        },
+        { type: "总楼栋数", count: 31, color: "#A985EE", unit: "栋" },
+        { type: "总房间数", count: 750, color: "#c490bf", unit: "间" },
+        { type: "总房间面积", count: 112471, color: "#13B5B1", unit: "㎡" },
       ];
     },
     //校区公房统计
