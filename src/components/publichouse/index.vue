@@ -1116,7 +1116,7 @@ export default {
             show: false,
           },
           axisLabel: {
-            color: "#F6FAFF",
+            color: "#333",
             fontSize: 10,
           },
           axisLine: {
@@ -1143,7 +1143,7 @@ export default {
             formatter: function(value) {
               return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
-            color: "#F6FAFF",
+            color: "#333",
           },
           data: [
             "雁西湖校区管理办公室",
@@ -1192,7 +1192,7 @@ export default {
               position: "right",
               valueAnimation: true,
               fontFamily: "monospace",
-              color: "#F6FAFF",
+              color: "#333",
             },
           },
         ],
