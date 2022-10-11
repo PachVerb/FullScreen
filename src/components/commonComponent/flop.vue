@@ -1,7 +1,7 @@
 <!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-10-11 21:31:08
+ * @LastEditTime: 2022-10-11 23:50:53
  * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
@@ -119,7 +119,8 @@ export default {
   line-height: 41px;
   text-align: center;
   list-style: none;
-  color: #39dce2;
+  //   color: #39dce2;
+  color: #438efb;
   writing-mode: vertical-lr;
   text-orientation: upright;
   /*文字禁止编辑*/
@@ -210,6 +211,7 @@ export default {
   width: 210px;
 }
 .gray-number {
-  color: #237b8c;
+  //   color: #237b8c;
+  color: #438efb;
 }
 </style>

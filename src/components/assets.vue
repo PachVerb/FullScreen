@@ -258,7 +258,7 @@ export default {
             show: false,
           },
           axisLabel: {
-            color: "#F6FAFF",
+            color: "#333",
             fontSize: 10,
           },
           axisLine: {
@@ -285,7 +285,7 @@ export default {
             formatter: function(value) {
               return value.length > 5 ? value.substring(0, 5) + "..." : value;
             },
-            color: "#F6FAFF",
+            color: "#333",
           },
           data: [
             "图书馆",
@@ -379,7 +379,7 @@ export default {
             formatter: function(value) {
               return value;
             },
-            color: "#F6FAFF",
+            color: "#333",
           },
         },
         yAxis: {
@@ -405,7 +405,7 @@ export default {
             formatter: function(value) {
               return value;
             },
-            color: "#F6FAFF",
+            color: "#333",
           },
         },
         series: [
@@ -1236,7 +1236,8 @@ export default {
 }
 
 .flopboxtitle {
-  color: rgb(255, 255, 255);
+  //   color: rgb(255, 255, 255);
+  color: #333;
   text-align: left;
 }
 
