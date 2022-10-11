@@ -447,7 +447,7 @@ export default {
   background-image: url("../assets/sidebar/sidebar-select-btn.png");
 }
 .side-cname {
-  color: rgba(255, 255, 255, 0.8);
+  color: #333333;
   font-size: 14px;
 }
 .sidebar .img-rotate {
@@ -510,8 +510,10 @@ export default {
   }
   .side-cname {
     color: rgba(255, 255, 255, 1);
-    font-size: 16px;
+    font-size: 20px;
+    font-family: PingFang SC;
     font-weight: bold;
+    color: #333333;
   }
 }
 .side-item:hover {
