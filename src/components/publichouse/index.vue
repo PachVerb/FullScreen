@@ -1019,19 +1019,22 @@ export default {
           axisLine: {
             show: true,
             lineStyle: {
-              color: "rgba(106, 176, 255, 0.5)",
+              color: "#6AB0FF",
             },
           },
           axisLabel: {
             interval: 0,
             textStyle: {
-              color: "rgba(246, 250, 255, 0.8)",
+              color: "#333",
             },
           },
         },
 
         yAxis: {
           name: parma.unit,
+          nameTextStyle: {
+            color: "#333",
+          },
           type: "value",
           axisLine: {
             show: true,
@@ -1041,7 +1044,7 @@ export default {
           },
           axisLabel: {
             textStyle: {
-              color: "rgba(246, 250, 255, 0.8)",
+              color: "#333",
             },
           },
           splitLine: {
@@ -1057,14 +1060,14 @@ export default {
             type: "bar",
             barWidth: "12px",
             barGap: "100%", //数据之间的距离
-            label: {
-              normal: {
-                show: true,
-                position: "top",
-                fontSize: 12,
-                color: "#fff",
-              },
-            },
+            // label: {
+            //   normal: {
+            //     show: true,
+            //     position: "top",
+            //     fontSize: 12,
+            //     color: "#333",
+            //   },
+            // },
             itemStyle: {
               normal: {
                 color: parma.color[i],
