@@ -965,7 +965,10 @@ export default {
       let dom = document.getElementById("landChart");
       let chart = echarts.init(dom);
       let parma = {
-        names: ["建筑面积", "使用面积"],
+        names: [
+          { name: "建筑面积", icon: require("../../assets/imgs/boxl.png") },
+          { name: "使用面积", icon: require("../../assets/imgs/boxr.png") },
+        ],
         unit: "(m²)",
         lineX: ["行政办公楼", "实验室", "图书馆", "餐厅食堂"],
         value: [
@@ -1001,7 +1004,8 @@ export default {
         legend: {
           data: parma.names.map((item, i) => {
             return {
-              name: item,
+              icon: "image://" + item.icon,
+              name: item.name,
               textStyle: {
                 color: parma.color[i],
                 fontSize: 12,
@@ -1009,8 +1013,8 @@ export default {
             };
           }),
           right: "0",
-          itemWidth: 10,
-          itemHeight: 5,
+          itemWidth: 15,
+          itemHeight: 10,
           //   orient: "vertical",
         },
         xAxis: {
@@ -1056,7 +1060,7 @@ export default {
         },
         series: parma.value.map((item, i) => {
           return {
-            name: parma.names[i],
+            name: parma.names[i].name,
             type: "bar",
             barWidth: "12px",
             barGap: "100%", //数据之间的距离
