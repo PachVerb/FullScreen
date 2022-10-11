@@ -1682,12 +1682,15 @@ export default {
 .build-marker {
   padding: 8px 15px 21px;
   min-width: 99px;
-  background-image: url("../../assets/marker/assetsMrakerBg.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  color: #fff;
+  //   background-image: url("../../assets/marker/assetsMrakerBg.png");
+  //   background-size: 100% 100%;
+  //   background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #666;
   font-size: 12px;
   text-align: left;
+  font-family: PingFang SC;
+  font-weight: 400;
   p {
     white-space: nowrap;
     word-break: break-all;

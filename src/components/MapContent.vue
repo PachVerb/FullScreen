@@ -55,7 +55,7 @@ const threeLayer = new creeper.ThreeLayer({
     useSelectingObjects: false,
     usePostprocessing: false,
     passiveRendering: false,
-    skySrc: require("../assets/img/sky.png"),
+    // skySrc: require("../assets/img/sky.png"),
     // bloomOptions: {
     //   exposure: 1,
     //   bloomThreshold: 0.2,
@@ -231,8 +231,7 @@ export default {
           "map-box",
           _mapId,
           _mapIp + "/",
-          true,
-          _styleId
+          true
         );
         // if(this.currentPanel === 0){
         //   this.vMap = new creeper.RasterMap("map-box", _mapId, _mapIp + "/");

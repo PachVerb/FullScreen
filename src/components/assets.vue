@@ -1416,11 +1416,15 @@ export default {
   padding: 8px 15px 15px;
   width: 133px;
   height: 65px;
-  background-image: url("../assets/marker/assetsMrakerBg.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  color: #fff;
+  //   background-image: url("../assets/marker/assetsMrakerBg.png");
+  //   background-size: 100% 100%;
+  //   background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #666;
   font-size: 12px;
   text-align: left;
+  text-align: left;
+  font-family: PingFang SC;
+  font-weight: 400;
 }
 </style>
