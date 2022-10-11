@@ -1,6 +1,6 @@
 <template>
   <div class="logo-wrap">
-    <img class="logo" alt="logo" src="../../assets/img/toptitle3.png" />
+    <img class="logo" alt="logo" src="../../assets/img/toptitle4.png" />
     <svg class="svg-box">
       <polyline class="ani-line1" points="30,20 200,20" />
       <polyline class="ani-line2" points="1890,20 1720,20" />
