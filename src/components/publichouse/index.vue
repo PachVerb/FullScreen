@@ -1209,73 +1209,66 @@ export default {
       usepublicChartChart = echarts.init(usepublicChartDom);
       var seriesData = [
         {
-          name: "土木工程学院",
-          value: "40",
-          label: {
-            color: "#73DDFF",
-          },
-        },
-        {
-          name: "物理学院",
-          value: "40",
-          label: {
-            color: "#73ACFF",
-          },
-        },
-        {
-          name: "数学学院",
-          value: "53",
-          label: {
-            color: "#FDD56A",
-          },
-        },
-        {
-          name: "软件工程学院",
-          value: "40",
-          label: {
-            color: "#FDB36A",
-          },
-        },
-        {
-          name: "继续教育学院",
-          value: "60",
-          label: {
-            color: "#FD866A",
-          },
-        },
-        {
-          name: "文法学院",
-          value: "10",
-          label: {
-            color: "#9E87FF",
-          },
-        },
-        {
-          name: "计算机科学学院",
-          value: "40",
-          label: {
-            color: "#58D5FF",
-          },
-        },
-        {
-          name: "马克思主义学院",
-          value: "40",
-          label: {
-            color: "#18DDA7",
-          },
-        },
-        {
-          name: "外国语学院",
+          name: "材料科学与观点技术学院",
           value: "40",
           label: {
             color: "#40CA53",
           },
         },
         {
-          name: "化学化工学院",
+          name: "地球与行星科学学院",
           value: "40",
           label: {
-            color: "#E782AF",
+            color: "#40CA53",
+          },
+        },
+        {
+          name: "化学科学学院",
+          value: "53",
+          label: {
+            color: "#FDD56A",
+          },
+        },
+        {
+          name: "基建处",
+          value: "40",
+          label: {
+            color: "#FDB36A",
+          },
+        },
+        {
+          name: "人文学院",
+          value: "60",
+          label: {
+            color: "#EE5CFF",
+          },
+        },
+        {
+          name: "集成电路学院",
+          value: "10",
+          label: {
+            color: "#EE5CFF",
+          },
+        },
+        {
+          name: "教务部",
+          value: "40",
+          label: {
+            color: "#EE5CFF",
+          },
+        },
+        {
+          name: "财务计划处",
+          value: "40",
+          label: {
+            color: " #31C3FF",
+          },
+        },
+        {
+          name: "电教中心 ",
+          value: "40",
+          label: {
+            color: "#46F4FF",
           },
         },
       ];
