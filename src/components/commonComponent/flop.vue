@@ -1,7 +1,7 @@
 <!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-10-02 01:37:11
+ * @LastEditTime: 2022-10-11 21:31:08
  * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
@@ -158,7 +158,7 @@ export default {
   width: 30px;
   height: 40px;
   /* 背景图片 */
-  background: url(../../assets/images/numbackground.png) no-repeat center center;
+  background: url(../../assets/images/numberbg.png) no-repeat center center;
   background-size: 100% 100%;
   // background: #ccc;
   list-style: none;
