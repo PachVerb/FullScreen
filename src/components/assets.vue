@@ -101,14 +101,9 @@
         >
           <div slot="body" class="serversafebox-wrap">
             <div class="serversafebox">
-              <img
-                src="../assets/pieimg/assets/assetsarc.png"
-                class="assetsarc"
-              />
-              <img
-                src="../assets/pieimg/assets/assetsinner.png"
-                class="assetsinner"
-              />
+              <img src="../assets/pieimg/assets/xsour.png" class="assetsarc" />
+              <img src="../assets/pieimg/assets/bsor.png" class="bassetsarc" />
+              <img src="../assets/pieimg/assets/nsor.png" class="assetsinner" />
               <div id="serverSecurity"></div>
             </div>
             <div class="detailBox">
@@ -1213,10 +1208,10 @@ export default {
 }
 .assetsarc {
   position: absolute;
-  left: 115px;
-  top: -14px;
-  width: 210px;
-  height: 210px;
+  left: 107px;
+  top: -21px;
+  width: 230px;
+  height: 230px;
   animation: myMove 5s;
   -webkit-animation: myMove 5s infinite linear;
 }
@@ -1233,10 +1228,17 @@ export default {
 }
 .assetsinner {
   position: absolute;
-  left: 134px;
-  top: 0px;
-  width: 180px;
-  height: 180px;
+  left: 150px;
+  top: 16px;
+  width: 150px;
+  height: 150px;
+}
+.bassetsarc {
+  position: absolute;
+  left: 124px;
+  top: -10px;
+  width: 200px;
+  height: 200px;
 }
 .flopbox {
   display: flex;
