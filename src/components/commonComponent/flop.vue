@@ -1,7 +1,7 @@
 <!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-10-12 00:42:36
+ * @LastEditTime: 2022-10-12 02:01:24
  * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
@@ -205,7 +205,7 @@ export default {
   position: relative !important;
 }
 .boxunitil {
-  color: rgba(255, 255, 255, 0.5);
+  color: #666;
   font-size: 10px;
   position: absolute;
   right: 0;
