@@ -1,7 +1,7 @@
 <!--
  * @Author: mat
  * @Date: 2019-12-04 14:56:07
- * @LastEditTime: 2022-10-12 02:01:24
+ * @LastEditTime: 2022-10-12 02:20:54
  * @LastEditors: wangshan
  * @Description: 实现数字翻牌动态效果，css 属性 writing-mode: vertical-lr，使数字竖直排版，
         2d移动 transform: translate(-50%, -40%); y值控制移动至哪个数字，transition 
@@ -38,7 +38,6 @@ export default {
     return {
       //   orderNum: ["0", "0", ",", "0", "0", "0"], // 默认订单总数
       orderNum: ["0", ",", "0", "0", "0", "0"],
-      comma: require("../../assets/slices/common.png"),
     };
   },
   props: {
