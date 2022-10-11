@@ -84,14 +84,14 @@ export default {
         {
           name: "assets",
           cname: "资产态势",
-          normal: require("../assets/sidebar/normal/assets.png"),
+          normal: require("../assets/sidebar/normal/assets_normal.png"),
           select: require("../assets/sidebar/select/assets.png"),
         },
         {
           name: "publichouse",
           cname: "公房态势",
           normal: require("../assets/sidebar/normal/publichouse.png"),
-          select: require("../assets/sidebar/select/publichouse.png"),
+          select: require("../assets/sidebar/select/pub_selec.png"),
         },
         // {
         //   name: "comprehensive",
