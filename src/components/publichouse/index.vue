@@ -1425,7 +1425,7 @@ export default {
       border-radius: 4px;
       font-size: 12px;
       font-weight: 400;
-      color: rgba(255, 255, 255, 0.6);
+      color: #333;
       span {
         flex: 1;
         line-height: 30px;
@@ -1434,7 +1434,7 @@ export default {
     .title {
       font-size: 14px;
       font-weight: 500;
-      color: rgba(255, 255, 255, 0.8);
+      color: #333;
     }
     .total {
       color: #00f5ff;
