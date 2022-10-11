@@ -994,6 +994,7 @@ export default {
   flex: 1;
   background-size: cover;
   background-position: center;
+  background-color: #f7f5f0;
 
   #map-box {
     width: 100%;
