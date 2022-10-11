@@ -1083,12 +1083,12 @@ export default {
                 color: color,
               },
             },
-            label: {
-              show: true,
-              position: "top",
-              valueAnimation: true,
-              color: "#D4E7F4",
-            },
+            // label: {
+            //   show: true,
+            //   position: "top",
+            //   valueAnimation: true,
+            //   color: "#D4E7F4",
+            // },
           },
           {
             z: 2,
