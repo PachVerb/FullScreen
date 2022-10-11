@@ -99,8 +99,10 @@ export default {
   bottom: 0;
   left: 0;
   font-size: 12px;
-  background-image: url("../assets/img/left-bg.png");
-  background-size: 100% 100%;
+  /* background-image: url("../assets/img/left-bg.png");
+  background-size: 100% 100%; */
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.8);
 }
 .go-in-sys-left-enter {
   transform: translateX(-50%);
@@ -121,8 +123,10 @@ export default {
   bottom: 0px;
   right: 0px;
   font-size: 12px;
-  background-image: url("../assets/img/right-bg.png");
-  background-size: 100% 100%;
+  /* background-image: url("../assets/img/right-bg.png");
+  background-size: 100% 100%; */
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.8);
 }
 .go-in-sys-right-enter {
   transform: translateX(150%);
