@@ -26,7 +26,7 @@
                 <div class="value">
                   <animated-number
                     :value="item.val"
-                    :formatValue="(val) => val.toFixed(2)"
+                    :formatValue="(val) => val.toFixed(0)"
                     :duration="4000"
                   />
                   <i :style="{ marginLeft: '3px' }">(间)</i>
@@ -1488,13 +1488,13 @@ export default {
           span {
             font-size: 14px;
             font-weight: 400;
-            color: #00f5ff;
+            color: #247cff;
             margin-right: 2px;
           }
           i {
             font-size: 12px;
             font-weight: 400;
-            color: #fff;
+            color: #247cff;
           }
         }
       }
