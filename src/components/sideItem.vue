@@ -92,7 +92,8 @@ export default {
   margin-top: 0.066667rem;
   padding: 3px;
   margin-left: 0.106667rem;
-  color: #00f5ff;
+  //   color: #00f5ff;
+  color: #247cff;
   font-size: 0.08rem;
   &::before {
     content: "";
