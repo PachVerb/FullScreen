@@ -25,7 +25,7 @@ let mapIp = "https://zcgis.ucas.ac.cn/cmgis-server";
 let token = "Z2tkOjg5MjBjMmM4NzUwYzU4OTM0NDgxNTg4MGIzNWI5Nzgy";
 let map2D = {
   mapId: 1, // 地图Id
-  styleId: 12, // 样式id
+  styleId: 10, // 样式id
   mapCenter: [116.67538019092922, 40.40736276448709], //地图中心点
   mapZoom: 16.2, // 地图放大级别
   mapPitch: 60,
@@ -231,7 +231,8 @@ export default {
           "map-box",
           _mapId,
           _mapIp + "/",
-          true
+          true,
+          _styleId
         );
         // if(this.currentPanel === 0){
         //   this.vMap = new creeper.RasterMap("map-box", _mapId, _mapIp + "/");
