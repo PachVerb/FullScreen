@@ -40,8 +40,8 @@
             <div id="allTotalAssets"></div>
           </div>
         </sideItem> -->
-        <sideItem title="资产使用统计" delay="200" height="40%">
-          <div class="houseStati" slot="body">
+        <sideItem title="资产使用统计" delay="1500" height="40%">
+          <!-- <div class="houseStati" slot="body">
             <div class="row title">
               <span>资产名称</span>
               <span>数量</span>
@@ -64,21 +64,74 @@
               </el-tooltip>
               <span>{{ item.people }}</span>
             </div>
-            <!-- <div class="row bg total">
-              <span>合计</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.build, 0)
-              }}</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.room, 0)
-              }}</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.area, 0)
-              }}</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.useArea, 0)
-              }}</span>
-            </div> -->
+             @mouseenter="abScrollStop"
+                  @mouseleave="abScrollStart"
+          </div> -->
+          <div
+            slot="body"
+            class="equipmentalarmtotal"
+            style="height: 100%;width: 100%;"
+          >
+            <div class="violation-detail-table">
+              <div class="table-head">
+                <span
+                  :style="{ width: head.width }"
+                  v-for="head in tableHeads"
+                  :key="head.name"
+                  >{{ head.name }}</span
+                >
+              </div>
+              <div class="ab-list patrol">
+                <div
+                  class="content"
+                  @mouseenter="abScrollStop"
+                  @mouseleave="abScrollStart"
+                >
+                  <div
+                    class="ab-item-wrap"
+                    v-for="item in sourceStaList"
+                    :key="item.id"
+                  >
+                    <div class="ab-item">
+                      <div
+                        class="table-item ab-item-name"
+                        :style="{ width: tableHeads[0].width }"
+                      >
+                        {{ item.name }}
+                      </div>
+                      <div
+                        class="table-item"
+                        :style="{ width: tableHeads[1].width }"
+                        :title="item.reason"
+                      >
+                        {{ item.num }}
+                      </div>
+                      <div
+                        class="table-item"
+                        :style="{ width: tableHeads[1].width }"
+                        :title="item.reason"
+                      >
+                        {{ item.useto }}
+                      </div>
+                      <div
+                        class="table-item"
+                        :style="{ width: tableHeads[2].width }"
+                        :title="item.date"
+                      >
+                        {{ item.usepart }}
+                      </div>
+                      <div
+                        class="table-item"
+                        :style="{ width: tableHeads[2].width }"
+                        :title="item.date"
+                      >
+                        {{ item.people }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </sideItem>
       </div>
@@ -207,6 +260,7 @@ import { Icon } from "element-ui";
 
 import mdata from "../mock/alldata.json";
 
+import { scrollTop } from "dom7";
 let totalAssetsChartDom,
   totalAssetsChart,
   allTotalAssetschartDom,
@@ -227,6 +281,28 @@ export default {
   },
   data() {
     return {
+      tableHeads: [
+        {
+          name: "资产名称",
+          width: "80px",
+        },
+        {
+          name: "数量",
+          width: "100px",
+        },
+        {
+          name: "使用方向",
+          width: "100px",
+        },
+        {
+          name: "使用部门",
+          width: "80px",
+        },
+        {
+          name: "使用负责人",
+          width: "80px",
+        },
+      ],
       markerIndoor: null,
       markerList: [],
       color: ["rgb(106,176,255"],
@@ -627,6 +703,7 @@ export default {
         },
       ],
       sourceStaList: [],
+      abTimer: null,
     };
   },
   computed: {
@@ -665,6 +742,7 @@ export default {
   },
   methods: {
     init() {
+      console.log("init");
       this.map.flyTo({
         center: [116.674756545935, 40.4066055539153],
         bearing: 1,
@@ -722,6 +800,9 @@ export default {
             webSecurityChart.resize();
             serverSecurityChart.resize();
           });
+          this.$nextTick(() => {
+            this.abScrollStart();
+          });
         }, 2000);
         // this.myChart2.setOption(this.getEcharts3DBar(['z'], [20], '01'))
         this.sourceStaList = mdata.sourceuse;
@@ -767,6 +848,57 @@ export default {
         // this.createLayer();
       });
     },
+    abScrollStart() {
+      if (!this.sourceStaList.length) return;
+      this.$nextTick(() => {
+        this.abScrollStop();
+        let scrollBox = document.querySelector(
+          ".violation-detail-table .ab-list"
+        );
+        let content = document.querySelector(
+          ".violation-detail-table .ab-list .content"
+        );
+        let items = document.querySelectorAll(
+          ".violation-detail-table .ab-list .content .ab-item-wrap"
+        );
+
+        let itemH = items[0].clientHeight;
+        //   let flag = true;
+        let nexTop =
+          Math.ceil(scrollBox.clientHeight / itemH) * itemH -
+          scrollBox.clientHeight;
+        //检查滚动距离是否过短
+
+        if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+        this.abTimer = setInterval(() => {
+          //检查滚动距离是否过短
+          if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+          //来回移动
+          // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+          //   scrollBox.scrollTop += 1;
+          // }else if(!flag&&scrollBox.scrollTop>0){
+          //   scrollBox.scrollTop -= 1;
+          // }else{
+          //   flag = !flag
+          // }
+          //单向重复移动
+
+          if (
+            scrollBox.scrollTop <
+            content.clientHeight - scrollBox.clientHeight
+          ) {
+            scrollBox.scrollTop += 2;
+          } else {
+            scrollBox.scrollTop = nexTop;
+          }
+        }, 80);
+      });
+    },
+    abScrollStop() {
+      console.log("stop");
+      clearInterval(this.abTimer);
+      this.abTimer = null;
+    },
     destroySys() {
       let domList = [...document.querySelectorAll(".buildingtext")];
       domList.forEach((item) => {
@@ -783,6 +915,7 @@ export default {
       this.map.getSource("assetsRoomData") &&
         this.map.getSource("assetsRoomData").setData(this.geoJson);
       this.map.off("click", "assetsRoomBg", this.handleShowAssetsDetail);
+      this.abScrollStop();
     },
     createAssetsMraker() {
       let domList = [];
@@ -1442,5 +1575,78 @@ export default {
   text-align: left;
   font-family: PingFang SC;
   font-weight: 400;
+}
+.equipmentalarmtotal {
+  // height: 100%;
+
+  margin-top: 20px;
+}
+.violation-detail-table {
+  height: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  .ab-list {
+    // height: calc(100% - 45px);
+    flex: 1;
+    overflow-y: scroll;
+  }
+}
+.table-head {
+  margin: 0 16px;
+  font-size: 14px;
+  /* 		position: relative;
+		top: -10px; */
+  color: #333;
+  border-bottom: 1px solid rgba(63, 151, 207, 0.5);
+  display: flex;
+  justify-content: space-around;
+
+  span {
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+  }
+}
+.table-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
+  color: #333;
+}
+.ab-item {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 6px 16px 0;
+  padding: 0 0 6px;
+  border-bottom: 1px solid rgba(63, 151, 207, 0.5);
+}
+
+.ab-item-name,
+.ab-item-date {
+  /* margin-top: 5px; */
+  padding-left: 6px;
+  text-align: center;
+  /* border-left: 1px solid #00F5FF; */
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ab-item-name {
+  font-size: 12px;
+  color: #333;
+  /* font-weight: bold; */
+}
+
+.patrol {
+  font-size: 12px;
+  // height: 120px;
+  // overflow-y: scroll;
+
+  .ab-item-name {
+    margin-top: 0;
+    font-size: 12px;
+    border: none;
+  }
 }
 </style>

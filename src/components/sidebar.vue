@@ -81,44 +81,44 @@ export default {
   data() {
     return {
       allSideList: [
-        // {
-        //   name: "assets",
-        //   cname: "资产态势",
-        //   normal: require("../assets/sidebar/normal/assets_normal.png"),
-        //   select: require("../assets/sidebar/select/assets.png"),
-        // },
-        // {
-        //   name: "publichouse",
-        //   cname: "公房态势",
-        //   normal: require("../assets/sidebar/normal/publichouse.png"),
-        //   select: require("../assets/sidebar/select/pub_selec.png"),
-        // },
         {
-          name: "comprehensive",
-          cname: "综合态势",
-          normal: require("../assets/sidebar/normal/comprehensive.png"),
-          select: require("../assets/sidebar/select/comprehensive.png"),
-        },
-        {
-          name: "interstatues",
-          cname: "网络态势",
-          normal: require("../assets/sidebar/normal/assets.png"),
+          name: "assets",
+          cname: "资产态势",
+          normal: require("../assets/sidebar/normal/assets_normal.png"),
           select: require("../assets/sidebar/select/assets.png"),
-          children: [
-            {
-              name: "networkEquipment",
-              cname: "网络设备态势",
-            },
-            {
-              name: "networkHeat",
-              cname: "网络连接热力图",
-            },
-            {
-              name: "networkOpticalFiber",
-              cname: "网络光纤态势",
-            },
-          ],
         },
+        {
+          name: "publichouse",
+          cname: "公房态势",
+          normal: require("../assets/sidebar/normal/publichouse.png"),
+          select: require("../assets/sidebar/select/pub_selec.png"),
+        },
+        // {
+        //   name: "comprehensive",
+        //   cname: "综合态势",
+        //   normal: require("../assets/sidebar/normal/comprehensive.png"),
+        //   select: require("../assets/sidebar/select/comprehensive.png"),
+        // },
+        // {
+        //   name: "interstatues",
+        //   cname: "网络态势",
+        //   normal: require("../assets/sidebar/normal/assets.png"),
+        //   select: require("../assets/sidebar/select/assets.png"),
+        //   children: [
+        //     {
+        //       name: "networkEquipment",
+        //       cname: "网络设备态势",
+        //     },
+        //     {
+        //       name: "networkHeat",
+        //       cname: "网络连接热力图",
+        //     },
+        //     {
+        //       name: "networkOpticalFiber",
+        //       cname: "网络光纤态势",
+        //     },
+        //   ],
+        // },
         // {
         //   name: "studystatues",
         //   cname: "教学态势",

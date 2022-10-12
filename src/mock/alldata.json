@@ -129,6 +129,118 @@
       "useto": "科研用",
       "usepart": "纳米科学与技术学院",
       "people": "姚鑫"
+    },
+    {
+      "name": "折叠椅",
+      "num": 5,
+      "useto": "非科研用",
+      "usepart": "图书馆",
+      "people": "高璆珩"
+    },
+    {
+      "name": "脑和颅骨模型",
+      "num": 2,
+      "useto": "非科研用",
+      "usepart": "心理学系",
+      "people": "刘恬恬"
+    },
+    {
+      "name": "支气管内窥",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "未来科技学院",
+      "people": "张金刚"
+    },
+    {
+      "name": "中文图书",
+      "num": 3,
+      "useto": "科研用",
+      "usepart": "图书馆",
+      "people": "毕世栋"
+    },
+    {
+      "name": "小米门锁",
+      "num": 2,
+      "useto": "非科研用",
+      "usepart": "中丹学院",
+      "people": "黄璟翔"
+    },
+    {
+      "name": "纳米力学",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "纳米科学与技术学院",
+      "people": "姚鑫"
+    },
+    {
+      "name": "144洁净间",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "物理科学学院",
+      "people": "刘倩"
+    },
+    {
+      "name": "纳米力学",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "纳米科学与技术学院",
+      "people": "姚鑫"
+    },
+    {
+      "name": "折叠椅",
+      "num": 5,
+      "useto": "非科研用",
+      "usepart": "图书馆",
+      "people": "高璆珩"
+    },
+    {
+      "name": "脑和颅骨模型",
+      "num": 2,
+      "useto": "非科研用",
+      "usepart": "心理学系",
+      "people": "刘恬恬"
+    },
+    {
+      "name": "支气管内窥",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "未来科技学院",
+      "people": "张金刚"
+    },
+    {
+      "name": "中文图书",
+      "num": 3,
+      "useto": "科研用",
+      "usepart": "图书馆",
+      "people": "毕世栋"
+    },
+    {
+      "name": "小米门锁",
+      "num": 2,
+      "useto": "非科研用",
+      "usepart": "中丹学院",
+      "people": "黄璟翔"
+    },
+    {
+      "name": "纳米力学",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "纳米科学与技术学院",
+      "people": "姚鑫"
+    },
+    {
+      "name": "144洁净间",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "物理科学学院",
+      "people": "刘倩"
+    },
+    {
+      "name": "纳米力学",
+      "num": 1,
+      "useto": "科研用",
+      "usepart": "纳米科学与技术学院",
+      "people": "姚鑫"
     }
   ]
 }
