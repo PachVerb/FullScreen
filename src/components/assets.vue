@@ -1613,6 +1613,8 @@ export default {
   white-space: nowrap;
   padding-right: 10px;
   color: #333;
+  text-align: center;
+  padding-top: 5px;
 }
 .ab-item {
   display: flex;
@@ -1620,7 +1622,9 @@ export default {
   text-align: center;
   margin: 6px 16px 0;
   padding: 0 0 6px;
-  border-bottom: 1px solid rgba(63, 151, 207, 0.5);
+  align-items: center;
+  border-radius: 2px;
+  background: rgba(106, 176, 255, 0.3);
 }
 
 .ab-item-name,
