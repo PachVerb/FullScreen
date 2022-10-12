@@ -19,7 +19,7 @@
           v-for="(sideItem, index) in allSideList"
           :key="index"
           :style="{
-            left: index === 1 ? '380px' : '280px',
+            left: index === 1 ? '400px' : '280px',
           }"
           @click="checkCurrentSys(sideItem, index, 'click')"
         >
@@ -278,7 +278,11 @@ export default {
         // dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
         // dom.style.left = 17 + (315 - (midIndex - index) * 105) + "px";
         // dom.style.top = (42-(a-1)*17) + 'px'
-        dom.style.top = 160 * Math.cos((15 * a * Math.PI) / 180) - 125 + "px";
+        if (index == 0) {
+          dom.style.top = 160 * Math.cos((15 * a * Math.PI) / 180) - 140 + "px";
+        } else {
+          dom.style.top = 160 * Math.cos((15 * a * Math.PI) / 180) - 115 + "px";
+        }
       });
     },
     hoverCurrentSys(side, index) {
@@ -370,8 +374,8 @@ export default {
   transform: rotateZ(-60deg);
 }
 .side-item img {
-  width: 68px;
-  height: 68px;
+  width: 81px;
+  height: 81px;
 }
 .side-list {
   // display: flex;
@@ -504,13 +508,13 @@ export default {
   }
   .side-select-img {
     display: block;
-    margin-top: -13px;
+    // margin-top: -13px;
     width: 81px;
     height: 81px;
   }
   .side-cname {
     color: rgba(255, 255, 255, 1);
-    font-size: 20px;
+    font-size: 16px;
     font-family: PingFang SC;
     font-weight: bold;
     color: #333333;
@@ -572,7 +576,7 @@ export default {
   // transition: all .5s;
 }
 .side-item-0 {
-  top: 53px;
+  top: 70px !important;
   // transition: all .5s;
 }
 // .tran-type-up{

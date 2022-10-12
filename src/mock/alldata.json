@@ -71,6 +71,126 @@
       "room": 60,
       "area": 1643.45,
       "useArea": 1534.56
+    },
+    {
+      "campus": "教育部",
+      "room": 59,
+      "area": 2156.32,
+      "useArea": 1965.34
+    },
+    {
+      "campus": "人文学院",
+      "room": 45,
+      "area": 1989.64,
+      "useArea": 1769.58
+    },
+    {
+      "campus": "财务计划处",
+      "room": 18,
+      "area": 1267.89,
+      "useArea": 1023.98
+    },
+    {
+      "campus": "计算机科学与技术",
+      "room": 28,
+      "area": 1537.89,
+      "useArea": 1673.98
+    },
+    {
+      "campus": "心理与健康学院",
+      "room": 60,
+      "area": 1643.45,
+      "useArea": 1534.56
+    },
+    {
+      "campus": "教育部",
+      "room": 59,
+      "area": 2156.32,
+      "useArea": 1965.34
+    },
+    {
+      "campus": "人文学院",
+      "room": 45,
+      "area": 1989.64,
+      "useArea": 1769.58
+    },
+    {
+      "campus": "财务计划处",
+      "room": 18,
+      "area": 1267.89,
+      "useArea": 1023.98
+    },
+    {
+      "campus": "计算机科学与技术",
+      "room": 28,
+      "area": 1537.89,
+      "useArea": 1673.98
+    },
+    {
+      "campus": "心理与健康学院",
+      "room": 60,
+      "area": 1643.45,
+      "useArea": 1534.56
+    },
+    {
+      "campus": "教育部",
+      "room": 59,
+      "area": 2156.32,
+      "useArea": 1965.34
+    },
+    {
+      "campus": "人文学院",
+      "room": 45,
+      "area": 1989.64,
+      "useArea": 1769.58
+    },
+    {
+      "campus": "财务计划处",
+      "room": 18,
+      "area": 1267.89,
+      "useArea": 1023.98
+    },
+    {
+      "campus": "计算机科学与技术",
+      "room": 28,
+      "area": 1537.89,
+      "useArea": 1673.98
+    },
+    {
+      "campus": "心理与健康学院",
+      "room": 60,
+      "area": 1643.45,
+      "useArea": 1534.56
+    },
+    {
+      "campus": "教育部",
+      "room": 59,
+      "area": 2156.32,
+      "useArea": 1965.34
+    },
+    {
+      "campus": "人文学院",
+      "room": 45,
+      "area": 1989.64,
+      "useArea": 1769.58
+    },
+    {
+      "campus": "财务计划处",
+      "room": 18,
+      "area": 1267.89,
+      "useArea": 1023.98
+    },
+    {
+      "campus": "计算机科学与技术",
+      "room": 28,
+      "area": 1537.89,
+      "useArea": 1673.98
+    },
+    {
+      "campus": "心理与健康学院",
+      "room": 60,
+      "area": 1643.45,
+      "useArea": 1534.56
     }
   ],
   "sourceuse": [

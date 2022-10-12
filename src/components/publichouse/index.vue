@@ -36,41 +36,64 @@
           </div>
         </sideItem>
         <sideItem title="管理部门统计" delay="200" height="54%">
-          <div class="houseStati" slot="body">
-            <div class="row title">
-              <span>管理部门名称</span>
-              <!-- <span>楼栋数</span> -->
-              <span>房间数</span>
-              <span>建筑面积</span>
-              <span>使用面积</span>
+          <div
+            slot="body"
+            class="equipmentalarmtotal"
+            style="height: 100%;width: 100%;"
+          >
+            <div class="violation-detail-table">
+              <div class="table-head">
+                <span
+                  :style="{ width: head.width }"
+                  v-for="head in tableHeads"
+                  :key="head.name"
+                  >{{ head.name }}</span
+                >
+              </div>
+              <div class="ab-list patrol">
+                <div
+                  class="content"
+                  @mouseenter="abScrollStop"
+                  @mouseleave="abScrollStart"
+                >
+                  <div
+                    class="ab-item-wrap"
+                    v-for="item in houseStaList"
+                    :key="item.id"
+                  >
+                    <div class="ab-item">
+                      <div
+                        class="table-item ab-item-name"
+                        :style="{ width: tableHeads[0].width }"
+                      >
+                        {{ item.campus }}
+                      </div>
+                      <div
+                        class="table-item"
+                        :style="{ width: tableHeads[1].width }"
+                        :title="item.room"
+                      >
+                        {{ item.room }}
+                      </div>
+                      <div
+                        class="table-item"
+                        :style="{ width: tableHeads[1].width }"
+                        :title="item.area"
+                      >
+                        {{ item.area }}
+                      </div>
+                      <div
+                        class="table-item"
+                        :style="{ width: tableHeads[2].width }"
+                        :title="item.useArea"
+                      >
+                        {{ item.useArea }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="row bg" v-for="(item, i) in houseStaList" :key="i">
-              <el-tooltip
-                effect="dark"
-                :content="item.campus"
-                placement="bottom"
-              >
-                <span>{{ item.campus }}</span>
-              </el-tooltip>
-              <span>{{ item.room }}</span>
-              <span>{{ item.area }}</span>
-              <span>{{ item.useArea }}</span>
-            </div>
-            <!-- <div class="row bg total">
-              <span>合计</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.build, 0)
-              }}</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.room, 0)
-              }}</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.area, 0)
-              }}</span>
-              <span>{{
-                houseStaList.reduce((sum, item) => sum + item.useArea, 0)
-              }}</span>
-            </div> -->
           </div>
         </sideItem>
 
@@ -174,6 +197,25 @@ export default {
   },
   data() {
     return {
+      tableHeads: [
+        {
+          name: "管理部门名称",
+          width: "120px",
+        },
+        {
+          name: "房间数",
+          width: "80px",
+        },
+        {
+          name: "建筑面积",
+          width: "80px",
+        },
+        {
+          name: "使用面积",
+          width: "80px",
+        },
+      ],
+      sourceStaList: [],
       staList: [],
       houseStaList: [],
       freeList: [],
@@ -182,6 +224,7 @@ export default {
       markers: null, //大楼标签
       roomList: [], //室内信息
       roomMarkers: null, //室内标签
+      abTimer: null,
     };
   },
   computed: {
@@ -237,9 +280,62 @@ export default {
           this.getFreeStati();
           this.getPubPaiHang();
           this.getLandState();
+          this.$nextTick(() => {
+            this.abScrollStart();
+          });
           //   this.getLandState();
         }, 500);
       });
+    },
+    abScrollStart() {
+      if (!this.houseStaList.length) return;
+      this.$nextTick(() => {
+        this.abScrollStop();
+        let scrollBox = document.querySelector(
+          ".violation-detail-table .ab-list"
+        );
+        let content = document.querySelector(
+          ".violation-detail-table .ab-list .content"
+        );
+        let items = document.querySelectorAll(
+          ".violation-detail-table .ab-list .content .ab-item-wrap"
+        );
+
+        let itemH = items[0].clientHeight;
+        //   let flag = true;
+        let nexTop =
+          Math.ceil(scrollBox.clientHeight / itemH) * itemH -
+          scrollBox.clientHeight;
+        //检查滚动距离是否过短
+
+        if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+        this.abTimer = setInterval(() => {
+          //检查滚动距离是否过短
+          if (content.clientHeight - scrollBox.clientHeight < itemH) return;
+          //来回移动
+          // if(flag&&scrollBox.scrollTop<content.clientHeight-scrollBox.clientHeight){
+          //   scrollBox.scrollTop += 1;
+          // }else if(!flag&&scrollBox.scrollTop>0){
+          //   scrollBox.scrollTop -= 1;
+          // }else{
+          //   flag = !flag
+          // }
+          //单向重复移动
+
+          if (
+            scrollBox.scrollTop <
+            content.clientHeight - scrollBox.clientHeight
+          ) {
+            scrollBox.scrollTop += 2;
+          } else {
+            scrollBox.scrollTop = nexTop;
+          }
+        }, 80);
+      });
+    },
+    abScrollStop() {
+      clearInterval(this.abTimer);
+      this.abTimer = null;
     },
     //初始化marker和layer
     initMarkerLayer() {
@@ -417,6 +513,7 @@ export default {
       }
       this.createRoomLayer();
       this.toggleBuilds(1);
+      this.abScrollStop();
     },
     //学校概况
     getSchoolState() {
@@ -1702,5 +1799,82 @@ export default {
 }
 .none {
   display: none;
+}
+.equipmentalarmtotal {
+  // height: 100%;
+
+  margin-top: 20px;
+}
+.violation-detail-table {
+  height: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  .ab-list {
+    // height: calc(100% - 45px);
+    flex: 1;
+    overflow-y: scroll;
+  }
+}
+.table-head {
+  margin: 0 16px;
+  font-size: 14px;
+  /* 		position: relative;
+		top: -10px; */
+  color: #333;
+  border-bottom: 1px solid rgba(63, 151, 207, 0.5);
+  display: flex;
+  justify-content: space-around;
+
+  span {
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+  }
+}
+.table-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 10px;
+  color: #333;
+  text-align: center;
+  padding-top: 5px;
+}
+.ab-item {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 6px 16px 0;
+  padding: 0 0 6px;
+  align-items: center;
+  border-radius: 2px;
+  background: rgba(106, 176, 255, 0.3);
+}
+
+.ab-item-name,
+.ab-item-date {
+  /* margin-top: 5px; */
+  padding-left: 6px;
+  text-align: center;
+  /* border-left: 1px solid #00F5FF; */
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ab-item-name {
+  font-size: 12px;
+  color: #333;
+  /* font-weight: bold; */
+}
+
+.patrol {
+  font-size: 12px;
+  // height: 120px;
+  // overflow-y: scroll;
+
+  .ab-item-name {
+    margin-top: 0;
+    font-size: 12px;
+    border: none;
+  }
 }
 </style>
