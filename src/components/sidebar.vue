@@ -19,7 +19,7 @@
           v-for="(sideItem, index) in allSideList"
           :key="index"
           :style="{
-            left: index === 1 ? '400px' : '280px',
+            left: index === 1 ? '400px' : '260px',
           }"
           @click="checkCurrentSys(sideItem, index, 'click')"
         >
@@ -278,11 +278,12 @@ export default {
         // dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
         // dom.style.left = 17 + (315 - (midIndex - index) * 105) + "px";
         // dom.style.top = (42-(a-1)*17) + 'px'
-        if (index == 0) {
-          dom.style.top = 160 * Math.cos((15 * a * Math.PI) / 180) - 140 + "px";
-        } else {
-          dom.style.top = 160 * Math.cos((15 * a * Math.PI) / 180) - 115 + "px";
-        }
+        dom.style.top = 160 * Math.cos((15 * Math.PI) / 180) - 100 + "px";
+        // if (index == 0) {
+        //   dom.style.top = 160 * Math.cos((15 * Math.PI) / 180) - 80 + "px";
+        // } else {
+        //   dom.style.top = 160 * Math.cos((15 * Math.PI) / 180) - 80 + "px";
+        // }
       });
     },
     hoverCurrentSys(side, index) {
@@ -374,8 +375,8 @@ export default {
   transform: rotateZ(-60deg);
 }
 .side-item img {
-  width: 81px;
-  height: 81px;
+  width: 68px;
+  height: 68px;
 }
 .side-list {
   // display: flex;
@@ -470,7 +471,7 @@ export default {
   width: 800px;
   background-image: url("../assets/sidebar/sidebar-bg.png");
   background-repeat: no-repeat;
-  background-size: 70% 73%;
+  background-size: 80% 73%;
   background-position-x: center;
   background-position-y: 50px;
   .swiper-container {
@@ -508,7 +509,7 @@ export default {
   }
   .side-select-img {
     display: block;
-    // margin-top: -13px;
+    margin-top: -20px;
     width: 81px;
     height: 81px;
   }
