@@ -252,15 +252,7 @@ export default {
       ) {
         this.thisIndex += 1;
       }
-      //   console.log(this.sideList[this.thisIndex], 6666);
-      // this.sideList = this.allSideList.filter((item,index) => {
-      //   if(index < this.thisIndex*6 && index >= (this.thisIndex-1)*6){
-      //     return item
-      //   }
-      // })
-      // this.ani = setInterval(() => {
-
-      // },100)
+      // eslint-disable-next-line no-unused-vars
       let mid = 4; //Math.ceil(this.sideList[this.thisIndex].length/2)
       if (this.sideList[this.thisIndex].length < this.size) {
         mid = mid - (this.size - this.sideList[this.thisIndex].length);
@@ -274,16 +266,13 @@ export default {
       });
       this.midIndex = midIndex;
       sideDomList.forEach((dom, index) => {
-        let a = this.returnClassType(index, this.thisIndex);
+        // let a = this.returnClassType(index, this.thisIndex);
         // dom.style.left = 0 + (index - this.thisIndex*this.size)*105 + 'px'
         // dom.style.left = 17 + (315 - (midIndex - index) * 105) + "px";
         // dom.style.top = (42-(a-1)*17) + 'px'
-        dom.style.top = 160 * Math.cos((15 * Math.PI) / 180) - 100 + "px";
-        // if (index == 0) {
-        //   dom.style.top = 160 * Math.cos((15 * Math.PI) / 180) - 80 + "px";
-        // } else {
-        //   dom.style.top = 160 * Math.cos((15 * Math.PI) / 180) - 80 + "px";
-        // }
+
+        //dom.style.top = 160 * Math.cos((15 * a * Math.PI) / 180) - 100 + "px";
+        dom.style.top = 160 * Math.cos((15 * Math.PI) / 180) - 100 + "px"; // 现在更新计算底部按钮高度逻辑
       });
     },
     hoverCurrentSys(side, index) {
