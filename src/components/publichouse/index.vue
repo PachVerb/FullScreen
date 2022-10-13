@@ -96,44 +96,8 @@
             </div>
           </div>
         </sideItem>
-
-        <!-- <sideItem title="学校公房总数统计" delay="400" height="22.76%">
-          <div class="totalStati" slot="body">
-            <div class="chart-total" id="totalChart"></div>
-          </div>
-        </sideItem> -->
       </div>
       <div slot="right" style="height: 100%;">
-        <!-- <sideItem
-          title="空置房源统计"
-          transitionType="right"
-          delay="100"
-          height="23.91%"
-        >
-          <div class="freeStati" slot="body">
-            <div class="imgBox">
-              <img class="img1" src="../../assets/img/free-img1.png" alt />
-              <img class="img2" src="../../assets/img/free-img2.png" alt />
-              <img class="img3" src="../../assets/img/free-img3.png" alt />
-            </div>
-            <div class="detailBox">
-              <div class="row" v-for="(item, i) in freeList" :key="i">
-                <div class="title">
-                  <i :style="`border-color:${item.color};`"></i>
-                  <span :style="`color:${item.color};`">{{ item.name }}</span>
-                </div>
-                <div class="value">
-                  <animated-number
-                    :value="item.val"
-                    :formatValue="(val) => val.toFixed()"
-                    :duration="4000"
-                  />
-                  <i>%</i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </sideItem> -->
         <sideItem
           title="学校楼栋情况"
           transitionType="right"
@@ -176,14 +140,12 @@
 
 <script>
 import sideTran from "../sideTran";
-import nowpeopleslide from "../nowpeopleslide.vue";
 import sideItem from "../sideItem.vue";
 import currency from "../currency.vue"; //通用box组件
 import AnimatedNumber from "animated-number-vue";
 import { mapGetters } from "vuex";
 import * as echarts from "echarts";
 import "echarts-gl";
-import { Tooltip } from "element-ui";
 
 import mdata from "../../mock/alldata.json";
 
@@ -1301,7 +1263,7 @@ export default {
     },
     //公房使用单位统计
     renderpie() {
-      let usepublicChartDom, usepublicChartChart, option;
+      let usepublicChartDom, usepublicChartChart;
       usepublicChartDom = document.getElementById("usepublic");
       usepublicChartChart = echarts.init(usepublicChartDom);
       var seriesData = [
@@ -1403,17 +1365,17 @@ export default {
                 name: {
                   fontSize: 12,
                   fontWeight: "normal",
-                  color: "rgba(255,255,255,0.8)",
+                  color: "#333",
                   padding: [10, 0],
                 },
                 val: {
                   fontSize: 16,
                   fontWeight: "bold",
-                  color: "#00F5FF",
+                  color: "#333",
                 },
                 unit: {
                   fontSize: 12,
-                  color: "rgba(255,255,255,0.5)",
+                  color: "#333",
                 },
               },
             },
