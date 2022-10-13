@@ -94,7 +94,8 @@ export default {
   margin-left: 0.106667rem;
   //   color: #00f5ff;
   color: #247cff;
-  font-size: 0.08rem;
+  font-size: 24px;
+  font-weight: 400;
   &::before {
     content: "";
     width: 100%;
